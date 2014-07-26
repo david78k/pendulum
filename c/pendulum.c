@@ -19,7 +19,7 @@ void main () {
 
 	while (t < 10) {
 		//phi_2 + beta*phi_1 + (alpha - 1)*phi = 0;
-		printf("%1.0f\n", t);
+		printf("%1.0f %f\n", t, theta);
 		t += 1;
 	}
 }
