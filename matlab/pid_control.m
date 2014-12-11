@@ -14,6 +14,7 @@ s = tf('s');
 P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/q);
 
 % PID control
+subplot(311);
 Kp = 1;
 Ki = 1;
 Kd = 1;
@@ -23,7 +24,8 @@ t=0:0.01:10;
 impulse(T,t)
 title('Response of Pendulum Position to an Impulse Disturbance under PID Control: Kp = 1, Ki = 1, Kd = 1');
 
-figure;
+% figure;
+subplot(312);
 Kp = 100;
 Ki = 1;
 Kd = 1;
@@ -34,7 +36,8 @@ impulse(T,t)
 axis([0, 2.5, -0.2, 0.2]);
 title('Response of Pendulum Position to an Impulse Disturbance under PID Control: Kp = 100, Ki = 1, Kd = 1');
 
-figure;
+% figure;
+subplot(313);
 Kp = 100;
 Ki = 1;
 Kd = 20;
