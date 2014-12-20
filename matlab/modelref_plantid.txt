@@ -1,0 +1,28 @@
+1. plant id (Pend_Simscape_1out.slx)
+hidden layer: 7
+sample time: 0.2
+
+delay: 2 2
+max: 1000
+min: -1000
+
+max: 2
+min: 0.01
+
+samples: 500
+
+2. plant train
+
+3. Model Reference id (Pend_Simscape_PID.slx)
+hidden layer: 7
+sample time: 0.2
+
+delay: 2 1 2
+max: 1000
+min: -1000
+
+max: 2
+min: 0.01
+
+4. model ref control
+samples: 500

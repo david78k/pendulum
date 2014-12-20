@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.56"
+    ComputedModelVersion    "1.64"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [994.0, 310.0, 798.0, 660.0]
+      Location		      [968.0, 384.0, 798.0, 659.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -48,16 +48,37 @@ Model {
 	$ClassName		"Simulink.ExplorerBarInfo"
 	Visible			[1]
       }
-      Object {
-	$PropName		"EditorsInfo"
-	$ObjectID		5
-	$ClassName		"Simulink.EditorInfo"
-	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[746.0, 458.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, -52.312500774860382]
+      Array {
+	Type			"Simulink.EditorInfo"
+	Dimension		3
+	Object {
+	  $ObjectID		  5
+	  IsActive		  [1]
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
+	  Extents		  [746.0, 453.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, -52.312500774860382]
+	}
+	Object {
+	  $ObjectID		  6
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "143"
+	  Extents		  [746.0, 454.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	Object {
+	  $ObjectID		  7
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "143:61"
+	  Extents		  [746.0, 453.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	PropName		"EditorsInfo"
       }
     }
   }
@@ -70,9 +91,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "david78k"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Dec 18 21:32:53 2014"
-  RTWModifiedTimeStamp	  340839169
-  ModelVersionFormat	  "1.%<AutoIncrement:56>"
+  LastModifiedDate	  "Fri Dec 19 23:21:56 2014"
+  RTWModifiedTimeStamp	  340932113
+  ModelVersionFormat	  "1.%<AutoIncrement:64>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -112,7 +133,7 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    6
+    $ObjectID		    8
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "Pend_Simscape_ModelRef"
     Array {
@@ -174,13 +195,13 @@ Model {
     Type		    "Handle"
     Dimension		    3
     Simulink.ConfigSet {
-      $ObjectID		      7
+      $ObjectID		      9
       Version		      "1.14.2"
       Array {
 	Type			"Handle"
 	Dimension		10
 	Simulink.SolverCC {
-	  $ObjectID		  8
+	  $ObjectID		  10
 	  Version		  "1.14.2"
 	  StartTime		  "0.0"
 	  StopTime		  "2"
@@ -215,7 +236,7 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  9
+	  $ObjectID		  11
 	  Version		  "1.14.2"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -248,7 +269,7 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  10
+	  $ObjectID		  12
 	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
@@ -304,7 +325,7 @@ Model {
 	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  11
+	  $ObjectID		  13
 	  Version		  "1.14.2"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -394,7 +415,7 @@ Model {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  12
+	  $ObjectID		  14
 	  Version		  "1.14.2"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -435,7 +456,7 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  13
+	  $ObjectID		  15
 	  Version		  "1.14.2"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -450,7 +471,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  14
+	  $ObjectID		  16
 	  Version		  "1.14.2"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
@@ -466,7 +487,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  15
+	  $ObjectID		  17
 	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
@@ -540,7 +561,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      16
+	      $ObjectID		      18
 	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
@@ -604,7 +625,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      17
+	      $ObjectID		      19
 	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
@@ -689,7 +710,7 @@ Model {
 	  }
 	}
 	hdlcoderui.hdlcc {
-	  $ObjectID		  18
+	  $ObjectID		  20
 	  Version		  "1.14.2"
 	  Description		  "HDL Coder custom configuration component"
 	  Name			  "HDL Coder"
@@ -702,7 +723,7 @@ Model {
 	  HDLCActiveTab		  "0"
 	}
 	SSC.SimscapeCC {
-	  $ObjectID		  19
+	  $ObjectID		  21
 	  Version		  "1.0"
 	  Array {
 	    Type		    "Cell"
@@ -714,7 +735,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    MECH.SimMechanicsCC {
-	      $ObjectID		      20
+	      $ObjectID		      22
 	      Version		      "1.14.2"
 	      Name		      "SimMechanics"
 	      WarnOnRedundantConstraints on
@@ -747,14 +768,14 @@ Model {
 	      OVRRIDBodyVisualizationType "NONE"
 	    }
 	    simmechanics.ConfigurationSet {
-	      $ObjectID		      21
+	      $ObjectID		      23
 	      Version		      "1.14.2"
 	      Description	      "SimMechanics 2G"
 	      Array {
 		Type			"Handle"
 		Dimension		2
 		simmechanics.DiagnosticsConfigSet {
-		  $ObjectID		  22
+		  $ObjectID		  24
 		  Version		  "1.14.2"
 		  Description		  "Diagnostics"
 		  Name			  "DiagnosticsConfigSet"
@@ -768,7 +789,7 @@ Model {
 		  SimMechanicsJointTargetOverSpecification "error"
 		}
 		simmechanics.ExplorerConfigSet {
-		  $ObjectID		  23
+		  $ObjectID		  25
 		  Version		  "1.14.2"
 		  Description		  "Explorer"
 		  Name			  "ExplorerConfigSet"
@@ -798,13 +819,13 @@ Model {
       ConfigPrmDlgPosition     [ 200, 85, 1080, 715 ] 
     }
     Simulink.ConfigSet {
-      $ObjectID		      24
+      $ObjectID		      26
       Version		      "1.14.2"
       Array {
 	Type			"Handle"
 	Dimension		10
 	Simulink.SolverCC {
-	  $ObjectID		  25
+	  $ObjectID		  27
 	  Version		  "1.14.2"
 	  StartTime		  "0.0"
 	  StopTime		  "2"
@@ -839,7 +860,7 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  26
+	  $ObjectID		  28
 	  Version		  "1.14.2"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -872,7 +893,7 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  27
+	  $ObjectID		  29
 	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
@@ -928,7 +949,7 @@ Model {
 	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  28
+	  $ObjectID		  30
 	  Version		  "1.14.2"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -1018,7 +1039,7 @@ Model {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  29
+	  $ObjectID		  31
 	  Version		  "1.14.2"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -1059,7 +1080,7 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  30
+	  $ObjectID		  32
 	  Version		  "1.14.2"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -1074,7 +1095,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  31
+	  $ObjectID		  33
 	  Version		  "1.14.2"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
@@ -1090,7 +1111,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  32
+	  $ObjectID		  34
 	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
@@ -1164,7 +1185,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      33
+	      $ObjectID		      35
 	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
@@ -1228,7 +1249,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      34
+	      $ObjectID		      36
 	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
@@ -1313,7 +1334,7 @@ Model {
 	  }
 	}
 	hdlcoderui.hdlcc {
-	  $ObjectID		  35
+	  $ObjectID		  37
 	  Version		  "1.14.2"
 	  Description		  "HDL Coder custom configuration component"
 	  Name			  "HDL Coder"
@@ -1326,7 +1347,7 @@ Model {
 	  HDLCActiveTab		  "0"
 	}
 	SSC.SimscapeCC {
-	  $ObjectID		  36
+	  $ObjectID		  38
 	  Version		  "1.0"
 	  Array {
 	    Type		    "Cell"
@@ -1338,7 +1359,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    MECH.SimMechanicsCC {
-	      $ObjectID		      37
+	      $ObjectID		      39
 	      Version		      "1.14.2"
 	      Name		      "SimMechanics"
 	      WarnOnRedundantConstraints on
@@ -1371,14 +1392,14 @@ Model {
 	      OVRRIDBodyVisualizationType "NONE"
 	    }
 	    simmechanics.ConfigurationSet {
-	      $ObjectID		      38
+	      $ObjectID		      40
 	      Version		      "1.14.2"
 	      Description	      "SimMechanics 2G"
 	      Array {
 		Type			"Handle"
 		Dimension		2
 		simmechanics.DiagnosticsConfigSet {
-		  $ObjectID		  39
+		  $ObjectID		  41
 		  Version		  "1.14.2"
 		  Description		  "Diagnostics"
 		  Name			  "DiagnosticsConfigSet"
@@ -1392,7 +1413,7 @@ Model {
 		  SimMechanicsJointTargetOverSpecification "error"
 		}
 		simmechanics.ExplorerConfigSet {
-		  $ObjectID		  40
+		  $ObjectID		  42
 		  Version		  "1.14.2"
 		  Description		  "Explorer"
 		  Name			  "ExplorerConfigSet"
@@ -1422,13 +1443,13 @@ Model {
       ConfigPrmDlgPosition     [ 200, 85, 1080, 715 ] 
     }
     Simulink.ConfigSet {
-      $ObjectID		      41
+      $ObjectID		      43
       Version		      "1.14.2"
       Array {
 	Type			"Handle"
 	Dimension		10
 	Simulink.SolverCC {
-	  $ObjectID		  42
+	  $ObjectID		  44
 	  Version		  "1.14.2"
 	  StartTime		  "0.0"
 	  StopTime		  "2.5"
@@ -1463,7 +1484,7 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  43
+	  $ObjectID		  45
 	  Version		  "1.14.2"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -1496,7 +1517,7 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  44
+	  $ObjectID		  46
 	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
@@ -1552,7 +1573,7 @@ Model {
 	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  45
+	  $ObjectID		  47
 	  Version		  "1.14.2"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -1627,7 +1648,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  LoggingUnavailableSignals "error"
@@ -1642,7 +1663,7 @@ Model {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  46
+	  $ObjectID		  48
 	  Version		  "1.14.2"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -1683,7 +1704,7 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  47
+	  $ObjectID		  49
 	  Version		  "1.14.2"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -1698,7 +1719,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  48
+	  $ObjectID		  50
 	  Version		  "1.14.2"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
@@ -1714,7 +1735,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  49
+	  $ObjectID		  51
 	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
@@ -1788,7 +1809,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      50
+	      $ObjectID		      52
 	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
@@ -1852,7 +1873,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      51
+	      $ObjectID		      53
 	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
@@ -1936,7 +1957,7 @@ Model {
 	  }
 	}
 	hdlcoderui.hdlcc {
-	  $ObjectID		  52
+	  $ObjectID		  54
 	  Version		  "1.14.2"
 	  Description		  "HDL Coder custom configuration component"
 	  Name			  "HDL Coder"
@@ -1949,7 +1970,7 @@ Model {
 	  HDLCActiveTab		  "0"
 	}
 	SSC.SimscapeCC {
-	  $ObjectID		  53
+	  $ObjectID		  55
 	  Version		  "1.0"
 	  Array {
 	    Type		    "Cell"
@@ -1961,7 +1982,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    MECH.SimMechanicsCC {
-	      $ObjectID		      54
+	      $ObjectID		      56
 	      Version		      "1.14.2"
 	      Name		      "SimMechanics"
 	      WarnOnRedundantConstraints on
@@ -1994,14 +2015,14 @@ Model {
 	      OVRRIDBodyVisualizationType "NONE"
 	    }
 	    simmechanics.ConfigurationSet {
-	      $ObjectID		      55
+	      $ObjectID		      57
 	      Version		      "1.14.2"
 	      Description	      "SimMechanics 2G"
 	      Array {
 		Type			"Handle"
 		Dimension		2
 		simmechanics.DiagnosticsConfigSet {
-		  $ObjectID		  56
+		  $ObjectID		  58
 		  Version		  "1.14.2"
 		  Description		  "Diagnostics"
 		  Name			  "DiagnosticsConfigSet"
@@ -2015,7 +2036,7 @@ Model {
 		  SimMechanicsJointTargetOverSpecification "error"
 		}
 		simmechanics.ExplorerConfigSet {
-		  $ObjectID		  57
+		  $ObjectID		  59
 		  Version		  "1.14.2"
 		  Description		  "Explorer"
 		  Name			  "ExplorerConfigSet"
@@ -2048,11 +2069,11 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    41
+    $ObjectID		    43
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    58
+    $ObjectID		    60
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -2254,7 +2275,7 @@ Model {
   }
   System {
     Name		    "Pend_Simscape_ModelRef"
-    Location		    [994, 310, 1792, 970]
+    Location		    [968, 384, 1766, 1043]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2304,53 +2325,80 @@ Model {
       SourceBlock	      "neural/Control Systems/Model Reference Controller"
       SourceType	      "NN Model Reference Control"
       ContentPreviewEnabled   off
-      Nrc		      "[]"
-      Nic		      "[]"
-      Njc		      "[]"
-      IW_y		      "[]"
-      IW_u		      "[]"
-      IW_r		      "[]"
-      B1_c		      "[]"
-      B2_c		      "[]"
-      LW_c		      "[]"
-      retraining_c	      "[]"
-      max_i_int		      "[]"
-      min_i_int		      "[]"
-      max_r_int		      "[]"
-      min_r_int		      "[]"
-      Ts		      "[]"
-      S1		      "[]"
-      Ni		      "[]"
-      Nj		      "[]"
-      sim_file		      "0"
+      Nrc		      "2"
+      Nic		      "1"
+      Njc		      "2"
+      IW_y		      "[-354.30726621653758 -222.78851626201967;270.6109058284361 176.02435305369136;295.64405130838753 18"
+      "5.30433822062878;-100.51519808568435 -191.45209225870229;1027.7890549343176 21.163807303285822;316.6650928374417"
+      "6 296.01875671727203;-53.315918237194452 52.39565804336064;110.45056574187008 -4.9821466123253018;-521.505464795"
+      "46574 -219.11661452020843;-63.928653507873598 -86.40423206434896;6.1650421667711699 0.96694753784616883;98.95831"
+      "2178814424 213.24257764101799;-219.60795232282533 -86.453473092887648]"
+      IW_u		      "[-196.37005312148875;65.560967129286695;90.949127595054136;320.47822618279235;379.68397290288817;-1"
+      "16.66290448085188;-277.65313115119767;-228.61918647914391;461.71980723956938;192.76618727027494;-0.3477438442283"
+      "0534;203.79525424037402;184.5788962634048]"
+      IW_r		      "[-60.662787244262098 103.76776756542934;-118.21637545134604 -100.73522685003448;-516.51645601193388"
+      " 9.8538291606889565;-419.84215052220355 291.71592001750855;367.33022025161034 -616.66349078924168;-125.113671804"
+      "1559 -363.16077836889036;178.24976622285331 53.137725635936867;-192.02774504106037 200.86413259302543;224.173121"
+      "59860609 -38.431172193701734;30.915824456241101 -245.36926176638502;7.7285193013577898 2.0646750916471253;33.152"
+      "20983597213 208.11625102550192;383.52980372863084 4.0343760843145109]"
+      B1_c		      "[-174.1147644594916;214.82647575952709;-370.63131606569362;-316.70317438729955;7.8327434335715624;5"
+      "62.45834894310576;126.9579383150221;-199.41499517010345;1103.3059690925231;-895.6539827363539;-2.553721346607779"
+      "7;51.882238360246738;228.90255647373118]"
+      B2_c		      "111.77168856852661"
+      LW_c		      "[87.406725117190845 -30.321409696353975 77.054807734255661 170.53861307488609 -131.08995482114267 1"
+      "90.61811405840507 86.260046511664839 -118.21952130937024 275.51372169552366 346.73205531828268 426.2906014113285"
+      "1 -180.90083122774672 599.08379324632892]"
+      retraining_c	      "2"
+      max_i_int		      "2"
+      min_i_int		      "0.01"
+      max_r_int		      "2"
+      min_r_int		      "0.01"
+      Ts		      "0.2"
+      S1		      "13"
+      Ni		      "2"
+      Nj		      "2"
+      sim_file		      "Pend_Model_Simscape_Plant_Out1"
       trainfun		      "trainlm "
-      Use_validation	      "[]"
-      Use_Testing	      "[]"
-      Use_Inc_training	      "[]"
-      Use_previous_weights    "[]"
-      max_i		      "[]"
-      min_i		      "[]"
-      max_r		      "[]"
-      min_r		      "[]"
-      sam_training	      "[]"
-      sam_training_c	      "[]"
-      epochs		      "[]"
-      epochs_c		      "[]"
-      minp		      "[]"
-      maxp		      "[]"
-      mint		      "[]"
-      maxt		      "[]"
-      Normalize		      "[]"
-      IW		      "[]"
-      LW1_2		      "[]"
-      LW2_1		      "[]"
-      B1		      "[]"
-      B2		      "[]"
-      S1c		      "[]"
-      Limit_output	      "[]"
-      min_output	      "[]"
-      max_output	      "[]"
-      Ref_file		      "0"
+      Use_validation	      "1"
+      Use_Testing	      "1"
+      Use_Inc_training	      "0"
+      Use_previous_weights    "1"
+      max_i		      "1000"
+      min_i		      "-1000"
+      max_r		      "1000"
+      min_r		      "-1000"
+      sam_training	      "500"
+      sam_training_c	      "500"
+      epochs		      "200"
+      epochs_c		      "200"
+      minp		      "-997.39886259880768"
+      maxp		      "973.93654956731621"
+      mint		      "-3.1082765191449333"
+      maxt		      "973.93654956731621"
+      Normalize		      "0"
+      IW		      "[0.00054558389965473296 -0.002327619766314445;-0.0013959710490232633 -0.00037415994652563618;-0.00197"
+      "53256181632706 -0.00055943565102427404;0.0017123011160052363 -0.0013165662437421598;-0.0010551354932617017 -0.00"
+      "031853346637677804;0.00041724144188397147 -0.0017945658692834258;0.0024122756083126344 0.00059830188249465144;-0"
+      ".0013335806571518349 -0.0020754414718030358;-0.0013523455623173379 0.00032275636827372434;-0.0010737337966364485"
+      " 0.0019645163178788863;0.002036701882995358 -0.0012450487670036185;-0.00057252015961260002 -0.000272195110432862"
+      "32;-0.0012554463937801007 0.00038395897826632287]"
+      LW1_2		      "[-0.32219034331792368 -0.22637351365469563;-0.46782010920362527 -0.54500677845607803;-0.4960232188"
+      "5502593 0.2414780724338601;-0.33979025547935199 0.37957520083200541;0.26645312284844791 0.72927600788265046;-0.0"
+      "94906884741967013 -0.61397059193936254;0.32006287947129464 -0.081785924796910242;-0.32558988938697425 0.11040210"
+      "597262791;-0.68125904982340502 0.25935939539796776;0.069045271256544735 0.46931080060460334;-0.32738594213974598"
+      " 0.2226629369359816;0.73705055131314168 0.37480097105019056;0.70971463757623043 -0.22028205531993883]"
+      LW2_1		      "[-0.87719711541830603 -0.0074222287202303505 0.28463046917059698 -0.5574685397457908 0.67411289106"
+      "376127 0.94215046288502702 0.69274577538634685 0.011998911781096577 -0.44224877770953874 0.49323444365640268 -0."
+      "5261392317742597 0.91469056323824649 0.24052007215554161]"
+      B1		      "[2.6465650826008491;2.2113546184098549;1.7467318464416295;1.3331619694539212;-0.91877084188573233;0.4"
+      "3867471550320036;0.031360519318436392;-0.47947825661959798;-0.89119199934784354;1.3306897407991731;-1.7612141984"
+      "776728;2.1869265389800976;2.640008988275556]"
+      B2		      "0.2005242910152556"
+      S1c		      "13"
+      Limit_output	      "0"
+      min_output	      "-Inf"
+      max_output	      "Inf"
+      Ref_file		      "Pend_Simscape_PID"
     }
     Block {
       BlockType		      Constant
@@ -2434,6 +2482,7 @@ Model {
 	  LibraryVersion	  "1.1"
 	  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint Actuator"
 	  SourceType		  "Joint Actuator"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  PhysicalDomain	  "Mechanical"
 	  PortType		  "blob"
@@ -2544,6 +2593,7 @@ Model {
 	  LibraryVersion	  "1.1"
 	  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint Sensor"
 	  SourceType		  "Joint Sensor"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  PhysicalDomain	  "Mechanical"
 	  PortType		  "blob"
@@ -2593,6 +2643,7 @@ Model {
 	  LibraryVersion	  "1.1"
 	  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint Actuator"
 	  SourceType		  "Joint Actuator"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  PhysicalDomain	  "Mechanical"
 	  PortType		  "blob"
@@ -2624,6 +2675,7 @@ Model {
 	  UserData		  "DataTag0"
 	  SourceBlock		  "mblibv1/Bodies/Ground"
 	  SourceType		  "Ground"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  LeftPortType		  "env"
 	  RightPortType		  "workingframe"
@@ -2632,9 +2684,11 @@ Model {
 	  ClassName		  "Ground"
 	  CoordPosition		  "[0 0 0]"
 	  CoordPositionUnits	  "m"
-	  StateVectorMgrId	  "6"
-	  MachineId		  "[3 0]"
+	  StateVectorMgrId	  "0"
+	  MachineId		  "[1 0]"
 	  ShowEnvPort		  on
+	  ParameterChecksum	  "[1254869985, 4206444564, 3095028029, 2774129723]"
+	  TopologyChecksum	  "[1188294885, 2767505572, 132818592, 2473842466]"
 	}
 	Block {
 	  BlockType		  Reference
@@ -2648,6 +2702,7 @@ Model {
 	  UserData		  "DataTag1"
 	  SourceBlock		  "mblibv1/Bodies/Ground"
 	  SourceType		  "Ground"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  LeftPortType		  "env"
 	  RightPortType		  "workingframe"
@@ -2659,6 +2714,8 @@ Model {
 	  StateVectorMgrId	  "-1"
 	  MachineId		  "[0 0]"
 	  ShowEnvPort		  off
+	  ParameterChecksum	  "[0 0 0 0]"
+	  TopologyChecksum	  "[0 0 0 0]"
 	}
 	Block {
 	  BlockType		  Reference
@@ -2670,6 +2727,7 @@ Model {
 	  LibraryVersion	  "1.1"
 	  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint Initial Condition"
 	  SourceType		  "Joint Initial Condition"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  LeftPortType		  "blob"
 	  RightPortType		  "blob"
@@ -2703,6 +2761,7 @@ Model {
 	  LibraryVersion	  "1.1"
 	  SourceBlock		  "mblibv1/Bodies/Machine\nEnvironment"
 	  SourceType		  "Machine Environment"
+	  ContentPreviewEnabled	  off
 	  PortType		  "env"
 	  PhysicalDomain	  "Mechanical"
 	  ClassName		  "Environment"
@@ -2821,6 +2880,7 @@ Model {
 	  LibraryVersion	  "1.1"
 	  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint Sensor"
 	  SourceType		  "Joint Sensor"
+	  ContentPreviewEnabled	  off
 	  UpdateFromCAD		  "off"
 	  PhysicalDomain	  "Mechanical"
 	  PortType		  "blob"
@@ -3156,12 +3216,12 @@ MatData {
   NumRecords		  2
   DataRecord {
     Tag			    DataTag0
-    Data		    "  %)30     .    <     8    (    !          %    \"     $    Z     0         0    .@   %!E;F1?4VEM<V-A<&"
-    "5?0VQO<V5D;&]O<\"]3:6US8V%P90I);G9E<G1E9\"!096YD=6QU;2]'<F]U;F0        "
+    Data		    "  %)30     .    :     8    (    !          %    \"     $    X     0         0    .    %!E;F1?4VEM<V-A<&"
+    "5?36]D96Q2968O4VEM<V-A<&4*26YV97)T960@4&5N9'5L=6TO1W)O=6YD"
   }
   DataRecord {
     Tag			    DataTag1
-    Data		    "  %)30     .    <     8    (    !          %    \"     $    [     0         0    .P   %!E;F1?4VEM<V-A<&"
-    "5?0VQO<V5D;&]O<\"]3:6US8V%P90I);G9E<G1E9\"!096YD=6QU;2]'<F]U;F0Q       "
+    Data		    "  %)30     .    <     8    (    !          %    \"     $    Y     0         0    .0   %!E;F1?4VEM<V-A<&"
+    "5?36]D96Q2968O4VEM<V-A<&4*26YV97)T960@4&5N9'5L=6TO1W)O=6YD,0         "
   }
 }
