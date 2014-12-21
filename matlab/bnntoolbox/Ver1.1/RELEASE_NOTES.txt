@@ -1,0 +1,10 @@
+Biological Neural Networks Toolbox for MATLAB -- October 13, 2005
+
+Amir Reza Saffari Azar Alamdari
+amir@ymer.org , http://www.ymer.org/main.htm
+-----------------------------------------------------------------
+
+Current Version: V1.1
+
+Changes compared to V1.0:
++ Setting parameters for some neuron models was generating errors. (Fixed)

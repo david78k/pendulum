@@ -3,3 +3,6 @@ matlab/hs_err_pid28308.log
 *.autosave
 matlab/penddemo.slx.autosave
 *.r2012a
+matlab/Pend_Simscape/Pend_Simscape_Closedloop.avi
+matlab/Pend_Simscape/Pend_Simscape_Openloop-expending.avi
+matlab/Pend_Simscape/Pend_Simscape_Openloop-tight.avi

@@ -15,8 +15,7 @@ sm=10;                 % maximal synaptic strength
 delays = cell(N,D);
 for i=1:Ne
     p=randperm(N);
-%     p=cell2mat(randperm(N));
-    post(i,:)=p(1:M);
+    post(i,:)=cell2mat(p(1:M));
     for j=1:M
         delays{i, ceil(D*rand)}(end+1) = j;  % Assign random exc delays
     end;
