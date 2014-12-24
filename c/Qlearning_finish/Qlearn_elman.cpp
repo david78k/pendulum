@@ -21,7 +21,7 @@ static double BETA = 0.01;               /* magnitude of noise added to choice *
 static double GAMMA = 0.8;            /* discount factor for future reinf */
 
 static double q_left, q_right;      /* state-action values */
-static first_time = 1;
+//static first_time = 1;
 static int cur_action, prev_action;
 static int cur_state, prev_state;
 static double x, x_dot, theta, theta_dot,reinf,predicted_value;
@@ -43,7 +43,8 @@ double maxium(double,double);
 
 long best=0;
 
-void main()
+//void main()
+int main()
 {
 	int action,box,i,j,c=0;
 	long success,trial,count;
@@ -106,6 +107,8 @@ void main()
 			}
 	}
 	printf("Success at %d trials \n",trial);
+
+	return 0;
 }
 
 /*----------------------------------------------------------------------
