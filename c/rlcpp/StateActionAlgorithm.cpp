@@ -50,7 +50,8 @@ void StateActionAlgorithm::getMaxActionRandom( State * state, Action * action ) 
 
     int n = maxA.size() ;
 
-    action->discreteAction = maxA[ (int) ( n*drand48() ) ] ;
+    //action->discreteAction = maxA[ (int) ( n*drand48() ) ] ;
+    action->discreteAction = maxA[ (int) ( n*(double(rand())/RAND_MAX) ) ] ;
 
 }
 
@@ -62,7 +63,8 @@ void StateActionAlgorithm::getMaxAction( State * state, Action * action ) {
 
 void StateActionAlgorithm::getRandomAction( State * state, Action * action ) {
 
-    action->discreteAction = (int) ( numberOfActions*drand48() ) ;
+    //action->discreteAction = (int) ( numberOfActions*drand48() ) ;
+    action->discreteAction = (int) ( numberOfActions*(double(rand())/RAND_MAX) ) ;
 
 }
 
@@ -96,7 +98,8 @@ void StateActionAlgorithm::explore( State * state, Action * action, double explo
 }
 void StateActionAlgorithm::egreedy( State * state, Action * action, double epsilon ) {
 
-    if ( drand48() < epsilon ) {
+    //if ( drand48() < epsilon ) {
+    if ( double(rand())/RAND_MAX < epsilon ) {
 
         getMaxAction( state, action ) ;
 
@@ -147,7 +150,8 @@ void StateActionAlgorithm::boltzmann( Action * action, double tau ) {
         policy[a] /= sumQs ;
     }
 
-    double rnd      = drand48() ;
+    //double rnd      = drand48() ;
+    double rnd      = (double(rand())/RAND_MAX) ;
 
     double total    = policy[0] ;
     int a           = 0 ;

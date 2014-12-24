@@ -2,7 +2,7 @@
 #define ACLA
 
 # include "Acla.h"
-
+#include<time.h>
 
 Acla::Acla( const char * parameterFile, World * w ) {
 
@@ -21,7 +21,8 @@ Acla::Acla( const char * parameterFile, World * w ) {
 
     }
 
-    srand48( clock() ) ;
+    //srand48( clock() ) ;
+    srand( clock() ) ;
 
     readParameterFile( parameterFile ) ;
 

@@ -2,7 +2,7 @@
 #define SARSA
 
 # include "Sarsa.h"
-
+#include <time.h>
 
 Sarsa::Sarsa( const char * parameterFile, World * w ) {
 
@@ -20,7 +20,8 @@ Sarsa::Sarsa( const char * parameterFile, World * w ) {
 
     }
 
-    srand48( clock() ) ;
+    //srand48( clock() ) ;
+    srand( clock() ) ;
 
     readParameterFile( parameterFile ) ;
 

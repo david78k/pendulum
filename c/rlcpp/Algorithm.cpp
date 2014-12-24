@@ -81,7 +81,8 @@ std::vector<int> Algorithm::argmaxAll( double * array, int n ) {
 
 void Algorithm::egreedy( State * state, Action * action, double epsilon ) {
 
-    if ( drand48() < epsilon ) {
+    //if ( drand48() < epsilon ) {
+    if ( (double(rand())/RAND_MAX) < epsilon ) {
 
         getMaxAction( state, action ) ;
 

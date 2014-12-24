@@ -3,6 +3,7 @@
 
 # include "Qlearning.h"
 # include <iostream>
+#include<time.h>
 
 using namespace std ;
 
@@ -22,7 +23,8 @@ Qlearning::Qlearning( const char * parameterFile, World * w ) {
 
     }
 
-    srand48( clock() ) ;
+    //srand48( clock() ) ;
+    srand( clock() ) ;
 
     readParameterFile( parameterFile ) ;
 

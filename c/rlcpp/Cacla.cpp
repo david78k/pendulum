@@ -10,7 +10,8 @@ Cacla::Cacla( const char * parameterFile, World * w ) {
 
     actionDimension     = w->getActionDimension() ;
 
-    srand48( clock() ) ;
+    //srand48( clock() ) ;
+    srand( clock() ) ;
 
     readParameterFile( parameterFile ) ;
 
@@ -121,7 +122,8 @@ void Cacla::getRandomAction( State * state, Action * action ) {
 
     for ( int a = 0 ; a < actionDimension ; a++ ) {
 
-        action->continuousAction[a] = 2.0*drand48() - 1.0 ;
+        //action->continuousAction[a] = 2.0*drand48() - 1.0 ;
+        action->continuousAction[a] = 2.0*double(rand())/RAND_MAX - 1.0 ;
 
     }
 
@@ -169,8 +171,10 @@ double Cacla::gaussianRandom() {
         double z = 1.0 ;
 
         while ( z >= 1.0 ) {
-            x = 2.0*drand48() - 1.0;
-            y = 2.0*drand48() - 1.0;
+            //x = 2.0*drand48() - 1.0;
+            x = 2.0*double(rand())/RAND_MAX - 1.0;
+            //y = 2.0*drand48() - 1.0;
+            y = 2.0*double(rand())/RAND_MAX - 1.0;
             z = x * x + y * y;
         }
 

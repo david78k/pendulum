@@ -12,6 +12,8 @@
 # include "cThreshold.cpp"
 # include "cTanH.cpp"
 # include "Matrix.cpp"
+#include <time.h>
+#include <stdlib.h>
 
 using namespace std ;
 
@@ -45,7 +47,8 @@ cNeuralNetwork::cNeuralNetwork( int nLayersInit, int * layerSizeInit, int * laye
 }
 
 void cNeuralNetwork::init( int nLayersInit, int * layerSizeInit, int * layerFunctionInit ) {
-    srand48(time(0));
+    //srand48(time(0));
+    srand(time(0));
     
     SIZEOFDOUBLE = sizeof( double ) ;
     
@@ -448,7 +451,8 @@ void        cNeuralNetwork::randomizeWeights( double min, double max ) {
     for ( l = 0 ; l < ( nLayers - 1 ) ; l++ ) {
         for ( i = 0 ; i < ( layerSize[l] + 1 ) ; i++ ) {
             for ( o = 0 ; o < layerSize[ l + 1 ] ; o++ ) {
-                setWeights( l, i, o, min + (max - min)*drand48() ) ;
+                //setWeights( l, i, o, min + (max - min)*drand48() ) ;
+                setWeights( l, i, o, min + (max - min)*(double(rand())/RAND_MAX) ) ;
             }
         }
     }
@@ -459,7 +463,8 @@ void        cNeuralNetwork::randomizeWeights( double min, double max, int seed )
     for ( l = 0 ; l < ( nLayers - 1 ) ; l++ ) {
         for ( i = 0 ; i < ( layerSize[l] + 1 ) ; i++ ) {
             for ( o = 0 ; o < layerSize[ l + 1 ] ; o++ ) {
-                setWeights( l, i, o, min + (max - min)*drand48() ) ;
+                //setWeights( l, i, o, min + (max - min)*drand48() ) ;
+                setWeights( l, i, o, min + (max - min)*(double(rand())/RAND_MAX) ) ;
             }
         }
     }

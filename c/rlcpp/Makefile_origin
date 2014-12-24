@@ -11,7 +11,7 @@ all: cp small
 
 #				cp
 cp:
-		c++.bat $(CFLAGS) $(UTILFILES) $(ALGORITHMS) $(CPWORLD) $(CPINTERFACE) -o CartPole
+		c++ $(CFLAGS) $(UTILFILES) $(ALGORITHMS) $(CPWORLD) $(CPINTERFACE) -o CartPole
 		@echo
 		@echo Done compiling CartPole.
 		@echo Run with:    ./CartPole \'cfg\'
@@ -20,7 +20,7 @@ cp:
 
 #				small
 small:
-		c++.bat $(CFLAGS) $(UTILFILES) $(ALGORITHMS) $(SMALLWORLD) $(SMALLINTERFACE) -o SmallMaze
+		c++ $(CFLAGS) $(UTILFILES) $(ALGORITHMS) $(SMALLWORLD) $(SMALLINTERFACE) -o SmallMaze
 		@echo
 		@echo Done compiling SmallMaze.
 		@echo Run with:    ./SmallMaze \'cfg\'

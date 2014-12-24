@@ -2,7 +2,7 @@
 #define QVLEARNING
 
 # include "QVlearning.h"
-
+#include<time.h>
 
 QVlearning::QVlearning( const char * parameterFile, World * w ) {
 
@@ -21,7 +21,8 @@ QVlearning::QVlearning( const char * parameterFile, World * w ) {
 
     }
 
-    srand48( clock() ) ;
+    //srand48( clock() ) ;
+    srand( clock() ) ;
 
     readParameterFile( parameterFile ) ;
 
