@@ -1,0 +1,48 @@
+Run testrtrl and type a number between 1 and 6 to select a demo.  The
+top plot is the error per sample.  The rest of the plots
+show the inputs, targets, and outputs.  
+
+Consider the first choice,  1. 2-bit xor, delay is 2, 1 cycles.  For
+this task, the recurrent net is given two binary-valued inputs,
+contains four units, and the output of the fourth unit is trained to
+produce the xor of the two inputs that occurred two steps in the past.
+1 cycle means that the error is backpropagated every step.  So, the
+plots show, in order from top to bottom,
+
+- RMS error per sample
+- input 1  (x1)
+- input 2  (x2)
+- target (x1 xor x2 for values of x1, x2 at time t-2)
+- output of unit 4 (the trained one that should duplicate the target)
+- output of unit 3
+- output of unit 2
+- output of unit 1
+
+Now consider choice 2,  2. 1-bit identity, 4 step delay, 1 cycle, random input
+This task has one binary-valued input, and four units including one
+trained unit.  The target is the input four steps ago, so this is just
+learning a four-step delay.  This example doesn't always converge
+before training quits.
+
+Choice 3, bit 1 followed indefinitely by bit 2, 1 cycle, random input,
+is a task with two binary-valued inputs, two units including one
+trained to produce a high output when the second input becomes nonzero
+the first time after the occurrence of a nonzero first input.  The net
+must learn to remember that bit 1 has occurred until bit 2 appears.
+When bit 2 appears, the memory of bit 1 is erased.
+
+The last three choices are not working demos.  I decided to include
+them here for others as a possible starting point for using this code
+to learn models of dynamic systems.
+
+Choice 4,  second order system, given state variables as input, is a
+task with two real-valued inputs that are the two state variables of a
+simple linear system.  The net has two units with one trained to
+duplicate the first state variable.
+
+Choice 5 is the same linear system, but now the input is just a
+history of one of the state variables.
+
+Choice 6 is for a third order system, a suspension system. The net is
+given one state variable and action as input.
+

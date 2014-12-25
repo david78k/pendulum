@@ -1,0 +1,40 @@
+To install:
+
+  gunzip nnoctave.tar.gz
+  tar xvf nnoctave.tar
+
+To run, start octave and type "example" at the octave prompt. 
+You should see:
+
+octave.bin:1>  example
+Epoch 100 RMS Error 0.429681
+Epoch 200 RMS Error 0.421194
+Epoch 300 RMS Error 0.359428
+Epoch 400 RMS Error 0.336789
+Epoch 500 RMS Error 0.085948
+Epoch 600 RMS Error 0.024387
+Epoch 700 RMS Error 0.010610
+Epoch 800 RMS Error 0.005221
+Epoch 900 RMS Error 0.002709
+Epoch 1000 RMS Error 0.001442
+octave.bin:2> 
+
+and a window should pop up showing gnuplot output as a plot of the
+training error and validation error versus epochs.  If you press a
+key, you will see a plot of the network's output and the target value
+for each testing example.  Press a key again, and you will see a mesh
+plot of the output the network over the entire two-dimensional input
+space, with low values at (0,0) and (1,1).
+
+
+Elapsed time for octave on Sun Sparc 20 was 65 seconds.
+Elapsed time for matlab on Sun Sparc 20 was 30 seconds.
+
+
+Please send questions and comments to 
+
+Chuck Anderson                    associate professor
+Department of Computer Science    anderson@cs.colostate.edu              
+Colorado State University         http://www.cs.colostate.edu/~anderson  
+Fort Collins, CO 80523-1873       office: 970-491-7491, FAX: 970-491-2466
+
