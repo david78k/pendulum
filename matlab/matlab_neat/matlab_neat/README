@@ -1,0 +1,65 @@
+This distribution (v1.0, 8/31/03) contains a Matlab implementation of the 
+NeuroEvolution of Augmenting Topologies (NEAT) method for evolving 
+neural network topologies and weights.  The package includes
+an implementation of the XOR experiment as an example.
+
+-The complete source code in this distribution was written by Christian Mayr,
+ who can be reached at:  matlab_neat@web.de
+
+-The NEAT method was developed by Kenneth Stanley and Risto Miikkulainen.  
+ Additional information and papers describing NEAT in detail can be found 
+ at Ken's website: http://www.cs.utexas.edu/users/kstanley/
+ A FAQ for Matlab NEAT may also become available through:
+ http://www.cs.utexas.edu/users/kstanley/neat.html
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License version 2 as published
+by the Free Software Foundation. This program is distributed in the hope
+that it will be useful, but without any warranty; without even the implied 
+warranty of merchantability or fitness for a particular purpose. See the GNU 
+General Public License for more details.
+
+We hope that this software will be a useful starting point for your own
+explorations in neuroevolution. The software is provided as is,
+however, we will do our best to maintain it and accommodate
+suggestions. If you want to be notified of future releases of the
+software or have questions, comments, bug reports or suggestions
+related to the software or source code itself, send
+email to matlab_neat@web.de.  For general questions about NEAT,
+send e-mail to kstanley@cs.utexas.edu, or refer to the NEAT
+User's Page and FAQ at http://www.cs.utexas.edu/users/kstanley/neat.html.
+
+NOTES:
+
+-To run: After including the directory in which you installed matlab neat 
+         in your startup.m file, just type "neat_main" at the Matlab 
+         command line.  The XOR experiment will run and graphs will be 
+         displayed to indicate progress.
+
+-Data Output:  At the end of evolution, all population structures are in
+         memory.  For example, to access the connection genes of population 
+         member 12, you type at the prompt population(12).connectiongenes.
+         The entire population is stored in the population structure.
+         Matlab NEAT also outputs its structures in the file "neatsave.mat,"
+         which can be loaded in using "load 'neatsave'" to restore data from 
+         a prior run.  Please note that .mat files saved from Matlab NEAT
+         will only be usable on the same platform on which they were saved,
+         since they are saved in a binary format.
+         
+-Modifying the code:  It should be possible to modify the code and
+         add experiments by using the extensive commenting as an aid
+         in understanding the system.
+
+-XOR Termination Criterion: XOR is considered solved if the rounded
+         outputs are all correct. In other words, anything below
+         0.5 is round down to 0, and anything equal or above 0.5 is rounded 
+         to 1. In the case the problem is solved, Matlab NEAT automatically
+         assigns a fitness of 16 in order to terminate.
+
+-Vectorized XOR:  Since the vectorized xor evaluation is about 3-5 times 
+         faster (especially with large, densely connected networks), users 
+         should use this version as a template. It may look a little strange 
+         (at least for users not familiar with matlab), but the speed increase 
+         justifies a little more coding effort. Those more comfortable
+         with the familiar can, of course, use the old (looped) version.
+
