@@ -1,0 +1,42 @@
+The NEAT software is based on the NeuroEvolution of Augmenting Topologies
+method of evolving artificial neural networks, by Stanley and
+Miikkulainen (2001).  A paper describing the method and some associated
+findings is available:
+
+@TechReport{stanley:utcstr01,
+  author       = "Kenneth Stanley and Risto
+                  Miikkulainen",
+  title        = "Evolving Neural Networks through Augmenting Topologies",
+  institution  = UTCS,
+  year         = 2001,
+  number       = "AI2001-290",
+  url          = "http://www.cs.utexas.edu/users/nn/pages/publications/abstracts.html#stanley.utcstr01.ps.gz",
+  bibauthor    = "kstanley",
+}
+
+Also, see:
+http://www.cs.utexas.edu/users/nn/pages/research/ne-methods.html#NEAT
+
+Detailed documentation of this software is included in the
+postscript file NEATDOC.ps.  Reading this documentation is
+highly recommended before attempting to use the system.
+The text file USERDOC includes a brief description of every file 
+included in this distribution.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License version 2 as published
+by the Free Software Foundation. This program is distributed in the hope
+that it will be useful, but without any warranty; without even the
+implied warranty of merchantability or fitness for a particular purpose.
+See the GNU General Public License for more details.
+
+We hope that this software will be a useful starting point for your own
+explorations in Neuroevolution. The software is provided as is,
+however, we will do our best to maintain it and accommodate
+suggestions. If you want to be notified of future releases of the
+software or have questions, comments, bug reports or suggestions, send
+email to kstanley@cs.utexas.edu.
+
+
+
+

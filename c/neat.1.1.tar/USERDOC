@@ -1,0 +1,130 @@
+For detailed documentation of NEAT, please see
+NEATDOC.ps, also included in this distribution.
+This file contains a quick description of every
+file included in the distribution.
+
+Makefile - compiles NEAT under my Debian Linux setup.
+           You may need to edit it (see NEATDOC.ps).  
+           Usage:
+           % make           ; Makes standard NEAT
+           % make neat_ng   ; Makes no-Guile version of NEAT
+
+README - The place to start
+
+NEATDOC.ps - Extensive postscript documentation of NEAT
+
+USERDOC - You are reading it
+
+champ - Not included.  
+        However, it is a genome file output every generation by the 
+        pole2_test experiment containing the generation's champion.  
+        (The xor_test outputs a similar file called xor_winner)
+
+experiments.cpp -Contains experiment code.  Add your experiments here
+experiments.h -Experiment headers.  Add yours here.
+
+gen_27 - A sample population file output during an old run of
+          pole balancing evolution.  I included it just so you
+          can see what such a file of genomes looks like.
+          Try "grep Species gen_27" to get a quick list
+          of species in the file.
+
+genetics.cpp -NEAT's main genetic control code, including the main algorithm.
+genetics.h -Genetic headers
+
+gtests.scm - A text file of examples of various ways to interact with NEAT
+             through Guile (which is Scheme).  Don't load this into
+             Guile directly, since it is not a program.  It really
+             just for looking at or cutting and pasting from to
+             get a sense of what is possible through Guile.
+
+neat - Not actually included, but once you compile, this is the resulting
+       executable.
+
+neat.h - NEAT's global system parameters.
+
+neat_ng - Not actually included, but if you compile using "make neat_ng"
+          then you get this file.
+
+neatmain.cpp -NEAT's main. Jumps into Guile
+neatmain.h -Headers for main, almost empty.
+
+neatmain_ng.cpp -An alternative main that doesn't hand control to Guile.
+neatmain_ng.h - Headers for alternative main.
+
+neatswig.i - SWIG headers.  For feeding into SWIG.  See NEATDOC.ps.
+
+neatswig_wrap.c - Guile wrapper file output by SWIG.
+neatswig_wrap.cpp - Same as above, copied and slightly edited (See NEATDOC.ps).
+
+neatswig_wrap.doc - File output by SWIG to document the wrappers it generated.
+                    Tells you every Guile command that can interact access NEAT.
+
+netviz-p2m-46gen.jpg - A screen capture of a network visualization that
+                       NEAT generated.  (You can generate these yourself
+                       for any network output by NEAT.)
+
+networks.cpp - NEAT's neural network activation and control code.
+networks.h - Neural network headers.
+
+p2mpar3bare.ne - A sample global parameter file
+
+p2nv.ne - Global parameter file suggested for non-Markovian (no-velocity)
+          pole balancing
+
+p2test.ne - Another sample global parameter file
+
+pole1startgenes - Starter genome for single pole balancing experiment
+
+pole2_markov.ne - Global parameter file, good for most experiments.
+                  (Originally used for Markovian double pole balancing,
+                   but used for XOR as well)
+
+pole2startgenes - Starter genome for double pole balancing
+                  Note: This file is a copy of one of the next
+                  2 file (pole2startgenes1 or pole2startgenes2)
+                  For Markovian (velocity included) copy
+                  pole2startgenes1 into this file.
+                  For non-Markovian (velocity not included),
+                  copy pole2startgenes2 into this file.
+
+pole2startgenes1 - Starter genome for Markovian double pole balancing
+                   (meaning velocity inputs included)
+	           Copy this file to pole2startgenes before
+                   beginning experiment.
+
+pole2startgenes2 - Starter genome for non-Markovian double pole balancing
+                   (meaning velocity inputs NOT included)
+	           Copy this file to pole2startgenes before
+                   beginning experiment.
+
+statout - Not included, but printed out by pole2_test experiments.
+          Includes statistical information.  Has different
+          format depending on whether it is Markovian or
+          non-Markovian pole balancing.
+
+supergeneral - A sample double pole balancer genome that was was
+               very good at generalizing.
+
+visual.cpp - Code for visualization.  Relies heavily on GTK--.
+visual.h - Visualization headers.
+
+xor_winner - Not included.  
+             However, it is a genome file output every generation by the 
+             xor_test experiment containing the generation's champion.  
+             (The pole2_test outputs a similar file called champ)
+
+xorstartgenes - Starter genome for XOR experiment.  The first input
+                is a bias always set to 1 (through experiments.cpp).
+
+
+
+
+
+
+
+
+
+
+
+

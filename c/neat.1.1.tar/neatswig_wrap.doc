@@ -1,0 +1,222 @@
+neatswig_wrap.c
+
+
+
+(testdoubval )
+        [ returns double  ]
+
+(testdoubset val )
+        [ returns double  ]
+
+(new_NNode3arg ntype  nodeid  placement )
+        [ returns NNode * ]
+
+1.  class Network
+=================
+[ created from class Network ]
+
+
+(Network_name_set self  name )
+(Network_name_get self )
+        [ Member data: returns char * ]
+        Every Network or subNetwork can have a name
+
+(Network_net_id_set self  net_id )
+(Network_net_id_get self )
+        [ Member data: returns int  ]
+        Allow for a network id
+
+(delete_Network self )
+        [ Destructor: returns void  ]
+
+(Network_flush self )
+        [ Member : returns void  ]
+        This preserves recurrent inputs 
+
+(Network_activate self )
+        [ Member : returns bool  ]
+        Activates the net such that all outputs are active
+
+(Network_show_activation self )
+        [ Member : returns void  ]
+        Prints the values of its outputs
+
+(Network_add_input self  NNode*)
+        [ Member : returns void  ]
+        Add a new input node
+
+(Network_add_output self  NNode*)
+        [ Member : returns void  ]
+        Add a new output node
+
+(Network_load_sensors self  double*)
+        [ Member : returns void  ]
+        Takes an array of sensor values and loads it into SENSOR inputs
+        ONLY
+
+(Network_give_name self  char*)
+        [ Member : returns void  ]
+        Name the network
+
+(Network_nodecount self )
+        [ Member : returns int  ]
+        Counts the number of nodes in the net if not yet counted
+
+(Network_linkcount self )
+        [ Member : returns int  ]
+        Counts the number of links in the net if not yet counted
+
+(Network_input_start self )
+        [ Member : returns int  ]
+
+(Network_load_in self  d )
+        [ Member : returns int  ]
+
+(Network_graph self  width  height )
+        [ Member : returns void  ]
+
+----------
+
+(NEWNODE 0)
+        [ Constant: int  ]
+
+(NEWLINK 1)
+        [ Constant: int  ]
+
+2.  class Genome
+================
+[ created from class Genome ]
+
+
+(Genome_genome_id_set self  genome_id )
+(Genome_genome_id_get self )
+        [ Member data: returns int  ]
+
+(Genome_phenotype_set self  phenotype )
+(Genome_phenotype_get self )
+        [ Member data: returns Network * ]
+        Allows Genome to be matched with its Network
+
+(new_Genome id  iFile )
+        [ Constructor: returns Genome * ]
+
+(delete_Genome self )
+        [ Destructor: returns void  ]
+
+(Genome_genesis self  int)
+        [ Member : returns Network * ]
+        Generate a network phenotype from this Genome with specified id
+
+(Genome_print_to_file self  outFile )
+        [ Member : returns void  ]
+        Dump this genome to specified file
+
+(Genome_duplicate self  new_id )
+        [ Member : returns Genome * ]
+        Duplicate this Genome to create a new one with the specified id
+        
+
+(Genome_mutate_random_trait self )
+        [ Member : returns void  ]
+        Perturb params in one trait 
+
+(Genome_mutate_link_trait self  times )
+        [ Member : returns void  ]
+        Change random link's trait. Repeat times times 
+
+(Genome_mutate_node_trait self  times )
+        [ Member : returns void  ]
+        Change random node's trait times times 
+
+(Genome_mutate_link_weights self  power  rate  mut_type )
+        [ Member : returns void  ]
+        Add Gaussian noise to linkweights either GAUSSIAN or COLDGAUSSIAN
+        (from zero) 
+
+(Genome_mutate_toggle_enable self  times )
+        [ Member : returns void  ]
+        toggle genes on or off 
+
+(Genome_mutate_gene_reenable self )
+        [ Member : returns void  ]
+        Find first disabled gene and enable it 
+
+(Genome_mutate_add_node self  innovs  curnode_id  curinnov )
+        [ Member : returns int  ]
+        Mutate genome by adding a node respresentation 
+
+(Genome_mutate_add_link self  innovs  curinnov  tries )
+        [ Member : returns int  ]
+
+(Genome_mate_multipoint self  g  genomeid  fitness1  fitness2 )
+        [ Member : returns Genome * ]
+
+(Genome_mate_multipoint_avg self  g  genomeid  fitness1  fitness2 )
+        [ Member : returns Genome * ]
+
+(Genome_mate_singlepoint self  g  genomeid )
+        [ Member : returns Genome * ]
+
+(Genome_compatibility self  g )
+        [ Member : returns double  ]
+
+----------
+
+(new_Genome_fromfile filename  id )
+        [ returns Genome * ]
+
+(display_Genome filename  width  height )
+        [ returns Genome * ]
+
+(new_Genome_load filename )
+        [ returns Genome * ]
+
+(print_Genome_tofile g  filename )
+        [ returns int  ]
+
+(print_Genome g )
+        [ returns int  ]
+
+(new_Pop_fromfile filename )
+        [ returns Population * ]
+
+(new_Pop_fromGenomefile filename )
+        [ returns Population * ]
+
+3.  class Population
+====================
+[ created from class Population ]
+
+
+(Population_epoch self  generation )
+        [ Member : returns bool  ]
+
+(Population_visualize self  width  height  start_gen  stop_gen )
+        [ Member : returns void  ]
+
+----------
+
+(xor_epoch pop  generation  filename  winnernum  winnergenes  winnernodes )
+        [ returns int  ]
+
+(new_innov_list )
+        [ returns list< Innovation* > * ]
+
+(xor_test gens )
+        [ returns Population * ]
+
+(xor_evaluate org )
+        [ returns bool  ]
+
+(pole1_test gens )
+        [ returns Population * ]
+
+(pole1_evaluate org )
+        [ returns bool  ]
+
+(pole2_test gens  velocity )
+        [ returns Population * ]
+
+(pole2_evaluate org  velocity  thecart )
+        [ returns bool  ]
+
