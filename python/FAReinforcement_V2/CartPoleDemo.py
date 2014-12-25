@@ -42,8 +42,8 @@ from rltools.ActionSelection import *
 import cPickle
 #from pylab import *
 import time
-import psyco
-psyco.full()
+#import psyco
+#psyco.full()
 
 def CartPoleExperiment(Episodes=100,nk=0):
 
