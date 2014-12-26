@@ -9,3 +9,4 @@ matlab/Pend_Simscape/Pend_Simscape_Openloop-tight.avi
 *.pyc
 *.swp
 python/neat-python/.svn/
+python/neat-python/build/
