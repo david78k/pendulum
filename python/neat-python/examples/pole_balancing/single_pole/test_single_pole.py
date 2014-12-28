@@ -1,7 +1,8 @@
 # test single pole performance
 
 from neat import config, chromosome, genome2
-from neat import nn
+#from neat import nn
+from neat.nn import nn_pure as nn
 from random import randint
 import cPickle as pickle
 import single_pole

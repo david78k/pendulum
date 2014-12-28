@@ -1,0 +1,18 @@
+Loaded chromosome:
+Nodes:
+	Node  1  INPUT, bias  0, response 4.924273
+	Node  2  INPUT, bias  0, response 4.924273
+	Node  3  INPUT, bias  0, response 4.924273
+	Node  4  INPUT, bias  0, response 4.924273
+	Node  5 OUTPUT, bias -1.6431772, response 5.85464849
+Connections:
+	In  1, Out  5, Weight +0.92160, Enabled, Innov 1
+	In  2, Out  5, Weight -0.06580, Disabled, Innov 2
+	In  3, Out  5, Weight +2.22989, Enabled, Innov 3
+	In  4, Out  5, Weight +0.30909, Enabled, Innov 4
+	In  5, Out  5, Weight -0.28307, Enabled, Innov 5
+
+Initial conditions:
+-1.8100   -0.5360   0.1090   0.4230
+
+Failed at step 1302

@@ -1,10 +1,8 @@
 # ******************************** #
 # Single pole balancing experiment #
 # ******************************** #
-#from neat import config, population, chromosome, genome2, visualize
-from neat import config, population, chromosome, genome, visualize
-#from neat import nn
-from neat.nn import nn_pure as nn
+from neat import config, population, chromosome, genome2, visualize
+from neat import nn
 import cPickle as pickle
 import math, random
 
@@ -108,8 +106,7 @@ if __name__ == "__main__":
     config.load('spole_config') 
 
     # Temporary workaround
-    #chromosome.node_gene_type = genome2.NodeGene
-    chromosome.node_gene_type = genome.NodeGene
+    chromosome.node_gene_type = genome2.NodeGene
     
     population.Population.evaluate = evaluate_population
     pop = population.Population()
@@ -120,7 +117,7 @@ if __name__ == "__main__":
     # visualize the best topology
     visualize.draw_net(pop.stats[0][-1]) # best chromosome
     # Plots the evolution of the best/average fitness
-    visualize.plot_stats(pop.stats)
+    #visualize.plot_stats(pop.stats)
     
     # saves the winner
     file = open('winner_chromosome', 'w')

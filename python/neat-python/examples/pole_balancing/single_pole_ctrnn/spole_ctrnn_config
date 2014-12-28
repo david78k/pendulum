@@ -9,6 +9,8 @@ min_weight          = -50
 random_range        = 0.5
 feedforward         = 0
 nn_activation       = exp
+hidden_nodes        = 0
+weight_stdev        = 0.9
 
 [genetic]
 pop_size              = 100
@@ -22,6 +24,7 @@ bias_mutation_power   = 1.0
 prob_mutate_weight    = 0.5
 weight_mutation_power = 1.8    
 prob_togglelink       = 0.01
+elitism               = 0
 
 [genotype compatibility]
 compatibility_threshold = 6.0

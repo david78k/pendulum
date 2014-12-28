@@ -9,6 +9,7 @@ min_weight          = -50
 random_range        = 0.5
 feedforward         = 0
 nn_activation       = exp
+#nn_activation       = tanh
 hidden_nodes        = 0
 weight_stdev        = 0.9
 
