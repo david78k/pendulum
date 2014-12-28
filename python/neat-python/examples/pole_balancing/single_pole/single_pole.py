@@ -113,7 +113,8 @@ if __name__ == "__main__":
     
     population.Population.evaluate = evaluate_population
     pop = population.Population()
-    pop.epoch(200, report=1, save_best=0)
+    #pop.epoch(200, report=1, save_best=0)
+    pop.epoch(500, report=1, save_best=0)
     
     print 'Number of evaluations: %d' %(pop.stats[0][-1]).id
     
@@ -121,6 +122,7 @@ if __name__ == "__main__":
     visualize.draw_net(pop.stats[0][-1]) # best chromosome
     # Plots the evolution of the best/average fitness
     visualize.plot_stats(pop.stats)
+    visualize.plot_species(pop.species_log)
     
     # saves the winner
     file = open('winner_chromosome', 'w')
