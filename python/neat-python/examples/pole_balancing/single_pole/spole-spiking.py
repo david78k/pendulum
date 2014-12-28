@@ -57,6 +57,7 @@ def evaluate_population(population):
     
     twelve_degrees = 0.2094384 #radians
     num_steps = 10**5
+    MAX_TIME = 100
     
     for chromo in population:
         
@@ -88,7 +89,8 @@ def evaluate_population(population):
             # valores de x, x_dot e etc...
                       
             #action = net.pactivate(inputs)
-            action = brain.advance(inputs)
+	    for j in range(MAX_TIME):
+	        action = brain.advance(inputs)
             
             # Apply action to the simulated cart-pole
             x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)
