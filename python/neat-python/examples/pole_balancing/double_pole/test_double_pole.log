@@ -1,0 +1,914 @@
+Loaded genome:
+Nodes:
+	Node  1  INPUT, bias  0, response 4.924273
+	Node  2  INPUT, bias  0, response 4.924273
+	Node  3  INPUT, bias  0, response 4.924273
+	Node  4 OUTPUT, bias -0.1201673, response 0.44590820
+Connections:
+	In  1, Out  4, Weight -5.45414, Enabled, Innov 1
+	In  2, Out  4, Weight -28.63680, Enabled, Innov 2
+	In  3, Out  4, Weight +22.64554, Enabled, Innov 3
+	In  4, Out  4, Weight -3.25475, Enabled, Innov 4
+	
+Best chromosome of generation: 6886
+Starting the 100k test...
+	Winner passed the 100k test! Starting the generalization test...
+Failed at step 14 	 -2.41 	 +0.00 	 +0.02
+Test 1 failed with score...: 14
+Failed at step 14 	 -2.40 	 +0.02 	 +0.04
+Test 2 failed with score...: 14
+Failed at step 15 	 -2.43 	 +0.04 	 -0.02
+Test 3 failed with score...: 15
+Failed at step 15 	 -2.42 	 +0.06 	 -0.00
+Test 4 failed with score...: 15
+Failed at step 15 	 -2.41 	 +0.07 	 +0.02
+Test 5 failed with score...: 15
+Failed at step 16 	 -2.43 	 -0.01 	 -0.19
+Test 6 failed with score...: 16
+Failed at step 16 	 -2.42 	 +0.01 	 -0.16
+Test 7 failed with score...: 16
+Failed at step 16 	 -2.42 	 +0.03 	 -0.13
+Test 8 failed with score...: 16
+Failed at step 16 	 -2.41 	 +0.06 	 -0.09
+Test 9 failed with score...: 16
+Failed at step 16 	 -2.41 	 +0.08 	 -0.06
+Test 10 failed with score...: 16
+Failed at step 17 	 -2.43 	 +0.01 	 -0.16
+Test 11 failed with score...: 17
+Failed at step 17 	 -2.42 	 +0.03 	 -0.12
+Test 12 failed with score...: 17
+Failed at step 17 	 -2.41 	 +0.05 	 -0.08
+Test 13 failed with score...: 17
+Failed at step 17 	 -2.41 	 +0.08 	 -0.04
+Test 14 failed with score...: 17
+Failed at step 17 	 -2.40 	 +0.10 	 -0.00
+Test 15 failed with score...: 17
+Failed at step 17 	 -2.40 	 +0.03 	 -0.03
+Test 16 failed with score...: 17
+Failed at step 18 	 -2.42 	 +0.06 	 +0.01
+Test 17 failed with score...: 18
+Failed at step 18 	 -2.41 	 +0.08 	 +0.05
+Test 18 failed with score...: 18
+Failed at step 18 	 -2.40 	 +0.11 	 +0.08
+Test 19 failed with score...: 18
+Failed at step 19 	 -2.41 	 +0.13 	 +0.12
+Test 20 failed with score...: 19
+Failed at step 18 	 -2.40 	 +0.05 	 +0.06
+Test 21 failed with score...: 18
+Failed at step 19 	 -2.42 	 +0.07 	 +0.09
+Test 22 failed with score...: 19
+Failed at step 19 	 -2.41 	 +0.10 	 +0.13
+Test 23 failed with score...: 19
+Failed at step 20 	 -2.42 	 +0.13 	 +0.18
+Test 24 failed with score...: 20
+Failed at step 20 	 -2.41 	 +0.15 	 +0.21
+Test 25 failed with score...: 20
+Failed at step 21 	 -2.43 	 +0.07 	 -0.00
+Test 26 failed with score...: 21
+Failed at step 21 	 -2.41 	 +0.09 	 +0.04
+Test 27 failed with score...: 21
+Failed at step 22 	 -2.43 	 +0.14 	 +0.21
+Test 28 failed with score...: 22
+Failed at step 22 	 -2.41 	 +0.16 	 +0.26
+Test 29 failed with score...: 22
+Failed at step 23 	 -2.42 	 +0.20 	 +0.37
+Test 30 failed with score...: 23
+Failed at step 22 	 -2.41 	 +0.07 	 +0.13
+Test 31 failed with score...: 22
+Failed at step 23 	 -2.42 	 +0.10 	 +0.18
+Test 32 failed with score...: 23
+Failed at step 24 	 -2.41 	 +0.14 	 +0.19
+Test 33 failed with score...: 24
+Failed at step 26 	 -2.41 	 +0.17 	 +0.14
+Test 34 failed with score...: 26
+Failed at step 28 	 -2.40 	 +0.20 	 +0.13
+Test 35 failed with score...: 28
+Failed at step 25 	 -2.41 	 +0.08 	 +0.09
+Test 36 failed with score...: 25
+Failed at step 27 	 -2.41 	 +0.11 	 +0.03
+Test 37 failed with score...: 27
+Failed at step 29 	 -2.40 	 +0.15 	 +0.06
+Test 38 failed with score...: 29
+Failed at step 33 	 -2.40 	 +0.22 	 +0.33
+Test 39 failed with score...: 33
+Test 40 succeeded with score: 1000
+Failed at step 29 	 -2.41 	 +0.10 	 +0.10
+Test 41 failed with score...: 29
+Failed at step 32 	 -2.41 	 +0.13 	 +0.13
+Test 42 failed with score...: 32
+Test 43 succeeded with score: 1000
+Test 44 succeeded with score: 1000
+Test 45 succeeded with score: 1000
+Failed at step 34 	 -2.40 	 +0.11 	 +0.11
+Test 46 failed with score...: 34
+Failed at step 42 	 -2.40 	 +0.17 	 +0.22
+Test 47 failed with score...: 42
+Test 48 succeeded with score: 1000
+Test 49 succeeded with score: 1000
+Test 50 succeeded with score: 1000
+Failed at step 827 	 -2.40 	 +0.29 	 +0.38
+Test 51 failed with score...: 827
+Failed at step 418 	 -2.41 	 +0.22 	 +0.19
+Test 52 failed with score...: 418
+Failed at step 422 	 -2.41 	 +0.29 	 +0.41
+Test 53 failed with score...: 422
+Failed at step 636 	 +2.41 	 -0.27 	 -0.34
+Test 54 failed with score...: 636
+Failed at step 407 	 -2.40 	 +0.27 	 +0.44
+Test 55 failed with score...: 407
+Failed at step 195 	 +2.42 	 -0.29 	 -0.47
+Test 56 failed with score...: 195
+Failed at step 197 	 +2.40 	 -0.29 	 -0.38
+Test 57 failed with score...: 197
+Test 58 succeeded with score: 1000
+Test 59 succeeded with score: 1000
+Test 60 succeeded with score: 1000
+Failed at step 776 	 -2.41 	 +0.20 	 +0.15
+Test 61 failed with score...: 776
+Failed at step 781 	 -2.40 	 +0.21 	 +0.33
+Test 62 failed with score...: 781
+Failed at step 769 	 -2.40 	 +0.21 	 +0.34
+Test 63 failed with score...: 769
+Test 64 succeeded with score: 1000
+Failed at step 758 	 -2.41 	 +0.22 	 +0.34
+Test 65 failed with score...: 758
+Test 66 succeeded with score: 1000
+Test 67 succeeded with score: 1000
+Test 68 succeeded with score: 1000
+Test 69 succeeded with score: 1000
+Test 70 succeeded with score: 1000
+Test 71 succeeded with score: 1000
+Test 72 succeeded with score: 1000
+Test 73 succeeded with score: 1000
+Test 74 succeeded with score: 1000
+Test 75 succeeded with score: 1000
+Test 76 succeeded with score: 1000
+Failed at step 422 	 -2.40 	 +0.28 	 +0.35
+Test 77 failed with score...: 422
+Test 78 succeeded with score: 1000
+Failed at step 166 	 +2.41 	 -0.31 	 -0.39
+Test 79 failed with score...: 166
+Failed at step 160 	 +2.43 	 -0.26 	 -0.27
+Test 80 failed with score...: 160
+Failed at step 186 	 +2.41 	 -0.21 	 -0.21
+Test 81 failed with score...: 186
+Failed at step 343 	 -2.40 	 +0.26 	 +0.43
+Test 82 failed with score...: 343
+Failed at step 183 	 +2.40 	 -0.24 	 -0.39
+Test 83 failed with score...: 183
+Failed at step 171 	 +2.41 	 -0.18 	 -0.29
+Test 84 failed with score...: 171
+Failed at step 180 	 +2.40 	 -0.27 	 -0.35
+Test 85 failed with score...: 180
+Failed at step 354 	 -2.41 	 +0.24 	 +0.29
+Test 86 failed with score...: 354
+Failed at step 348 	 -2.42 	 +0.22 	 +0.28
+Test 87 failed with score...: 348
+Failed at step 342 	 -2.41 	 +0.21 	 +0.25
+Test 88 failed with score...: 342
+Failed at step 180 	 +2.41 	 -0.22 	 -0.35
+Test 89 failed with score...: 180
+Failed at step 166 	 +2.40 	 -0.14 	 -0.11
+Test 90 failed with score...: 166
+Test 91 succeeded with score: 1000
+Test 92 succeeded with score: 1000
+Test 93 succeeded with score: 1000
+Failed at step 342 	 -2.40 	 +0.20 	 +0.30
+Test 94 failed with score...: 342
+Failed at step 333 	 -2.40 	 +0.16 	 +0.08
+Test 95 failed with score...: 333
+Test 96 succeeded with score: 1000
+Test 97 succeeded with score: 1000
+Test 98 succeeded with score: 1000
+Failed at step 343 	 -2.40 	 +0.18 	 +0.24
+Test 99 failed with score...: 343
+Failed at step 333 	 -2.40 	 +0.19 	 +0.29
+Test 100 failed with score...: 333
+Failed at step 177 	 +2.40 	 -0.28 	 -0.46
+Test 101 failed with score...: 177
+Failed at step 169 	 +2.40 	 -0.20 	 -0.17
+Test 102 failed with score...: 169
+Failed at step 154 	 +2.43 	 -0.12 	 -0.19
+Test 103 failed with score...: 154
+Failed at step 142 	 +2.41 	 -0.04 	 +0.04
+Test 104 failed with score...: 142
+Failed at step 139 	 +2.41 	 +0.00 	 +0.16
+Test 105 failed with score...: 139
+Failed at step 182 	 +2.41 	 -0.18 	 -0.27
+Test 106 failed with score...: 182
+Failed at step 160 	 +2.40 	 -0.03 	 -0.03
+Test 107 failed with score...: 160
+Failed at step 133 	 +2.40 	 -0.01 	 +0.09
+Test 108 failed with score...: 133
+Failed at step 144 	 +2.40 	 +0.01 	 +0.08
+Test 109 failed with score...: 144
+Failed at step 134 	 +2.40 	 +0.01 	 +0.11
+Test 110 failed with score...: 134
+Failed at step 331 	 -2.41 	 +0.12 	 +0.08
+Test 111 failed with score...: 331
+Failed at step 327 	 -2.40 	 +0.12 	 +0.19
+Test 112 failed with score...: 327
+Failed at step 131 	 +2.40 	 -0.09 	 -0.02
+Test 113 failed with score...: 131
+Failed at step 119 	 +2.41 	 -0.13 	 -0.05
+Test 114 failed with score...: 119
+Failed at step 108 	 +2.41 	 -0.20 	 -0.17
+Test 115 failed with score...: 108
+Failed at step 341 	 -2.41 	 +0.12 	 +0.05
+Test 116 failed with score...: 341
+Failed at step 335 	 -2.42 	 +0.14 	 +0.22
+Test 117 failed with score...: 335
+Failed at step 321 	 -2.41 	 +0.11 	 +0.18
+Test 118 failed with score...: 321
+Failed at step 134 	 +2.40 	 -0.09 	 -0.03
+Test 119 failed with score...: 134
+Failed at step 115 	 +2.40 	 -0.15 	 -0.18
+Test 120 failed with score...: 115
+Failed at step 345 	 -2.41 	 +0.14 	 +0.24
+Test 121 failed with score...: 345
+Failed at step 335 	 -2.41 	 +0.13 	 +0.20
+Test 122 failed with score...: 335
+Failed at step 322 	 -2.42 	 +0.14 	 +0.22
+Test 123 failed with score...: 322
+Failed at step 132 	 +2.40 	 -0.11 	 -0.16
+Test 124 failed with score...: 132
+Failed at step 117 	 +2.41 	 -0.13 	 -0.15
+Test 125 failed with score...: 117
+Failed at step 39 	 -2.40 	 +0.20 	 +0.16
+Test 126 failed with score...: 39
+Failed at step 42 	 -2.41 	 +0.23 	 +0.22
+Test 127 failed with score...: 42
+Failed at step 445 	 -2.40 	 +0.22 	 +0.34
+Test 128 failed with score...: 445
+Test 129 succeeded with score: 1000
+Test 130 succeeded with score: 1000
+Failed at step 42 	 -2.41 	 +0.19 	 +0.20
+Test 131 failed with score...: 42
+Failed at step 45 	 -2.40 	 +0.23 	 +0.38
+Test 132 failed with score...: 45
+Failed at step 463 	 -2.40 	 +0.21 	 +0.28
+Test 133 failed with score...: 463
+Test 134 succeeded with score: 1000
+Test 135 succeeded with score: 1000
+Failed at step 47 	 -2.42 	 +0.18 	 +0.19
+Test 136 failed with score...: 47
+Failed at step 52 	 -2.40 	 +0.21 	 +0.33
+Test 137 failed with score...: 52
+Test 138 succeeded with score: 1000
+Test 139 succeeded with score: 1000
+Test 140 succeeded with score: 1000
+Failed at step 52 	 -2.41 	 +0.16 	 +0.09
+Test 141 failed with score...: 52
+Failed at step 61 	 -2.40 	 +0.21 	 +0.33
+Test 142 failed with score...: 61
+Test 143 succeeded with score: 1000
+Test 144 succeeded with score: 1000
+Test 145 succeeded with score: 1000
+Failed at step 56 	 -2.41 	 +0.15 	 +0.08
+Test 146 failed with score...: 56
+Failed at step 71 	 -2.40 	 +0.19 	 +0.19
+Test 147 failed with score...: 71
+Test 148 succeeded with score: 1000
+Test 149 succeeded with score: 1000
+Test 150 succeeded with score: 1000
+Test 151 succeeded with score: 1000
+Test 152 succeeded with score: 1000
+Test 153 succeeded with score: 1000
+Test 154 succeeded with score: 1000
+Test 155 succeeded with score: 1000
+Test 156 succeeded with score: 1000
+Test 157 succeeded with score: 1000
+Test 158 succeeded with score: 1000
+Test 159 succeeded with score: 1000
+Test 160 succeeded with score: 1000
+Test 161 succeeded with score: 1000
+Test 162 succeeded with score: 1000
+Test 163 succeeded with score: 1000
+Test 164 succeeded with score: 1000
+Test 165 succeeded with score: 1000
+Test 166 succeeded with score: 1000
+Test 167 succeeded with score: 1000
+Test 168 succeeded with score: 1000
+Test 169 succeeded with score: 1000
+Test 170 succeeded with score: 1000
+Test 171 succeeded with score: 1000
+Test 172 succeeded with score: 1000
+Test 173 succeeded with score: 1000
+Test 174 succeeded with score: 1000
+Test 175 succeeded with score: 1000
+Test 176 succeeded with score: 1000
+Test 177 succeeded with score: 1000
+Test 178 succeeded with score: 1000
+Test 179 succeeded with score: 1000
+Test 180 succeeded with score: 1000
+Test 181 succeeded with score: 1000
+Test 182 succeeded with score: 1000
+Test 183 succeeded with score: 1000
+Test 184 succeeded with score: 1000
+Test 185 succeeded with score: 1000
+Test 186 succeeded with score: 1000
+Test 187 succeeded with score: 1000
+Test 188 succeeded with score: 1000
+Test 189 succeeded with score: 1000
+Test 190 succeeded with score: 1000
+Test 191 succeeded with score: 1000
+Test 192 succeeded with score: 1000
+Test 193 succeeded with score: 1000
+Test 194 succeeded with score: 1000
+Test 195 succeeded with score: 1000
+Test 196 succeeded with score: 1000
+Test 197 succeeded with score: 1000
+Test 198 succeeded with score: 1000
+Test 199 succeeded with score: 1000
+Test 200 succeeded with score: 1000
+Test 201 succeeded with score: 1000
+Test 202 succeeded with score: 1000
+Test 203 succeeded with score: 1000
+Test 204 succeeded with score: 1000
+Test 205 succeeded with score: 1000
+Test 206 succeeded with score: 1000
+Test 207 succeeded with score: 1000
+Test 208 succeeded with score: 1000
+Test 209 succeeded with score: 1000
+Test 210 succeeded with score: 1000
+Test 211 succeeded with score: 1000
+Test 212 succeeded with score: 1000
+Test 213 succeeded with score: 1000
+Test 214 succeeded with score: 1000
+Test 215 succeeded with score: 1000
+Test 216 succeeded with score: 1000
+Test 217 succeeded with score: 1000
+Test 218 succeeded with score: 1000
+Test 219 succeeded with score: 1000
+Test 220 succeeded with score: 1000
+Test 221 succeeded with score: 1000
+Test 222 succeeded with score: 1000
+Test 223 succeeded with score: 1000
+Test 224 succeeded with score: 1000
+Test 225 succeeded with score: 1000
+Test 226 succeeded with score: 1000
+Failed at step 340 	 -2.41 	 +0.23 	 +0.37
+Test 227 failed with score...: 340
+Failed at step 327 	 -2.42 	 +0.18 	 +0.29
+Test 228 failed with score...: 327
+Failed at step 324 	 -2.42 	 +0.14 	 +0.06
+Test 229 failed with score...: 324
+Failed at step 317 	 -2.42 	 +0.14 	 +0.21
+Test 230 failed with score...: 317
+Test 231 succeeded with score: 1000
+Test 232 succeeded with score: 1000
+Test 233 succeeded with score: 1000
+Failed at step 324 	 -2.42 	 +0.16 	 +0.22
+Test 234 failed with score...: 324
+Failed at step 312 	 -2.40 	 +0.10 	 +0.03
+Test 235 failed with score...: 312
+Test 236 succeeded with score: 1000
+Test 237 succeeded with score: 1000
+Test 238 succeeded with score: 1000
+Failed at step 326 	 -2.40 	 +0.16 	 +0.23
+Test 239 failed with score...: 326
+Failed at step 312 	 -2.41 	 +0.09 	 +0.01
+Test 240 failed with score...: 312
+Test 241 succeeded with score: 1000
+Test 242 succeeded with score: 1000
+Test 243 succeeded with score: 1000
+Test 244 succeeded with score: 1000
+Failed at step 315 	 -2.42 	 +0.16 	 +0.25
+Test 245 failed with score...: 315
+Test 246 succeeded with score: 1000
+Test 247 succeeded with score: 1000
+Test 248 succeeded with score: 1000
+Test 249 succeeded with score: 1000
+Failed at step 310 	 -2.40 	 +0.14 	 +0.16
+Test 250 failed with score...: 310
+Failed at step 485 	 -2.40 	 +0.20 	 +0.23
+Test 251 failed with score...: 485
+Test 252 succeeded with score: 1000
+Test 253 succeeded with score: 1000
+Test 254 succeeded with score: 1000
+Test 255 succeeded with score: 1000
+Test 256 succeeded with score: 1000
+Test 257 succeeded with score: 1000
+Test 258 succeeded with score: 1000
+Test 259 succeeded with score: 1000
+Test 260 succeeded with score: 1000
+Test 261 succeeded with score: 1000
+Test 262 succeeded with score: 1000
+Test 263 succeeded with score: 1000
+Test 264 succeeded with score: 1000
+Test 265 succeeded with score: 1000
+Test 266 succeeded with score: 1000
+Test 267 succeeded with score: 1000
+Test 268 succeeded with score: 1000
+Test 269 succeeded with score: 1000
+Test 270 succeeded with score: 1000
+Failed at step 87 	 -2.41 	 +0.26 	 +0.42
+Test 271 failed with score...: 87
+Test 272 succeeded with score: 1000
+Test 273 succeeded with score: 1000
+Test 274 succeeded with score: 1000
+Test 275 succeeded with score: 1000
+Test 276 succeeded with score: 1000
+Test 277 succeeded with score: 1000
+Test 278 succeeded with score: 1000
+Test 279 succeeded with score: 1000
+Test 280 succeeded with score: 1000
+Test 281 succeeded with score: 1000
+Test 282 succeeded with score: 1000
+Test 283 succeeded with score: 1000
+Test 284 succeeded with score: 1000
+Test 285 succeeded with score: 1000
+Test 286 succeeded with score: 1000
+Test 287 succeeded with score: 1000
+Test 288 succeeded with score: 1000
+Test 289 succeeded with score: 1000
+Test 290 succeeded with score: 1000
+Test 291 succeeded with score: 1000
+Test 292 succeeded with score: 1000
+Test 293 succeeded with score: 1000
+Test 294 succeeded with score: 1000
+Test 295 succeeded with score: 1000
+Test 296 succeeded with score: 1000
+Test 297 succeeded with score: 1000
+Test 298 succeeded with score: 1000
+Test 299 succeeded with score: 1000
+Test 300 succeeded with score: 1000
+Test 301 succeeded with score: 1000
+Test 302 succeeded with score: 1000
+Test 303 succeeded with score: 1000
+Test 304 succeeded with score: 1000
+Test 305 succeeded with score: 1000
+Test 306 succeeded with score: 1000
+Test 307 succeeded with score: 1000
+Test 308 succeeded with score: 1000
+Test 309 succeeded with score: 1000
+Test 310 succeeded with score: 1000
+Test 311 succeeded with score: 1000
+Test 312 succeeded with score: 1000
+Test 313 succeeded with score: 1000
+Test 314 succeeded with score: 1000
+Test 315 succeeded with score: 1000
+Test 316 succeeded with score: 1000
+Test 317 succeeded with score: 1000
+Test 318 succeeded with score: 1000
+Test 319 succeeded with score: 1000
+Test 320 succeeded with score: 1000
+Test 321 succeeded with score: 1000
+Test 322 succeeded with score: 1000
+Test 323 succeeded with score: 1000
+Test 324 succeeded with score: 1000
+Test 325 succeeded with score: 1000
+Test 326 succeeded with score: 1000
+Test 327 succeeded with score: 1000
+Test 328 succeeded with score: 1000
+Test 329 succeeded with score: 1000
+Test 330 succeeded with score: 1000
+Test 331 succeeded with score: 1000
+Test 332 succeeded with score: 1000
+Test 333 succeeded with score: 1000
+Test 334 succeeded with score: 1000
+Test 335 succeeded with score: 1000
+Test 336 succeeded with score: 1000
+Test 337 succeeded with score: 1000
+Test 338 succeeded with score: 1000
+Test 339 succeeded with score: 1000
+Test 340 succeeded with score: 1000
+Test 341 succeeded with score: 1000
+Test 342 succeeded with score: 1000
+Test 343 succeeded with score: 1000
+Test 344 succeeded with score: 1000
+Test 345 succeeded with score: 1000
+Test 346 succeeded with score: 1000
+Test 347 succeeded with score: 1000
+Test 348 succeeded with score: 1000
+Test 349 succeeded with score: 1000
+Test 350 succeeded with score: 1000
+Test 351 succeeded with score: 1000
+Test 352 succeeded with score: 1000
+Test 353 succeeded with score: 1000
+Test 354 succeeded with score: 1000
+Test 355 succeeded with score: 1000
+Test 356 succeeded with score: 1000
+Test 357 succeeded with score: 1000
+Test 358 succeeded with score: 1000
+Test 359 succeeded with score: 1000
+Test 360 succeeded with score: 1000
+Test 361 succeeded with score: 1000
+Test 362 succeeded with score: 1000
+Test 363 succeeded with score: 1000
+Test 364 succeeded with score: 1000
+Test 365 succeeded with score: 1000
+Test 366 succeeded with score: 1000
+Test 367 succeeded with score: 1000
+Test 368 succeeded with score: 1000
+Test 369 succeeded with score: 1000
+Test 370 succeeded with score: 1000
+Test 371 succeeded with score: 1000
+Test 372 succeeded with score: 1000
+Test 373 succeeded with score: 1000
+Test 374 succeeded with score: 1000
+Test 375 succeeded with score: 1000
+Failed at step 323 	 +2.40 	 -0.17 	 -0.17
+Test 376 failed with score...: 323
+Failed at step 920 	 -2.40 	 +0.16 	 +0.09
+Test 377 failed with score...: 920
+Test 378 succeeded with score: 1000
+Test 379 succeeded with score: 1000
+Test 380 succeeded with score: 1000
+Failed at step 504 	 -2.41 	 +0.17 	 +0.11
+Test 381 failed with score...: 504
+Failed at step 922 	 -2.41 	 +0.17 	 +0.17
+Test 382 failed with score...: 922
+Test 383 succeeded with score: 1000
+Test 384 succeeded with score: 1000
+Test 385 succeeded with score: 1000
+Failed at step 100 	 -2.41 	 +0.22 	 +0.34
+Test 386 failed with score...: 100
+Failed at step 339 	 +2.40 	 -0.23 	 -0.36
+Test 387 failed with score...: 339
+Failed at step 517 	 -2.40 	 +0.21 	 +0.32
+Test 388 failed with score...: 517
+Test 389 succeeded with score: 1000
+Test 390 succeeded with score: 1000
+Failed at step 95 	 -2.42 	 +0.26 	 +0.26
+Test 391 failed with score...: 95
+Failed at step 108 	 -2.41 	 +0.21 	 +0.24
+Test 392 failed with score...: 108
+Failed at step 513 	 -2.40 	 +0.21 	 +0.17
+Test 393 failed with score...: 513
+Failed at step 520 	 -2.40 	 +0.22 	 +0.33
+Test 394 failed with score...: 520
+Test 395 succeeded with score: 1000
+Failed at step 328 	 +2.40 	 -0.25 	 -0.22
+Test 396 failed with score...: 328
+Failed at step 909 	 -2.40 	 +0.22 	 +0.19
+Test 397 failed with score...: 909
+Failed at step 912 	 -2.40 	 +0.24 	 +0.36
+Test 398 failed with score...: 912
+Test 399 succeeded with score: 1000
+Test 400 succeeded with score: 1000
+Test 401 succeeded with score: 1000
+Test 402 succeeded with score: 1000
+Test 403 succeeded with score: 1000
+Test 404 succeeded with score: 1000
+Test 405 succeeded with score: 1000
+Test 406 succeeded with score: 1000
+Test 407 succeeded with score: 1000
+Test 408 succeeded with score: 1000
+Test 409 succeeded with score: 1000
+Test 410 succeeded with score: 1000
+Test 411 succeeded with score: 1000
+Test 412 succeeded with score: 1000
+Test 413 succeeded with score: 1000
+Test 414 succeeded with score: 1000
+Test 415 succeeded with score: 1000
+Failed at step 921 	 -2.40 	 +0.22 	 +0.28
+Test 416 failed with score...: 921
+Test 417 succeeded with score: 1000
+Test 418 succeeded with score: 1000
+Test 419 succeeded with score: 1000
+Test 420 succeeded with score: 1000
+Test 421 succeeded with score: 1000
+Test 422 succeeded with score: 1000
+Test 423 succeeded with score: 1000
+Test 424 succeeded with score: 1000
+Test 425 succeeded with score: 1000
+Test 426 succeeded with score: 1000
+Test 427 succeeded with score: 1000
+Test 428 succeeded with score: 1000
+Test 429 succeeded with score: 1000
+Test 430 succeeded with score: 1000
+Test 431 succeeded with score: 1000
+Test 432 succeeded with score: 1000
+Test 433 succeeded with score: 1000
+Test 434 succeeded with score: 1000
+Test 435 succeeded with score: 1000
+Test 436 succeeded with score: 1000
+Test 437 succeeded with score: 1000
+Test 438 succeeded with score: 1000
+Test 439 succeeded with score: 1000
+Test 440 succeeded with score: 1000
+Test 441 succeeded with score: 1000
+Test 442 succeeded with score: 1000
+Test 443 succeeded with score: 1000
+Test 444 succeeded with score: 1000
+Test 445 succeeded with score: 1000
+Test 446 succeeded with score: 1000
+Test 447 succeeded with score: 1000
+Test 448 succeeded with score: 1000
+Test 449 succeeded with score: 1000
+Test 450 succeeded with score: 1000
+Test 451 succeeded with score: 1000
+Test 452 succeeded with score: 1000
+Test 453 succeeded with score: 1000
+Test 454 succeeded with score: 1000
+Test 455 succeeded with score: 1000
+Test 456 succeeded with score: 1000
+Test 457 succeeded with score: 1000
+Test 458 succeeded with score: 1000
+Test 459 succeeded with score: 1000
+Test 460 succeeded with score: 1000
+Test 461 succeeded with score: 1000
+Test 462 succeeded with score: 1000
+Test 463 succeeded with score: 1000
+Test 464 succeeded with score: 1000
+Test 465 succeeded with score: 1000
+Test 466 succeeded with score: 1000
+Test 467 succeeded with score: 1000
+Test 468 succeeded with score: 1000
+Test 469 succeeded with score: 1000
+Test 470 succeeded with score: 1000
+Test 471 succeeded with score: 1000
+Test 472 succeeded with score: 1000
+Test 473 succeeded with score: 1000
+Test 474 succeeded with score: 1000
+Test 475 succeeded with score: 1000
+Test 476 succeeded with score: 1000
+Test 477 succeeded with score: 1000
+Test 478 succeeded with score: 1000
+Failed at step 241 	 -2.41 	 +0.18 	 +0.21
+Test 479 failed with score...: 241
+Failed at step 59 	 +2.41 	 -0.19 	 -0.15
+Test 480 failed with score...: 59
+Test 481 succeeded with score: 1000
+Test 482 succeeded with score: 1000
+Test 483 succeeded with score: 1000
+Failed at step 640 	 -2.41 	 +0.17 	 +0.11
+Test 484 failed with score...: 640
+Failed at step 54 	 +2.41 	 -0.20 	 -0.16
+Test 485 failed with score...: 54
+Test 486 succeeded with score: 1000
+Test 487 succeeded with score: 1000
+Test 488 succeeded with score: 1000
+Failed at step 57 	 +2.40 	 -0.23 	 -0.22
+Test 489 failed with score...: 57
+Failed at step 47 	 +2.42 	 -0.21 	 -0.30
+Test 490 failed with score...: 47
+Test 491 succeeded with score: 1000
+Test 492 succeeded with score: 1000
+Failed at step 621 	 -2.40 	 +0.21 	 +0.26
+Test 493 failed with score...: 621
+Failed at step 46 	 +2.41 	 -0.26 	 -0.42
+Test 494 failed with score...: 46
+Failed at step 42 	 +2.41 	 -0.22 	 -0.24
+Test 495 failed with score...: 42
+Test 496 succeeded with score: 1000
+Test 497 succeeded with score: 1000
+Failed at step 450 	 +2.40 	 -0.28 	 -0.44
+Test 498 failed with score...: 450
+Failed at step 43 	 +2.42 	 -0.26 	 -0.27
+Test 499 failed with score...: 43
+Failed at step 39 	 +2.40 	 -0.23 	 -0.22
+Test 500 failed with score...: 39
+Failed at step 103 	 -2.41 	 +0.18 	 +0.13
+Test 501 failed with score...: 103
+Failed at step 109 	 -2.40 	 +0.18 	 +0.28
+Test 502 failed with score...: 109
+Failed at step 118 	 -2.41 	 +0.16 	 +0.17
+Test 503 failed with score...: 118
+Failed at step 126 	 -2.40 	 +0.15 	 +0.10
+Test 504 failed with score...: 126
+Failed at step 133 	 -2.40 	 +0.16 	 +0.23
+Test 505 failed with score...: 133
+Failed at step 99 	 -2.41 	 +0.23 	 +0.26
+Test 506 failed with score...: 99
+Failed at step 106 	 -2.41 	 +0.21 	 +0.23
+Test 507 failed with score...: 106
+Failed at step 115 	 -2.40 	 +0.19 	 +0.28
+Test 508 failed with score...: 115
+Failed at step 126 	 -2.41 	 +0.15 	 +0.13
+Test 509 failed with score...: 126
+Failed at step 136 	 -2.40 	 +0.10 	 +0.02
+Test 510 failed with score...: 136
+Failed at step 97 	 -2.42 	 +0.27 	 +0.32
+Test 511 failed with score...: 97
+Failed at step 101 	 -2.41 	 +0.27 	 +0.44
+Test 512 failed with score...: 101
+Failed at step 108 	 -2.42 	 +0.23 	 +0.23
+Test 513 failed with score...: 108
+Failed at step 116 	 -2.41 	 +0.20 	 +0.15
+Test 514 failed with score...: 116
+Failed at step 123 	 -2.41 	 +0.20 	 +0.32
+Test 515 failed with score...: 123
+Failed at step 101 	 -2.41 	 +0.28 	 +0.39
+Test 516 failed with score...: 101
+Failed at step 104 	 -2.41 	 +0.27 	 +0.40
+Test 517 failed with score...: 104
+Failed at step 112 	 -2.41 	 +0.21 	 +0.29
+Test 518 failed with score...: 112
+Failed at step 122 	 -2.41 	 +0.11 	 +0.02
+Test 519 failed with score...: 122
+Failed at step 135 	 -2.40 	 +0.02 	 -0.01
+Test 520 failed with score...: 135
+Failed at step 125 	 -2.44 	 -0.06 	 -0.21
+Test 521 failed with score...: 125
+Failed at step 129 	 -2.42 	 -0.03 	 -0.06
+Test 522 failed with score...: 129
+Failed at step 131 	 -2.43 	 +0.06 	 +0.14
+Test 523 failed with score...: 131
+Failed at step 105 	 -1.10 	 -0.28 	 -0.71
+Test 524 failed with score...: 105
+Failed at step 136 	 -2.43 	 +0.26 	 +0.30
+Test 525 failed with score...: 136
+Failed at step 150 	 -2.41 	 +0.06 	 -0.02
+Test 526 failed with score...: 150
+Failed at step 155 	 -2.41 	 +0.10 	 +0.17
+Test 527 failed with score...: 155
+Failed at step 168 	 -2.40 	 +0.11 	 +0.19
+Test 528 failed with score...: 168
+Failed at step 955 	 -2.40 	 +0.17 	 +0.26
+Test 529 failed with score...: 955
+Failed at step 955 	 -2.40 	 +0.18 	 +0.28
+Test 530 failed with score...: 955
+Failed at step 147 	 -2.41 	 +0.05 	 +0.08
+Test 531 failed with score...: 147
+Failed at step 155 	 -2.40 	 +0.04 	 -0.10
+Test 532 failed with score...: 155
+Failed at step 164 	 -2.40 	 +0.09 	 +0.11
+Test 533 failed with score...: 164
+Failed at step 175 	 -2.40 	 +0.12 	 +0.19
+Test 534 failed with score...: 175
+Failed at step 186 	 -2.40 	 +0.14 	 +0.16
+Test 535 failed with score...: 186
+Failed at step 142 	 -2.41 	 -0.02 	 -0.16
+Test 536 failed with score...: 142
+Failed at step 147 	 -2.41 	 +0.02 	 +0.04
+Test 537 failed with score...: 147
+Failed at step 159 	 -2.41 	 +0.04 	 +0.08
+Test 538 failed with score...: 159
+Failed at step 167 	 -2.42 	 +0.05 	 +0.02
+Test 539 failed with score...: 167
+Failed at step 170 	 -2.40 	 +0.07 	 +0.11
+Test 540 failed with score...: 170
+Failed at step 160 	 -2.41 	 +0.07 	 +0.11
+Test 541 failed with score...: 160
+Failed at step 159 	 -2.42 	 +0.06 	 +0.08
+Test 542 failed with score...: 159
+Failed at step 165 	 -2.40 	 +0.06 	 -0.05
+Test 543 failed with score...: 165
+Failed at step 169 	 -2.41 	 +0.08 	 +0.08
+Test 544 failed with score...: 169
+Failed at step 174 	 -2.41 	 +0.10 	 +0.08
+Test 545 failed with score...: 174
+Failed at step 143 	 -2.43 	 +0.18 	 +0.21
+Test 546 failed with score...: 143
+Failed at step 140 	 -2.28 	 +0.32 	 +0.63
+Test 547 failed with score...: 140
+Failed at step 152 	 -2.42 	 +0.30 	 +0.33
+Test 548 failed with score...: 152
+Failed at step 41 	 +1.60 	 -0.30 	 -0.63
+Test 549 failed with score...: 41
+Failed at step 41 	 +1.68 	 -0.30 	 -0.64
+Test 550 failed with score...: 41
+Failed at step 181 	 -2.40 	 +0.18 	 +0.15
+Test 551 failed with score...: 181
+Failed at step 189 	 -2.40 	 +0.20 	 +0.33
+Test 552 failed with score...: 189
+Failed at step 196 	 -2.40 	 +0.17 	 +0.11
+Test 553 failed with score...: 196
+Failed at step 200 	 -2.41 	 +0.19 	 +0.22
+Test 554 failed with score...: 200
+Failed at step 199 	 -2.41 	 +0.17 	 +0.15
+Test 555 failed with score...: 199
+Failed at step 176 	 -2.41 	 +0.16 	 +0.09
+Test 556 failed with score...: 176
+Failed at step 181 	 -2.40 	 +0.17 	 +0.22
+Test 557 failed with score...: 181
+Failed at step 187 	 -2.40 	 +0.18 	 +0.26
+Test 558 failed with score...: 187
+Failed at step 193 	 -2.41 	 +0.17 	 +0.10
+Test 559 failed with score...: 193
+Failed at step 194 	 -2.41 	 +0.15 	 +0.07
+Test 560 failed with score...: 194
+Failed at step 170 	 -2.42 	 +0.16 	 +0.25
+Test 561 failed with score...: 170
+Failed at step 178 	 -2.41 	 +0.16 	 +0.21
+Test 562 failed with score...: 178
+Failed at step 180 	 -2.43 	 +0.17 	 +0.27
+Test 563 failed with score...: 180
+Failed at step 186 	 -2.41 	 +0.15 	 +0.08
+Test 564 failed with score...: 186
+Failed at step 187 	 -2.42 	 +0.15 	 +0.07
+Test 565 failed with score...: 187
+Failed at step 175 	 -2.42 	 +0.22 	 +0.25
+Test 566 failed with score...: 175
+Failed at step 179 	 -2.40 	 +0.23 	 +0.22
+Test 567 failed with score...: 179
+Failed at step 181 	 -2.41 	 +0.24 	 +0.33
+Test 568 failed with score...: 181
+Failed at step 184 	 -2.40 	 +0.22 	 +0.33
+Test 569 failed with score...: 184
+Failed at step 184 	 -2.43 	 +0.22 	 +0.35
+Test 570 failed with score...: 184
+Failed at step 240 	 -2.42 	 +0.23 	 +0.30
+Test 571 failed with score...: 240
+Failed at step 67 	 +0.84 	 +0.24 	 +0.67
+Test 572 failed with score...: 67
+Failed at step 41 	 +2.07 	 -0.31 	 -0.63
+Test 573 failed with score...: 41
+Failed at step 40 	 +2.19 	 -0.32 	 -0.65
+Test 574 failed with score...: 40
+Failed at step 40 	 +2.26 	 -0.33 	 -0.66
+Test 575 failed with score...: 40
+Failed at step 197 	 -2.41 	 +0.20 	 +0.20
+Test 576 failed with score...: 197
+Failed at step 198 	 -2.40 	 +0.19 	 +0.21
+Test 577 failed with score...: 198
+Failed at step 197 	 -2.41 	 +0.16 	 +0.09
+Test 578 failed with score...: 197
+Failed at step 44 	 +2.40 	 -0.20 	 -0.28
+Test 579 failed with score...: 44
+Failed at step 33 	 +2.40 	 -0.13 	 -0.19
+Test 580 failed with score...: 33
+Failed at step 190 	 -2.42 	 +0.21 	 +0.17
+Test 581 failed with score...: 190
+Failed at step 190 	 -2.40 	 +0.18 	 +0.10
+Test 582 failed with score...: 190
+Failed at step 194 	 -2.40 	 +0.19 	 +0.21
+Test 583 failed with score...: 194
+Failed at step 31 	 +2.40 	 -0.15 	 -0.16
+Test 584 failed with score...: 31
+Failed at step 29 	 +2.41 	 -0.12 	 -0.13
+Test 585 failed with score...: 29
+Failed at step 185 	 -2.42 	 +0.23 	 +0.24
+Test 586 failed with score...: 185
+Failed at step 32 	 +2.40 	 -0.23 	 -0.31
+Test 587 failed with score...: 32
+Failed at step 29 	 +2.41 	 -0.17 	 -0.09
+Test 588 failed with score...: 29
+Failed at step 26 	 +2.40 	 -0.12 	 -0.07
+Test 589 failed with score...: 26
+Failed at step 25 	 +2.41 	 -0.09 	 -0.08
+Test 590 failed with score...: 25
+Failed at step 28 	 +2.41 	 -0.22 	 -0.15
+Test 591 failed with score...: 28
+Failed at step 25 	 +2.41 	 -0.19 	 -0.23
+Test 592 failed with score...: 25
+Failed at step 23 	 +2.40 	 -0.15 	 -0.25
+Test 593 failed with score...: 23
+Failed at step 22 	 +2.40 	 -0.11 	 -0.19
+Test 594 failed with score...: 22
+Failed at step 22 	 +2.42 	 -0.09 	 -0.15
+Test 595 failed with score...: 22
+Failed at step 23 	 +2.42 	 -0.22 	 -0.37
+Test 596 failed with score...: 23
+Failed at step 22 	 +2.41 	 -0.17 	 -0.24
+Test 597 failed with score...: 22
+Failed at step 21 	 +2.40 	 -0.12 	 -0.07
+Test 598 failed with score...: 21
+Failed at step 21 	 +2.42 	 -0.10 	 -0.02
+Test 599 failed with score...: 21
+Failed at step 20 	 +2.40 	 -0.06 	 +0.13
+Test 600 failed with score...: 20
+Failed at step 20 	 +2.41 	 -0.16 	 -0.20
+Test 601 failed with score...: 20
+Failed at step 19 	 +2.40 	 -0.13 	 -0.16
+Test 602 failed with score...: 19
+Failed at step 19 	 +2.41 	 -0.11 	 -0.12
+Test 603 failed with score...: 19
+Failed at step 18 	 +2.40 	 -0.08 	 -0.07
+Test 604 failed with score...: 18
+Failed at step 18 	 +2.41 	 -0.06 	 -0.05
+Test 605 failed with score...: 18
+Failed at step 19 	 +2.42 	 -0.14 	 -0.11
+Test 606 failed with score...: 19
+Failed at step 18 	 +2.41 	 -0.11 	 -0.08
+Test 607 failed with score...: 18
+Failed at step 18 	 +2.42 	 -0.09 	 -0.05
+Test 608 failed with score...: 18
+Failed at step 17 	 +2.40 	 -0.06 	 -0.01
+Test 609 failed with score...: 17
+Failed at step 17 	 +2.41 	 -0.04 	 +0.02
+Test 610 failed with score...: 17
+Failed at step 17 	 +2.41 	 -0.11 	 -0.01
+Test 611 failed with score...: 17
+Failed at step 17 	 +2.41 	 -0.09 	 +0.03
+Test 612 failed with score...: 17
+Failed at step 17 	 +2.42 	 -0.06 	 +0.07
+Test 613 failed with score...: 17
+Failed at step 17 	 +2.43 	 -0.03 	 +0.12
+Test 614 failed with score...: 17
+Failed at step 16 	 +2.40 	 -0.01 	 +0.15
+Test 615 failed with score...: 16
+Failed at step 16 	 +2.41 	 -0.08 	 +0.06
+Test 616 failed with score...: 16
+Failed at step 16 	 +2.42 	 -0.06 	 +0.09
+Test 617 failed with score...: 16
+Failed at step 16 	 +2.42 	 -0.04 	 +0.13
+Test 618 failed with score...: 16
+Failed at step 16 	 +2.43 	 -0.02 	 +0.16
+Test 619 failed with score...: 16
+Failed at step 15 	 +2.40 	 +0.01 	 +0.15
+Test 620 failed with score...: 15
+Failed at step 15 	 +2.42 	 -0.09 	 -0.07
+Test 621 failed with score...: 15
+Failed at step 14 	 +2.40 	 -0.07 	 -0.13
+Test 622 failed with score...: 14
+Failed at step 14 	 +2.41 	 -0.05 	 -0.11
+Test 623 failed with score...: 14
+Failed at step 14 	 +2.41 	 -0.03 	 -0.09
+Test 624 failed with score...: 14
+Failed at step 14 	 +2.42 	 -0.02 	 -0.08
+Test 625 failed with score...: 14
+	Winner passed the generalization test with score: 353
+
