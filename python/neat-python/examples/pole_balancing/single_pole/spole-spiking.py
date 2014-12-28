@@ -1,8 +1,8 @@
 # ******************************** #
 # Single pole balancing experiment #
 # ******************************** #
-from neat import config, population, chromosome, genome, visualize
-from neat.nn import nn_pure as nn
+from neat import config, population, chromosome, genome, visualize, iznn
+#from neat.nn import nn_pure as nn
 import cPickle as pickle
 import math, random
 
@@ -60,7 +60,8 @@ def evaluate_population(population):
     
     for chromo in population:
         
-        net = nn.create_phenotype(chromo)
+        #net = nn.create_phenotype(chromo)
+        brain = iznn.create_phenotype(chromo)
         
         # initial conditions (as used by Stanley)        
         x         = random.randint(0, 4799)/1000.0 - 2.4
@@ -86,7 +87,8 @@ def evaluate_population(population):
             # nada garante que a evolucao do sistema leve a outros
             # valores de x, x_dot e etc...
                       
-            action = net.pactivate(inputs)
+            #action = net.pactivate(inputs)
+            action = brain.advance(inputs)
             
             # Apply action to the simulated cart-pole
             x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)
@@ -110,7 +112,8 @@ if __name__ == "__main__":
     
     population.Population.evaluate = evaluate_population
     pop = population.Population()
-    pop.epoch(200, report=1, save_best=0)
+    #pop.epoch(200, report=1, save_best=0)
+    pop.epoch(500, report=1, save_best=0)
     
     print 'Number of evaluations: %d' %(pop.stats[0][-1]).id
     
