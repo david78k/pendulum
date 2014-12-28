@@ -35,11 +35,11 @@ if __name__ == "__main__":
     winner = pop.stats[0][-1]
 
     # visualize the best topology
-    #visualize.draw_net(winner) # best chromosome
+    visualize.draw_net(winner) # best chromosome
     # Plots the evolution of the best/average fitness
-    #visualize.plot_stats(pop.stats)
+    visualize.plot_stats(pop.stats)
     # Visualizes speciation
-    #visualize.plot_species(pop.species_log)
+    visualize.plot_species(pop.species_log)
 
     print 'Number of evaluations: %d' %winner.id
     print 'Winner score: %d' %winner.score
