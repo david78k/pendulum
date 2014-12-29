@@ -2,7 +2,7 @@
 # Single pole balancing experiment #
 # ******************************** #
 from neat import config, population, chromosome, genome, visualize, iznn
-#from neat.nn import nn_pure as nn
+from neat.nn import nn_pure as refnn
 import cPickle as pickle
 import math, random
 
@@ -61,7 +61,7 @@ def evaluate_population(population):
     
     for chromo in population:
         
-        #net = nn.create_phenotype(chromo)
+        refnet = refnn.create_phenotype(chromo)
         brain = iznn.create_phenotype(chromo)
         
         # initial conditions (as used by Stanley)        
@@ -88,7 +88,7 @@ def evaluate_population(population):
             # nada garante que a evolucao do sistema leve a outros
             # valores de x, x_dot e etc...
                       
-            #action = net.pactivate(inputs)
+            ref_action = refnet.pactivate(inputs)
 	    for j in range(MAX_TIME):
 	        action = brain.advance(inputs)
             
