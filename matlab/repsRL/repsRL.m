@@ -5,8 +5,8 @@ rng('shuffle');
 
 % domain
 % domain = 'acrobot2';
-domain = 'mcar';
-% domain = 'pendulum';
+%domain = 'mcar';
+domain = 'pendulum';
 % domain = 'cifar';
 
 % parameterization of the MDP
