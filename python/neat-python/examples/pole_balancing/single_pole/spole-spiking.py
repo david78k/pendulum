@@ -88,9 +88,12 @@ def evaluate_population(population):
             # nada garante que a evolucao do sistema leve a outros
             # valores de x, x_dot e etc...
                       
-            ref_action = refnet.pactivate(inputs)
-	    for j in range(MAX_TIME):
-	        action = brain.advance(inputs)
+            #ref_action = refnet.pactivate(inputs)
+	    #for j in range(MAX_TIME):
+	    #    action = brain.advance(inputs)
+	    action = brain.advance(inputs)
+	    print inputs,action
+	    #[0.011440711571233664, -0.08630150913576802, 1.0056547273034697, 1.8375648386104453] [False]
             
             # Apply action to the simulated cart-pole
             x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)

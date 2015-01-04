@@ -1,0 +1,31 @@
+$Id: TODO.txt 229 2008-03-03 04:38:00Z jprovost $
+
+TO DO List for Plastk
+
+- Documentation! Need good module-, class-, and function-level
+  docstrings in all modules.  See base/parameterizedobject.py and
+  misc/experiment.py for examples.
+
+- Doctest: add support for running doctests found in documentation
+  strings in module code.
+
+- Move this list to a set of tickets in the sourceforge project tracker.
+
+- RL-Glue support (see http://code.google.com/p/rl-glue/)
+
+- Separate GUI from LoggingRLI. Should be a completely separate
+  entity: a wrapper for an RLI or LoggingRLI 
+
+- Clean up data file handling in LoggingRLI 
+   - should be handled inside DataRecorder object. 
+
+- Move base.params* into plastk.params (also to do in topographica)
+
+- Clean up/reorganize rl subpackage.
+  - Separate into
+    - agents: containing, e.g. td.py and options.py
+    - envs: containing gridworld.py, pendulum.py, etc.
+    - features: containing feature extractors like tiles.py (not so
+      sure about this one.  Vector quantizers are also feature
+      extractors, right?	  
+
