@@ -89,7 +89,9 @@ def evaluate_population(population):
             # valores de x, x_dot e etc...
                       
             action = net.pactivate(inputs)
-            
+	    print inputs,action
+            # [0.6731124662078692, 0.4177235725492288, 0.34882554840901664, 0.41364238610962345] [0.344597476333986]
+ 
             # Apply action to the simulated cart-pole
             x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)
             
@@ -119,10 +121,10 @@ if __name__ == "__main__":
     print 'Number of evaluations: %d' %(pop.stats[0][-1]).id
     
     # visualize the best topology
-    visualize.draw_net(pop.stats[0][-1]) # best chromosome
+   # visualize.draw_net(pop.stats[0][-1]) # best chromosome
     # Plots the evolution of the best/average fitness
-    visualize.plot_stats(pop.stats)
-    visualize.plot_species(pop.species_log)
+   # visualize.plot_stats(pop.stats)
+   # visualize.plot_species(pop.species_log)
     
     # saves the winner
     file = open('winner_chromosome', 'w')
