@@ -58,6 +58,7 @@ def evaluate_population(population):
     twelve_degrees = 0.2094384 #radians
     num_steps = 10**5
     MAX_TIME = 100
+    spikes = 0
     
     for chromo in population:
         
@@ -93,21 +94,27 @@ def evaluate_population(population):
 	    # values of x, x_dot and etc...
                       
             #ref_action = refnet.pactivate(inputs)
-	    #for j in range(MAX_TIME):
-	    #    action = brain.advance(inputs)
+	    for j in range(MAX_TIME):
+	     #   action = brain.advance(inputs)
+	    	output = brain.advance([i * 10 for i in inputs])
 	    #action = brain.advance(inputs)
-	    output = brain.advance([i * 10 for i in inputs])
+	    #output = brain.advance([i * 20 for i in inputs])
+	        if output[0] == True:
+	           break;
 	    if output[0] == False:
 	        action = 0
 	    else:
 	        action = 1
-	    	print inputs,output,action
 	    #[0.011440711571233664, -0.08630150913576802, 1.0056547273034697, 1.8375648386104453] [False]
             
             # Apply action to the simulated cart-pole
             x, x_dot, theta, theta_dot = cart_pole(action, x, x_dot, theta, theta_dot)
             #x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)
             
+	    #if action == 1:
+	    #	print inputs,output,action
+	    spikes += action
+
             # Check for failure.  If so, return steps
             # the number of steps indicates the fitness: higher = better
             fitness += 1
@@ -117,6 +124,7 @@ def evaluate_population(population):
                 break
                 
         chromo.fitness = fitness
+    print 'Spikes:',spikes,', Firing rate:',spikes/MAX_TIME,'(spikes/ms)'
 
 if __name__ == "__main__":
      
@@ -127,8 +135,8 @@ if __name__ == "__main__":
     
     population.Population.evaluate = evaluate_population
     pop = population.Population()
-    #pop.epoch(200, report=1, save_best=0)
-    pop.epoch(500, report=1, save_best=0)
+    pop.epoch(200, report=1, save_best=0)
+    #pop.epoch(500, report=1, save_best=0)
     
     print 'Number of evaluations: %d' %(pop.stats[0][-1]).id
     
