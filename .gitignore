@@ -12,3 +12,4 @@ python/neat-python/.svn/
 python/neat-python/build/
 python/neat-python/examples/pole_balancing/single_pole/checkpoint_393
 checkpoint_*
+*.o
