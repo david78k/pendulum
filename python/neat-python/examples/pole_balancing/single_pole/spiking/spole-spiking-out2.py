@@ -99,11 +99,11 @@ def evaluate_population(population):
 	    	output = brain.advance([i * 10 for i in inputs])
 	    #action = brain.advance(inputs)
 	    #output = brain.advance([i * 20 for i in inputs])
-	        if output[0] == True:
+	        if output[0] != output[1]: # left or right
 	           break;
-	    if output[0] == False:
+	    if output[0] and not output[1]: # left
 	        action = 0
-	    else:
+	    else: # right
 	        action = 1
 	    #[0.011440711571233664, -0.08630150913576802, 1.0056547273034697, 1.8375648386104453] [False]
             

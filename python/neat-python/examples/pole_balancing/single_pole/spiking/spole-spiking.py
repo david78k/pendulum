@@ -57,7 +57,7 @@ def evaluate_population(population):
     
     twelve_degrees = 0.2094384 #radians
     num_steps = 10**5
-    MAX_TIME = 100
+    MAX_TIME = 200
     spikes = 0
     
     for chromo in population:
@@ -135,8 +135,8 @@ if __name__ == "__main__":
     
     population.Population.evaluate = evaluate_population
     pop = population.Population()
-    pop.epoch(200, report=1, save_best=0)
-    #pop.epoch(500, report=1, save_best=0)
+    #pop.epoch(200, report=1, save_best=0)
+    pop.epoch(1000, report=1, save_best=0)
     
     print 'Number of evaluations: %d' %(pop.stats[0][-1]).id
     
