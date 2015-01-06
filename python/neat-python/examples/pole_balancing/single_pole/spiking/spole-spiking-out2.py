@@ -1,10 +1,8 @@
 # ******************************** #
 # Single pole balancing experiment #
 # ******************************** #
-#from neat import config, population, chromosome, genome2, visualize
-from neat import config, population, chromosome, genome, visualize
-#from neat import nn
-from neat.nn import nn_pure as nn
+from neat import config, population, chromosome, genome, visualize, iznn
+from neat.nn import nn_pure as refnn
 import cPickle as pickle
 import math, random
 
@@ -59,10 +57,13 @@ def evaluate_population(population):
     
     twelve_degrees = 0.2094384 #radians
     num_steps = 10**5
+    MAX_TIME = 100
+    spikes = 0
     
     for chromo in population:
         
-        net = nn.create_phenotype(chromo)
+        #refnet = refnn.create_phenotype(chromo)
+        brain = iznn.create_phenotype(chromo)
         
         # initial conditions (as used by Stanley)        
         x         = random.randint(0, 4799)/1000.0 - 2.4
@@ -79,6 +80,7 @@ def evaluate_population(population):
         for trials in xrange(num_steps):
         
             # maps into [0,1]
+            #inputs = [(x + 2.4)/4.8, 
             inputs = [(x + 2.4)/4.8, 
                       (x_dot + 0.75)/1.5,
                       (theta + twelve_degrees)/0.41,
@@ -86,15 +88,33 @@ def evaluate_population(population):
             
             # a normalizacao so acontece para estas condicoes iniciais
             # nada garante que a evolucao do sistema leve a outros
-            # valores de x, x_dot e etc...
+            # valores de x, x_dot e etc... (Portuguese)
+	    # the normalization only happens for these initial conditions
+ 	    # no guarantee that the evolution of the system takes other
+	    # values of x, x_dot and etc...
                       
-            action = net.pactivate(inputs)
-	    #print inputs,action
-            # [0.6731124662078692, 0.4177235725492288, 0.34882554840901664, 0.41364238610962345] [0.344597476333986]
- 
-            # Apply action to the simulated cart-pole
-            x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)
+            #ref_action = refnet.pactivate(inputs)
+	    for j in range(MAX_TIME):
+	     #   action = brain.advance(inputs)
+	    	output = brain.advance([i * 10 for i in inputs])
+	    #action = brain.advance(inputs)
+	    #output = brain.advance([i * 20 for i in inputs])
+	        if output[0] == True:
+	           break;
+	    if output[0] == False:
+	        action = 0
+	    else:
+	        action = 1
+	    #[0.011440711571233664, -0.08630150913576802, 1.0056547273034697, 1.8375648386104453] [False]
             
+            # Apply action to the simulated cart-pole
+            x, x_dot, theta, theta_dot = cart_pole(action, x, x_dot, theta, theta_dot)
+            #x, x_dot, theta, theta_dot = cart_pole(action[0], x, x_dot, theta, theta_dot)
+            
+	    #if action == 1:
+	    #	print inputs,output,action
+	    spikes += action
+
             # Check for failure.  If so, return steps
             # the number of steps indicates the fitness: higher = better
             fitness += 1
@@ -104,19 +124,21 @@ def evaluate_population(population):
                 break
                 
         chromo.fitness = fitness
+    print 'Spikes:',spikes,', Firing rate:',spikes/MAX_TIME,'(spikes/ms)'
 
 if __name__ == "__main__":
      
     config.load('spole_config') 
 
     # Temporary workaround
-    #chromosome.node_gene_type = genome2.NodeGene
     chromosome.node_gene_type = genome.NodeGene
     
+    config.Config.output_nodes = 2
+
     population.Population.evaluate = evaluate_population
     pop = population.Population()
-    #pop.epoch(200, report=1, save_best=0)
-    pop.epoch(500, report=1, save_best=0)
+    pop.epoch(200, report=1, save_best=0)
+    #pop.epoch(500, report=1, save_best=0)
     
     print 'Number of evaluations: %d' %(pop.stats[0][-1]).id
     

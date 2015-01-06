@@ -1,0 +1,17 @@
+
+ ****** Running generation 0 ****** 
+
+Population's average fitness: 12.77000 stdev: 15.67026
+Best fitness: 121 - size: (0, 4) - species 1 - id 83
+Species length: 1 totalizing 100 individuals
+Species ID       : [1]
+Each species size: [100]
+Amount to spawn  : [100]
+Species age      : [0]
+Species no improv: [0]
+
+ ****** Running generation 1 ****** 
+
+
+Best individual found in epoch 1 - complexity: (0, 4)
+Number of evaluations: 153

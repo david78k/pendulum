@@ -1,0 +1,533 @@
+
+ ****** Running generation 0 ****** 
+
+Population's average fitness: 12.24000 stdev: 12.83598
+Best fitness: 108 - size: (0, 4) - species 1 - id 21
+Species length: 1 totalizing 100 individuals
+Species ID       : [1]
+Each species size: [100]
+Amount to spawn  : [100]
+Species age      : [0]
+Species no improv: [0]
+
+ ****** Running generation 1 ****** 
+
+Population's average fitness: 20.05000 stdev: 21.82080
+Best fitness: 143 - size: (0, 4) - species 1 - id 196
+Species length: 2 totalizing 100 individuals
+Species ID       : [1, 2]
+Each species size: [98, 2]
+Amount to spawn  : [33, 67]
+Species age      : [1, 0]
+Species no improv: [0, 0]
+
+ ****** Running generation 2 ****** 
+
+Population's average fitness: 23.53000 stdev: 27.64650
+Best fitness: 150 - size: (0, 5) - species 2 - id 260
+Species length: 3 totalizing 100 individuals
+Species ID       : [1, 2, 3]
+Each species size: [79, 20, 1]
+Amount to spawn  : [42, 52, 6]
+Species age      : [2, 1, 0]
+Species no improv: [0, 1, 0]
+
+ ****** Running generation 3 ****** 
+
+Population's average fitness: 21.69000 stdev: 27.61981
+Best fitness: 206 - size: (0, 5) - species 2 - id 343
+Species length: 5 totalizing 100 individuals
+Species ID       : [1, 2, 3, 4, 5]
+Each species size: [1, 91, 4, 3, 1]
+Amount to spawn  : [13, 30, 28, 18, 11]
+Species age      : [3, 2, 1, 0, 0]
+Species no improv: [1, 2, 0, 0, 0]
+
+ ****** Running generation 4 ****** 
+
+Population's average fitness: 20.58000 stdev: 26.24278
+Best fitness: 153 - size: (0, 5) - species 2 - id 414
+Species length: 5 totalizing 100 individuals
+Species ID       : [1, 2, 3, 4, 5]
+Each species size: [13, 54, 28, 1, 4]
+Amount to spawn  : [13, 29, 27, 19, 13]
+Species age      : [4, 3, 2, 1, 1]
+Species no improv: [2, 3, 0, 0, 0]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 5 ****** 
+
+Population's average fitness: 22.66000 stdev: 30.15036
+Best fitness: 179 - size: (0, 5) - species 2 - id 517
+Species length: 6 totalizing 100 individuals
+Species ID       : [1, 2, 3, 4, 5, 6]
+Each species size: [13, 44, 21, 15, 6, 1]
+Amount to spawn  : [9, 30, 25, 16, 18, 1]
+Species age      : [5, 4, 3, 2, 2, 0]
+Species no improv: [3, 4, 0, 0, 0, 0]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 6 ****** 
+
+Population's average fitness: 25.62000 stdev: 32.86724
+Best fitness: 176 - size: (0, 5) - species 2 - id 622
+Species length: 6 totalizing 100 individuals
+Species ID       : [1, 2, 3, 4, 5, 6]
+Each species size: [12, 42, 15, 14, 16, 1]
+Amount to spawn  : [10, 27, 24, 13, 12, 14]
+Species age      : [6, 5, 4, 3, 3, 1]
+Species no improv: [4, 5, 0, 0, 1, 0]
+
+ ****** Running generation 7 ****** 
+
+Removing species 5 for being empty
+Population's average fitness: 29.13000 stdev: 39.10490
+Best fitness: 234 - size: (0, 5) - species 1 - id 716
+Species length: 5 totalizing 100 individuals
+Species ID       : [1, 2, 3, 4, 6]
+Each species size: [32, 20, 25, 12, 11]
+Amount to spawn  : [29, 31, 23, 11, 7]
+Species age      : [7, 6, 5, 4, 2]
+Species no improv: [0, 6, 1, 1, 1]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 8 ****** 
+
+Removing species 2 for being empty
+Population's average fitness: 29.18000 stdev: 35.25631
+Best fitness: 162 - size: (0, 5) - species 1 - id 850
+Species length: 4 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6]
+Each species size: [61, 21, 11, 7]
+Amount to spawn  : [34, 31, 13, 23]
+Species age      : [8, 6, 5, 3]
+Species no improv: [1, 2, 2, 0]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 9 ****** 
+
+Population's average fitness: 34.39000 stdev: 44.27028
+Best fitness: 274 - size: (0, 5) - species 1 - id 907
+Species length: 4 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6]
+Each species size: [34, 33, 13, 20]
+Amount to spawn  : [36, 28, 20, 16]
+Species age      : [9, 7, 6, 4]
+Species no improv: [0, 0, 0, 1]
+
+ ****** Running generation 10 ****** 
+
+Population's average fitness: 40.18000 stdev: 40.12839
+Best fitness: 159 - size: (0, 4) - species 7 - id 1048
+Species length: 7 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 8, 9]
+Each species size: [36, 1, 20, 4, 22, 1, 16]
+Amount to spawn  : [10, 12, 12, 24, 24, 9, 9]
+Species age      : [10, 8, 7, 5, 0, 0, 0]
+Species no improv: [1, 1, 0, 0, 0, 0, 0]
+
+ ****** Running generation 11 ****** 
+
+Removing species 8 for being empty
+Population's average fitness: 26.69000 stdev: 30.76482
+Best fitness: 133 - size: (0, 5) - species 1 - id 1113
+Species length: 6 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 9]
+Each species size: [21, 1, 12, 50, 7, 9]
+Amount to spawn  : [20, 5, 16, 20, 28, 11]
+Species age      : [11, 9, 8, 6, 1, 1]
+Species no improv: [2, 2, 1, 1, 1, 1]
+
+ ****** Running generation 12 ****** 
+
+Population's average fitness: 35.86000 stdev: 35.59860
+Best fitness: 152 - size: (0, 4) - species 1 - id 1257
+Species length: 6 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 9]
+Each species size: [29, 5, 16, 41, 8, 1]
+Amount to spawn  : [15, 5, 31, 23, 19, 8]
+Species age      : [12, 10, 9, 7, 2, 2]
+Species no improv: [3, 3, 0, 2, 2, 2]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 13 ****** 
+
+Removing species 9 for being empty
+Population's average fitness: 40.11000 stdev: 48.69084
+Best fitness: 264 - size: (0, 5) - species 1 - id 1313
+Species length: 7 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 10, 11]
+Each species size: [41, 6, 31, 2, 17, 2, 1]
+Amount to spawn  : [13, 8, 14, 41, 13, 6, 4]
+Species age      : [13, 11, 10, 8, 3, 0, 0]
+Species no improv: [4, 4, 1, 0, 3, 0, 0]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 14 ****** 
+
+Removing species 10 for being empty
+Removing species 11 for being empty
+Population's average fitness: 38.22000 stdev: 46.12387
+Best fitness: 241 - size: (0, 4) - species 1 - id 1466
+Species length: 5 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7]
+Each species size: [53, 14, 15, 5, 13]
+Amount to spawn  : [28, 14, 14, 15, 30]
+Species age      : [14, 12, 11, 9, 4]
+Species no improv: [0, 5, 2, 1, 4]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 15 ****** 
+
+Population's average fitness: 29.33000 stdev: 31.46651
+Best fitness: 137 - size: (2, 10) - species 4 - id 1549
+Species length: 7 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 12, 13]
+Each species size: [37, 14, 14, 4, 29, 1, 1]
+Amount to spawn  : [21, 18, 15, 6, 19, 15, 7]
+Species age      : [15, 13, 12, 10, 5, 0, 0]
+Species no improv: [1, 6, 3, 2, 5, 0, 0]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 16 ****** 
+
+Population's average fitness: 36.90000 stdev: 43.97670
+Best fitness: 201 - size: (0, 5) - species 3 - id 1638
+Species length: 10 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 12, 13, 14, 15, 16]
+Each species size: [39, 18, 15, 1, 16, 1, 5, 2, 1, 2]
+Amount to spawn  : [15, 19, 12, 4, 19, 7, 5, 9, 5, 5]
+Species age      : [16, 14, 13, 11, 6, 1, 1, 0, 0, 0]
+Species no improv: [2, 0, 4, 3, 6, 1, 0, 0, 0, 0]
+
+ ****** Running generation 17 ****** 
+
+Population's average fitness: 34.82000 stdev: 48.25337
+Best fitness: 363 - size: (0, 5) - species 3 - id 1728
+Species length: 10 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 12, 13, 14, 15, 16]
+Each species size: [21, 19, 12, 4, 31, 2, 5, 1, 1, 4]
+Amount to spawn  : [8, 18, 6, 7, 14, 7, 2, 29, 4, 4]
+Species age      : [17, 15, 14, 12, 7, 2, 2, 1, 1, 1]
+Species no improv: [3, 0, 5, 4, 7, 2, 1, 0, 0, 0]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 18 ****** 
+
+Removing species 12 for being empty
+Population's average fitness: 33.19000 stdev: 35.04046
+Best fitness: 198 - size: (0, 5) - species 3 - id 1817
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 14, 15, 16]
+Each species size: [8, 19, 6, 15, 43, 2, 1, 2, 4]
+Amount to spawn  : [11, 32, 6, 13, 23, 4, 5, 4, 3]
+Species age      : [18, 16, 15, 13, 8, 3, 2, 2, 2]
+Species no improv: [4, 1, 6, 5, 8, 2, 1, 1, 1]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 19 ****** 
+
+Population's average fitness: 35.94000 stdev: 47.05589
+Best fitness: 290 - size: (0, 5) - species 6 - id 1957
+Species length: 10 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 14, 15, 16, 17]
+Each species size: [11, 32, 6, 14, 27, 4, 2, 1, 2, 1]
+Amount to spawn  : [20, 16, 6, 19, 11, 6, 4, 11, 2, 5]
+Species age      : [19, 17, 16, 14, 9, 4, 3, 3, 3, 0]
+Species no improv: [0, 2, 7, 6, 9, 0, 2, 0, 2, 0]
+
+ ****** Running generation 20 ****** 
+
+Removing species 17 for being empty
+Population's average fitness: 30.25000 stdev: 33.96126
+Best fitness: 201 - size: (0, 5) - species 6 - id 2052
+Species length: 11 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 14, 15, 16, 18, 19]
+Each species size: [19, 16, 6, 18, 19, 6, 1, 11, 2, 1, 1]
+Amount to spawn  : [13, 9, 13, 9, 6, 4, 6, 10, 3, 23, 7]
+Species age      : [20, 18, 17, 15, 10, 5, 4, 4, 4, 0, 0]
+Species no improv: [1, 3, 8, 7, 10, 1, 3, 0, 3, 0, 0]
+   Removing 3 excess individual(s) from the new population
+
+ ****** Running generation 21 ****** 
+
+Removing species 14 for being empty
+Removing species 19 for being empty
+Population's average fitness: 38.16000 stdev: 49.67006
+Best fitness: 275 - size: (0, 5) - species 1 - id 2195
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [27, 9, 13, 14, 11, 4, 10, 3, 9]
+Amount to spawn  : [16, 15, 21, 8, 8, 4, 15, 2, 10]
+Species age      : [21, 19, 18, 16, 11, 6, 5, 5, 1]
+Species no improv: [2, 4, 0, 8, 11, 2, 0, 4, 1]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 22 ****** 
+
+Population's average fitness: 33.63000 stdev: 39.41159
+Best fitness: 171 - size: (0, 5) - species 3 - id 2233
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [24, 15, 21, 8, 8, 4, 16, 2, 2]
+Amount to spawn  : [14, 17, 19, 8, 10, 3, 13, 11, 5]
+Species age      : [22, 20, 19, 17, 12, 7, 6, 6, 2]
+Species no improv: [3, 5, 1, 9, 12, 3, 1, 0, 2]
+
+ ****** Running generation 23 ****** 
+
+Population's average fitness: 41.10000 stdev: 57.90881
+Best fitness: 445 - size: (0, 5) - species 1 - id 2321
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [16, 17, 19, 8, 10, 3, 13, 11, 3]
+Amount to spawn  : [16, 10, 22, 14, 8, 4, 9, 5, 12]
+Species age      : [23, 21, 20, 18, 13, 8, 7, 7, 3]
+Species no improv: [4, 6, 0, 10, 13, 4, 2, 1, 3]
+
+ ****** Running generation 24 ****** 
+
+Population's average fitness: 33.67000 stdev: 40.10787
+Best fitness: 183 - size: (2, 14) - species 4 - id 2439
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [16, 10, 22, 14, 8, 4, 9, 5, 12]
+Amount to spawn  : [13, 13, 13, 16, 4, 2, 14, 5, 21]
+Species age      : [24, 22, 21, 19, 14, 9, 8, 8, 4]
+Species no improv: [5, 7, 1, 11, 14, 5, 3, 2, 4]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 25 ****** 
+
+Population's average fitness: 34.18000 stdev: 41.86869
+Best fitness: 195 - size: (0, 5) - species 1 - id 2515
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [14, 13, 13, 19, 1, 2, 14, 5, 19]
+Amount to spawn  : [13, 8, 11, 14, 24, 2, 14, 5, 8]
+Species age      : [25, 23, 22, 20, 15, 10, 9, 9, 5]
+Species no improv: [6, 8, 2, 12, 0, 6, 0, 3, 5]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 26 ****** 
+
+Population's average fitness: 45.19000 stdev: 62.05686
+Best fitness: 411 - size: (0, 5) - species 6 - id 2647
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [17, 9, 11, 22, 16, 2, 14, 5, 4]
+Amount to spawn  : [12, 13, 10, 26, 4, 2, 12, 3, 18]
+Species age      : [26, 24, 23, 21, 16, 11, 10, 10, 6]
+Species no improv: [7, 9, 3, 0, 1, 7, 0, 4, 6]
+
+ ****** Running generation 27 ****** 
+
+Population's average fitness: 38.49000 stdev: 47.70943
+Best fitness: 296 - size: (0, 5) - species 6 - id 2756
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [14, 13, 10, 28, 2, 2, 12, 3, 16]
+Amount to spawn  : [10, 19, 12, 18, 4, 4, 10, 2, 22]
+Species age      : [27, 25, 24, 22, 17, 12, 11, 11, 7]
+Species no improv: [8, 10, 4, 1, 2, 0, 1, 5, 7]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 28 ****** 
+
+Population's average fitness: 43.90000 stdev: 52.83285
+Best fitness: 286 - size: (0, 5) - species 1 - id 2905
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [25, 19, 12, 18, 4, 4, 10, 2, 6]
+Amount to spawn  : [17, 13, 16, 14, 4, 3, 13, 3, 17]
+Species age      : [28, 26, 25, 23, 18, 13, 12, 12, 8]
+Species no improv: [9, 11, 5, 2, 3, 1, 0, 6, 8]
+
+ ****** Running generation 29 ****** 
+
+Population's average fitness: 39.16000 stdev: 39.80847
+Best fitness: 176 - size: (0, 5) - species 6 - id 2965
+Species length: 9 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16, 18]
+Each species size: [30, 13, 16, 16, 2, 3, 13, 3, 4]
+Amount to spawn  : [13, 13, 23, 19, 2, 4, 18, 3, 4]
+Species age      : [29, 27, 26, 24, 19, 14, 13, 13, 9]
+Species no improv: [10, 12, 6, 3, 4, 0, 0, 7, 9]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 30 ****** 
+
+Removing species 18 for being empty
+Population's average fitness: 43.75000 stdev: 52.05869
+Best fitness: 379 - size: (0, 5) - species 6 - id 3076
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [17, 13, 23, 19, 2, 5, 18, 3]
+Amount to spawn  : [16, 21, 16, 25, 5, 4, 9, 4]
+Species age      : [30, 28, 27, 25, 20, 15, 14, 14]
+Species no improv: [11, 13, 7, 4, 5, 0, 1, 8]
+
+ ****** Running generation 31 ****** 
+
+Population's average fitness: 50.05000 stdev: 54.59146
+Best fitness: 233 - size: (0, 4) - species 1 - id 3128
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [16, 21, 16, 25, 5, 4, 9, 4]
+Amount to spawn  : [17, 24, 18, 22, 6, 3, 7, 3]
+Species age      : [31, 29, 28, 26, 21, 16, 15, 15]
+Species no improv: [12, 0, 8, 5, 6, 1, 2, 9]
+
+ ****** Running generation 32 ****** 
+
+Population's average fitness: 42.47000 stdev: 43.45928
+Best fitness: 196 - size: (0, 5) - species 3 - id 3252
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [17, 24, 18, 22, 6, 3, 7, 3]
+Amount to spawn  : [17, 27, 13, 25, 7, 3, 7, 2]
+Species age      : [32, 30, 29, 27, 22, 17, 16, 16]
+Species no improv: [13, 1, 9, 6, 7, 2, 3, 10]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 33 ****** 
+
+Population's average fitness: 38.72000 stdev: 41.65767
+Best fitness: 184 - size: (2, 15) - species 4 - id 3369
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [17, 27, 13, 25, 7, 3, 7, 1]
+Amount to spawn  : [14, 18, 25, 14, 10, 6, 10, 3]
+Species age      : [33, 31, 30, 28, 23, 18, 17, 17]
+Species no improv: [14, 2, 10, 7, 8, 0, 4, 11]
+
+ ****** Running generation 34 ****** 
+
+Population's average fitness: 39.99000 stdev: 47.93026
+Best fitness: 280 - size: (0, 5) - species 6 - id 3480
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [14, 18, 25, 14, 10, 6, 10, 3]
+Amount to spawn  : [12, 15, 18, 22, 8, 4, 17, 3]
+Species age      : [34, 32, 31, 29, 24, 19, 18, 18]
+Species no improv: [15, 3, 11, 8, 9, 1, 0, 12]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 35 ****** 
+
+Population's average fitness: 48.06000 stdev: 62.98918
+Best fitness: 373 - size: (2, 17) - species 4 - id 3551
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [12, 15, 18, 23, 7, 4, 18, 3]
+Amount to spawn  : [15, 18, 21, 12, 8, 4, 16, 6]
+Species age      : [35, 33, 32, 30, 25, 20, 19, 19]
+Species no improv: [16, 4, 12, 9, 10, 2, 0, 0]
+
+ ****** Running generation 36 ****** 
+
+Population's average fitness: 48.63000 stdev: 54.83660
+Best fitness: 272 - size: (0, 5) - species 6 - id 3677
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [15, 18, 21, 12, 8, 4, 16, 6]
+Amount to spawn  : [17, 12, 10, 25, 9, 3, 20, 4]
+Species age      : [36, 34, 33, 31, 26, 21, 20, 20]
+Species no improv: [0, 5, 13, 10, 11, 3, 0, 1]
+
+ ****** Running generation 37 ****** 
+
+Population's average fitness: 53.27000 stdev: 64.19172
+Best fitness: 408 - size: (2, 9) - species 15 - id 3790
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [17, 12, 10, 26, 8, 3, 20, 4]
+Amount to spawn  : [15, 12, 21, 14, 6, 4, 27, 2]
+Species age      : [37, 35, 34, 32, 27, 22, 21, 21]
+Species no improv: [1, 6, 14, 11, 12, 4, 0, 2]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 38 ****** 
+
+Population's average fitness: 49.15000 stdev: 73.94097
+Best fitness: 571 - size: (0, 5) - species 6 - id 3864
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [15, 12, 21, 14, 6, 4, 27, 1]
+Amount to spawn  : [15, 12, 12, 31, 4, 4, 20, 1]
+Species age      : [38, 36, 35, 33, 28, 23, 22, 22]
+Species no improv: [2, 7, 15, 12, 13, 5, 1, 3]
+   Producing 1 more individual(s) to fill up the new population
+
+ ****** Running generation 39 ****** 
+
+Population's average fitness: 53.60000 stdev: 66.42289
+Best fitness: 290 - size: (0, 5) - species 6 - id 3956
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [15, 12, 13, 31, 4, 4, 20, 1]
+Amount to spawn  : [18, 13, 6, 19, 4, 3, 32, 6]
+Species age      : [39, 37, 36, 34, 29, 24, 23, 23]
+Species no improv: [3, 8, 16, 13, 14, 6, 0, 4]
+   Removing 1 excess individual(s) from the new population
+
+ ****** Running generation 40 ****** 
+
+Population's average fitness: 45.25000 stdev: 64.54384
+Best fitness: 498 - size: (2, 11) - species 15 - id 4078
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [18, 13, 6, 19, 4, 3, 32, 5]
+Amount to spawn  : [12, 13, 9, 13, 18, 5, 25, 5]
+Species age      : [40, 38, 37, 35, 30, 25, 24, 24]
+Species no improv: [4, 9, 17, 14, 15, 7, 1, 5]
+
+ ****** Running generation 41 ****** 
+
+Population's average fitness: 41.23000 stdev: 66.81989
+Best fitness: 350 - size: (2, 12) - species 15 - id 4206
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [12, 13, 9, 14, 17, 5, 25, 5]
+Amount to spawn  : [17, 5, 7, 29, 7, 4, 27, 4]
+Species age      : [41, 39, 38, 36, 31, 26, 25, 25]
+Species no improv: [5, 10, 18, 15, 16, 8, 2, 6]
+
+ ****** Running generation 42 ****** 
+
+Population's average fitness: 42.39000 stdev: 51.60347
+Best fitness: 277 - size: (0, 5) - species 6 - id 4251
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [17, 5, 7, 29, 7, 4, 27, 4]
+Amount to spawn  : [15, 6, 4, 21, 12, 8, 31, 3]
+Species age      : [42, 40, 39, 37, 32, 27, 26, 26]
+Species no improv: [6, 11, 19, 16, 17, 0, 3, 7]
+
+ ****** Running generation 43 ****** 
+
+Population's average fitness: 51.15000 stdev: 81.04189
+Best fitness: 464 - size: (2, 12) - species 15 - id 4406
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [15, 6, 4, 21, 12, 8, 31, 3]
+Amount to spawn  : [11, 22, 3, 17, 7, 7, 30, 3]
+Species age      : [43, 41, 40, 38, 33, 28, 27, 27]
+Species no improv: [7, 12, 20, 17, 18, 0, 4, 8]
+
+ ****** Running generation 44 ****** 
+
+Population's average fitness: 60.41000 stdev: 68.19474
+Best fitness: 320 - size: (0, 5) - species 3 - id 4439
+Species length: 8 totalizing 100 individuals
+Species ID       : [1, 3, 4, 6, 7, 13, 15, 16]
+Each species size: [11, 22, 3, 18, 6, 7, 30, 3]
+Amount to spawn  : [15, 17, 3, 13, 9, 10, 31, 2]
+Species age      : [44, 42, 41, 39, 34, 29, 28, 28]
+Species no improv: [8, 13, 21, 18, 19, 0, 0, 9]
+
+ ****** Running generation 45 ****** 
+
+
+Best individual found in epoch 45 - complexity: (2, 12)
+Number of evaluations: 4593
