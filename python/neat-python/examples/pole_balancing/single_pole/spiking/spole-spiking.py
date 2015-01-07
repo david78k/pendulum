@@ -57,7 +57,7 @@ def evaluate_population(population):
     
     twelve_degrees = 0.2094384 #radians
     num_steps = 10**5
-    MAX_TIME = 200
+    MAX_TIME = 100
     spikes = 0
     
     for chromo in population:
@@ -94,13 +94,12 @@ def evaluate_population(population):
 	    # values of x, x_dot and etc...
                       
             #ref_action = refnet.pactivate(inputs)
-	    #for j in range(MAX_TIME):
-	     #   action = brain.advance(inputs)
-	    #	output = brain.advance([i * 10 for i in inputs])
+	    for j in range(MAX_TIME):
+	    	output = brain.advance([i * 30 for i in inputs])
 	    #action = brain.advance(inputs)
-	    output = brain.advance([i * 10 for i in inputs])
-	   #     if output[0] == True:
-	    #       break;
+	    #output = brain.advance([i * 30 for i in inputs])
+	        if output[0] == True:
+	           break;
 	    if output[0] == False:
 	        action = 0
 	    else:
