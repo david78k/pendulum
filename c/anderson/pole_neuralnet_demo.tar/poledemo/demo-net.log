@@ -92,3 +92,8 @@ Final trial 6057 balanced for 180000 steps (1.000000 hours).
 Wrote current weights to latest.weights
  
 AGAIN, USING THE TRAINED WEIGHTS
+Usage: ./demo-net g(raphics) num-trials trials-per-output weight-file(or - to init randomly) b bh r rh
+Read weights from latest.weights
+ B= 0 Bh= 0 R= 0 Rh= 0 nt= 2000 bin= 10
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+Wrote current weights to latest.weights
