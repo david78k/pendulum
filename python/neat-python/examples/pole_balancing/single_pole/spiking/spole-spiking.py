@@ -94,13 +94,13 @@ def evaluate_population(population):
 	    # values of x, x_dot and etc...
                       
             #ref_action = refnet.pactivate(inputs)
-	    for j in range(MAX_TIME):
+	    #for j in range(MAX_TIME):
 	     #   action = brain.advance(inputs)
-	    	output = brain.advance([i * 10 for i in inputs])
+	    #	output = brain.advance([i * 10 for i in inputs])
 	    #action = brain.advance(inputs)
-	    #output = brain.advance([i * 20 for i in inputs])
-	        if output[0] == True:
-	           break;
+	    output = brain.advance([i * 10 for i in inputs])
+	   #     if output[0] == True:
+	    #       break;
 	    if output[0] == False:
 	        action = 0
 	    else:
