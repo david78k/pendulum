@@ -65,8 +65,8 @@ struct
 int start_state, failure;
 double a[5][5], b[5], c[5], d[5][5], e[5], f[5], w[4];
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
-double r_hat, push, unusualness;
-int bp_flag = 0;
+double r_hat, push, unusualness, sum_error = 0.0;
+int bp_flag = 0, count_error = 0;
 
 int statep = 1;		     /* t=update the state each step */
 int perfp = 1;		     /*t=update the performance curve each step */
@@ -541,7 +541,10 @@ Run(context, num_trials, sample_period)
 	  i++;
 	  if (!(i % sample_period))
 	    {
-	      printf("%6d %6d\n", i, avg_length / sample_period);
+ 	      if(bp_flag == 0) 
+	        printf("%6d %6d\n", i, avg_length / sample_period);
+	      else
+	        printf("%6d %6d %.2f (%.1f/%6d)\n", i, avg_length / sample_period, sum_error / count_error, sum_error, count_error);
 	      avg_length = 0;
 	    }
 	  NextState(1, 0.0);
@@ -551,7 +554,8 @@ Run(context, num_trials, sample_period)
    printf("Final trial %d balanced for %d steps (%f hours).\n",
           i, j, (j * tau)/3600.0);
 
-  writeweights();
+  if(bp_flag == 0)
+    writeweights();
 
 /*
    for (i = 0; i<5; i++ )
@@ -584,7 +588,7 @@ Cycle(context, learn_flag)
      int learn_flag;
 {
   int i, j, k;
-  double sum, factor1, factor2, bpp;
+  double sum, factor1, factor2, targetp;
   extern double exp();
   float state[4];
 
@@ -617,8 +621,10 @@ Cycle(context, learn_flag)
   for(i = 0; i < 5; i++)
     sum += e[i] * x[i] + f[i] * z[i];
   p = 1.0 / (1.0 + exp(-sum));
-  if(bp_flag > 0) {
-    p = bpp = forward();
+  if(bp_flag > 0) { // 1 or 2
+    targetp = p;
+    p = forward();
+    //printf("p = %.1f targetp = %.1f\n", p, targetp);
   }
   push = (randomdef <= p) ? 10.0 : -10.0;
   unusualness = (push > 0) ? 1.0 - p : -p;
@@ -695,8 +701,8 @@ Cycle(context, learn_flag)
 	  f[i] += Rho * r_hat * unusualness * z[i];
 	}
     }
-  if(bp_flag) {
-    backprop(bpp, p);
+  if(bp_flag) { // 1
+    backprop(p, targetp);
   }
 }
 
@@ -717,16 +723,11 @@ backprop(double push, double target_push) {
 //  printf("backprop");
   int i = 0;
   double sum = 0.0;
-  
-/*
-  // forward prop
-  for(i = 0; i < 4; i ++) {
-    sum += w[i]*state[i];
-  }
-  push = 1.0 / (1.0 + exp(-sum));
-*/
   double error = (push - target_push);
   double gradient = 0.0, learning_rate = 0.1;
+
+  sum_error += error * error;
+  count_error ++;
 
   // backward prop
   double factor;
