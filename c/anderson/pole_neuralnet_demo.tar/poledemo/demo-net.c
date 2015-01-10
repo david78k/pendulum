@@ -66,6 +66,7 @@ int start_state, failure;
 double a[5][5], b[5], c[5], d[5][5], e[5], f[5], w[4];
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
 double r_hat, push, unusualness;
+int bp_flag = 0;
 
 int statep = 1;		     /* t=update the state each step */
 int perfp = 1;		     /*t=update the performance curve each step */
@@ -89,6 +90,7 @@ void released(Widget w, Xg_context *context, XEvent *event );
 void pressed(Widget w, Xg_context *context, XEvent *event );
 void reset(Xg_context *context);
 void init_args(int argc, char *argv[]);
+double forward();
 
 Xg_color *black;
 Xg_color *yellow;
@@ -125,6 +127,10 @@ main(argc,argv)
   sleep(2);
 
   Run(context,atoi(argv[2]), atoi(argv[3]));
+  if(bp_flag) {
+    bp_flag = 2;
+    Run(context,atoi(argv[2]), atoi(argv[3]));
+  }
 }
 /**********************************************************************
  *
@@ -159,6 +165,9 @@ weight-file(or - to init randomly) b bh r rh\n",
     Rho = atof(argv[7]);
   if (argc > 8)
     Rho_h = atof(argv[8]);
+
+  if (argc > 9)
+    bp_flag = atof(argv[9]);
 }
 
 /**********************************************************************
@@ -509,6 +518,13 @@ Run(context, num_trials, sample_period)
 
   printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
       Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
+  if(bp_flag) {
+    printf("backpropation activated\n");
+  }
+
+  if(bp_flag == 2) {
+    printf("testing backpropation\n");
+  }
 
   while (i < num_trials && j < 180000) /* one hour at .02s per step */
     {
@@ -516,7 +532,7 @@ Run(context, num_trials, sample_period)
 	if (fmod((float)j,500.0) == 0)
 	  xg_process_events(context);
 
-      Cycle(context,1,1);
+      Cycle(context,1);
       j++;
 
       if (failure)
@@ -563,13 +579,12 @@ double sgn(x)
 
 /****************************************************************/
 
-Cycle(context, learn_flag, bp_learn)
+Cycle(context, learn_flag)
      Xg_context *context;
      int learn_flag;
-     int bp_learn;
 {
   int i, j, k;
-  double sum, factor1, factor2;
+  double sum, factor1, factor2, bpp;
   extern double exp();
   float state[4];
 
@@ -602,6 +617,9 @@ Cycle(context, learn_flag, bp_learn)
   for(i = 0; i < 5; i++)
     sum += e[i] * x[i] + f[i] * z[i];
   p = 1.0 / (1.0 + exp(-sum));
+  if(bp_flag > 0) {
+    p = bpp = forward();
+  }
   push = (randomdef <= p) ? 10.0 : -10.0;
   unusualness = (push > 0) ? 1.0 - p : -p;
 
@@ -677,12 +695,13 @@ Cycle(context, learn_flag, bp_learn)
 	  f[i] += Rho * r_hat * unusualness * z[i];
 	}
     }
-  if(bp_learn) {
-    backprop(push);
+  if(bp_flag) {
+    backprop(bpp, p);
   }
 }
 
-backprop(double target_push) {
+double forward() {
+//  printf("forward");
   int i = 0;
   double push = 0.0, sum = 0.0;
   
@@ -691,12 +710,28 @@ backprop(double target_push) {
     sum += w[i]*state[i];
   }
   push = 1.0 / (1.0 + exp(-sum));
+  return push;
+}
+
+backprop(double push, double target_push) {
+//  printf("backprop");
+  int i = 0;
+  double sum = 0.0;
+  
+/*
+  // forward prop
+  for(i = 0; i < 4; i ++) {
+    sum += w[i]*state[i];
+  }
+  push = 1.0 / (1.0 + exp(-sum));
+*/
   double error = (push - target_push);
   double gradient = 0.0, learning_rate = 0.1;
 
   // backward prop
   double factor;
   for(i = 0; i< 4; i ++) {
+    gradient = error * state[i];
     factor = learning_rate * gradient;
     w[i] += factor;
   }

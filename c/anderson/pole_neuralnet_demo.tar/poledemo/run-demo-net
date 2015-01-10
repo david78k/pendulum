@@ -7,5 +7,9 @@
 #time ./demo-net n 100000 100 - 0.1 0.05 2 0.5
 
 #echo " "
-echo "AGAIN, USING THE TRAINED WEIGHTS"
-time ./demo-net g 2000 10 latest.weights 0 0 0 0
+echo "TESTING RL USING THE TRAINED WEIGHTS AND TRAINING BACKPROPAGATION"
+time ./demo-net g 2000 10 latest.weights 0 0 0 0 1
+
+#echo " "
+#echo "TESTING BACKPROPAGATION"
+#time ./demo-net g 2000 10 latest.weights 0 0 0 0
