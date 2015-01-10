@@ -682,7 +682,7 @@ Cycle(context, learn_flag, bp_learn)
   }
 }
 
-void backprop(double target_push) {
+backprop(double target_push) {
   int i = 0;
   double push = 0.0, sum = 0.0;
   
@@ -691,12 +691,13 @@ void backprop(double target_push) {
     sum += w[i]*state[i];
   }
   push = 1.0 / (1.0 + exp(-sum));
-  error = (push - target_push);
+  double error = (push - target_push);
   double gradient = 0.0, learning_rate = 0.1;
 
   // backward prop
+  double factor;
   for(i = 0; i< 4; i ++) {
-    factor1 = learning_rate * gradient;
-    w[i] += factor1;
+    factor = learning_rate * gradient;
+    w[i] += factor;
   }
 }
