@@ -1,0 +1,141 @@
+ 
+TRAINING WITH NO EXPERIENCE
+Usage: ./demo-net g(raphics) num-trials trials-per-output weight-file(or - to init randomly) b bh r rh
+ B= 0.1 Bh= 0.05 R= 1 Rh= 0.5 nt= 400 bin= 20
+    20      9
+    40      8
+    60      9
+    80      6
+   100      8
+   120      8
+   140      7
+   160     13
+   180     10
+   200     11
+   220      9
+   240      9
+   260     10
+   280      8
+   300      9
+   320      9
+   340     11
+   360     11
+   380     10
+   400     12
+Final trial 400 balanced for 0 steps (0.000000 hours).
+Wrote current weights to latest.weights
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+Usage: ./demo-net g(raphics) num-trials trials-per-output weight-file(or - to init randomly) b bh r rh
+ B= 0.1 Bh= 0.05 R= 2 Rh= 0.5 nt= 100000 bin= 100
+   100     15
+   200      8
+   300      8
+   400      9
+   500      9
+   600      8
+   700      9
+   800      8
+   900      8
+  1000      9
+  1100      9
+  1200      8
+  1300      8
+  1400      7
+  1500      8
+  1600      9
+  1700      8
+  1800      8
+  1900      8
+  2000      8
+  2100      9
+  2200      8
+  2300      7
+  2400      7
+  2500      8
+  2600      9
+  2700      8
+  2800      8
+  2900      8
+  3000      9
+  3100      8
+  3200      8
+  3300      8
+  3400      8
+  3500     10
+  3600      9
+  3700      8
+  3800      8
+  3900      8
+  4000     10
+  4100     10
+  4200     13
+  4300     11
+  4400     14
+  4500     15
+  4600     14
+  4700     15
+  4800     20
+  4900     22
+  5000     20
+  5100     18
+  5200     17
+  5300     14
+  5400     15
+  5500     14
+  5600     17
+  5700     18
+  5800     19
+  5900     14
+  6000     21
+  6100     17
+  6200     19
+  6300     18
+  6400     17
+  6500     17
+  6600     13
+  6700     13
+  6800     16
+  6900     16
+  7000     18
+  7100     19
+  7200     17
+  7300     17
+  7400     16
+  7500     14
+  7600     20
+  7700     21
+  7800     21
+  7900     18
+  8000     22
+  8100     23
+  8200     43
+  8300    113
+  8400   1660
+  8500    992
+  8600    307
+  8700   3278
+  8800   1482
+  8900    131
+  9000    179
+Final trial 9061 balanced for 180000 steps (1.000000 hours).
+Wrote current weights to latest.weights
+ 
+AGAIN, USING THE TRAINED WEIGHTS
+Usage: ./demo-net g(raphics) num-trials trials-per-output weight-file(or - to init randomly) b bh r rh
+Read weights from latest.weights
+ B= 0 Bh= 0 R= 0 Rh= 0 nt= 2000 bin= 10
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+Wrote current weights to latest.weights
+
+real	0m43.803s
+user	0m0.484s
+sys	0m0.648s
+
+real	0m4.801s
+user	0m2.249s
+sys	0m0.517s
+
+real	31m55.453s
+user	0m18.397s
+sys	0m26.212s

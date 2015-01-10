@@ -63,7 +63,7 @@ struct
 } the_system_state;
 
 int start_state, failure;
-double a[5][5], b[5], c[5], d[5][5], e[5], f[5], w[4];
+double a[5][5], b[5], c[5], d[5][5], e[5], f[5];
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
 double r_hat, push, unusualness;
 
@@ -332,10 +332,6 @@ SetRandomWeights()
       e[i] = randomdef * 0.2 - 0.1;
       f[i] = randomdef * 0.2 - 0.1;
     }
-
-  for(i = 0; i < 4; i ++) {
-    w[i] = randomdef * 0.2 - 0.1;
-  }
 }
 
 /**********************************************************************/
@@ -516,7 +512,7 @@ Run(context, num_trials, sample_period)
 	if (fmod((float)j,500.0) == 0)
 	  xg_process_events(context);
 
-      Cycle(context,1,1);
+      Cycle(context,1);
       j++;
 
       if (failure)
@@ -563,10 +559,9 @@ double sgn(x)
 
 /****************************************************************/
 
-Cycle(context, learn_flag, bp_learn)
+Cycle(context, learn_flag)
      Xg_context *context;
      int learn_flag;
-     int bp_learn;
 {
   int i, j, k;
   double sum, factor1, factor2;
@@ -677,26 +672,5 @@ Cycle(context, learn_flag, bp_learn)
 	  f[i] += Rho * r_hat * unusualness * z[i];
 	}
     }
-  if(bp_learn) {
-    backprop(push);
-  }
 }
 
-void backprop(double target_push) {
-  int i = 0;
-  double push = 0.0, sum = 0.0;
-  
-  // forward prop
-  for(i = 0; i < 4; i ++) {
-    sum += w[i]*state[i];
-  }
-  push = 1.0 / (1.0 + exp(-sum));
-  error = (push - target_push);
-  double gradient = 0.0, learning_rate = 0.1;
-
-  // backward prop
-  for(i = 0; i< 4; i ++) {
-    factor1 = learning_rate * gradient;
-    w[i] += factor1;
-  }
-}
