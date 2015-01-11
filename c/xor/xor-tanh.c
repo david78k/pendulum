@@ -38,7 +38,6 @@ void WeightChangesHO();
 void WeightChangesIH();
 void initWeights();
 void initData();
-double sigmoid(double x);
 double tanh(double x);
 void displayResults();
 void calcOverallError();
@@ -154,7 +153,7 @@ void calcNet()
         for(j = 0;j<numInputs;j++)
         hiddenVal[i] = hiddenVal[i] + (trainInputs[patNum][j] * weightsIH[j][i]);
 
-        hiddenVal[i] = sigmoid(hiddenVal[i]);
+        hiddenVal[i] = tanh(hiddenVal[i]);
     }
 
    //calculate the output of the network
@@ -257,10 +256,6 @@ void initData()
 }
 
 //************************************
-double sigmoid(double x) {
-	return 1.0 / (1.0 + exp(-x));
-}
-
 double tanh(double x)
  {
     if (x > 20)
