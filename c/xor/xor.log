@@ -1,0 +1,31 @@
+initialising data
+epoch = 0 RMSE = 0.6810
+pat1 expected = 0.0000 neural model = 0.0000
+pat2 expected = 1.0000 neural model = 0.0379
+pat3 expected = 1.0000 neural model = 0.0389
+pat4 expected = 0.0000 neural model = 0.0762
+epoch = 100 RMSE = 0.3002
+pat1 expected = 0.0000 neural model = 0.0000
+pat2 expected = 1.0000 neural model = 0.7447
+pat3 expected = 1.0000 neural model = 0.7415
+pat4 expected = 0.0000 neural model = 0.4780
+epoch = 200 RMSE = 0.0014
+pat1 expected = 0.0000 neural model = 0.0000
+pat2 expected = 1.0000 neural model = 0.9978
+pat3 expected = 1.0000 neural model = 0.9982
+pat4 expected = 0.0000 neural model = 0.0003
+epoch = 300 RMSE = 0.0000
+pat1 expected = 0.0000 neural model = 0.0000
+pat2 expected = 1.0000 neural model = 1.0000
+pat3 expected = 1.0000 neural model = 1.0000
+pat4 expected = 0.0000 neural model = 0.0000
+epoch = 400 RMSE = 0.0000
+pat1 expected = 0.0000 neural model = 0.0000
+pat2 expected = 1.0000 neural model = 1.0000
+pat3 expected = 1.0000 neural model = 1.0000
+pat4 expected = 0.0000 neural model = 0.0000
+epoch = 500 RMSE = 0.0000
+pat1 expected = 0.0000 neural model = 0.0000
+pat2 expected = 1.0000 neural model = 1.0000
+pat3 expected = 1.0000 neural model = 1.0000
+pat4 expected = 0.0000 neural model = 0.0000
