@@ -14,7 +14,7 @@ import java.io.*;
 //import string
 
 //random.seed(0)
-public class bpnn implements Serializable
+public class xor implements Serializable
 { 
   static Random generator = new Random();
   
@@ -85,7 +85,7 @@ public static double dsigmoid(double y)
   }
   
 
-bpnn(int ini,int inh, int ino)
+xor(int ini,int inh, int ino)
     {   int i,j;
     
         //# number of input, hidden, and output nodes
@@ -285,13 +285,13 @@ bpnn(int ini,int inh, int ino)
     public static void main(String args[])
 	{   
 		//# Teach network XOR function
-		bpnn.pattern[] pat= new bpnn.pattern[4];
-		bpnn net = new bpnn(2, 3, 1);
+		xor.pattern[] pat= new xor.pattern[4];
+		xor net = new xor(2, 3, 1);
 		 
-	    pat[0] = new bpnn.pattern(new double[]{0,0},new double[]{-1});
-	    pat[1] = new bpnn.pattern(new double[]{1,0},new double[]{1});
-	    pat[2] = new bpnn.pattern(new double[]{0,1},new double[]{1});
-	    pat[3] = new bpnn.pattern(new double[]{1,1},new double[]{-1});
+	    pat[0] = new xor.pattern(new double[]{0,0},new double[]{0});
+	    pat[1] = new xor.pattern(new double[]{1,0},new double[]{1});
+	    pat[2] = new xor.pattern(new double[]{0,1},new double[]{1});
+	    pat[3] = new xor.pattern(new double[]{1,1},new double[]{0});
 	    
 	    
 	    
