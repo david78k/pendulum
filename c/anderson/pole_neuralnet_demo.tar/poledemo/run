@@ -9,7 +9,8 @@
 echo " "
 echo "TESTING RL USING THE TRAINED WEIGHTS AND BACKPROPAGATION"
 #time ./demo-net g 2000 10 latest.weights 0 0 0 0
-time ./demo-net g 2000 10 latest.weights 0 0 0 0 1
+time ./demo-net n 1000000 10 latest.weights 0 0 0 0 1
+#time ./demo-net g 2000 10 latest.weights 0 0 0 0 1
 
 #echo " "
 #echo "TESTING BACKPROPAGATION"

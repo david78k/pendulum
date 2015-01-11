@@ -41,8 +41,6 @@ float Beta =  0.2;
 float Beta_h = 0.05;
 float Rho = 1.0;
 float Rho_h = 0.2;
-float LR_IH = 0.7;
-float LR_HO = 0.07;
 
 float state[4] = {0.0, 0.0, 0.0, 0.0};
 
@@ -65,7 +63,7 @@ struct
 } the_system_state;
 
 int start_state, failure;
-double a[5][5], b[5], c[5], d[5][5], e[5], f[5], wih[4][4], who[4], h[4];
+double a[5][5], b[5], c[5], d[5][5], e[5], f[5], w[4];
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
 double r_hat, push, unusualness, sum_error = 0.0;
 int bp_flag = 0, count_error = 0;
@@ -345,9 +343,7 @@ SetRandomWeights()
     }
 
   for(i = 0; i < 4; i ++) {
-    for (j = 0; j < 4; j ++)
-      wih[i][j] = randomdef * 0.2 - 0.1;
-    who[i] = randomdef * 0.2 - 0.1;
+    w[i] = randomdef * 0.2 - 0.1;
   }
 }
 
@@ -710,43 +706,34 @@ Cycle(context, learn_flag)
   }
 }
 
-// forward prop
 double forward() {
-  int i, j;
+//  printf("forward");
+  int i = 0;
   double push = 0.0, sum = 0.0;
   
+  // forward prop
   for(i = 0; i < 4; i ++) {
-    sum = 0.0;
-    for(j = 0; j < 4; j ++) 
-      sum += wih[j][i]*state[j];
-    h[i] = 1.0 / (1.0 + exp(-sum));
-  }
-  sum = 0.0;
-  for(i = 0; i < 4; i ++) {
-    sum += who[i]*h[i];
+    sum += w[i]*state[i];
   }
   push = 1.0 / (1.0 + exp(-sum));
   return push;
 }
 
-// backward prop
 backprop(double push, double target_push) {
-  int i, j;
+//  printf("backprop");
+  int i = 0;
   double sum = 0.0;
   double error = (push - target_push);
-  double gradient = 0.0;
+  double gradient = 0.0, learning_rate = 0.1;
 
   sum_error += error * error;
   count_error ++;
 
+  // backward prop
+  double factor;
   for(i = 0; i< 4; i ++) {
-    gradient = error * h[i];
-    who[i] += LR_HO * gradient;
-  }
-  for(i = 0; i< 4; i ++) {
-    double x = 1 - h[i]*h[i];
-    gradient = x * who[i] * error;
-    for (j = 0; j < 4; j ++) 
-      wih[i][j] += LR_IH * gradient * state[j];
+    gradient = error * state[i];
+    factor = learning_rate * gradient;
+    w[i] += factor;
   }
 }
