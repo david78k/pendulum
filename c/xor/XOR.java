@@ -1,3 +1,4 @@
+//package neuralnet;
 /*
 MLP neural network in Java
 by Phil Brierley
@@ -28,38 +29,21 @@ Symantec Cafe Lite
 
 */
 
-#include <stdio.h>
-#include <math.h>
+import java.lang.Math;
+import java.util.Arrays;
 
-#define randomdef                  ((float) random() / (float)((1 << 31) - 1))
-
-void calcNet();
-void WeightChangesHO();
-void WeightChangesIH();
-void initWeights();
-void initData();
-double tanh(double x);
-void displayResults();
-void calcOverallError();
-
-//training data
-// dist, state | L, R, state, delay, sense?
-// 0.3m, F     | 
-/*
-double trainInputs[4][2] = {
-	{0, 0},
-	{1, 0}, 
-	{0, 1}, 
-	{1, 1} 
-};
-*/
-double trainInputs[4][4] = {
-	{0, 0, 0, 0},
-	{1, 0, 0, 1}, 
-	{0, 1, 1, 0}, 
-	{1, 1, 1, 1} 
-};
-static double trainOutputs[] = {0, 1, 1, 0};
+public class XOR
+{
+	//training data
+	// dist, state | L, R, state, delay, sense?
+	// 0.3m, F     | 
+	static double[][] trainInputs = new double[][]{
+		new double[]{0, 0},
+		new double[]{1, 0}, 
+		new double[]{0, 1}, 
+		new double[]{1, 1}, 
+	};
+	static double[] trainOutputs = new double[]{0, 1, 1, 0};
 	/*	static double[][] trainOutputs = new double[][]{
 		new double[]{1, 0},
 		new double[]{0, 1}
@@ -67,32 +51,47 @@ static double trainOutputs[] = {0, 1, 1, 0};
 	 */
 
 	//user defineable variables
-static int numEpochs = 500; //number of training cycles
-static int numInputs = 2; //number of inputs - this includes the input bias
-static int numHidden = 4; //number of hidden units
-static int numPatterns = 4; //number of training patterns
-static double LR_IH = 0.7; //learning rate, default 0.7
-static double LR_HO = 0.07; //learning rate, default 0.07
+	public static int numEpochs = 500; //number of training cycles
+	public static int numInputs = trainInputs[0].length; //number of inputs - this includes the input bias
+	public static int numHidden = 4; //number of hidden units
+	public static int numPatterns = trainInputs.length; //number of training patterns
+	public static double LR_IH = 0.7; //learning rate, default 0.7
+	public static double LR_HO = 0.07; //learning rate, default 0.07
 
 	//the outputs of the hidden neurons
-static double hiddenVal[4]; 
+	public static double[] hiddenVal  = new double[numHidden];
 
 	//the weights
-static double weightsIH [4][4] ; 
-static double weightsHO[4] ;
+	public static double[][] weightsIH = new double[numInputs][numHidden];
+	public static double[] weightsHO = new double[numHidden];
 
 	//process variables
-static int patNum;
-static double errThisPat;
-static double outPred;
-static double RMSerror;
+	public static int patNum;
+	public static double errThisPat;
+	public static double outPred;
+	public static double RMSerror;
 
+
+//==============================================================
+//********** THIS IS THE MAIN PROGRAM **************************
+//==============================================================
+
+ public static void main(String[] args)
+ {
+
+  train();
+
+  //training has finished
+  //display the results
+  displayResults();
+  
+ }
 
 //============================================================
 //********** END OF THE MAIN PROGRAM **************************
 //=============================================================
 
-  static void train()
+ public static void train()
  {
 
   //initiate the weights
@@ -102,15 +101,14 @@ static double RMSerror;
   initData();
 
   //train the network
-  int i, j;
-    for(j = 0;j <= numEpochs;j++)
+    for(int j = 0;j <= numEpochs;j++)
     {
 
-        for(i = 0;i<numPatterns;i++)
+        for(int i = 0;i<numPatterns;i++)
         {
 
             //select a pattern at random
-            patNum = (int)((randomdef*numPatterns)-0.001);
+            patNum = (int)((Math.random()*numPatterns)-0.001);
 
             //calculate the current network output
             //and error for this pattern
@@ -124,10 +122,9 @@ static double RMSerror;
         //display the overall network error
         //after each epoch
         calcOverallError();
-        if(j % 100 == 0) {
-        	printf("epoch = %d RMSE = %.4f\n", j, RMSerror);
-		displayResults();
-	}
+        if(j % 100 == 0)
+        	System.out.println("epoch = " + j + "  RMS Error = " + RMSerror);
+
     }
 
     //training has finished
@@ -141,16 +138,15 @@ static double RMSerror;
 /**
  * forward propagation
  */
-void calcNet()
+public static void calcNet()
  {
     //calculate the outputs of the hidden neurons
     //the hidden neurons are tanh
-    int i, j;
-    for(i = 0;i<numHidden;i++)
+    for(int i = 0;i<numHidden;i++)
     {
 	hiddenVal[i] = 0.0;
 
-        for(j = 0;j<numInputs;j++)
+        for(int j = 0;j<numInputs;j++)
         hiddenVal[i] = hiddenVal[i] + (trainInputs[patNum][j] * weightsIH[j][i]);
 
         hiddenVal[i] = tanh(hiddenVal[i]);
@@ -160,7 +156,7 @@ void calcNet()
    //the output neuron is linear
    outPred = 0.0;
 
-   for(i = 0;i<numHidden;i++)
+   for(int i = 0;i<numHidden;i++)
     outPred = outPred + hiddenVal[i] * weightsHO[i];
 
     //calculate the error
@@ -169,11 +165,10 @@ void calcNet()
 
 
 //************************************
-void WeightChangesHO()
+ public static void WeightChangesHO()
  //adjust the weights hidden-output
  {
-   int k; 
-   for(k = 0;k<numHidden;k++)
+   for(int k = 0;k<numHidden;k++)
    {
     double weightChange = LR_HO * errThisPat * hiddenVal[k];
     weightsHO[k] = weightsHO[k] - weightChange;
@@ -188,13 +183,12 @@ void WeightChangesHO()
 
 
 //************************************
-void WeightChangesIH()
+ public static void WeightChangesIH()
  //adjust the weights input-hidden
  {
-   int i, k; 
-  for( i = 0;i<numHidden;i++)
+  for(int i = 0;i<numHidden;i++)
   {
-   for(k = 0;k<numInputs;k++)
+   for(int k = 0;k<numInputs;k++)
    {
     double x = 1 - (hiddenVal[i] * hiddenVal[i]);
     x = x * weightsHO[i] * errThisPat * LR_IH;
@@ -207,25 +201,24 @@ void WeightChangesIH()
 
 
 //************************************
-void initWeights()
+ public static void initWeights()
  {
-   int i, j; 
 
-  for(j = 0;j<numHidden;j++)
+  for(int j = 0;j<numHidden;j++)
   {
-    weightsHO[j] = (randomdef - 0.5)/2;
-    for(i = 0;i<numInputs;i++)
-    weightsIH[i][j] = (randomdef - 0.5)/5;
+    weightsHO[j] = (Math.random() - 0.5)/2;
+    for(int i = 0;i<numInputs;i++)
+    weightsIH[i][j] = (Math.random() - 0.5)/5;
   }
 
  }
 
 
 //************************************
-void initData()
+public static void initData()
 {
 
-  printf("initialising data\n");
+  System.out.println("initialising data");
 
   // the data here is the XOR data
   // it has been rescaled to the range
@@ -256,7 +249,7 @@ void initData()
 }
 
 //************************************
-double tanh(double x)
+ public static double tanh(double x)
  {
     if (x > 20)
         return 1;
@@ -264,15 +257,15 @@ double tanh(double x)
         return -1;
     else
         {
-        double a = exp(x);
-        double b = exp(-x);
+        double a = Math.exp(x);
+        double b = Math.exp(-x);
         return (a-b)/(a+b);
         }
  }
 
 
 //************************************
-double test(int patternNumber) {
+public static double test(int patternNumber) {
 	patNum = patternNumber;
 	calcNet();
 	return outPred;
@@ -281,47 +274,32 @@ double test(int patternNumber) {
 /**
  * test and display results
  */
-void displayResults()
+ public static void displayResults()
     {
-    int i;
-     for(i = 0;i<numPatterns;i++)
+     for(int i = 0;i<numPatterns;i++)
         {
 //        patNum = i;
 //        calcNet();
     	 test(i);
-        printf("pat%d expected = %.4f neural model = %.4f\n", patNum + 1, /*trainInputs[i],*/ trainOutputs[patNum], outPred);
+        System.out.println("pat" + (patNum+1) + " " + Arrays.toString(trainInputs[i]) 
+		+ " expected = " + trainOutputs[patNum] + " neural model = " + outPred);
         }
     }
 
 
 //************************************
-void calcOverallError()
+public static void calcOverallError()
     {
-    int i;
      RMSerror = 0.0;
-     for(i = 0;i<numPatterns;i++)
+     for(int i = 0;i<numPatterns;i++)
         {
         patNum = i;
         calcNet();
         RMSerror = RMSerror + (errThisPat * errThisPat);
         }
      RMSerror = RMSerror/numPatterns;
-     RMSerror = sqrt(RMSerror);
+     RMSerror = java.lang.Math.sqrt(RMSerror);
     }
 
-
-//==============================================================
-//********** THIS IS THE MAIN PROGRAM **************************
-//==============================================================
-
-main()
- {
-
-  train();
-
-  //training has finished
-  //display the results
-//  displayResults();
-  
- }
+}
 
