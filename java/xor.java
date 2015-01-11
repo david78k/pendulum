@@ -12,6 +12,7 @@
 import java.util.Random;
 import java.io.*;
 //import string
+import java.util.Arrays;
 
 //random.seed(0)
 public class xor implements Serializable
@@ -47,6 +48,9 @@ public class xor implements Serializable
      target=out;
    }
    
+   public String toString() {
+     return Arrays.toString(input) + " " + Arrays.toString(target);
+   }
   }
   
  
@@ -214,7 +218,7 @@ xor(int ini,int inh, int ino)
     { double[] res;
         for (int p=0;p<patterns.length;p++)
         { res=update(patterns[p].input);
-          for(int j=0;j<res.length;j++)  System.out.println("[Input "+p+"] ->  " + res[j]);
+          for(int j=0;j<res.length;j++)  System.out.println("[Input "+p+"] ->  " + patterns[p].toString() + " " + res[j]);
         }
 	}
     
@@ -292,6 +296,11 @@ xor(int ini,int inh, int ino)
 	    pat[1] = new xor.pattern(new double[]{1,0},new double[]{1});
 	    pat[2] = new xor.pattern(new double[]{0,1},new double[]{1});
 	    pat[3] = new xor.pattern(new double[]{1,1},new double[]{0});
+	    
+	    pat[0] = new xor.pattern(new double[]{0,0,0,0},new double[]{0});
+	    pat[1] = new xor.pattern(new double[]{1,0,0,1},new double[]{1});
+	    pat[2] = new xor.pattern(new double[]{0,1,1,0},new double[]{1});
+	    pat[3] = new xor.pattern(new double[]{1,1,1,1},new double[]{0});
 	    
 	    
 	    
