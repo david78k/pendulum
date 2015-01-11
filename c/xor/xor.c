@@ -23,9 +23,9 @@ init() {
   int i,j;
 
   for(i = 0; i < 4; i ++) {
+    who[i] = (randomdef - 0.5) / 2;
     for (j = 0; j < 4; j ++)
-      wih[i][j] = randomdef * 0.2 - 0.1;
-    who[i] = randomdef * 0.2 - 0.1;
+      wih[i][j] = (randomdef -0.5) / 5;
   }
 	for(i = 0; i < 4; i ++) {
 		sum_error = 0.0;
@@ -55,8 +55,9 @@ double forward() {
   for(i = 0; i < 4; i ++) {
     sum += who[i]*h[i];
   }
-  push = 1.0 / (1.0 + exp(-sum));
-  return push;
+  //push = 1.0 / (1.0 + exp(-sum));
+  //return push;
+  return sum;
 }
 
 // backward prop
@@ -70,15 +71,18 @@ backprop(double push, double target_push) {
   count_error ++;
 
   for(i = 0; i< 4; i ++) {
-    gradient = error * push * (1 - push);
-    who[i] += LR_HO * gradient;
+    gradient = LR_HO * error * h[i];
+    who[i] -= gradient;
+    //gradient = error * push * (1 - push);
+    //who[i] -= LR_HO * gradient;
   }
   for(i = 0; i< 4; i ++) {
     //double x = 1 - h[i]*h[i]; // for tanh
     double x = h[i] * (1 - h[i]); // for sigmoid
-    gradient = x * error;
+    gradient = LR_IH * x * who[i] * error;
     for (j = 0; j < 4; j ++)
-      wih[i][j] += LR_IH * gradient * state[j];
+      wih[j][i] -= gradient * state[j];
+      //wih[i][j] -= LR_IH * gradient * state[j];
   }
 }
 
@@ -86,7 +90,7 @@ train() {
 	double output;	
 	int i, j, epoch;
 
-	for(epoch = 0; epoch < 50; epoch ++) {
+	for(epoch = 0; epoch < 500; epoch ++) {
 		sum_error = 0.0;
 		count_error = 0;
 		for(i = 0; i < 4; i ++) {
@@ -94,7 +98,8 @@ train() {
 			output = forward();
 			backprop(output, targets[i]);
 		}
-		printf("[%d] Out %.1f MSE %.4f (%.1f/%d)\n", epoch, output, sum_error / count_error, sum_error, count_error);
+		if(epoch % 100 == 0)
+			printf("[%d] Out %.4f MSE %.4f (%.1f/%d)\n", epoch, output, sum_error / count_error, sum_error, count_error);
 	}
 }
 
@@ -116,7 +121,7 @@ test() {
 	for(i = 0; i < 4; i ++) {
 		output = forward();
 		backprop(output, targets[i]);
-		printf("Out %.1f target %.4f error %.4f\n", output, targets[i], output-targets[i]);
+		printf("Out %.4f target %.4f error %.4f\n", output, targets[i], output-targets[i]);
 	}
 }
 

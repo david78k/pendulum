@@ -163,7 +163,7 @@ void calcNet()
 
    for(i = 0;i<numHidden;i++)
     outPred = outPred + hiddenVal[i] * weightsHO[i];
-
+   //outPred = sigmoid (outPred);
     //calculate the error
     errThisPat = outPred - trainOutputs[patNum];
  }
@@ -195,12 +195,11 @@ void WeightChangesIH()
    int i, k; 
   for( i = 0;i<numHidden;i++)
   {
+   double x = (1 - (hiddenVal[i]) * hiddenVal[i]) * weightsHO[i] * errThisPat * LR_IH;
    for(k = 0;k<numInputs;k++)
    {
-    double x = 1 - (hiddenVal[i] * hiddenVal[i]);
-    x = x * weightsHO[i] * errThisPat * LR_IH;
-    x = x * trainInputs[patNum][k];
-    double weightChange = x;
+    //double x = (1 - (hiddenVal[i] * hiddenVal[i])) * weightsHO[i] * errThisPat * LR_IH * trainInputs[patNum][k];
+    double weightChange = x * trainInputs[patNum][k];
     weightsIH[k][i] = weightsIH[k][i] - weightChange;
    }
   }
