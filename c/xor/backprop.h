@@ -14,7 +14,7 @@ and set to 1
 
 Routines included:
 
-calcNet()
+forward()
 WeightChangesHO()
 WeightChangesIH()
 initWeights()
@@ -36,14 +36,16 @@ Symantec Cafe Lite
 
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
-void calcNet();
+double forward();
+void backprop();
 void WeightChangesHO();
 void WeightChangesIH();
 void initWeights();
 void initData();
 double sigmoid(double x);
 double tanh(double x);
-void displayResults();
+//void displayResults();
+void testAll();
 void calcOverallError();
 
 //training data
@@ -99,14 +101,16 @@ static double RMSerror;
 //********** END OF THE MAIN PROGRAM **************************
 //=============================================================
 
-  static void train()
- {
-
+void init() {
   //initiate the weights
   initWeights();
 
   //load in the data
-  initData();
+//  initData();
+}
+
+  static void train()
+ {
 
   //train the network
   int i, j;
@@ -121,11 +125,10 @@ static double RMSerror;
 
             //calculate the current network output
             //and error for this pattern
-            calcNet();
+            forward();
 
             //change network weights
-            WeightChangesHO();
-            WeightChangesIH();
+	    backprop();
         }
 
         //display the overall network error
@@ -133,7 +136,8 @@ static double RMSerror;
         calcOverallError();
         if(j % 100 == 0) {
         	printf("epoch = %d RMSE = %.4f\n", j, RMSerror);
-		displayResults();
+		//displayResults();
+		testAll();
 	}
     }
 
@@ -148,7 +152,7 @@ static double RMSerror;
 /**
  * forward propagation
  */
-void calcNet()
+double forward()
  {
     //calculate the outputs of the hidden neurons
     //the hidden neurons are tanh
@@ -173,8 +177,13 @@ void calcNet()
    //outPred = sigmoid (outPred);
     //calculate the error
     errThisPat = outPred - trainOutputs[patNum];
+   return outPred;
  }
 
+void backprop() {
+	WeightChangesHO();
+        WeightChangesIH();
+}
 
 //************************************
 void WeightChangesHO()
@@ -285,20 +294,20 @@ double tanh(double x)
 //************************************
 double test(int patternNumber) {
 	patNum = patternNumber;
-	calcNet();
+	forward();
 	return outPred;
 }
 
 /**
  * test and display results
  */
-void displayResults()
+void testAll()
     {
     int i;
      for(i = 0;i<numPatterns;i++)
         {
 //        patNum = i;
-//        calcNet();
+//        forward();
     	 test(i);
         printf("pat%d expected = %.4f neural model = %.4f\n", patNum + 1, /*trainInputs[i],*/ trainOutputs[patNum], outPred);
         }
@@ -313,13 +322,24 @@ void calcOverallError()
      for(i = 0;i<numPatterns;i++)
         {
         patNum = i;
-        calcNet();
+        forward();
         RMSerror = RMSerror + (errThisPat * errThisPat);
         }
      RMSerror = RMSerror/numPatterns;
      RMSerror = sqrt(RMSerror);
     }
 
+printWeights() {
+        int i, j;
+        for(i = 0; i < 4; i ++) {
+                for(j = 0; j < 4; j ++)
+                        printf("%.4f ", weightsIH[i][j]);
+                printf("\n");
+        }
+        for(i = 0; i < 4; i ++)
+                printf("%.4f ", weightsHO[i]);
+        printf("\n");
+}
 
 //==============================================================
 //********** THIS IS THE MAIN PROGRAM **************************
