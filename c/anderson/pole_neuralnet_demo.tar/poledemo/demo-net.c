@@ -69,7 +69,7 @@ int start_state, failure;
 double a[5][5], b[5], c[5], d[5][5], e[5], f[5], wih[4][NHIDDEN], who[NHIDDEN], h[NHIDDEN];
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
 double r_hat, push, unusualness, sum_error = 0.0;
-int bp_flag = 0, count_error = 0;
+int bp_flag = 0, count_error = 0, total_count = 0;
 
 int statep = 1;		     /* t=update the state each step */
 int perfp = 1;		     /*t=update the performance curve each step */
@@ -131,7 +131,7 @@ main(argc,argv)
 
   Run(context,atoi(argv[2]), atoi(argv[3]));
   if(bp_flag) {
-    bp_flag = 2;
+    bp_flag = 2; // test backprop
     Run(context,atoi(argv[2]), atoi(argv[3]));
   }
 }
@@ -516,6 +516,8 @@ Run(context, num_trials, sample_period)
 {
   register int i, j, avg_length;
 
+  sum_error = 0; count_error = 0; total_count = 0;
+
   NextState(1, 0.0);
   i = 0;
   j = 0;
@@ -531,7 +533,8 @@ Run(context, num_trials, sample_period)
     printf("testing backpropation\n");
   }
 
-  while (i < num_trials && j < 180000) /* one hour at .02s per step */
+  while (i < num_trials && j < 180000 && total_count < 100) /* one hour at .02s per step */
+  //while (i < num_trials && j < 180) /* one hour at .02s per step */
     {
       if (Graphics)
 	if (fmod((float)j,500.0) == 0)
@@ -750,12 +753,16 @@ double forward() {
 // backward prop
 backprop(double push, double target_push) {
   int i, j;
-  double sum = 0.0;
   double error = (push - target_push);
   double gradient = 0.0;
 
   sum_error += error * error;
-  count_error ++;
+  count_error ++; total_count ++;
+//  if (count_error % 100 == 0) {
+    printf("%6d expected %.2f backprop %.2f error %.4f MSE %.4f\n", total_count, target_push, push, error, sum_error / count_error);
+//    sum_error = 0; 
+//    count_error = 0;
+//  }
 
   for(i = 0; i< NHIDDEN; i ++) {
     gradient = LR_HO * error * h[i];
