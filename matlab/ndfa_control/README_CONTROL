@@ -1,0 +1,110 @@
+Nonlinear Dynamic Factor Analysis with Control Matlab package
+version 0.95, 2005-04-13
+
+This package is based on the Nonlinear Factor Analysis Matlab package
+
+WHAT'S NEW------------------------------------------------------------
+
+- Initial release of the control package.
+
+KNOWN BUGS AND LIMITATIONS -------------------------------------------
+
+- Only systems with single input are fully supported, identification 
+  should work with any number of control inputs, however
+
+IMPORTANT FILES-------------------------------------------------------
+
+The following functions should be directly called by the user. See 
+either the approriate chapters in this documentation or Matlab help
+for the functions for more details.
+
+NDFA		Used for system identification, see USAGE: 
+		IDENTIFICATION.
+
+CONTROL		Used for control, see USAGE: CONTROL.
+
+RUNTESTS	Script file for automating test runs, see USAGE: 
+		CONTROL.
+
+SHOW		Script for visual simulation of the cart-pole system,
+		see OTHER TOOLS.
+
+USAGE: SYSTEM IDENTIFICATION -----------------------------------------
+
+See the main documentation for more details, some system 
+identification examples appear here.
+
+
+result = NDFA(data, 'searchsources', 5, 'initcontrol', U, 
+	      'hidneurons', 30, 'thidneurons', 30);
+
+Extract a 5 dimensional hidden state space model from the data driven
+by control U using an observation MLP with 30 hidden neurons and 
+temporal MLP with 20 hidden neurons and default source initialisation.
+
+
+
+result = NDFA(data, 'observationmapping', false, 'initcontrol', U,
+	      'thidneurons', 30);
+
+Extract a model with no hidden state space from the data driven by 
+control U using a temporal MLP with 30 hidden neurons and default 
+source initialisation.
+
+USAGE: CONTROL--------------------------------------------------------
+
+The following commands can be used to repeat the simulations presented
+in our papers. The default (low) noise version is listed first 
+followed by the high noise version. The simulation results will be 
+stored in the 'stats' cell array, see runtests.m documentation for
+details. Before these commands, the (hidden) state space model should 
+be in the structure 'result'.
+
+The 'control' function should be called directly (or runtests modified)
+if more specific options are required. See help for CONTROL for 
+details.
+
+
+NMPC (rest of the parameters are taken from the model)
+stats = RUNTESTS(100, result, 40, 2);
+stats = RUNTESTS(100, result, 40, 2, [], .1);
+
+OIC:
+stats = RUNTESTS(100, result, 40, 2);
+stats = RUNTESTS(100, result, 40, 2, [], .1);
+
+Feedforward (Horizon lenght has no effect on the success rate):
+stats = RUNTESTS(100, result, 1, 2);
+stats = RUNTESTS(100, result, 1, 2, [], .1);
+
+
+USAGE: NEW CONTROL TASKS----------------------------------------------
+
+At least the following files should be modified, if the package is 
+used with other control problems than the cart-pole swingup task.
+
+runtests.m	This script file should either be heavily modified or 
+		ignored complitely.
+
+control.m	System simulator and its (optional) arguments should 
+		be specified with 'g' and 'g_in' input parameters. 
+		Code for plotting the figures should either be modified
+		or removed. For details on how the simulator should 
+		function, see 'cartpole_f.m'.
+
+cost.m		Control cost function for the new task should be added
+		here.	
+
+optimize.m 	If the cost function has any terms beyond the basic 
+		tracking penalty, their gradients should be added 
+		here (and any cart-pole specific gradients should be
+		removed) if any NMPC variants are used.
+
+USAGE: NEW CONTROL SCHEMES--------------------------------------------
+
+New control schemes should only require changes to control.m file.
+
+
+OTHER TOOLS-----------------------------------------------------------
+
+show.m 		Graphical simulator for the cart-pole system.
