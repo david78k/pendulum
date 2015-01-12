@@ -533,7 +533,7 @@ Run(context, num_trials, sample_period)
     printf("testing backpropation\n");
   }
 
-  while (i < num_trials && j < 180000 && total_count < 100) /* one hour at .02s per step */
+  while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   //while (i < num_trials && j < 180) /* one hour at .02s per step */
     {
       if (Graphics)
@@ -635,6 +635,7 @@ Cycle(context, learn_flag)
     p = forward();
     //printf("p = %.1f targetp = %.1f\n", p, targetp);
   }
+  //push = (0.5 <= p) ? 10.0 : -10.0;
   push = (randomdef <= p) ? 10.0 : -10.0;
   unusualness = (push > 0) ? 1.0 - p : -p;
 
@@ -758,11 +759,11 @@ backprop(double push, double target_push) {
 
   sum_error += error * error;
   count_error ++; total_count ++;
-//  if (count_error % 100 == 0) {
+ // if (count_error % 100 == 0) {
     printf("%6d expected %.2f backprop %.2f error %.4f MSE %.4f\n", total_count, target_push, push, error, sum_error / count_error);
 //    sum_error = 0; 
 //    count_error = 0;
-//  }
+ // }
 
   for(i = 0; i< NHIDDEN; i ++) {
     gradient = LR_HO * error * h[i];
