@@ -22,7 +22,6 @@
 #include <sys/types.h>
 #include <sys/timeb.h>
 
-#define NHIDDEN 4
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
 int Graphics = 0;
@@ -345,10 +344,10 @@ SetRandomWeights()
       f[i] = randomdef * 0.2 - 0.1;
     }
 
-  for(j = 0; j < NHIDDEN; j ++) {
-    who[i] = (randomdef - 0.5) / 5;
-    for (i = 0; i < 4; i ++)
-      wih[i][j] = (randomdef - 0.5) / 2;
+  for(i = 0; i < 4; i ++) {
+    for (j = 0; j < 4; j ++)
+      wih[i][j] = randomdef * 0.2 - 0.1;
+    who[i] = randomdef * 0.2 - 0.1;
   }
 }
 
@@ -548,9 +547,8 @@ Run(context, num_trials, sample_period)
 	    {
  	      if(bp_flag == 0) 
 	        printf("%6d %6d\n", i, avg_length / sample_period);
-      	      if(i % 100 == 0)
-		printf("%6d %6d %.4f (%.1f/%6d)\n", i, avg_length / sample_period, sum_error / count_error, sum_error, count_error);
-
+	      else
+	        printf("%6d %6d %.4f (%.1f/%6d)\n", i, avg_length / sample_period, sum_error / count_error, sum_error, count_error);
 	      avg_length = 0;
 	    }
 	  NextState(1, 0.0);
@@ -717,18 +715,17 @@ double forward() {
   int i, j;
   double push = 0.0, sum = 0.0;
   
-  for(i = 0; i < NHIDDEN; i ++) {
+  for(i = 0; i < 4; i ++) {
     sum = 0.0;
     for(j = 0; j < 4; j ++) 
       sum += wih[j][i]*state[j];
     h[i] = 1.0 / (1.0 + exp(-sum));
   }
   sum = 0.0;
-  for(i = 0; i < NHIDDEN; i ++) {
+  for(i = 0; i < 4; i ++) {
     sum += who[i]*h[i];
   }
-  push = sum;
-  //push = 1.0 / (1.0 + exp(-sum));
+  push = 1.0 / (1.0 + exp(-sum));
   return push;
 }
 
@@ -742,13 +739,14 @@ backprop(double push, double target_push) {
   sum_error += error * error;
   count_error ++;
 
-  for(i = 0; i< NHIDDEN; i ++) {
-    gradient = LR_HO * error * h[i];
-    who[i] -= gradient;
+  for(i = 0; i< 4; i ++) {
+    gradient = error * h[i];
+    who[i] += LR_HO * gradient;
   }
-  for(i = 0; i< NHIDDEN; i ++) {
-    double gradient = (1 - h[i])*h[i] * who[i] * error * LR_IH;
+  for(i = 0; i< 4; i ++) {
+    double x = 1 - h[i]*h[i];
+    gradient = x * who[i] * error;
     for (j = 0; j < 4; j ++) 
-      wih[j][i] -= gradient * state[j];
+      wih[i][j] += LR_IH * gradient * state[j];
   }
 }

@@ -10,7 +10,7 @@ demo:	demo.o
 	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) $(XLIBS)
 
 demo-net.o:	demo-net.c 
-	$(CC) $(CFLAGS) -c demo-net.c
+	$(CC) $(CFLAGS) -c demo-net.c $(XLIBS)
 
 
 demo-net:	demo-net.o xg.a

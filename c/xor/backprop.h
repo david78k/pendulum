@@ -36,10 +36,10 @@ Symantec Cafe Lite
 
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
-double forward();
-void backprop();
-void WeightChangesHO();
-void WeightChangesIH();
+double forward(double state[]);
+void backprop(double push, double target);
+void WeightChangesHO(double error);
+void WeightChangesIH(double error);
 void initWeights();
 void initData();
 double sigmoid(double x);
@@ -68,7 +68,7 @@ double trainInputs[NPATTERNS][4] = {
 	{1, 1, 1, 1} 
 };
 //static double trainOutputs[] = {0, 1, 1, 0};
-static double trainOutputs[] = {0, 1, 1, 1, 0, 0};
+double trainOutputs[] = {0, 1, 1, 1, 0, 0};
 	/*	static double[][] trainOutputs = new double[][]{
 		new double[]{1, 0},
 		new double[]{0, 1}
@@ -84,7 +84,7 @@ static double LR_IH = 0.7; //learning rate, default 0.7
 static double LR_HO = 0.07; //learning rate, default 0.07
 
 	//the outputs of the hidden neurons
-static double hiddenVal[NHIDDEN]; 
+static double h[NHIDDEN]; 
 
 	//the weights
 static double weightsIH [4][NHIDDEN] ; 
@@ -109,11 +109,12 @@ void init() {
 //  initData();
 }
 
-  static void train()
+void train()
  {
 
   //train the network
   int i, j;
+  double push;
     for(j = 0;j <= numEpochs;j++)
     {
 
@@ -121,14 +122,15 @@ void init() {
         {
 
             //select a pattern at random
-            patNum = (int)((randomdef*numPatterns)-0.001);
+            //patNum = (int)((randomdef*numPatterns)-0.001);
+            patNum = i;
 
             //calculate the current network output
             //and error for this pattern
-            forward();
+            push = forward(trainInputs[patNum]);
 
             //change network weights
-	    backprop();
+	    backprop(push, trainOutputs[patNum]);
         }
 
         //display the overall network error
@@ -152,20 +154,20 @@ void init() {
 /**
  * forward propagation
  */
-double forward()
+double forward(double state[])
  {
     //calculate the outputs of the hidden neurons
     //the hidden neurons are tanh
     int i, j;
     for(i = 0;i<numHidden;i++)
     {
-	hiddenVal[i] = 0.0;
+	h[i] = 0.0;
 
         for(j = 0;j<numInputs;j++)
-        hiddenVal[i] = hiddenVal[i] + (trainInputs[patNum][j] * weightsIH[j][i]);
+        h[i] = h[i] + (state[j] * weightsIH[j][i]);
 
-        hiddenVal[i] = tanh(hiddenVal[i]);
-        //hiddenVal[i] = sigmoid(hiddenVal[i]);
+        h[i] = tanh(h[i]);
+        //h[i] = sigmoid(h[i]);
     }
 
    //calculate the output of the network
@@ -173,26 +175,27 @@ double forward()
    outPred = 0.0;
 
    for(i = 0;i<numHidden;i++)
-    outPred = outPred + hiddenVal[i] * weightsHO[i];
+    outPred = outPred + h[i] * weightsHO[i];
    //outPred = sigmoid (outPred);
     //calculate the error
     errThisPat = outPred - trainOutputs[patNum];
    return outPred;
  }
 
-void backprop() {
-	WeightChangesHO();
-        WeightChangesIH();
+void backprop(double push, double target) {
+	double error = push - target;
+	WeightChangesHO(error);
+        WeightChangesIH(error);
 }
 
 //************************************
-void WeightChangesHO()
+void WeightChangesHO(double errThisPat)
  //adjust the weights hidden-output
  {
    int k; 
    for(k = 0;k<numHidden;k++)
    {
-    double weightChange = LR_HO * errThisPat * hiddenVal[k];
+    double weightChange = LR_HO * errThisPat * h[k];
     weightsHO[k] = weightsHO[k] - weightChange;
 
     //regularisation on the output weights
@@ -205,16 +208,16 @@ void WeightChangesHO()
 
 
 //************************************
-void WeightChangesIH()
+void WeightChangesIH(double errThisPat)
  //adjust the weights input-hidden
  {
    int i, k; 
   for( i = 0;i<numHidden;i++)
   {
-   double x = (1 - (hiddenVal[i]) * hiddenVal[i]) * weightsHO[i] * errThisPat * LR_IH;
+   double x = (1 - (h[i]) * h[i]) * weightsHO[i] * errThisPat * LR_IH;
    for(k = 0;k<numInputs;k++)
    {
-    //double x = (1 - (hiddenVal[i] * hiddenVal[i])) * weightsHO[i] * errThisPat * LR_IH * trainInputs[patNum][k];
+    //double x = (1 - (h[i] * h[i])) * weightsHO[i] * errThisPat * LR_IH * trainInputs[patNum][k];
     double weightChange = x * trainInputs[patNum][k];
     weightsIH[k][i] = weightsIH[k][i] - weightChange;
    }
@@ -294,7 +297,7 @@ double tanh(double x)
 //************************************
 double test(int patternNumber) {
 	patNum = patternNumber;
-	forward();
+	forward(trainInputs[patNum]);
 	return outPred;
 }
 
@@ -322,7 +325,7 @@ void calcOverallError()
      for(i = 0;i<numPatterns;i++)
         {
         patNum = i;
-        forward();
+        forward(trainInputs[patNum]);
         RMSerror = RMSerror + (errThisPat * errThisPat);
         }
      RMSerror = RMSerror/numPatterns;

@@ -14,7 +14,7 @@ and set to 1
 
 Routines included:
 
-calcNet()
+forward()
 WeightChangesHO()
 WeightChangesIH()
 initWeights()
@@ -36,14 +36,16 @@ Symantec Cafe Lite
 
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
-void calcNet();
-void WeightChangesHO();
-void WeightChangesIH();
+double forward(double state[]);
+void backprop(double push, double target);
+void WeightChangesHO(double error);
+void WeightChangesIH(double error);
 void initWeights();
 void initData();
 double sigmoid(double x);
 double tanh(double x);
-void displayResults();
+//void displayResults();
+void testAll();
 void calcOverallError();
 
 //training data
@@ -66,7 +68,7 @@ double trainInputs[NPATTERNS][4] = {
 	{1, 1, 1, 1} 
 };
 //static double trainOutputs[] = {0, 1, 1, 0};
-static double trainOutputs[] = {0, 1, 1, 1, 0, 0};
+double trainOutputs[] = {0, 1, 1, 1, 0, 0};
 	/*	static double[][] trainOutputs = new double[][]{
 		new double[]{1, 0},
 		new double[]{0, 1}
@@ -76,21 +78,21 @@ static double trainOutputs[] = {0, 1, 1, 1, 0, 0};
 	//user defineable variables
 static int numEpochs = 1500; //number of training cycles
 static int numInputs = 4; //number of inputs - this includes the input bias
-static int numHidden = NHIDDEN; //number of hidden units
+//static int NHIDDEN = NHIDDEN; //number of hidden units
 static int numPatterns = NPATTERNS; //number of training patterns
 static double LR_IH = 0.7; //learning rate, default 0.7
 static double LR_HO = 0.07; //learning rate, default 0.07
 
 	//the outputs of the hidden neurons
-static double hiddenVal[NHIDDEN]; 
+static double h[NHIDDEN]; 
 
 	//the weights
-static double weightsIH [4][NHIDDEN] ; 
-static double weightsHO[NHIDDEN] ;
+static double wih [4][NHIDDEN] ; 
+static double who[NHIDDEN] ;
 
 	//process variables
 static int patNum;
-static double errThisPat;
+static double error;
 static double outPred;
 static double RMSerror;
 
@@ -99,17 +101,20 @@ static double RMSerror;
 //********** END OF THE MAIN PROGRAM **************************
 //=============================================================
 
-  static void train()
- {
-
+void init() {
   //initiate the weights
   initWeights();
 
   //load in the data
-  initData();
+//  initData();
+}
+
+  static void train()
+ {
 
   //train the network
   int i, j;
+  double push;
     for(j = 0;j <= numEpochs;j++)
     {
 
@@ -121,11 +126,10 @@ static double RMSerror;
 
             //calculate the current network output
             //and error for this pattern
-            calcNet();
+            push = forward(trainInputs[patNum]);
 
             //change network weights
-            WeightChangesHO();
-            WeightChangesIH();
+	    backprop(push, trainOutputs[patNum]);
         }
 
         //display the overall network error
@@ -133,7 +137,8 @@ static double RMSerror;
         calcOverallError();
         if(j % 100 == 0) {
         	printf("epoch = %d RMSE = %.4f\n", j, RMSerror);
-		displayResults();
+		//displayResults();
+		testAll();
 	}
     }
 
@@ -148,66 +153,73 @@ static double RMSerror;
 /**
  * forward propagation
  */
-void calcNet()
+double forward(double state[])
  {
     //calculate the outputs of the hidden neurons
     //the hidden neurons are tanh
     int i, j;
-    for(i = 0;i<numHidden;i++)
+    for(i = 0;i<NHIDDEN;i++)
     {
-	hiddenVal[i] = 0.0;
+	h[i] = 0.0;
 
         for(j = 0;j<numInputs;j++)
-        hiddenVal[i] = hiddenVal[i] + (trainInputs[patNum][j] * weightsIH[j][i]);
+        h[i] = h[i] + (state[j] * wih[j][i]);
 
-        hiddenVal[i] = tanh(hiddenVal[i]);
-        //hiddenVal[i] = sigmoid(hiddenVal[i]);
+        h[i] = tanh(h[i]);
+        //h[i] = sigmoid(h[i]);
     }
 
    //calculate the output of the network
    //the output neuron is linear
-   outPred = 0.0;
+   double push = 0.0, sum = 0.0;
 
-   for(i = 0;i<numHidden;i++)
-    outPred = outPred + hiddenVal[i] * weightsHO[i];
-   //outPred = sigmoid (outPred);
+   for(i = 0;i<NHIDDEN;i++)
+    sum += h[i] * who[i];
+   push = sum;
+   //outPred = push;
+   //push = sigmoid (sum);
     //calculate the error
-    errThisPat = outPred - trainOutputs[patNum];
+    //error = push - trainOutputs[patNum];
+   return push;
  }
 
+void backprop(double push, double target) {
+	double error = push - target;
+	WeightChangesHO(error);
+        WeightChangesIH(error);
+}
 
 //************************************
-void WeightChangesHO()
+void WeightChangesHO(double error)
  //adjust the weights hidden-output
  {
    int k; 
-   for(k = 0;k<numHidden;k++)
+   for(k = 0;k<NHIDDEN;k++)
    {
-    double weightChange = LR_HO * errThisPat * hiddenVal[k];
-    weightsHO[k] = weightsHO[k] - weightChange;
+    double weightChange = LR_HO * error * h[k];
+    who[k] = who[k] - weightChange;
 
     //regularisation on the output weights
-    if (weightsHO[k] < -5)
-        weightsHO[k] = -5;
-    else if (weightsHO[k] > 5)
-        weightsHO[k] = 5;
+    if (who[k] < -5)
+        who[k] = -5;
+    else if (who[k] > 5)
+        who[k] = 5;
    }
  }
 
 
 //************************************
-void WeightChangesIH()
+void WeightChangesIH(double error)
  //adjust the weights input-hidden
  {
    int i, k; 
-  for( i = 0;i<numHidden;i++)
+  for( i = 0;i<NHIDDEN;i++)
   {
-   double x = (1 - (hiddenVal[i]) * hiddenVal[i]) * weightsHO[i] * errThisPat * LR_IH;
+   double gradient = (1 - (h[i]) * h[i]) * who[i] * error * LR_IH;
    for(k = 0;k<numInputs;k++)
    {
-    //double x = (1 - (hiddenVal[i] * hiddenVal[i])) * weightsHO[i] * errThisPat * LR_IH * trainInputs[patNum][k];
-    double weightChange = x * trainInputs[patNum][k];
-    weightsIH[k][i] = weightsIH[k][i] - weightChange;
+    double weightChange = gradient * trainInputs[patNum][k];
+    wih[k][i] = wih[k][i] - weightChange;
    }
   }
  }
@@ -218,11 +230,11 @@ void initWeights()
  {
    int i, j; 
 
-  for(j = 0;j<numHidden;j++)
+  for(j = 0;j<NHIDDEN;j++)
   {
-    weightsHO[j] = (randomdef - 0.5)/2;
+    who[j] = (randomdef - 0.5)/2;
     for(i = 0;i<numInputs;i++)
-    weightsIH[i][j] = (randomdef - 0.5)/5;
+      wih[i][j] = (randomdef - 0.5)/5;
   }
 
  }
@@ -285,22 +297,23 @@ double tanh(double x)
 //************************************
 double test(int patternNumber) {
 	patNum = patternNumber;
-	calcNet();
-	return outPred;
+	return forward(trainInputs[patNum]);
+	//return outPred;
 }
 
 /**
  * test and display results
  */
-void displayResults()
+void testAll()
     {
-    int i;
+     int i;
+     double push;
      for(i = 0;i<numPatterns;i++)
         {
 //        patNum = i;
-//        calcNet();
-    	 test(i);
-        printf("pat%d expected = %.4f neural model = %.4f\n", patNum + 1, /*trainInputs[i],*/ trainOutputs[patNum], outPred);
+//        forward();
+    	 push = test(i);
+        printf("pat%d expected = %.4f neural model = %.4f\n", patNum + 1, /*trainInputs[i],*/ trainOutputs[patNum], push);
         }
     }
 
@@ -313,13 +326,24 @@ void calcOverallError()
      for(i = 0;i<numPatterns;i++)
         {
         patNum = i;
-        calcNet();
-        RMSerror = RMSerror + (errThisPat * errThisPat);
+        forward(trainInputs[patNum]);
+        RMSerror = RMSerror + (error * error);
         }
      RMSerror = RMSerror/numPatterns;
      RMSerror = sqrt(RMSerror);
     }
 
+printWeights() {
+        int i, j;
+        for(i = 0; i < 4; i ++) {
+                for(j = 0; j < 4; j ++)
+                        printf("%.4f ", wih[i][j]);
+                printf("\n");
+        }
+        for(i = 0; i < 4; i ++)
+                printf("%.4f ", who[i]);
+        printf("\n");
+}
 
 //==============================================================
 //********** THIS IS THE MAIN PROGRAM **************************
@@ -327,7 +351,7 @@ void calcOverallError()
 
 main()
  {
-
+  init();
   train();
 
   //training has finished
@@ -335,4 +359,3 @@ main()
 //  displayResults();
   
  }
-
