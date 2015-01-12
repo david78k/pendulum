@@ -22,7 +22,7 @@
 #include <sys/types.h>
 #include <sys/timeb.h>
 
-#define NHIDDEN 4
+#define NHIDDEN 60
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
 int Graphics = 0;
@@ -66,7 +66,7 @@ struct
 } the_system_state;
 
 int start_state, failure;
-double a[5][5], b[5], c[5], d[5][5], e[5], f[5], wih[4][4], who[4], h[4];
+double a[5][5], b[5], c[5], d[5][5], e[5], f[5], wih[4][NHIDDEN], who[NHIDDEN], h[NHIDDEN];
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
 double r_hat, push, unusualness, sum_error = 0.0;
 int bp_flag = 0, count_error = 0;
@@ -712,6 +712,20 @@ Cycle(context, learn_flag)
   }
 }
 
+double tanh(double x)
+ {
+    if (x > 20)
+        return 1;
+    else if (x < -20)
+        return -1;
+    else
+        {
+        double a = exp(x);
+        double b = exp(-x);
+        return (a-b)/(a+b);
+        }
+ }
+
 // forward prop
 double forward() {
   int i, j;
@@ -721,13 +735,14 @@ double forward() {
     sum = 0.0;
     for(j = 0; j < 4; j ++) 
       sum += wih[j][i]*state[j];
+    //h[i] = tanh(sum);
     h[i] = 1.0 / (1.0 + exp(-sum));
   }
   sum = 0.0;
   for(i = 0; i < NHIDDEN; i ++) {
     sum += who[i]*h[i];
   }
-  push = sum;
+  push = sum; // linear
   //push = 1.0 / (1.0 + exp(-sum));
   return push;
 }
@@ -747,8 +762,10 @@ backprop(double push, double target_push) {
     who[i] -= gradient;
   }
   for(i = 0; i< NHIDDEN; i ++) {
-    double gradient = (1 - h[i])*h[i] * who[i] * error * LR_IH;
+    double gradient = (1 - h[i]*h[i]) * who[i] * error * LR_IH;
+    //double gradient = (1 - h[i])*h[i] * who[i] * error * LR_IH;
     for (j = 0; j < 4; j ++) 
       wih[j][i] -= gradient * state[j];
   }
 }
+
