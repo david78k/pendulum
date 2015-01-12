@@ -31,6 +31,9 @@ Symantec Cafe Lite
 #include <stdio.h>
 #include <math.h>
 
+#define NPATTERNS 6
+#define NHIDDEN 16
+
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
 void calcNet();
@@ -38,6 +41,7 @@ void WeightChangesHO();
 void WeightChangesIH();
 void initWeights();
 void initData();
+double sigmoid(double x);
 double tanh(double x);
 void displayResults();
 void calcOverallError();
@@ -53,13 +57,16 @@ double trainInputs[4][2] = {
 	{1, 1} 
 };
 */
-double trainInputs[4][4] = {
+double trainInputs[NPATTERNS][4] = {
 	{0, 0, 0, 0},
 	{1, 0, 0, 1}, 
 	{0, 1, 1, 0}, 
+	{0.5, 0.5, 1, 1}, 
+	{0, 0.5, 0.5, 0}, 
 	{1, 1, 1, 1} 
 };
-static double trainOutputs[] = {0, 1, 1, 0};
+//static double trainOutputs[] = {0, 1, 1, 0};
+static double trainOutputs[] = {0, 1, 1, 1, 0, 0};
 	/*	static double[][] trainOutputs = new double[][]{
 		new double[]{1, 0},
 		new double[]{0, 1}
@@ -67,19 +74,19 @@ static double trainOutputs[] = {0, 1, 1, 0};
 	 */
 
 	//user defineable variables
-static int numEpochs = 500; //number of training cycles
-static int numInputs = 2; //number of inputs - this includes the input bias
-static int numHidden = 4; //number of hidden units
-static int numPatterns = 4; //number of training patterns
+static int numEpochs = 1500; //number of training cycles
+static int numInputs = 4; //number of inputs - this includes the input bias
+static int numHidden = NHIDDEN; //number of hidden units
+static int numPatterns = NPATTERNS; //number of training patterns
 static double LR_IH = 0.7; //learning rate, default 0.7
 static double LR_HO = 0.07; //learning rate, default 0.07
 
 	//the outputs of the hidden neurons
-static double hiddenVal[4]; 
+static double hiddenVal[NHIDDEN]; 
 
 	//the weights
-static double weightsIH [4][4] ; 
-static double weightsHO[4] ;
+static double weightsIH [4][NHIDDEN] ; 
+static double weightsHO[NHIDDEN] ;
 
 	//process variables
 static int patNum;
@@ -154,6 +161,7 @@ void calcNet()
         hiddenVal[i] = hiddenVal[i] + (trainInputs[patNum][j] * weightsIH[j][i]);
 
         hiddenVal[i] = tanh(hiddenVal[i]);
+        //hiddenVal[i] = sigmoid(hiddenVal[i]);
     }
 
    //calculate the output of the network
@@ -162,7 +170,7 @@ void calcNet()
 
    for(i = 0;i<numHidden;i++)
     outPred = outPred + hiddenVal[i] * weightsHO[i];
-
+   //outPred = sigmoid (outPred);
     //calculate the error
     errThisPat = outPred - trainOutputs[patNum];
  }
@@ -194,12 +202,11 @@ void WeightChangesIH()
    int i, k; 
   for( i = 0;i<numHidden;i++)
   {
+   double x = (1 - (hiddenVal[i]) * hiddenVal[i]) * weightsHO[i] * errThisPat * LR_IH;
    for(k = 0;k<numInputs;k++)
    {
-    double x = 1 - (hiddenVal[i] * hiddenVal[i]);
-    x = x * weightsHO[i] * errThisPat * LR_IH;
-    x = x * trainInputs[patNum][k];
-    double weightChange = x;
+    //double x = (1 - (hiddenVal[i] * hiddenVal[i])) * weightsHO[i] * errThisPat * LR_IH * trainInputs[patNum][k];
+    double weightChange = x * trainInputs[patNum][k];
     weightsIH[k][i] = weightsIH[k][i] - weightChange;
    }
   }
@@ -256,6 +263,10 @@ void initData()
 }
 
 //************************************
+double sigmoid(double x) {
+	return 1.0 / (1.0 + exp(-x));
+}
+
 double tanh(double x)
  {
     if (x > 20)
