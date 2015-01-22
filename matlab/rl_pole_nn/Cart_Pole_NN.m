@@ -24,6 +24,8 @@
 %  The code has been converted to MATLAB by Amir Hesami and a simulator is added to show
 %  the cart's and pole's movement
 
+plot = 0;   % boolean for plotting. 1: plot, 0: no plot
+
 N_BOXES = 162;        % Number of disjoint boxes of state space.
 ALPHA	= 1000;       % Learning rate for action weights, w.
 BETA    = 0.5;        % Learning rate for critic weights, v. 
@@ -50,13 +52,17 @@ theta_dot = 0.0;     % pole angular velocity
 box = get_box(x, x_dot, theta, theta_dot);
 
 % Turning on the double buffering to plot the cart and pole
- h = figure(1);
- set(h,'doublebuffer','on')
- 
+if plot 
+    h = figure(1);
+    set(h,'doublebuffer','on')
+end
+
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS & failures < MAX_FAILURES)
     % Plot the cart and pole with the x and theta
-    plot_Cart_Pole(x,theta)
+    if plot
+        plot_Cart_Pole(x,theta)
+    end
     
     %Choose action randomly, biased by current weight. 
     if Random_Pole_Cart<prob_push_right(w(box))
@@ -115,28 +121,11 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
     rhat = r + GAMMA * p - oldp;
     
     [w, v, e, xbar] = NN_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
-    
-%     for i=1:N_BOXES,
-%         %Update all weights.
-%          w(i) = w(i)+ ALPHA * rhat * e(i);
-% 	     v(i) = v(i)+ BETA * rhat * xbar(i);
-%          
-%          if (v(i) < -1.0)
-% 	        v(i) = v(i);
-%          end
-%          
-%          if (failed)
-%              %If failure, zero all traces.
-%               e(i) = 0.;
-% 	          xbar(i) = 0.;
-%               
-%           else
-%               e(i)=e(i) * LAMBDAw;
-%               xbar(i) =xbar(i)* LAMBDAv;
-%           end          
-%       end
+ 
       %Plot the cart and pole using the new x and theta after applying the action
-      plot_Cart_Pole(x,theta)
+      if plot
+          plot_Cart_Pole(x,theta)
+      end
   end
   
 if (failures == MAX_FAILURES)

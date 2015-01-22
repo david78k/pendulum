@@ -24,6 +24,8 @@
 %  The code has been converted to MATLAB by Amir Hesami and a simulator is added to show
 %  the cart's and pole's movement
 
+plot = 1;   % boolean for plotting. 0
+
 N_BOXES = 162;        % Number of disjoint boxes of state space.
 ALPHA	= 1000;       % Learning rate for action weights, w.
 BETA    = 0.5;        % Learning rate for critic weights, v. 
@@ -38,7 +40,7 @@ steps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
-NN_init();
+[w, v, xbar, e] = NN_init(N_BOXES);
 
 % Starting state is (0 0 0 0)
 x         = 0;       % cart position, meters 
@@ -49,15 +51,18 @@ theta_dot = 0.0;     % pole angular velocity
 % Find box in state space containing start state
 box = get_box(x, x_dot, theta, theta_dot);
 
-
 % Turning on the double buffering to plot the cart and pole
- h = figure(1);
- set(h,'doublebuffer','on')
- 
+if plot 
+    h = figure(1);
+    set(h,'doublebuffer','on')
+end
+
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS & failures < MAX_FAILURES)
     % Plot the cart and pole with the x and theta
-    plot_Cart_Pole(x,theta)
+    if plot
+        plot_Cart_Pole(x,theta)
+    end
     
     %Choose action randomly, biased by current weight. 
     if Random_Pole_Cart<prob_push_right(w(box))
@@ -72,8 +77,7 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
     end
     
     %Update traces.
-    e(box)= e(box) + (1.0 - LAMBDAw) * (push - 0.5);
-    xbar(box) =xbar(box)+ (1.0 - LAMBDAv);
+    [e, xbar] = NN_update_traces(LAMBDAw, LAMBDAv, e, xbar, push, box);
     
     %Remember prediction of failure for current state
     oldp = v(box);
@@ -116,7 +120,7 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
     
     rhat = r + GAMMA * p - oldp;
     
-    NN_update();
+    [w, v, e, xbar] = NN_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
     
 %     for i=1:N_BOXES,
 %         %Update all weights.
@@ -138,7 +142,9 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
 %           end          
 %       end
       %Plot the cart and pole using the new x and theta after applying the action
-      plot_Cart_Pole(x,theta)
+      if plot
+          plot_Cart_Pole(x,theta)
+      end
   end
   
 if (failures == MAX_FAILURES)
