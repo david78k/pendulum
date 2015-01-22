@@ -38,7 +38,7 @@ steps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
-[w, v, xbar, e] = NN_init(N_BOXES);
+NN_init();
 
 % Starting state is (0 0 0 0)
 x         = 0;       % cart position, meters 
@@ -48,6 +48,7 @@ theta_dot = 0.0;     % pole angular velocity
 
 % Find box in state space containing start state
 box = get_box(x, x_dot, theta, theta_dot);
+
 
 % Turning on the double buffering to plot the cart and pole
  h = figure(1);
@@ -71,7 +72,8 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
     end
     
     %Update traces.
-    [e, xbar] = NN_update_traces(LAMBDAw, LAMBDAv, e, xbar, push, box);
+    e(box)= e(box) + (1.0 - LAMBDAw) * (push - 0.5);
+    xbar(box) =xbar(box)+ (1.0 - LAMBDAv);
     
     %Remember prediction of failure for current state
     oldp = v(box);
@@ -114,7 +116,7 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
     
     rhat = r + GAMMA * p - oldp;
     
-    [w, v, e, xbar] = NN_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
+    NN_update();
     
 %     for i=1:N_BOXES,
 %         %Update all weights.
