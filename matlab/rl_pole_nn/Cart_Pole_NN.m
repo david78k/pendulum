@@ -24,6 +24,8 @@
 %  The code has been converted to MATLAB by Amir Hesami and a simulator is added to show
 %  the cart's and pole's movement
 
+% Two-layer neural network: action network and evaluation network
+% network architecture: 5 x 5 x 1
 plot = 0;   % boolean for plotting. 1: plot, 0: no plot
 
 N_BOXES = 162;        % Number of disjoint boxes of state space.
@@ -58,29 +60,35 @@ if plot
 end
 
 % Iterate through the action-learn loop. 
-while (steps < MAX_STEPS & failures < MAX_FAILURES)
+while (steps < MAX_STEPS && failures < MAX_FAILURES)
     % Plot the cart and pole with the x and theta
     if plot
         plot_Cart_Pole(x,theta)
     end
     
     %Choose action randomly, biased by current weight. 
-    if Random_Pole_Cart<prob_push_right(w(box))
-        push =1;
+    p = ActionNetwork_forward();
+    
+    if Random_Pole_Cart < p
+        push =1; unusualness = 1.0 - p;
     else
-        push=0;
+        push=0; unusualness = -p;
     end
-    if push > 0
-        unusualness = 1.0 - p;
-    else
-        unusualness = -p;
-    end
+%     if push > 0
+%         unusualness = 1.0 - p;
+%     else
+%         unusualness = -p;
+%     end
     
     %Update traces.
     [e, xbar] = NN_update_traces(LAMBDAw, LAMBDAv, e, xbar, push, box);
     
     %Remember prediction of failure for current state
     oldp = v(box);
+    
+    % preserve current activities in evaluation network
+    y_old = v;
+    remember_x_y();
     
     %Apply action to the simulated cart-pole
     [x,x_dot,theta,theta_dot]=Cart_Pole(push,x,x_dot,theta,theta_dot);
@@ -117,7 +125,6 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
     
     %Heuristic reinforcement is:   current reinforcement
 	%     + gamma * new failure prediction - previous failure prediction
-    
     rhat = r + GAMMA * p - oldp;
     
     [w, v, e, xbar] = NN_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
@@ -126,7 +133,7 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
       if plot
           plot_Cart_Pole(x,theta)
       end
-  end
+end
   
 if (failures == MAX_FAILURES)
     disp(['Pole not balanced. Stopping after ' int2str(failures) ' failures ' ]);

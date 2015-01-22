@@ -24,8 +24,7 @@
 %  The code has been converted to MATLAB by Amir Hesami and a simulator is added to show
 %  the cart's and pole's movement
 
-% Two-layer neural network: action network and evaluation network
-% network architecture: 5 x 5 x 1
+% single layer neural network
 plot = 0;   % boolean for plotting. 1: plot, 0: no plot
 
 N_BOXES = 162;        % Number of disjoint boxes of state space.
@@ -60,16 +59,14 @@ if plot
 end
 
 % Iterate through the action-learn loop. 
-while (steps < MAX_STEPS & failures < MAX_FAILURES)
+while (steps < MAX_STEPS && failures < MAX_FAILURES)
     % Plot the cart and pole with the x and theta
     if plot
         plot_Cart_Pole(x,theta)
     end
     
     %Choose action randomly, biased by current weight. 
-    p = ActionNetwork_
-    
-    if Random_Pole_Cart < p
+    if Random_Pole_Cart<prob_push_right(w(box))
         push =1;
     else
         push=0;
@@ -130,7 +127,7 @@ while (steps < MAX_STEPS & failures < MAX_FAILURES)
       if plot
           plot_Cart_Pole(x,theta)
       end
-  end
+end
   
 if (failures == MAX_FAILURES)
     disp(['Pole not balanced. Stopping after ' int2str(failures) ' failures ' ]);
