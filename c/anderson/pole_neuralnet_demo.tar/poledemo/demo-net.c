@@ -77,14 +77,14 @@ int perfp = 1;		     /*t=update the performance curve each step */
 float act = 0.;  /* SET BY BUTTON PRESSES */
 
 /*** Prototypes ***/
-void update_pole(float state[4], float act);
-void calc_derivs (float state[4], float act, float derivs[4]);
+//void update_pole(float state[4], float act);
+//void calc_derivs (float state[4], float act, float derivs[4]);
 int force_direction ();
 void show_state (Xg_context *context, float state[4], float act);
 void draw_state (Xg_context *context, float state[4], float act);
 void draw_track (Xg_context *context);
 float scale (float v, float vmin, float vmax, int devmin, int devmax);
-void reset_perf_curve ();
+//void reset_perf_curve ();
 void draw_performance (Xg_context *context);
 void line (Xg_context *context, float x1, float y1, float x2, float y2);
 void rectangle (Xg_context *context, float x1, float y1, float x2, float y2);
@@ -175,7 +175,6 @@ weight-file(or - to init randomly) b bh r rh\n",
 
 /**********************************************************************
  *
- **********************************************************************/
 void update_pole(float state[4], float act)
 {
   float derivs[4];
@@ -186,10 +185,10 @@ void update_pole(float state[4], float act)
   for (i=0; i<4; i++)
     state[i] += tau * derivs[i];
 }
+ **********************************************************************/
 
 /**********************************************************************
  *
- **********************************************************************/
 void calc_derivs (float state[4], float act, float derivs[4])
 {
   float force = force_mag * act;
@@ -208,6 +207,7 @@ void calc_derivs (float state[4], float act, float derivs[4])
       thdd = (9.8 * sinth - costh * common) /
         (pole_half_length * (4./3. - pole_mass * costh * costh / total_mass));
       xdd = common - pole_mass * pole_half_length * thdd * costh / total_mass;
+ **********************************************************************/
 
 /**
   thdd =  ( 9.8 * sinth + 
@@ -222,11 +222,13 @@ void calc_derivs (float state[4], float act, float derivs[4])
 	 - fric_cart * sign(xd))  /   total_mass;
 **/
 
+/**
   derivs[0] = xd;
   derivs[1] = xdd;
   derivs[2] = thd;
   derivs[3] = thdd;
 }
+ **********************************************************************/
 
 /**********************************************************************
  *
