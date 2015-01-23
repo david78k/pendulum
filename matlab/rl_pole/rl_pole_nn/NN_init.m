@@ -1,4 +1,4 @@
-function [w, v, xbar, e] = NN_init(N_BOXES)
+function [w, v, xbar, e] = nn_init(N_BOXES)
 
 % Initialize action and heuristic critic weights and traces
 w =zeros(N_BOXES,1);

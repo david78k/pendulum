@@ -1,102 +1,89 @@
-% /*----------------------------------------------------------------------
-%     This file contains a simulation of the cart and pole dynamic system and 
-%  a procedure for learning to balance the pole.  Both are described in 
-%  Barto, Sutton, and Anderson, "Neuronlike Adaptive Elements That Can Solve
-%  Difficult Learning Control Problems," IEEE Trans. Syst., Man, Cybern.,
-%  Vol. SMC-13, pp. 834--846, Sept.--Oct. 1983, and in Sutton, "Temporal
-%  Aspects of Credit Assignment in Reinforcement Learning", PhD
-%  Dissertation, Department of Computer and Information Science, University
-%  of Massachusetts, Amherst, 1984.  The following routines are included:
-% 
-%        main:              controls simulation interations and implements 
-%                           the learning system.
-% 
-%        cart_and_pole:     the cart and pole dynamics; given action and
-%                           current state, estimates next state
-% 
-%        get_box:           The cart-pole's state space is divided into 162
-%                           boxes.  get_box returns the index of the box into
-%                           which the current state appears.
-% 
-%  These routines were written by Rich Sutton and Chuck Anderson.  Claude Sammut 
-%  translated parts from Fortran to C.  Please address correspondence to
-%  sutton@gte.com or anderson@cs.colostate.edu
-%  The code has been converted to MATLAB by Amir Hesami and a simulator is added to show
-%  the cart's and pole's movement
-
 % Two-layer neural network: action network and evaluation network
 % network architecture: 5 x 5 x 1
 plot = 0;   % boolean for plotting. 1: plot, 0: no plot
 
-N_BOXES = 162;        % Number of disjoint boxes of state space.
-ALPHA	= 1000;       % Learning rate for action weights, w.
-BETA    = 0.5;        % Learning rate for critic weights, v. 
-GAMMA   = 0.95;       % Discount factor for critic. 
-LAMBDAw	= 0.9;        % Decay rate for w eligibility trace. 
-LAMBDAv	= 0.8;        % Decay rate for v eligibility trace
+BETA    = 0.2;      % Learning rate for action weights, a. 
+BETAH   = 0.05;     % Learning rate for action weights, b, c.
+RHO     = 1.0;      % Learning rate for critic weights, d. 
+RHOH    = 0.2;      % Learning rate for critic weights, e, f.
+GAMMA   = 0.9;      % ratio of current prediction, v
 
-MAX_FAILURES  =  100;      % Termination criterion. 
-MAX_STEPS   =     50000;
+MAX_POS = 2.4;
+MAX_VEL = 1.5;
+MAX_ANGLE = 0.2094;
+MAX_ANGVEL = 2.01;
+
+% MAX_FAILURES  =  100;      % Termination criterion for quantized Boxes version.
+% MAX_STEPS   =     50000;
+MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
+MAX_STEPS   =     100000;
 
 steps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
-[w, v, xbar, e] = NN_init(N_BOXES);
+% [w, v, xbar, e] = nn_init(N_BOXES);
+[a,b,c,d,e,f] = init_weights();
 
 % Starting state is (0 0 0 0)
-x         = 0;       % cart position, meters 
-x_dot     = 0;       % cart velocity
+h         = 0;       % cart position, meters 
+h_dot     = 0;       % cart velocity
 theta     = 0;       % pole angle, radians
 theta_dot = 0.0;     % pole angular velocity
 
 % Find box in state space containing start state
-box = get_box(x, x_dot, theta, theta_dot);
+% box = get_box(x, x_dot, theta, theta_dot);
+[x] = setInputValues(h, h_dot, theta, theta_dot, ...
+    MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
 % Turning on the double buffering to plot the cart and pole
 if plot 
-    h = figure(1);
-    set(h,'doublebuffer','on')
+    handle = figure(1);
+    set(handle,'doublebuffer','on')
 end
 
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
     % Plot the cart and pole with the x and theta
     if plot
-        plot_Cart_Pole(x,theta)
+        plot_Cart_Pole(h,theta)
     end
     
-    %Choose action randomly, biased by current weight. 
-    p = ActionNetwork_forward();
+    % state evaluation
+    [v, y] = eval_forward(x, a, b, c);
     
-    if Random_Pole_Cart < p
+    %Choose action randomly, biased by current weight. 
+    [p, z] = action_forward(x, d, e, f);
+    
+    if randomdef <= p
         push =1; unusualness = 1.0 - p;
     else
         push=0; unusualness = -p;
     end
-%     if push > 0
-%         unusualness = 1.0 - p;
-%     else
-%         unusualness = -p;
-%     end
-    
-    %Update traces.
-    [e, xbar] = NN_update_traces(LAMBDAw, LAMBDAv, e, xbar, push, box);
-    
+        
     %Remember prediction of failure for current state
-    oldp = v(box);
+%     oldp = v(box);
     
     % preserve current activities in evaluation network
-    y_old = v;
-    remember_x_y();
-    
+    v_old = v;
+    %remember inputs and hidden unit values
+    for i = 1:5,
+        xold(i) = x(i);
+        yold(i) = y(i);
+    end
+
     %Apply action to the simulated cart-pole
-    [x,x_dot,theta,theta_dot]=Cart_Pole(push,x,x_dot,theta,theta_dot);
+    [h,h_dot,theta,theta_dot, failure] = ...
+        Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE);
     
+    [x] = setInputValues(h, h_dot, theta, theta_dot, ...
+        MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+
     %Get box of state space containing the resulting state
-    box = get_box(x, x_dot, theta, theta_dot);
+%     box = get_box(h, h_dot, theta, theta_dot);
+    [v, y] = eval_forward(x, a, b, c);
     
-    if (box < 0)	
+    if (failure < 0)	
         %Failure occurred
         failed = 1;
 	    failures=failures+1;
@@ -105,34 +92,37 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         steps = 0;
         
         %Reset state to (0 0 0 0).  Find the box. ---*/
-	    x =0;
-        x_dot = 0;
+	    h =0;
+        h_dot = 0;
         theta =0;
         theta_dot = 0.0;
-	    box = get_box(x, x_dot, theta, theta_dot);
+
         %Reinforcement upon failure is -1. Prediction of failure is 0.
-        r = -1.0;
-	    p = 0.;
+%         r = -1.0;
+% 	    p = 0.;
+        rhat = failure - v_old;
+        failure = 0;
     else
         %Not a failure.
         failed = 0;
         
         %Reinforcement is 0. Prediction of failure given by v weight.
-        r = 0;
+%         r = 0;
         steps=steps+1;
-	    p= v(box);
+% 	    p= v(box);
+
+        %Heuristic reinforcement is:   current reinforcement
+        %     + gamma * new failure prediction - previous failure prediction
+        rhat = failure + GAMMA * v - v_old;
     end
-    
-    %Heuristic reinforcement is:   current reinforcement
-	%     + gamma * new failure prediction - previous failure prediction
-    rhat = r + GAMMA * p - oldp;
-    
-    [w, v, e, xbar] = NN_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
- 
-      %Plot the cart and pole using the new x and theta after applying the action
-      if plot
-          plot_Cart_Pole(x,theta)
-      end
+        
+    [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
+    unusualness, xold, yold, a, b, c, d, e, f, z);
+
+    %Plot the cart and pole using the new h and theta after applying the action
+    if plot
+        plot_Cart_Pole(h,theta)
+    end
 end
   
 if (failures == MAX_FAILURES)

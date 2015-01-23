@@ -25,7 +25,7 @@
 %  the cart's and pole's movement
 
 % single layer neural network
-plot = 1;   % boolean for plotting. 1: plot, 0: no plot
+plot = 0;   % boolean for plotting. 1: plot, 0: no plot
 
 N_BOXES = 162;        % Number of disjoint boxes of state space.
 ALPHA	= 1000;       % Learning rate for action weights, w.
@@ -41,7 +41,7 @@ steps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
-[w, v, xbar, e] = NN_init(N_BOXES);
+[w, v, xbar, e] = nn_init(N_BOXES);
 
 % Starting state is (0 0 0 0)
 x         = 0;       % cart position, meters 
@@ -79,7 +79,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     end
     
     %Update traces.
-    [e, xbar] = NN_update_traces(LAMBDAw, LAMBDAv, e, xbar, push, box);
+    [e, xbar] = nn_update_traces(LAMBDAw, LAMBDAv, e, xbar, push, box);
     
     %Remember prediction of failure for current state
     oldp = v(box);
@@ -122,7 +122,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     
     rhat = r + GAMMA * p - oldp;
     
-    [w, v, e, xbar] = NN_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
+    [w, v, e, xbar] = nn_update(N_BOXES, LAMBDAw, LAMBDAv, ALPHA, BETA, w, v, e, xbar, rhat, failed);
  
       %Plot the cart and pole using the new x and theta after applying the action
       if plot
