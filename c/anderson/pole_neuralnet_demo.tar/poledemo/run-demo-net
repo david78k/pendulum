@@ -1,6 +1,7 @@
 #echo " "
 echo "TRAINING WITH NO EXPERIENCE"
 time ./demo-net g 400 20 - 0.1 0.05 1 0.5
+#time ./demo-net n 400 20 - 0.1 0.05 1 0.5
 
 echo " "
 echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"

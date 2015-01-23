@@ -76,9 +76,22 @@ int perfp = 1;		     /*t=update the performance curve each step */
 float act = 0.;  /* SET BY BUTTON PRESSES */
 
 /*** Prototypes ***/
+void show_state (Xg_context *context, float state[4], float act);
+void draw_state (Xg_context *context, float state[4], float act);
+void draw_track (Xg_context *context);
 float scale (float v, float vmin, float vmax, int devmin, int devmax);
+void draw_performance (Xg_context *context);
+void line (Xg_context *context, float x1, float y1, float x2, float y2);
+void rectangle (Xg_context *context, float x1, float y1, float x2, float y2);
+void redraw(Widget w, Xg_context *context, caddr_t call_data);
+void released(Widget w, Xg_context *context, XEvent *event );
+void pressed(Widget w, Xg_context *context, XEvent *event );
+void reset(Xg_context *context);
 void init_args(int argc, char *argv[]);
 double forward();
+
+Xg_color *black;
+Xg_color *yellow;
 
 float sign(float x) { return (x < 0) ? -1. : 1.;}
 
@@ -88,6 +101,24 @@ main(argc,argv)
 {
   char a;
   Xg_context *context;
+  XGCValues values;
+
+  /*  printf("Delay (something like 4)? ");
+      scanf("%d",&Delay); */
+
+  if(*argv[1] == 'g') {
+    context = xg_init_context("X",NULL, &argc, argv, "test");
+
+    black = xg_color_name_xor(context,"black");
+    yellow = xg_color_name_xor(context,"yellow");
+
+    xg_set_viewport(context,0.,0.,1.,1.);
+    xg_set_window(context,-2.5,-2.5,2.5,2.5);
+
+    xg_add_redraw_function(context,redraw,(caddr_t) context);
+
+    draw_track(context);
+  }
 
   init_args(argc,argv);
 
@@ -137,6 +168,106 @@ weight-file(or - to init randomly) b bh r rh\n",
     bp_flag = atof(argv[9]);
 }
 
+
+/**********************************************************************
+ *
+ **********************************************************************/
+void reset(Xg_context *context)
+{
+  int i;
+  for (i=0; i<4; i++)
+    state[i] = 0.;
+
+  not_first = 0;
+
+  draw_track(context);
+}
+
+/**********************************************************************
+ *
+ **********************************************************************/
+
+float old_state[4];
+float old_act;
+
+void show_state (Xg_context *context, float state[4], float act)
+{
+  int i;
+
+  if (not_first) {
+    draw_state(context,old_state, old_act);
+/*    draw_track(context);*/
+  }
+
+  draw_state(context,state, act);
+
+  for (i=0; i<4; i++)
+    old_state[i] = state[i];
+
+  old_act = act;
+  not_first = 1;
+}
+
+/**********************************************************************
+ *
+ **********************************************************************/
+
+float pole_length = 1.5;
+float arrow_length = 0.2;
+
+void draw_state (Xg_context *context, float state[4], float act)
+{
+  float x = state[0];
+  float th = state[2];
+  float arrow_tip = x + arrow_length * sign(act);
+  float arrow_dx = -.05 * sign(act);
+
+  /* Draw the cart */
+  xg_fill_rectangle(context, x-0.2, -0.2, x+0.2, 0., yellow);
+
+  /* Now draw a vector showing applied force.*/
+  if (act != 0.) {
+    xg_draw_line(context, x,-0.1, arrow_tip, -0.1, yellow);
+    xg_draw_line(context, arrow_tip, -0.1, arrow_tip+arrow_dx, -0.1 + arrow_dx,
+		 yellow);
+    xg_draw_line(context, arrow_tip, -0.1, arrow_tip+arrow_dx, -0.1 - arrow_dx,
+		 yellow);
+  }
+
+  /* Now the pole */
+  xg_draw_line(context, x, 0., 
+	       x + sin(th) * pole_length, pole_length * cos(th), yellow);
+  xg_flush(context);
+}
+
+/**********************************************************************
+ *
+ **********************************************************************/
+void draw_track (Xg_context *context)
+{
+  Xg_point points[8] = 
+    {-2.5, -0.4,  2.5, -0.4,  2.5, 0.,  2.3, 0.,  2.3, -0.2,
+       -2.3, -0.2,  -2.3, 0.,  -2.5, 0.};
+
+  xg_clear(context);
+
+  xg_fill_polygon(context,points,8,xg_color_name(context,"black"));
+
+  not_first = 0;
+}
+
+/**********************************************************************
+ * This function is called whenever a window associated with a particular
+ * context is re_exposed or has been resized.  It must redraw the skeleton
+ * of your dynamic display.
+ **********************************************************************/
+void redraw(Widget w, Xg_context *context, caddr_t call_data)
+{
+  draw_track(context);
+}
+
+/***-----***/
+/****************************************************************/
 
 SetRandomWeights()
 {
@@ -341,6 +472,10 @@ Run(context, num_trials, sample_period)
   while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   //while (i < num_trials && j < 180) /* one hour at .02s per step */
     {
+      if (Graphics)
+	if (fmod((float)j,500.0) == 0)
+	  xg_process_events(context);
+
       Cycle(context,1);
       j++;
 
@@ -442,6 +577,21 @@ Cycle(context, learn_flag)
 
   /* Apply the push to the pole-cart */
   NextState(0, push);
+
+  state[0] = the_system_state.cart_pos;
+  state[1] = the_system_state.cart_vel;
+  state[2] = the_system_state.pole_pos;
+  state[3] = the_system_state.pole_vel;
+
+  /*printf("p %.1f s %.2f %.2f %.2f %.2f\n",push,state[0],state[1],state[2],state[3]); */
+
+  if(Graphics) {
+    int delay;
+    
+    show_state(context,state,sign(push));
+    usleep(10000);
+    /*   for (delay=0; delay<10^Delay; delay++) ;*/
+  }
 
   /* Calculate evaluation of new state. */
   for(i = 0; i < 5; i++)
