@@ -48,14 +48,30 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     end
     
     %Choose action randomly, biased by current weight. 
+    % p has two outputs
     [p, z] = action_forward(x, d, e, f);
     
-    if randomdef <= p   % right push
-        push =1; unusualness = 1.0 - p; 
+    % needs a threshold?
+    if randomdef <= p(1)   % right push
+        right = 1; %unusualness = 1.0 - p;
     else                % left push
-        push=0; unusualness = -p;
+        right = 0; %unusualness = -p;
     end
-        
+    
+    if randomdef <= p(2)   % right push
+        left = 1; %unusualness = 1.0 - p;
+    else                % left push
+        left = 0; %unusualness = -p;
+    end
+    
+    if right == 1 && left == 0,
+        push = 1;
+    elseif right == 0 && left == 1,
+        push = -1;
+    else
+        push = 0;
+    end
+    
     %Preserve current activities in evaluation network
     % Remember prediction of failure for current state
     v_old = v;

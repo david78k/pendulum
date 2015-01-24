@@ -25,7 +25,7 @@ failures=0;
 [a,b,c,d,e,f] = init_weights();
 
 % Starting state is (0 0 0 0)
-[h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+[h, h_dot, theta, theta_dot] = init_state();
 
 % Find box in state space containing start state
 [x] = setInputValues(h, h_dot, theta, theta_dot, ...
@@ -48,12 +48,13 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     end
     
     %Choose action randomly, biased by current weight. 
+    % p has two outputs
     [p, z] = action_forward(x, d, e, f);
     
     if randomdef <= p   % right push
-        push =1; unusualness = 1.0 - p; 
+        push =1; %unusualness = 1.0 - p; 
     else                % left push
-        push=0; unusualness = -p;
+        push=0; %unusualness = -p;
     end
         
     %Preserve current activities in evaluation network
@@ -83,7 +84,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         steps = 0;
         
         %Reset state to (0 0 0 0).  Find the box. ---*/
-	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+	    [h, h_dot, theta, theta_dot] = init_state();
 
         %Reinforcement upon failure is -1. Prediction of failure is 0.
 %         r = -1.0;
