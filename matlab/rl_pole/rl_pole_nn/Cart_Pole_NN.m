@@ -18,7 +18,7 @@ MAX_ANGVEL = 2.01;
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 MAX_STEPS   =     100000;
 
-steps = 0;
+steps = 0; actualMaxSteps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
@@ -50,7 +50,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     %Choose action randomly, biased by current weight. 
     [p, z] = action_forward(x, d, e, f);
     
-    if randomdef <= p   % right push
+    if rand <= p   % right push
         push =1; unusualness = 1.0 - p; 
     else                % left push
         push=0; unusualness = -p;
@@ -104,6 +104,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
     unusualness, xold, yold, a, b, c, d, e, f, z);
 
+    if actualMaxSteps < steps;
+        actualMaxSteps = steps;
+    end
 end
   
 if (failures == MAX_FAILURES)
@@ -111,3 +114,5 @@ if (failures == MAX_FAILURES)
 else
     disp(['Pole balanced successfully for at least ' int2str(steps) ' steps ' ]);
 end
+
+disp(['Max steps: ' int2str(actualMaxSteps)]);
