@@ -7,6 +7,6 @@ function [h, h_dot, theta, theta_dot] = init_state(max_pos, max_vel, max_angle, 
 % theta_dot = 0.0;     % pole angular velocity
 
 h         = rand * 2 * max_pos - max_pos;       % cart position, meters 
-h_dot     = rand * 2 * max_pos - max_pos;       % cart velocity
-theta     = rand * 2 * max_pos - max_pos;       % pole angle, radians
-theta_dot = rand * 2 * max_pos - max_;     % pole angular velocity
+h_dot     = rand * 2 * max_vel - max_vel;       % cart velocity
+theta     = rand * 2 * max_angle - max_angle;       % pole angle, radians
+theta_dot = rand * 2 * max_angvel - max_angvel;     % pole angular velocity

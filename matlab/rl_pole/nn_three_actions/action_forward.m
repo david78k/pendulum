@@ -1,8 +1,7 @@
 % action network forward function: sigmoid-sigmoid
-% 5-5-2
 % x: input layer. 
 % z: hidden layer. sigmoid
-% p: output layer. two sigmoid neurons
+% p: output layer. sigmoid
 % d: I-H synapses
 % e: I-O synapses
 % f: H-O synapses
@@ -17,10 +16,9 @@ for i = 1: 5,
     z(i) = sigmoid(s);  % hidden layer
 end
 
-for j = 1:2,
-    s = 0.0;
-    for i = 1:5,
-        s = s + e(i,j) * x(i) + f(i, j) * z(i); % I-O * input + H-O * hidden
-    end
-    p(j) = sigmoid(s); % output layer
+s = 0.0;
+for i = 1:5,
+    s = s + e(i) * x(i) + f(i) * z(i); % I-O * input + H-O * hidden
 end
+
+p = sigmoid(s); % output layer

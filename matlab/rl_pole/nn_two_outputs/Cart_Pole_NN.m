@@ -13,12 +13,10 @@ MAX_VEL = 1.5;
 MAX_ANGLE = 0.2094;
 MAX_ANGVEL = 2.01;
 
-% MAX_FAILURES  =  100;      % Termination criterion for quantized Boxes version.
-% MAX_STEPS   =     50000;
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 MAX_STEPS   =     100000;
 
-steps = 0;
+steps = 0;  actualMaxSteps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
@@ -52,25 +50,36 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [p, z] = action_forward(x, d, e, f);
     
     % needs a threshold?
-    if randomdef <= p(1)   % right push
+    if rand <= p(1)   % right push
         right = 1; %unusualness = 1.0 - p;
     else                % left push
         right = 0; %unusualness = -p;
     end
     
-    if randomdef <= p(2)   % right push
+    if rand <= p(2)   % left push
         left = 1; %unusualness = 1.0 - p;
     else                % left push
         left = 0; %unusualness = -p;
     end
     
     if right == 1 && left == 0,
-        push = 1;
+        push = 1;   q = 1.0;   
+%         pt = 0.3333 * p(1) * p(2) /0.5 + 0.66667;
+        pt = p(1);
     elseif right == 0 && left == 1,
-        push = -1;
+        push = -1;  q = 0.5;
+%         pt = 0.3333 * p(1) * p(2) /0.5 + 0.3333;
+        pt = p(2);
     else
-        push = 0;
+        push = 0;   q = 0;  pt = p(1) * p(2);
+%         if right == 0 && left == 0
+%             pt = 0.3333 * p(1) * p(2) /0.25;
+%         else
+%             pt = 0.3333 * (p(1) * p(2) - 0.25) /0.75;
+%         end
     end
+%     unusualness = q - p(1)*p(2);
+    unusualness = q - pt;
     
     %Preserve current activities in evaluation network
     % Remember prediction of failure for current state
@@ -120,6 +129,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
     unusualness, xold, yold, a, b, c, d, e, f, z);
 
+    if actualMaxSteps < steps;
+        actualMaxSteps = steps;
+    end
 end
   
 if (failures == MAX_FAILURES)
@@ -127,3 +139,5 @@ if (failures == MAX_FAILURES)
 else
     disp(['Pole balanced successfully for at least ' int2str(steps) ' steps ' ]);
 end
+
+disp(['Max steps: ' int2str(actualMaxSteps)]);

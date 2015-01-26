@@ -18,14 +18,14 @@ MAX_ANGVEL = 2.01;
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 MAX_STEPS   =     100000;
 
-steps = 0;
+steps = 0; actualMaxSteps = 0;
 failures=0;
 
 % Initialize action and heuristic critic weights and traces
 [a,b,c,d,e,f] = init_weights();
 
 % Starting state is (0 0 0 0)
-[h, h_dot, theta, theta_dot] = init_state();
+[h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
 % Find box in state space containing start state
 [x] = setInputValues(h, h_dot, theta, theta_dot, ...
@@ -48,14 +48,17 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     end
     
     %Choose action randomly, biased by current weight. 
-    % p has two outputs
     [p, z] = action_forward(x, d, e, f);
     
-    if randomdef <= p   % right push
-        push =1; %unusualness = 1.0 - p; 
-    else                % left push
-        push=0; %unusualness = -p;
+%     rnd = rand;
+    if 0.6667 <= p   % right push
+        push =1; q = 1.0; 
+    elseif 0.3333 <= p < 0.6667           % left push
+        push= -1; q = 0.5;
+    else
+        push = 0; q = 0;
     end
+    unusualness = q - p; 
         
     %Preserve current activities in evaluation network
     % Remember prediction of failure for current state
@@ -84,7 +87,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         steps = 0;
         
         %Reset state to (0 0 0 0).  Find the box. ---*/
-	    [h, h_dot, theta, theta_dot] = init_state();
+	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
         %Reinforcement upon failure is -1. Prediction of failure is 0.
 %         r = -1.0;
@@ -105,6 +108,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
     unusualness, xold, yold, a, b, c, d, e, f, z);
 
+    if actualMaxSteps < steps;
+        actualMaxSteps = steps;
+    end
 end
   
 if (failures == MAX_FAILURES)
@@ -112,3 +118,5 @@ if (failures == MAX_FAILURES)
 else
     disp(['Pole balanced successfully for at least ' int2str(steps) ' steps ' ]);
 end
+
+disp(['Max steps: ' int2str(actualMaxSteps)]);
