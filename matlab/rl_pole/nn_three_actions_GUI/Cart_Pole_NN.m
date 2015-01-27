@@ -22,6 +22,7 @@ MAX_STEPS   =     100000;
 steps = 0; actualMaxSteps = 0;
 failures=0;
 
+global grafica
 grafica = false; % indicates if display the graphical interface
 xpoints = [];
 ypoints = [];
@@ -54,7 +55,7 @@ end
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
     % Plot the cart and pole with the x and theta
-    if plot
+    if grafica
         plot_Cart_Pole(h,theta)
     end
     
@@ -82,9 +83,10 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     
     %Apply action to the simulated cart-pole
     % failure: r
+    
     [h,h_dot,theta,theta_dot, failure] = ...
         Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE);
-    
+       
     [x] = setInputValues(h, h_dot, theta, theta_dot, ...
         MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
@@ -93,7 +95,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     
     if (failure < 0) % r = -1, Failure occurred
 	    failures=failures+1;
-        disp(['Trial was ' int2str(failures) ' steps '  num2str(steps)]);
+        disp(['Episode ' int2str(failures) ': steps '  num2str(steps)]);
                        
 %         test
         [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
@@ -122,6 +124,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
     unusualness, xold, yold, a, b, c, d, e, f, z); 
     
+    if steps > 0.95*MAX_STEPS
+        grafica = true;
+    end
     if actualMaxSteps < steps;
         actualMaxSteps = steps;
     end

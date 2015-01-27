@@ -6,7 +6,7 @@ no need to have rand for p
 
 works without sign(f(i))
 
-Trial was 5620 steps 123
-Trial was 5621 steps 47
+Episode 6860: steps 188
+Episode 6861: steps 21
 Pole balanced successfully for at least 100000 steps 
 Max steps: 100000
