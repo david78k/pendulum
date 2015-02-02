@@ -19,10 +19,12 @@ TAU     = 0.02; % 141 steps, fmax = 1
 % TAU     = 1.0; % 846 steps, fmax = 1
 % TAU     = 1.0; % 1150 steps, fmax = 3
 
+% MAX_FAILURES  =  100;      % Termination criterion for quantized Boxes version.
+% MAX_STEPS   =     50000;
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
-% MAX_STEPS   =     100000;
-MAX_STEPS   =     30000;
-PAST_STEPS    = 1000;
+MAX_STEPS   =     100000;
+% MAX_STEPS   =     100;
+PAST_STEPS      
 
 MAX_POS = 2.4;
 MAX_VEL = 1.5;
@@ -101,8 +103,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
            
 %     F(steps) = 0;
     fsum = 0;
-%     for k = 1:min(steps,PAST_STEPS)
-    for k = 1:steps
+    for k = 1:pastSteps
         fsum = fsum + getForce(push, (steps - k)*sampleTime, TAU);
     end
 %     push = F(steps);

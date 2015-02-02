@@ -41,3 +41,27 @@ Elapsed time is 239.866240 seconds.
 Elapsed time is 1867.804289 seconds.
 Success rate: 0 (0/10)
 Final Max Steps: 1091
+
+Run 11:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 48
+Elapsed time is 517.433264 seconds.
+Run 12:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 1297
+Elapsed time is 804.414924 seconds.
+Run 13:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 36
+Elapsed time is 513.555742 seconds.
+Run 14:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 710
+Elapsed time is 810.439518 seconds.
+Run 15:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 943
+Elapsed time is 748.869296 seconds.
+
+Success rate: 0 (0/15)
+Final Max Steps: 1297
