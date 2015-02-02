@@ -3,7 +3,7 @@
 % TAU seconds later.
 
 function [x,x_dot,theta,theta_dot, failure] = ...
-    Cart_Pole(action,x,x_dot,theta,theta_dot, max_pos, max_angle)
+    Cart_Pole(action,x,x_dot,theta,theta_dot, max_pos, max_angle, tau)
 
 % Parameters for simulation
 
@@ -14,7 +14,8 @@ Total_Mass=Mass_Cart+Mass_Pole;
 Length=0.5; %Half of the length of the pole
 PoleMass_Length=Mass_Pole*Length;
 Force_Mag=10.0;
-Tau=0.02; %Time interval for updating the values
+% Tau=0.02; %Time interval for updating the values
+Tau = tau;
 Fourthirds=1.3333333;
 
 % Force_Mag = integral(fun,0,Tau);

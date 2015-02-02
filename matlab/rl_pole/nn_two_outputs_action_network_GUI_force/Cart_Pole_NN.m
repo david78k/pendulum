@@ -1,6 +1,6 @@
 function Cart_Pole_NN
 % Two-layer neural network: action network and evaluation network
-% network architecture: 5 x 5 x 1
+% network architecture: 5 x 5 x 2, 5 x 5 x 1
 plot = 1;   % boolean for plotting. 1: plot, 0: no plot
 
 BETA    = 0.2;      % Learning rate for action weights, a. 
@@ -8,7 +8,16 @@ BETAH   = 0.05;     % Learning rate for action weights, b, c.
 RHO     = 1.0;      % Learning rate for critic weights, d. 
 RHOH    = 0.2;      % Learning rate for critic weights, e, f.
 GAMMA   = 0.9;      % ratio of current prediction, v
-TAU     = 0.02;
+sampleTime = 0.01;
+TAU     = 0.02; % 141 steps, fmax = 1
+% TAU     = 0.02; % 1091 steps, fmax = 600
+% TAU     = 0.02; % steps, fmax = 3
+% TAU     = 0.02; % steps, fmax = 5
+% TAU     = 0.1; % 346 steps, fmax = 1
+% TAU     = 0.5; % 743 steps, fmax = 3
+% TAU     = 0.5; % 913 steps, fmax = 1
+% TAU     = 1.0; % 846 steps, fmax = 1
+% TAU     = 1.0; % 1150 steps, fmax = 3
 
 MAX_POS = 2.4;
 MAX_VEL = 1.5;
@@ -19,6 +28,7 @@ MAX_ANGVEL = 2.01;
 % MAX_STEPS   =     50000;
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 MAX_STEPS   =     100000;
+% MAX_STEPS   =     100;
 
 steps = 0; actualMaxSteps = 0;
 failures=0;
@@ -27,12 +37,6 @@ global grafica
 grafica = false; % indicates if display the graphical interface
 xpoints = [];
 ypoints = [];
-
-% subplot(2,1,2);
-% xpoints(1) = 10;
-% ypoints(1) = 50;
-% plot(xpoints,ypoints)
-% disp(['success'])        
 
 % Initialize action and heuristic critic weights and traces
 [a,b,c,d,e,f] = init_weights();
@@ -50,12 +54,12 @@ if plot
     set(handle,'doublebuffer','on')
 end
 
-tic
+tStart = tic;
 % state evaluation
 [v, y] = eval_forward(x, a, b, c);
 
 F = [];
-push = [];
+% push = [];
 
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
@@ -85,33 +89,26 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
    
     % q = 1.0/0.5/0 best: 586 steps
     if right == 1 && left == 0
-%         push = 1;   
+        push = 1;   
         q = 1.0; pp = p(1);
     elseif right == 0 && left == 1
-%         push = -1;  
+        push = -1;  
         q = 0.5; pp = p(2);
     else
-%         push = 0;   
+        push = 0;   
         q = 0; pp = 0;
     end
-%     rnd = rand;
-%     if 0.6667 <= p   % right push
-%         push =1; q = 1.0; 
-%     elseif 0.3333 <= p < 0.6667           % left push
-%         push= -1; q = 0.5;
-%     else
-%         push = 0; q = 0;
-%     end
     unusualness = q - pp; 
            
 %     F(steps) = 0;
-    push = 0;
-%     push(steps) = mod(randi(3),3) - 1;
+    fsum = 0;
     for k = 1:steps
-        push = push + getForce(push, (steps - k)*TAU);
+        fsum = fsum + getForce(push, (steps - k)*sampleTime, TAU);
     end
 %     push = F(steps);
-    
+    push = fsum;
+%     fprintf('%d: %f\n', steps, push);
+
     %Preserve current activities in evaluation network
     % Remember prediction of failure for current state
     v_old = v;
@@ -125,7 +122,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     % failure: r
     
     [h,h_dot,theta,theta_dot, failure] = ...
-        Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE);
+        Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE, sampleTime);
        
     [x] = setInputValues(h, h_dot, theta, theta_dot, ...
         MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
@@ -137,7 +134,6 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
 	    failures=failures+1;
 %         disp(['Episode ' int2str(failures) ': steps '  num2str(steps)]);
                        
-%         test
         [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
         
         steps = 0;
@@ -147,14 +143,12 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
 
         %Reinforcement upon failure is -1. Prediction of failure is 0.
 %         r = -1.0;
-% 	    p = 0.;
         rhat = failure - v_old;
         failure = 0;      
     else   % r = 0, Not a failure.
         %Reinforcement is 0. Prediction of failure given by v weight.
 %         r = 0;
         steps=steps+1;
-% 	    p= v(box);
 
         %Heuristic reinforcement is:   current reinforcement
         %     + gamma * new failure prediction - previous failure prediction
@@ -182,4 +176,10 @@ else
 end
 
 disp(['Max steps: ' int2str(actualMaxSteps)]);
-toc
+
+global FinalMaxSteps
+if FinalMaxSteps < actualMaxSteps
+    FinalMaxSteps = actualMaxSteps;
+end
+
+toc(tStart)

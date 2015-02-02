@@ -2,7 +2,7 @@ function Demo()
 clc
 clf;
 clear all;
-global TxtEpisode TxtSteps goal f1 f2 grafica balanced
+global TxtEpisode TxtSteps goal f1 f2 grafica balanced FinalMaxSteps
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 f1 = subplot(2,1,1);
 box off
@@ -25,20 +25,23 @@ set(gco,'Units','data')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 drawnow;
 
-% Cart_Pole_NN
+tic
 
-total = 2;
+FinalMaxSteps = 0;
+total = 10;
 bal = 0;
 % save statistics in log files
 % record videos
 for i = 1:total
-    i
+    fprintf('Run %d:\n', i);
     Cart_Pole_NN
     if balanced
         bal = bal + 1
     end
 end
 
-% calculate success rate
-% bal/total
-bal/total
+toc
+
+disp(['Success rate: ' num2str(bal/total) ' (' num2str(bal) '/' num2str(total) ')']);
+disp(['Final Max Steps: ' num2str(FinalMaxSteps)]);
+
