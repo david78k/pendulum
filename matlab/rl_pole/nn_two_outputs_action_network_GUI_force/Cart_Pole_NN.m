@@ -21,7 +21,7 @@ TAU     = 0.02; % 141 steps, fmax = 1
 
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 % MAX_STEPS   =     100000;
-MAX_STEPS   =     30000;
+MAX_STEPS   =     60000;
 PAST_STEPS    = 1000;
 
 MAX_POS = 2.4;
@@ -171,7 +171,7 @@ if (failures == MAX_FAILURES)
     disp(['Pole not balanced. Stopping after ' int2str(failures) ' failures ' ]);
     balanced = false;
 else
-    disp(['Pole balanced successfully for at least ' int2str(steps) ' steps ' ]);
+    disp(['Pole balanced successfully for at least ' int2str(steps) ' steps at ' num2str(failures) ' trials' ]);
     balanced = true;
 end
 
