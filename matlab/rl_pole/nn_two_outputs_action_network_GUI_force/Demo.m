@@ -1,5 +1,5 @@
 function Demo()
-clc
+% clc
 clf;
 clear all;
 global TxtEpisode TxtSteps goal f1 f2 grafica balanced FinalMaxSteps
@@ -36,12 +36,15 @@ for i = 1:total
     fprintf('Run %d:\n', i);
     Cart_Pole_NN
     if balanced
-        bal = bal + 1
+        bal = bal + 1;
+        disp(['Balanced = ' num2str(bal)]);
     end
 end
 
 toc
 
-disp(['Success rate: ' num2str(bal/total) ' (' num2str(bal) '/' num2str(total) ')']);
+% report.m
 disp(['Final Max Steps: ' num2str(FinalMaxSteps)]);
+disp(['Success rate: ' num2str(100.0*bal/total) '% (' num2str(bal) '/' num2str(total) ')']);
+
 
