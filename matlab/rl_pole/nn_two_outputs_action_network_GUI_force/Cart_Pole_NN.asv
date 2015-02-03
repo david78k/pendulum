@@ -19,25 +19,25 @@ TAU     = 0.02; % 141 steps, fmax = 1
 % TAU     = 1.0; % 846 steps, fmax = 1
 % TAU     = 1.0; % 1150 steps, fmax = 3
 
-% MAX_FAILURES  =  100;      % Termination criterion for quantized Boxes version.
-% MAX_STEPS   =     50000;
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
-MAX_STEPS   =     100000;
-% MAX_STEPS   =     100;
-PAST_STEPS      
+% MAX_STEPS   =     100000;
+MAX_STEPS   =     80000;
+PAST_STEPS    = 1000;
+
+mat2str(TAU,15)
+logfile = disp('fmax600_tau', num2str(TAU, 15))
 
 MAX_POS = 2.4;
 MAX_VEL = 1.5;
 MAX_ANGLE = 0.2094;
 MAX_ANGVEL = 2.01;
 
-steps = 0; actualMaxSteps = 0;
-failures=0;
+steps = 0; actualMaxSteps = 0; totalSteps = 0;
+failures=0; lspikes = 0; rspikes = 0; spikes = 0;
 
 global grafica
 grafica = false; % indicates if display the graphical interface
-xpoints = [];
-ypoints = [];
+xpoints = []; ypoints = [];
 
 % Initialize action and heuristic critic weights and traces
 [a,b,c,d,e,f] = init_weights();
@@ -77,13 +77,13 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [p, z] = action_forward(x, d, e, f);
     
     if rand <= p(1) 
-        right = 1; 
+        right = 1; rspikes = rspikes + 1;
     else
         right = 0;
     end
     
     if rand <= p(2)
-        left = 0;
+        left = 0; lspikes = lspikes + 1;
     else
         left = 1;
     end
@@ -103,7 +103,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
            
 %     F(steps) = 0;
     fsum = 0;
-    for k = 1:pastSteps
+    for k = 1:steps
         fsum = fsum + getForce(push, (steps - k)*sampleTime, TAU);
     end
 %     push = F(steps);
@@ -119,9 +119,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         yold(i) = y(i); % hidden units
     end
     
-    %Apply action to the simulated cart-pole
-    % failure: r
-    
+    %Apply action to the simulated cart-pole: failure = r
     [h,h_dot,theta,theta_dot, failure] = ...
         Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE, sampleTime);
        
@@ -143,12 +141,10 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
 	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
         %Reinforcement upon failure is -1. Prediction of failure is 0.
-%         r = -1.0;
         rhat = failure - v_old;
         failure = 0;      
     else   % r = 0, Not a failure.
         %Reinforcement is 0. Prediction of failure given by v weight.
-%         r = 0;
         steps=steps+1;
 
         %Heuristic reinforcement is:   current reinforcement
@@ -162,9 +158,10 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     if steps > 0.95*MAX_STEPS
         grafica = true;
     end
-    if actualMaxSteps < steps;
+    if actualMaxSteps < steps
         actualMaxSteps = steps;
     end
+    totalSteps = totalSteps + 1;
 end
   
 global balanced
@@ -172,11 +169,11 @@ if (failures == MAX_FAILURES)
     disp(['Pole not balanced. Stopping after ' int2str(failures) ' failures ' ]);
     balanced = false;
 else
-    disp(['Pole balanced successfully for at least ' int2str(steps) ' steps ' ]);
+    disp(['Pole balanced successfully for at least ' int2str(steps) ' steps at ' num2str(failures) ' trials' ]);
     balanced = true;
 end
 
-disp(['Max steps: ' int2str(actualMaxSteps)]);
+disp(['Max steps: ' int2str(actualMaxSteps) ', Total Steps: ' num2str(totalSteps)]);
 
 global FinalMaxSteps
 if FinalMaxSteps < actualMaxSteps
@@ -184,3 +181,11 @@ if FinalMaxSteps < actualMaxSteps
 end
 
 toc(tStart)
+
+% stats.m
+% firing rates: L, R, all
+rl = lspikes / totalSteps; % left rate
+rr = rspikes / totalSteps; % right rate
+ra = (lspikes + rspikes) / totalSteps; % all rate
+disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
+

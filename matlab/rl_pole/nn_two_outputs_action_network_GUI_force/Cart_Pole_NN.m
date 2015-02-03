@@ -21,8 +21,10 @@ TAU     = 0.02; % 141 steps, fmax = 1
 
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 % MAX_STEPS   =     100000;
-MAX_STEPS   =     50;
+MAX_STEPS   =     80000;
 PAST_STEPS    = 1000;
+
+logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(sampleTime) '_max' int2str(MAX_STEPS) '.log'])
 
 MAX_POS = 2.4;
 MAX_VEL = 1.5;

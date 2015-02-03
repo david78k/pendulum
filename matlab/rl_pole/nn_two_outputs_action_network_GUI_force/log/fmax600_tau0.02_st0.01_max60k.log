@@ -1,3 +1,61 @@
 Pole balanced successfully for at least 60000 steps at trials
 Max steps: 60000
 Elapsed time is 4200 seconds.
+
+Run 1:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 85, Total Steps: 123317
+Elapsed time is 407.313153 seconds.
+Firing rate = 1.3702 (L: 0.686, R: 0.68417)
+Run 2:
+Pole balanced successfully for at least 60000 steps at 6053 trials
+Max steps: 60000, Total Steps: 754715
+Elapsed time is 3833.081567 seconds.
+Firing rate = 1.0135 (L: 0.49616, R: 0.51738)
+Balanced = 1
+Run 3:
+Pole balanced successfully for at least 60000 steps at 3785 trials
+Max steps: 60000, Total Steps: 542805
+Elapsed time is 4862.238246 seconds.
+Firing rate = 0.99805 (L: 0.51403, R: 0.48402)
+Balanced = 2
+Run 4:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 69, Total Steps: 116530
+Elapsed time is 441.463996 seconds.
+Firing rate = 1.2055 (L: 0.60236, R: 0.60312)
+Run 5:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 60, Total Steps: 116702
+Elapsed time is 440.492099 seconds.
+Firing rate = 1.2155 (L: 0.60751, R: 0.60798)
+Run 6:
+Pole balanced successfully for at least 60000 steps at 3642 trials
+Max steps: 60000, Total Steps: 479402
+Elapsed time is 3569.130225 seconds.
+Firing rate = 1.0014 (L: 0.51238, R: 0.48907)
+Balanced = 3
+Run 7:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 203, Total Steps: 116459
+Elapsed time is 431.756229 seconds.
+Firing rate = 1.1218 (L: 0.56025, R: 0.5616)
+Run 8:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 67, Total Steps: 114769
+Elapsed time is 442.138351 seconds.
+Firing rate = 1.19 (L: 0.5948, R: 0.59522)
+Run 9:
+Pole balanced successfully for at least 60000 steps at 2413 trials
+Max steps: 60000, Total Steps: 242535
+Elapsed time is 3250.252850 seconds.
+Firing rate = 0.99003 (L: 0.48687, R: 0.50317)
+Balanced = 4
+Run 10:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 97, Total Steps: 116204
+Elapsed time is 424.991449 seconds.
+Firing rate = 1.1477 (L: 0.57322, R: 0.57446)
+Elapsed time is 18102.917782 seconds.
+Final Max Steps: 60000
+Success rate: 40% (4/10)
