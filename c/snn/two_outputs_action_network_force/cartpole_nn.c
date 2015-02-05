@@ -6,7 +6,7 @@
 
 void cartpole() {
 
-	printf("cartpole\n");
+	printf("cartpole");
 //global grafica
 //grafica = false; % indicates if display the graphical interface
 //xpoints = []; ypoints = [];

@@ -1,5 +1,5 @@
 default: 
-	gcc -fopenmp -o demo.o demo.c cartpole.c
+	gcc -fopenmp -o demo.o demo.c 
 	./demo.o
 
 omp:
