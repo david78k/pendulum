@@ -52,9 +52,13 @@ disp(['Success rate: ' num2str(100.0*bal/total) '% (' num2str(bal) '/' num2str(t
 */
 
 #include <stdio.h>
-main() {
+#include <stdlib.h>
+
+int main() {
 	#pragma omp parallel
-	printf("demo\n");
+	{
+		printf("demo\n");
+	}
 
 //tic
 
@@ -66,11 +70,11 @@ int balanced = 1;
 
 // save statistics in log files
 // record videos
-#pragma omp parallel for
+//#pragma omp parallel for
 for (i = 0; i < total; i ++) {
 	// write to file
-	printf("Run %d:\n", i);
-	//Cart_Pole_NN();
+	printf("Run %d: ", i + 1);
+	cartpole();
 
 	if (balanced) {
         	bal = bal + 1;
@@ -83,5 +87,5 @@ for (i = 0; i < total; i ++) {
 // report.m
 printf("Final Max Steps: %d\n", FinalMaxSteps);
 printf("Success rate: %f percent (%d/%d)\n", 100.0*bal/total, bal, total);
-	
+return EXIT_SUCCESS;
 }

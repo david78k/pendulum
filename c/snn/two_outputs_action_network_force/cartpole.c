@@ -1,44 +1,18 @@
-function Cart_Pole_NN
-% Two-layer neural network: action network and evaluation network
-% network architecture: 5 x 5 x 2, 5 x 5 x 1
-plot = 1;   % boolean for plotting. 1: plot, 0: no plot
+#include "header.h"
 
-BETA    = 0.2;      % Learning rate for action weights, a. 
-BETAH   = 0.05;     % Learning rate for action weights, b, c.
-RHO     = 1.0;      % Learning rate for critic weights, d. 
-RHOH    = 0.2;      % Learning rate for critic weights, e, f.
-GAMMA   = 0.9;      % ratio of current prediction, v
-sampleTime = 0.01;
-TAU     = 0.02; % 141 steps, fmax = 1
-% TAU     = 0.02; % 1091 steps, fmax = 600
-% TAU     = 0.02; % steps, fmax = 3
-% TAU     = 0.02; % steps, fmax = 5
-% TAU     = 0.1; % 346 steps, fmax = 1
-% TAU     = 0.5; % 743 steps, fmax = 3
-% TAU     = 0.5; % 913 steps, fmax = 1
-% TAU     = 1.0; % 846 steps, fmax = 1
-% TAU     = 1.0; % 1150 steps, fmax = 3
+//function Cart_Pole_NN
+// Two-layer neural network: action network and evaluation network
+// network architecture: 5 x 5 x 2, 5 x 5 x 1
 
-MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
-% MAX_STEPS   =     100000;
-MAX_STEPS   =     80000;
-PAST_STEPS    = 1000;
+void cartpole() {
 
-logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(sampleTime) '_max' int2str(MAX_STEPS) '.log'])
+	printf("cartpole\n");
+//global grafica
+//grafica = false; % indicates if display the graphical interface
+//xpoints = []; ypoints = [];
 
-MAX_POS = 2.4;
-MAX_VEL = 1.5;
-MAX_ANGLE = 0.2094;
-MAX_ANGVEL = 2.01;
-
-steps = 0; actualMaxSteps = 0; totalSteps = 0;
-failures=0; lspikes = 0; rspikes = 0; spikes = 0;
-
-global grafica
-grafica = false; % indicates if display the graphical interface
-xpoints = []; ypoints = [];
-
-% Initialize action and heuristic critic weights and traces
+/*
+//% Initialize action and heuristic critic weights and traces
 [a,b,c,d,e,f] = init_weights();
 
 % Starting state is (0 0 0 0)
@@ -136,7 +110,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         
         steps = 0;
         
-        %Reset state to (0 0 0 0).  Find the box. ---*/
+        %Reset state to (0 0 0 0).  Find the box. ---
 	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
         %Reinforcement upon failure is -1. Prediction of failure is 0.
@@ -187,4 +161,5 @@ rl = lspikes / totalSteps; % left rate
 rr = rspikes / totalSteps; % right rate
 ra = (lspikes + rspikes) / totalSteps; % all rate
 disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
-
+*/
+}
