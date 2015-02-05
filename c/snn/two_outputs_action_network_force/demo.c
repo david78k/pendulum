@@ -29,6 +29,7 @@ int MAX_FAILURES =  	10000;      // Termination criterion for unquantized versio
 //int MAX_STEPS   =     	100000;
 int MAX_STEPS  =     	800;
 int PAST_STEPS =	1000;
+int totalRuns = 	1; // total runs
 
 //logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(MAX_STEPS) '.log'])
 
@@ -37,8 +38,8 @@ double MAX_VEL = 1.5;
 double MAX_ANGLE = 0.2094;
 double MAX_ANGVEL = 2.01;
 
+int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 int FinalMaxSteps = 0;
-int totalRuns = 1; // total runs
 int bal = 0;
 int balanced = 0;
 
@@ -46,7 +47,6 @@ double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
 double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2];
 double rhat, push, unusualness, sum_error = 0.0;
 double h, hdot, theta, thetadot;
-int bp_flag = 0, count_error = 0, total_count = 0;
 
 /*** Prototypes ***/
 void cartpole_snn();
@@ -58,7 +58,7 @@ void updateWeights();
 void setInputValues(double h, double hdot, double theta, double thetadot);
 void evalForward();
 void actionForward();
-double getForce(int push, double t);
+double getForce(int steps);
 double sigmoid(double x) { return 1.0 / (1.0 + exp(-x)); }
 float sign(float x) { return (x < 0) ? -1. : 1.;}
 
@@ -150,6 +150,7 @@ void cartpole_snn() {
     	//Choose action randomly, biased by current weight. 
     		actionForward();
     
+/*
     		if (randomdef <= p[0]) {
     	   		 right = 1; rspikes = rspikes + 1;
     		} else
@@ -176,9 +177,11 @@ void cartpole_snn() {
 //     F(steps) = 0;
    		fsum = 0;
     		for (k = 0; k < steps; k++) 
-		        fsum = fsum + getForce(push, (steps - k)*STEPSIZE);
+		        fsum += getForce(push, (steps - k)*STEPSIZE);
 //     push = F(steps);
 		push = fsum;
+*/
+		push = getForce(steps);
 	//     fprintf('//d: //f\n', steps, push);
 		//if(steps % 10 == 0)
 		//     	printf("%d: push %d\n", steps, push);
@@ -400,6 +403,40 @@ void setInputValues(double h, double hdot, double theta, double thetadot) {
 	x[4] = 0.5;
 }
 
-double getForce(int push, double t) {
-	return push * FORCE_MAX * t * exp(-t/TAU);
+double getForce(int steps) {
+	int right, left, push, i, k, failure;
+	double q, pp, fsum, force, t;
+
+    	if (randomdef <= p[0]) {
+       		right = 1; rspikes = rspikes + 1;
+    	} else
+       	 	right = 0;
+    
+   	if (randomdef <= p[1]) {
+       		left = 0; lspikes = lspikes + 1;
+	} else
+      		left = 1;
+  
+ 	// q = 1.0/0.5/0 best: 586 steps
+	if (right == 1 && left == 0) {
+	        push = 1;   
+	        q = 1.0; pp = p[0];
+	} else if (right == 0 && left == 1) {
+       		push = -1;  
+	        q = 0.5; pp = p[1];
+    	} else {
+	        push = 0;   
+       		q = 0; pp = 0;
+	}
+	unusualness = q - pp; 
+           
+//     F(steps) = 0;
+   	force = 0;
+    	for (k = 0; k < steps; k++) {
+		t = (steps - k) * STEPSIZE;
+		force += push * FORCE_MAX * t * exp(-t/TAU);
+	}
+//     push = F(steps);
+
+	return force;
 }
