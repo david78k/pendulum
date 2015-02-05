@@ -93,8 +93,8 @@ int main() {
 
 	// report.m
 	printf("Final Max Steps: %d\n", FinalMaxSteps);
-	printf("Success rate: %f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
-	printf("Elapsed time: %f seconds.\n", difftime(stop, start));
+	printf("Success rate: %.2f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
+	printf("Elapsed time: %.0f seconds.\n", difftime(stop, start));
 
 	return EXIT_SUCCESS;
 }
@@ -104,9 +104,7 @@ void cartpole_snn() {
 	// Two-layer neural network: action network and evaluation network
 	// network architecture: 5 x 5 x 2, 5 x 5 x 1
 	int plot = 1;   //// boolean for plotting. 1: plot, 0: no plot
-
 	int steps = 0, actualMaxSteps = 0, totalSteps = 0;
-	int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 
 	//global grafica
 	//grafica = false; // indicates if display the graphical interface
@@ -133,7 +131,7 @@ void cartpole_snn() {
 	// state evaluation
 	evalForward();
 
-	int right, left, push, i, k, failure;
+	int push, i, k, failure;
 	double q, pp, fsum;
 	// Iterate through the action-learn loop. 
 	while (steps < MAX_STEPS && failures < MAX_FAILURES) {
@@ -150,37 +148,6 @@ void cartpole_snn() {
     	//Choose action randomly, biased by current weight. 
     		actionForward();
     
-/*
-    		if (randomdef <= p[0]) {
-    	   		 right = 1; rspikes = rspikes + 1;
-    		} else
-   	    	 	right = 0;
-    
-   		if (randomdef <= p[1]) {
-        		left = 0; lspikes = lspikes + 1;
-		} else
-      			left = 1;
-   
-    		// q = 1.0/0.5/0 best: 586 steps
-		if (right == 1 && left == 0) {
-		        push = 1;   
-		        q = 1.0; pp = p[0];
-		} else if (right == 0 && left == 1) {
-        		push = -1;  
-		        q = 0.5; pp = p[1];
-    		} else {
-		        push = 0;   
-        		q = 0; pp = 0;
-		}
-		unusualness = q - pp; 
-           
-//     F(steps) = 0;
-   		fsum = 0;
-    		for (k = 0; k < steps; k++) 
-		        fsum += getForce(push, (steps - k)*STEPSIZE);
-//     push = F(steps);
-		push = fsum;
-*/
 		push = getForce(steps);
 	//     fprintf('//d: //f\n', steps, push);
 		//if(steps % 10 == 0)
@@ -253,21 +220,17 @@ void cartpole_snn() {
 
 	// stats.m
 	// firing rates: L, R, all
-	double rl = (double)lspikes / totalSteps; // left rate
-	double rr = (double)rspikes / totalSteps; // right rate
-	double ra = (double)(lspikes + rspikes) / totalSteps; // all rate
-	printf("Firing rate = %f (L: %f, R: %f)\n", ra, rl, rr);
-	printf("# of spikes = %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
+	double rl = (double) lspikes / totalSteps / STEPSIZE; // left rate
+	double rr = (double) rspikes / totalSteps / STEPSIZE; // right rate
+	double ra = (double) (lspikes + rspikes) / totalSteps / STEPSIZE; // all rate
+	printf("Firing rate (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("Number of spikes         = %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
 }
 
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
 // four state variables and updates their values by estimating the state
 // TAU seconds later.
 int cartpole(double *x, double *xdot, double *theta, double *thetadot, double force) {
-	// Parameters for simulation
-	//double Total_Mass=Mass_Cart+Mass_Pole;
-//PoleMass_Length=Mass_Pole*Length;
-
 	double temp = (force + PoleMass_Length * (*thetadot) * (*thetadot) * sin(*theta))/ Total_Mass;
 	double thetaacc = (g * sin(*theta) - cos(*theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(*theta) * cos(*theta) / Total_Mass));
 	double xacc = temp - PoleMass_Length * thetaacc* cos(*theta) / Total_Mass;
@@ -302,7 +265,7 @@ void updateWeights() {
 		b[i] = b[i] + BETA * rhat * xold[i];   // evaluation network I-O
 		c[i] = c[i] + BETA * rhat * yold[i];   // evaluation network H-O
 
-    		for (j = 0; j < 1; j++){
+    		for (j = 0; j < 2; j++){
         		e[i][j] = e[i][j] + RHO * rhat * xold[i] * unusualness;  // action network I-O
         		f[i][j] = f[i][j] + RHO * rhat * z[i] * unusualness;  // action network H-O
 		}    	
