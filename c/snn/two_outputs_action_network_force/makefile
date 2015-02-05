@@ -1,5 +1,5 @@
 default: 
-	gcc -fopenmp -o demo.o demo.c 
+	gcc -fopenmp -o demo.o demo.c -lm
 	./demo.o
 
 omp:
