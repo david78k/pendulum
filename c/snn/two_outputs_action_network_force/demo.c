@@ -10,7 +10,7 @@
 #define RHO     	1.0      // Learning rate for critic weights, d. 
 #define RHOH   		0.2      // Learning rate for critic weights, e, f.
 #define GAMMA   	0.9      // ratio of current prediction, v
-#define TIMESTEP	0.01
+#define STEPSIZE	0.01
 #define TAU     	0.02 // 141 steps, fmax = 1
 //TAU     = 0.02; // 1091 steps, fmax = 600
 
@@ -24,12 +24,12 @@
 #define FORCE_MAX	600 // max force 
 #define Fourthirds	1.3333333
 
-int MAX_FAILURES  =  10000;      // Termination criterion for unquantized version. 
+int MAX_FAILURES  =  100;      // Termination criterion for unquantized version. 
 // MAX_STEPS   =     100000;
 int MAX_STEPS   =     800;
 int PAST_STEPS    = 1000;
 
-//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(TIMESTEP) '_max' int2str(MAX_STEPS) '.log'])
+//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(MAX_STEPS) '.log'])
 
 double MAX_POS = 2.4;
 double MAX_VEL = 1.5;
@@ -40,17 +40,17 @@ int FinalMaxSteps = 0;
 int total = 10;
 int bal = 0;
 int balanced = 0;
-int failure = -1;
 
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
 double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2];
-double r_hat, push, unusualness, sum_error = 0.0;
+double rhat, push, unusualness, sum_error = 0.0;
 double h, hdot, theta, thetadot;
 int bp_flag = 0, count_error = 0, total_count = 0;
 
 /*** Prototypes ***/
 void cartpole_snn();
-int cartpole(double x, double xdot, double theta, double thetadot, double force);
+//int cartpole(double x, double xdot, double theta, double thetadot, double force);
+int cartpole(double *x, double *xdot, double *theta, double *thetadot, double force);
 void initState();
 void initWeights();
 void updateWeights();
@@ -58,6 +58,8 @@ void setInputValues(double h, double hdot, double theta, double thetadot);
 void evalForward();
 void actionForward();
 double getForce(int push, double t);
+double sigmoid(double x) { return 1.0 / (1.0 + exp(-x)); }
+float sign(float x) { return (x < 0) ? -1. : 1.;}
 
 int main() {
 	#pragma omp parallel
@@ -126,8 +128,8 @@ void cartpole_snn() {
 	// state evaluation
 	evalForward();
 
-	int right, left, push, i, k;
-	double q, pp, fsum, rhat;
+	int right, left, push, i, k, failure;
+	double q, pp, fsum;
 	// Iterate through the action-learn loop. 
 	while (steps < MAX_STEPS && failures < MAX_FAILURES) {
 	//     if steps == 100
@@ -169,7 +171,7 @@ void cartpole_snn() {
 //     F(steps) = 0;
    		fsum = 0;
     		for (k = 1; k < steps; k++) 
-		        fsum = fsum + getForce(push, (steps - k)*TIMESTEP);
+		        fsum = fsum + getForce(push, (steps - k)*STEPSIZE);
 //     push = F(steps);
 		push = fsum;
 	//     fprintf('//d: //f\n', steps, push);
@@ -185,7 +187,7 @@ void cartpole_snn() {
     		}
     
     		//Apply action to the simulated cart-pole: failure = r
-        	cartpole(h,hdot,theta,thetadot, push);
+        	failure = cartpole(&h,&hdot,&theta,&thetadot, push);
        
     		setInputValues(h, hdot, theta, thetadot);
 
@@ -214,8 +216,7 @@ void cartpole_snn() {
 		        //     + gamma * new failure prediction - previous failure prediction
 		        rhat = failure + GAMMA * v - vold;
 		}
-        
-    		updateWeights (unusualness, xold, yold, a, b, c, d, e, f, z); 
+    		updateWeights ();
     
 		//if (steps > 0.95*MAX_STEPS)
 		//        grafica = true;
@@ -252,54 +253,50 @@ void cartpole_snn() {
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
 // four state variables and updates their values by estimating the state
 // TAU seconds later.
-int cartpole(double x, double xdot, double theta, double thetadot, double force) {
+int cartpole(double *x, double *xdot, double *theta, double *thetadot, double force) {
 	// Parameters for simulation
 	//double Total_Mass=Mass_Cart+Mass_Pole;
 //PoleMass_Length=Mass_Pole*Length;
 
-	double temp = (force + PoleMass_Length *thetadot * thetadot * sin(theta))/ Total_Mass;
-	double thetaacc = (g * sin(theta) - cos(theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
-	double xacc = temp - PoleMass_Length * thetaacc* cos(theta) / Total_Mass;
+	double temp = (force + PoleMass_Length * (*thetadot) * (*thetadot) * sin(*theta))/ Total_Mass;
+	double thetaacc = (g * sin(*theta) - cos(*theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(*theta) * cos(*theta) / Total_Mass));
+	double xacc = temp - PoleMass_Length * thetaacc* cos(*theta) / Total_Mass;
 
 	// Update the four state variables, using Euler's method.
-	x=x+Tau*x_dot;
-	x_dot=x_dot+Tau*xacc;
-	theta=theta+Tau*thetadot;
-	thetadot=thetadot+Tau*thetaacc;
+	*x += STEPSIZE * (*xdot);
+	*xdot += STEPSIZE*xacc;
+	*theta += STEPSIZE* (*thetadot);
+	*thetadot += STEPSIZE*thetaacc;
 
 	int failure = 0;
-	if (abs(x) > max_pos || abs(theta) > max_angle)
+	if (abs(*x) > MAX_POS || abs(*theta) > MAX_ANGLE)
 	    failure = -1; //to signal failure 
 
 	return failure;
 }
 
 void updateWeights() {
-/*
-function [a,b,c,d,e,f] = updateWeights(BETA, RHO, BETAH, RHOH, rhat, ...
-    unusualness, xold, yold, a, b, c, d, e, f, z)
+	int i, j;
+	double factor1, factor2;
+	
+	for (i = 1; i < 5; i++) {  
+     		// for each hidden unit
+	    	factor1 = BETAH * rhat * yold[i] * (1 - yold[i]) * sign(c[i]);
+		factor2 = RHOH * rhat * z[i] * (1 - z[i]) * unusualness;// * sign(f[i]); // unusualness required, sign(f[i]) optional
+		for (j = 1; j < 5; j++) {    
+	        	// for each weight I-H
+        		a[i][j] = a[i][j] + factor1 * xold[j]; // evaluation network I-H
+		        d[i][j] = d[i][j] + factor2 * xold[j]; // action network I-H
+    		}
+		// for each weight H-O
+		b[i] = b[i] + BETA * rhat * xold[i];   // evaluation network I-O
+		c[i] = c[i] + BETA * rhat * yold[i];   // evaluation network H-O
 
-for i = 1: 5,  
-     // for each hidden unit
-    factor1 = BETAH * rhat * yold(i) * (1 - yold(i)) * sign(c(i));
-    factor2 = RHOH * rhat * z(i) * (1 - z(i)) * unusualness;// * sign(f(i)); // unusualness required, sign(f(i)) optional
-    for j = 1:5,    
-        // for each weight I-H
-        a(i,j) = a(i, j) + factor1 * xold(j); // evaluation network I-H
-        d(i,j) = d(i, j) + factor2 * xold(j); // action network I-H
-    end
-    // for each weight H-O
-    b(i) = b(i) + BETA * rhat * xold(i);   // evaluation network I-O
-    c(i) = c(i) + BETA * rhat * yold(i);   // evaluation network H-O
-
-    for j = 1:2
-        e(i,j) = e(i,j) + RHO * rhat * xold(i) * unusualness;  // action network I-O
-        f(i,j) = f(i,j) + RHO * rhat * z(i) * unusualness;  // action network H-O
-    end
-//     e(i) = e(i) + RHO * rhat * xold(i) * unusualness;  // action network I-O
-//     f(i) = f(i) + RHO * rhat * z(i) * unusualness;  // action network H-O
-end
-*/
+    		for (j = 0; j < 1; j++){
+        		e[i][j] = e[i][j] + RHO * rhat * xold[i] * unusualness;  // action network I-O
+        		f[i][j] = f[i][j] + RHO * rhat * z[i] * unusualness;  // action network H-O
+		}    	
+	}
 }
 
 // Initialize action and heuristic critic weights and traces 
@@ -316,7 +313,7 @@ void initWeights() {
 	    	    a[i][j] = randomdef * 0.2 - 0.1; // evaluation network I-H
 	    	    d[i][j] = randomdef * 0.2 - 0.1; // action network I-H
 	    	}
-	//     b(i) = randomdef;   // evaluation network I-O
+	//     b[i] = randomdef;   // evaluation network I-O
 	    	b[i] = randomdef * 0.2 - 0.1;   // evaluation network I-O
 	    	c[i] = randomdef * 0.2 - 0.1;   // evaluation network H-O
 		for (j = 0; j< 2; j++) {
@@ -341,25 +338,24 @@ void initState() {
 % a: I-H synapses
 % b: I-O synapses
 % c: H-O synapses
+% output: state evaluation
 */
 void evalForward() {
-/*
-% output: state evaluation
-for i = 1: 5,
-    s = 0.0;
-    for j = 1:5,
-        s = s + a(i,j) * x(j); % I-H * input
-    end
-    y(i) = sigmoid(s);  % hidden layer
-end
+	int i, j;
+	double s;
+	for (i = 1; i < 5; i++) {
+	    s = 0.0;
+	    for (j = 1; j < 5; j ++) {
+	        s = s + a[i][j] * x[j]; // I-H * input
+	    	y[i] = sigmoid(s);   // hidden layer
+	    }
+	}
 
-s = 0.0;
-for i = 1:5,
-    s = s + b(i) * x(i) + c(i) * y(i); % I-O * input + H-O * hidden
-end
-
-v = s; % output layer
-*/
+	s = 0.0;
+	for (i = 1; i < 5; i++) {
+	    s = s + b[i] * x[i] + c[i] * y[i]; // I-O * input + H-O * hidden
+	}
+	v = s; // output layer
 }
 
 /*
@@ -370,30 +366,24 @@ v = s; % output layer
 % d: I-H synapses
 % e: I-O synapses
 % f: H-O synapses
+% output: action
 */
 void actionForward() {
-/*
-% output: action
-for i = 1: 5,
-    s = 0.0;
-    for j = 1:5,
-        s = s + d(i,j) * x(j); % I-H * input
-    end
-    z(i) = sigmoid(s);  % hidden layer
-end
+	int i, j;
+	double s;
+	for (i = 1; i < 5; i++) {
+	    	s = 0.0;
+    		for (j = 1; j < 5; j++) 
+		        s = s + d[i][j] * x[j]; //I-H * input
+    		z[i] = sigmoid(s);  //hidden layer
+	}
 
-for j = 1:2,
-    s = 0.0;
-    for i = 1:5,
-        s = s + e(i, j) * x(i) + f(i, j) * z(i); % I-O * input + H-O * hidden
-    end
-    p(j) = sigmoid(s); % output layer
-end
-*/
-}
-
-double sigmoid(double x) {
-	return 1.0 / (1.0 + exp(-x));
+	for (j = 1; j < 2; j++) {
+    		s = 0.0;
+    		for (i = 1; i < 5; i++) 
+     	   		s = s + e[i][j] * x[i] + f[i][j] * z[i]; // I-O * input + H-O * hidden
+    		p[j] = sigmoid(s); // output layer
+	}
 }
 
 void setInputValues(double h, double hdot, double theta, double thetadot) {
