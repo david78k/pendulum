@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -24,10 +23,11 @@
 #define FORCE_MAX	600 // max force 
 #define Fourthirds	1.3333333
 
-int MAX_FAILURES  =  100;      // Termination criterion for unquantized version. 
-// MAX_STEPS   =     100000;
-int MAX_STEPS   =     800;
-int PAST_STEPS    = 1000;
+int MAX_FAILURES =  	10000;      // Termination criterion for unquantized version. 
+//int MAX_FAILURES =  	10;      // Termination criterion for unquantized version. 
+//int MAX_STEPS   =     	100000;
+int MAX_STEPS  =     	800;
+int PAST_STEPS =	1000;
 
 //logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(MAX_STEPS) '.log'])
 
@@ -37,7 +37,7 @@ double MAX_ANGLE = 0.2094;
 double MAX_ANGVEL = 2.01;
 
 int FinalMaxSteps = 0;
-int total = 10;
+int totalRuns = 10; // total runs
 int bal = 0;
 int balanced = 0;
 
@@ -73,7 +73,7 @@ int main() {
 	// record videos
 	int i;
 	//#pragma omp parallel for
-	for (i = 0; i < total; i ++) {
+	for (i = 0; i < totalRuns; i ++) {
 		// write to file
 		printf("Run %d: ", i + 1);
 		cartpole_snn();
@@ -89,7 +89,7 @@ int main() {
 
 	// report.m
 	printf("Final Max Steps: %d\n", FinalMaxSteps);
-	printf("Success rate: %f percent (%d/%d)\n", 100.0*bal/total, bal, total);
+	printf("Success rate: %f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
 
 	return EXIT_SUCCESS;
 }
@@ -170,18 +170,19 @@ void cartpole_snn() {
            
 //     F(steps) = 0;
    		fsum = 0;
-    		for (k = 1; k < steps; k++) 
+    		for (k = 0; k < steps; k++) 
 		        fsum = fsum + getForce(push, (steps - k)*STEPSIZE);
 //     push = F(steps);
 		push = fsum;
 	//     fprintf('//d: //f\n', steps, push);
-	     	printf("%d: push %d\n", steps, push);
+		if(steps % 10 == 0)
+		     	printf("%d: push %d\n", steps, push);
 
 		//Preserve current activities in evaluation network
 		// Remember prediction of failure for current state
     		vold = v;
     		// remember inputs and hidden unit values
-		for (i = 1; i < 5; i++) {
+		for (i = 0; i < 5; i++) {
 			xold[i] = x[i]; // state variables
 		        yold[i] = y[i]; // hidden units
     		}
@@ -244,10 +245,11 @@ void cartpole_snn() {
 
 	// stats.m
 	// firing rates: L, R, all
-	double rl = lspikes / totalSteps; // left rate
-	double rr = rspikes / totalSteps; // right rate
-	double ra = (lspikes + rspikes) / totalSteps; // all rate
-	//disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
+	double rl = (double)lspikes / totalSteps; // left rate
+	double rr = (double)rspikes / totalSteps; // right rate
+	double ra = (double)(lspikes + rspikes) / totalSteps; // all rate
+	printf("Firing rate = %f (L: %f, R: %f)\n", ra, rl, rr);
+	printf("# of spikes = %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
 }
 
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
@@ -279,11 +281,11 @@ void updateWeights() {
 	int i, j;
 	double factor1, factor2;
 	
-	for (i = 1; i < 5; i++) {  
+	for (i = 0; i < 5; i++) {  
      		// for each hidden unit
 	    	factor1 = BETAH * rhat * yold[i] * (1 - yold[i]) * sign(c[i]);
 		factor2 = RHOH * rhat * z[i] * (1 - z[i]) * unusualness;// * sign(f[i]); // unusualness required, sign(f[i]) optional
-		for (j = 1; j < 5; j++) {    
+		for (j = 0; j < 5; j++) {    
 	        	// for each weight I-H
         		a[i][j] = a[i][j] + factor1 * xold[j]; // evaluation network I-H
 		        d[i][j] = d[i][j] + factor2 * xold[j]; // action network I-H
@@ -313,7 +315,6 @@ void initWeights() {
 	    	    a[i][j] = randomdef * 0.2 - 0.1; // evaluation network I-H
 	    	    d[i][j] = randomdef * 0.2 - 0.1; // action network I-H
 	    	}
-	//     b[i] = randomdef;   // evaluation network I-O
 	    	b[i] = randomdef * 0.2 - 0.1;   // evaluation network I-O
 	    	c[i] = randomdef * 0.2 - 0.1;   // evaluation network H-O
 		for (j = 0; j< 2; j++) {
@@ -343,16 +344,16 @@ void initState() {
 void evalForward() {
 	int i, j;
 	double s;
-	for (i = 1; i < 5; i++) {
+	for (i = 0; i < 5; i++) {
 	    s = 0.0;
-	    for (j = 1; j < 5; j ++) {
+	    for (j = 0; j < 5; j ++) {
 	        s = s + a[i][j] * x[j]; // I-H * input
-	    	y[i] = sigmoid(s);   // hidden layer
 	    }
+	    y[i] = sigmoid(s);   // hidden layer
 	}
 
 	s = 0.0;
-	for (i = 1; i < 5; i++) {
+	for (i = 0; i < 5; i++) {
 	    s = s + b[i] * x[i] + c[i] * y[i]; // I-O * input + H-O * hidden
 	}
 	v = s; // output layer
@@ -371,16 +372,16 @@ void evalForward() {
 void actionForward() {
 	int i, j;
 	double s;
-	for (i = 1; i < 5; i++) {
+	for (i = 0; i < 5; i++) {
 	    	s = 0.0;
-    		for (j = 1; j < 5; j++) 
+    		for (j = 0; j < 5; j++) 
 		        s = s + d[i][j] * x[j]; //I-H * input
     		z[i] = sigmoid(s);  //hidden layer
 	}
 
-	for (j = 1; j < 2; j++) {
+	for (j = 0; j < 2; j++) {
     		s = 0.0;
-    		for (i = 1; i < 5; i++) 
+    		for (i = 0; i < 5; i++) 
      	   		s = s + e[i][j] * x[i] + f[i][j] * z[i]; // I-O * input + H-O * hidden
     		p[j] = sigmoid(s); // output layer
 	}
