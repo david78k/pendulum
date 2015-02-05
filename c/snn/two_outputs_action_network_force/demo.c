@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #define randomdef		((double) rand() / (double)(RAND_MAX))
 
@@ -37,7 +38,7 @@ double MAX_ANGLE = 0.2094;
 double MAX_ANGVEL = 2.01;
 
 int FinalMaxSteps = 0;
-int totalRuns = 10; // total runs
+int totalRuns = 1; // total runs
 int bal = 0;
 int balanced = 0;
 
@@ -68,6 +69,8 @@ int main() {
 	}
 
 	//tic
+	time_t start, stop;
+	time(&start);
 
 	// save statistics in log files
 	// record videos
@@ -86,10 +89,12 @@ int main() {
 	}
 
 	//toc
+	time(&stop);
 
 	// report.m
 	printf("Final Max Steps: %d\n", FinalMaxSteps);
 	printf("Success rate: %f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
+	printf("Elapsed time: %f seconds.\n", difftime(stop, start));
 
 	return EXIT_SUCCESS;
 }
@@ -175,8 +180,8 @@ void cartpole_snn() {
 //     push = F(steps);
 		push = fsum;
 	//     fprintf('//d: //f\n', steps, push);
-		if(steps % 10 == 0)
-		     	printf("%d: push %d\n", steps, push);
+		//if(steps % 10 == 0)
+		//     	printf("%d: push %d\n", steps, push);
 
 		//Preserve current activities in evaluation network
 		// Remember prediction of failure for current state
@@ -197,7 +202,7 @@ void cartpole_snn() {
     
     		if (failure < 0) { // r = -1, Failure occurred
 	    		failures=failures+1;
-		        printf("Episode %d: steps %d\n", failures, steps);
+		        //printf("Episode %d: steps %d\n", failures, steps);
                        
         //[xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
         
