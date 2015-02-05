@@ -44,6 +44,9 @@ void cartpole();
 void initState();
 void initWeights();
 void updateWeights();
+void setInputValues(h, h_dot, theta, theta_dot);
+void evalForward(x, a, b, c);
+void actionForward(x, d, e, f);
 
 int main() {
 	#pragma omp parallel
@@ -97,11 +100,10 @@ initWeights();
 // Starting state is (0 0 0 0)
 initState(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
-/*
 // Find box in state space containing start state
-[x] = setInputValues(h, h_dot, theta, theta_dot, ...
-    MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+setInputValues(h, h_dot, theta, theta_dot);
 
+/*
 // Turning on the double buffering to plot the cart and pole
 if plot 
     handle = figure(1);
@@ -109,56 +111,52 @@ if plot
 end
 
 tStart = tic;
+*/
 // state evaluation
-[v, y] = eval_forward(x, a, b, c);
-
-F = [];
-// push = [];
+evalForward(x, a, b, c);
 
 // Iterate through the action-learn loop. 
-while (steps < MAX_STEPS && failures < MAX_FAILURES)
+while (steps < MAX_STEPS && failures < MAX_FAILURES) {
 //     if steps == 100
 //         grafica = false;
 //     end
     
+/*
     // Plot the cart and pole with the x and theta
     if grafica
         plot_Cart_Pole(h,theta)
     end
-    
+  */  
     //Choose action randomly, biased by current weight. 
-    [p, z] = action_forward(x, d, e, f);
+    actionForward(x, d, e, f);
     
-    if rand <= p(1) 
+    if (rand <= p[1]) {
         right = 1; rspikes = rspikes + 1;
-    else
+    } else
         right = 0;
-    end
     
-    if rand <= p(2)
+    if (rand <= p[2]) {
         left = 0; lspikes = lspikes + 1;
-    else
+    } else
         left = 1;
-    end
    
     // q = 1.0/0.5/0 best: 586 steps
-    if right == 1 && left == 0
+    if (right == 1 && left == 0) {
         push = 1;   
-        q = 1.0; pp = p(1);
-    elseif right == 0 && left == 1
+        q = 1.0; pp = p[1];
+    } else if (right == 0 && left == 1) {
         push = -1;  
-        q = 0.5; pp = p(2);
-    else
+        q = 0.5; pp = p[2];
+    } else {
         push = 0;   
         q = 0; pp = 0;
-    end
+    }
     unusualness = q - pp; 
            
 //     F(steps) = 0;
     fsum = 0;
-    for k = 1:steps
+    for (k = 1; k < steps; k++) 
         fsum = fsum + getForce(push, (steps - k)*sampleTime, TAU);
-    end
 //     push = F(steps);
     push = fsum;
 //     fprintf('//d: //f\n', steps, push);
@@ -167,17 +165,16 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     // Remember prediction of failure for current state
     v_old = v;
     // remember inputs and hidden unit values
-    for i = 1:5,
-        xold(i) = x(i); // state variables
-        yold(i) = y(i); // hidden units
-    end
+    for (i = 1; i < 5; i++) {
+        xold[i] = x[i]; // state variables
+        yold[i] = y[i]; // hidden units
+    }
     
     //Apply action to the simulated cart-pole: failure = r
     [h,h_dot,theta,theta_dot, failure] = ...
         Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE, sampleTime);
        
-    [x] = setInputValues(h, h_dot, theta, theta_dot, ...
-        MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+    setInputValues();
 
     // state evaluation
     [v, y] = eval_forward(x, a, b, c);
@@ -419,3 +416,10 @@ double sigmoid(double x) {
 	return 1.0 / (1.0 + exp(-x));
 }
 
+void setInputValues(h, h_dot, theta, theta_dot) {
+x[1] = ( h + MAX_POS ) / (2 * MAX_POS);
+x[2] = ( h_dot + MAX_VEL ) / (2 * MAX_VEL);
+x[3] = ( theta + MAX_ANGLE ) / (2 * MAX_ANGLE);
+x[4] = ( theta_dot + MAX_ANGVEL ) / (2 * MAX_ANGVEL);
+x[5] = 0.5;
+}
