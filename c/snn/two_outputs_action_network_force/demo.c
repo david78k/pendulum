@@ -29,7 +29,7 @@ int MAX_FAILURES =  	10000;      // Termination criterion for unquantized versio
 //int MAX_STEPS   =     	100000;
 int MAX_STEPS  =     	800;
 int PAST_STEPS =	1000;
-int totalRuns = 	1; // total runs
+int totalRuns = 	2; // total runs
 
 //logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(MAX_STEPS) '.log'])
 
@@ -39,9 +39,7 @@ double MAX_ANGLE = 0.2094;
 double MAX_ANGVEL = 2.01;
 
 int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
-int FinalMaxSteps = 0;
-int bal = 0;
-int balanced = 0;
+int balanced = 0, FinalMaxSteps = 0;
 
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
 double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2];
@@ -50,17 +48,18 @@ double h, hdot, theta, thetadot;
 
 /*** Prototypes ***/
 void cartpole_snn();
-//int cartpole(double x, double xdot, double theta, double thetadot, double force);
-int cartpole(double *x, double *xdot, double *theta, double *thetadot, double force);
+int cartpole(double force);
+void init();
 void initState();
 void initWeights();
 void updateWeights();
-void setInputValues(double h, double hdot, double theta, double thetadot);
+void setInputValues();
 void evalForward();
 void actionForward();
 double getForce(int steps);
 double sigmoid(double x) { return 1.0 / (1.0 + exp(-x)); }
 float sign(float x) { return (x < 0) ? -1. : 1.;}
+void report(int steps, int actualMaxSteps, int totalSteps);
 
 int main() {
 	#pragma omp parallel
@@ -69,22 +68,31 @@ int main() {
 	}
 
 	//tic
-	time_t start, stop;
+	time_t start, stop, istart, istop;
 	time(&start);
+
+	printf("STEPSIZE = %.2f\n", STEPSIZE);
+	printf("STEPSIZE = %s\n", STEPSIZE);
+	printf("TAU      = %s\n", TAU);
+	printf("\n");
 
 	// save statistics in log files
 	// record videos
-	int i;
+	int i, bal = 0;
 	//#pragma omp parallel for
 	for (i = 0; i < totalRuns; i ++) {
+		time(&istart);
+	
+		init();
 		// write to file
-		printf("Run %d: ", i + 1);
+		printf("------------- Run %d -------------\n", i + 1);
 		cartpole_snn();
 
 		if (balanced) {
-	        	bal = bal + 1;
-	        	printf("Balanced = %d", bal);
+	        	printf("Balanced = %d", ++bal);
 		}
+		time(&istop);
+		printf("Elapsed time: %.0f seconds\n", difftime(istop, istart));
 		printf("\n");
 	}
 
@@ -92,9 +100,10 @@ int main() {
 	time(&stop);
 
 	// report.m
+	printf("============== SUMMARY ===============\n");
 	printf("Final Max Steps: %d\n", FinalMaxSteps);
 	printf("Success rate: %.2f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
-	printf("Elapsed time: %.0f seconds.\n", difftime(stop, start));
+	printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
 
 	return EXIT_SUCCESS;
 }
@@ -117,7 +126,7 @@ void cartpole_snn() {
 	initState();
 
 	// Find box in state space containing start state
-	setInputValues(h, hdot, theta, thetadot);
+	setInputValues();
 
 	/*
 	// Turning on the double buffering to plot the cart and pole
@@ -125,8 +134,6 @@ void cartpole_snn() {
 	    handle = figure(1);
 	    set(handle,'doublebuffer','on')
 	end
-
-	tStart = tic;
 	*/
 	// state evaluation
 	evalForward();
@@ -163,9 +170,9 @@ void cartpole_snn() {
     		}
     
     		//Apply action to the simulated cart-pole: failure = r
-        	failure = cartpole(&h,&hdot,&theta,&thetadot, push);
+        	failure = cartpole(push);
        
-    		setInputValues(h, hdot, theta, thetadot);
+    		setInputValues();
 
     		// state evaluation
 		evalForward(x, a, b, c);
@@ -203,46 +210,26 @@ void cartpole_snn() {
     		totalSteps = totalSteps + 1;
 	}
 	
-	if (failures == MAX_FAILURES) {
-	    printf("Pole not balanced. Stopping after %d failures \n", failures);
-	    balanced = 0;
-	} else {
-	    printf("Pole balanced successfully for at least %d steps at %d trials\n", steps, failures);
-	    balanced = 1;
-	}
-
-	printf("Max steps: %d, Total Steps: %d \n", actualMaxSteps, totalSteps);
-
-	if (FinalMaxSteps < actualMaxSteps)
-	    FinalMaxSteps = actualMaxSteps;
-
-	//toc(tStart)
-
 	// stats.m
-	// firing rates: L, R, all
-	double rl = (double) lspikes / totalSteps / STEPSIZE; // left rate
-	double rr = (double) rspikes / totalSteps / STEPSIZE; // right rate
-	double ra = (double) (lspikes + rspikes) / totalSteps / STEPSIZE; // all rate
-	printf("Firing rate (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
-	printf("Number of spikes         = %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
+	report(steps, actualMaxSteps, totalSteps);
 }
 
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
 // four state variables and updates their values by estimating the state
 // TAU seconds later.
-int cartpole(double *x, double *xdot, double *theta, double *thetadot, double force) {
-	double temp = (force + PoleMass_Length * (*thetadot) * (*thetadot) * sin(*theta))/ Total_Mass;
-	double thetaacc = (g * sin(*theta) - cos(*theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(*theta) * cos(*theta) / Total_Mass));
-	double xacc = temp - PoleMass_Length * thetaacc* cos(*theta) / Total_Mass;
+int cartpole(double force) {
+	double temp = (force + PoleMass_Length * (thetadot) * (thetadot) * sin(theta))/ Total_Mass;
+	double thetaacc = (g * sin(theta) - cos(theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
+	double xacc = temp - PoleMass_Length * thetaacc* cos(theta) / Total_Mass;
 
 	// Update the four state variables, using Euler's method.
-	*x += STEPSIZE * (*xdot);
-	*xdot += STEPSIZE*xacc;
-	*theta += STEPSIZE* (*thetadot);
-	*thetadot += STEPSIZE*thetaacc;
+	h += STEPSIZE * (hdot);
+	hdot += STEPSIZE*xacc;
+	theta += STEPSIZE* (thetadot);
+	thetadot += STEPSIZE*thetaacc;
 
 	int failure = 0;
-	if (abs(*x) > MAX_POS || abs(*theta) > MAX_ANGLE)
+	if (abs(h) > MAX_POS || abs(theta) > MAX_ANGLE)
 	    failure = -1; //to signal failure 
 
 	return failure;
@@ -270,6 +257,11 @@ void updateWeights() {
         		f[i][j] = f[i][j] + RHO * rhat * z[i] * unusualness;  // action network H-O
 		}    	
 	}
+}
+
+void init() {
+	failures=0, lspikes = 0, rspikes = 0, spikes = 0;
+	balanced = 0, FinalMaxSteps = 0;
 }
 
 // Initialize action and heuristic critic weights and traces 
@@ -358,7 +350,7 @@ void actionForward() {
 	}
 }
 
-void setInputValues(double h, double hdot, double theta, double thetadot) {
+void setInputValues() {
 	x[0] = ( h + MAX_POS ) / (2 * MAX_POS);
 	x[1] = ( hdot + MAX_VEL ) / (2 * MAX_VEL);
 	x[2] = ( theta + MAX_ANGLE ) / (2 * MAX_ANGLE);
@@ -367,8 +359,8 @@ void setInputValues(double h, double hdot, double theta, double thetadot) {
 }
 
 double getForce(int steps) {
-	int right, left, push, i, k, failure;
-	double q, pp, fsum, force, t;
+	int right, left, push, i, k;
+	double q, pp, force, t;
 
     	if (randomdef <= p[0]) {
        		right = 1; rspikes = rspikes + 1;
@@ -402,4 +394,29 @@ double getForce(int steps) {
 //     push = F(steps);
 
 	return force;
+}
+
+void report(int steps, int actualMaxSteps, int totalSteps) {
+	if (failures == MAX_FAILURES) {
+	    printf("Pole not balanced. Stopping after %d failures \n", failures);
+	    balanced = 0;
+	} else {
+	    printf("Pole balanced successfully for at least %d steps at %d trials\n", steps, failures);
+	    balanced = 1;
+	}
+
+	printf("Max steps: %d, Total Steps: %d \n", actualMaxSteps, totalSteps);
+
+	if (FinalMaxSteps < actualMaxSteps)
+	    FinalMaxSteps = actualMaxSteps;
+
+	// stats.m
+	// firing rates: L, R, all
+	double rl = (double) lspikes / totalSteps / STEPSIZE; // left rate
+	double rr = (double) rspikes / totalSteps / STEPSIZE; // right rate
+	double ra = (double) (lspikes + rspikes) / totalSteps / STEPSIZE; // all rate
+	printf("Firing rate (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("- before learning (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("- after learning (last trial) (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("Number of spikes         = %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
 }
