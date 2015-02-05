@@ -10,16 +10,26 @@
 #define RHO     	1.0      // Learning rate for critic weights, d. 
 #define RHOH   		0.2      // Learning rate for critic weights, e, f.
 #define GAMMA   	0.9      // ratio of current prediction, v
-#define sampleTime	0.01
+#define TIMESTEP	0.01
 #define TAU     	0.02 // 141 steps, fmax = 1
 //TAU     = 0.02; // 1091 steps, fmax = 600
 
+// Parameters for cartpole simulation
+#define g		9.8 //Gravity
+#define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
+#define Mass_Pole 	0.1 //Mass of the pole is assumed to be 0.1Kg
+#define Total_Mass 	Mass_Cart+Mass_Pole
+#define Length		0.5 //Half of the length of the pole
+#define PoleMass_Length	Mass_Pole*Length
+#define FORCE_MAX	600 // max force 
+#define Fourthirds	1.3333333
+
 int MAX_FAILURES  =  10000;      // Termination criterion for unquantized version. 
 // MAX_STEPS   =     100000;
-int MAX_STEPS   =     80000;
+int MAX_STEPS   =     800;
 int PAST_STEPS    = 1000;
 
-//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(sampleTime) '_max' int2str(MAX_STEPS) '.log'])
+//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(TIMESTEP) '_max' int2str(MAX_STEPS) '.log'])
 
 double MAX_POS = 2.4;
 double MAX_VEL = 1.5;
@@ -30,23 +40,24 @@ int FinalMaxSteps = 0;
 int total = 10;
 int bal = 0;
 int balanced = 0;
-int i;
+int failure = -1;
 
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
-double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
+double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2];
 double r_hat, push, unusualness, sum_error = 0.0;
-double h, h_dot, theta, theta_dot;
+double h, hdot, theta, thetadot;
 int bp_flag = 0, count_error = 0, total_count = 0;
 
 /*** Prototypes ***/
 void cartpole_snn();
-void cartpole();
+int cartpole(double x, double xdot, double theta, double thetadot, double force);
 void initState();
 void initWeights();
 void updateWeights();
-void setInputValues(h, h_dot, theta, theta_dot);
-void evalForward(x, a, b, c);
-void actionForward(x, d, e, f);
+void setInputValues(double h, double hdot, double theta, double thetadot);
+void evalForward();
+void actionForward();
+double getForce(int push, double t);
 
 int main() {
 	#pragma omp parallel
@@ -58,6 +69,7 @@ int main() {
 
 	// save statistics in log files
 	// record videos
+	int i;
 	//#pragma omp parallel for
 	for (i = 0; i < total; i ++) {
 		// write to file
@@ -81,217 +93,185 @@ int main() {
 }
 
 void cartpole_snn() {
-//function Cart_Pole_NN
-// Two-layer neural network: action network and evaluation network
-// network architecture: 5 x 5 x 2, 5 x 5 x 1
-int plot = 1;   //// boolean for plotting. 1: plot, 0: no plot
+	//function Cart_Pole_NN
+	// Two-layer neural network: action network and evaluation network
+	// network architecture: 5 x 5 x 2, 5 x 5 x 1
+	int plot = 1;   //// boolean for plotting. 1: plot, 0: no plot
 
+	int steps = 0, actualMaxSteps = 0, totalSteps = 0;
+	int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 
-int steps = 0, actualMaxSteps = 0, totalSteps = 0;
-int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
+	//global grafica
+	//grafica = false; // indicates if display the graphical interface
+	//xpoints = []; ypoints = [];
 
-//global grafica
-//grafica = false; // indicates if display the graphical interface
-//xpoints = []; ypoints = [];
+	// Initialize action and heuristic critic weights and traces
+	initWeights();
 
-//// Initialize action and heuristic critic weights and traces
-initWeights();
+	// Starting state is (0 0 0 0)
+	initState();
 
-// Starting state is (0 0 0 0)
-initState(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+	// Find box in state space containing start state
+	setInputValues(h, hdot, theta, thetadot);
 
-// Find box in state space containing start state
-setInputValues(h, h_dot, theta, theta_dot);
+	/*
+	// Turning on the double buffering to plot the cart and pole
+	if plot 
+	    handle = figure(1);
+	    set(handle,'doublebuffer','on')
+	end
 
-/*
-// Turning on the double buffering to plot the cart and pole
-if plot 
-    handle = figure(1);
-    set(handle,'doublebuffer','on')
-end
+	tStart = tic;
+	*/
+	// state evaluation
+	evalForward();
 
-tStart = tic;
-*/
-// state evaluation
-evalForward(x, a, b, c);
-
-// Iterate through the action-learn loop. 
-while (steps < MAX_STEPS && failures < MAX_FAILURES) {
-//     if steps == 100
-//         grafica = false;
-//     end
+	int right, left, push, i, k;
+	double q, pp, fsum, rhat;
+	// Iterate through the action-learn loop. 
+	while (steps < MAX_STEPS && failures < MAX_FAILURES) {
+	//     if steps == 100
+	//         grafica = false;
+	//     end
     
-/*
-    // Plot the cart and pole with the x and theta
-    if grafica
-        plot_Cart_Pole(h,theta)
-    end
-  */  
-    //Choose action randomly, biased by current weight. 
-    actionForward(x, d, e, f);
+	/*
+    	// Plot the cart and pole with the x and theta
+    	if grafica
+    	    plot_Cart_Pole(h,theta)
+    	end
+  	*/  
+    	//Choose action randomly, biased by current weight. 
+    		actionForward();
     
-    if (rand <= p[1]) {
-        right = 1; rspikes = rspikes + 1;
-    } else
-        right = 0;
+    		if (randomdef <= p[0]) {
+    	   		 right = 1; rspikes = rspikes + 1;
+    		} else
+   	    	 	right = 0;
     
-    if (rand <= p[2]) {
-        left = 0; lspikes = lspikes + 1;
-    } else
-        left = 1;
+   		if (randomdef <= p[1]) {
+        		left = 0; lspikes = lspikes + 1;
+		} else
+      			left = 1;
    
-    // q = 1.0/0.5/0 best: 586 steps
-    if (right == 1 && left == 0) {
-        push = 1;   
-        q = 1.0; pp = p[1];
-    } else if (right == 0 && left == 1) {
-        push = -1;  
-        q = 0.5; pp = p[2];
-    } else {
-        push = 0;   
-        q = 0; pp = 0;
-    }
-    unusualness = q - pp; 
+    		// q = 1.0/0.5/0 best: 586 steps
+		if (right == 1 && left == 0) {
+		        push = 1;   
+		        q = 1.0; pp = p[0];
+		} else if (right == 0 && left == 1) {
+        		push = -1;  
+		        q = 0.5; pp = p[1];
+    		} else {
+		        push = 0;   
+        		q = 0; pp = 0;
+		}
+		unusualness = q - pp; 
            
 //     F(steps) = 0;
-    fsum = 0;
-    for (k = 1; k < steps; k++) 
-        fsum = fsum + getForce(push, (steps - k)*sampleTime, TAU);
+   		fsum = 0;
+    		for (k = 1; k < steps; k++) 
+		        fsum = fsum + getForce(push, (steps - k)*TIMESTEP);
 //     push = F(steps);
-    push = fsum;
-//     fprintf('//d: //f\n', steps, push);
+		push = fsum;
+	//     fprintf('//d: //f\n', steps, push);
+	     	printf("%d: push %d\n", steps, push);
 
-    //Preserve current activities in evaluation network
-    // Remember prediction of failure for current state
-    v_old = v;
-    // remember inputs and hidden unit values
-    for (i = 1; i < 5; i++) {
-        xold[i] = x[i]; // state variables
-        yold[i] = y[i]; // hidden units
-    }
+		//Preserve current activities in evaluation network
+		// Remember prediction of failure for current state
+    		vold = v;
+    		// remember inputs and hidden unit values
+		for (i = 1; i < 5; i++) {
+			xold[i] = x[i]; // state variables
+		        yold[i] = y[i]; // hidden units
+    		}
     
-    //Apply action to the simulated cart-pole: failure = r
-    [h,h_dot,theta,theta_dot, failure] = ...
-        Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE, sampleTime);
+    		//Apply action to the simulated cart-pole: failure = r
+        	cartpole(h,hdot,theta,thetadot, push);
        
-    setInputValues();
+    		setInputValues(h, hdot, theta, thetadot);
 
-    // state evaluation
-    [v, y] = eval_forward(x, a, b, c);
+    		// state evaluation
+		evalForward(x, a, b, c);
     
-    if (failure < 0) // r = -1, Failure occurred
-	    failures=failures+1;
-//         disp(['Episode ' int2str(failures) ': steps '  num2str(steps)]);
+    		if (failure < 0) { // r = -1, Failure occurred
+	    		failures=failures+1;
+		        printf("Episode %d: steps %d\n", failures, steps);
                        
-        [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
+        //[xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
         
-        steps = 0;
+	        	steps = 0;
         
-        //Reset state to (0 0 0 0).  Find the box. ---
-	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+        		//Reset state to (0 0 0 0).  Find the box. ---
+		   	initState();
 
-        //Reinforcement upon failure is -1. Prediction of failure is 0.
-        rhat = failure - v_old;
-        failure = 0;      
-    else   // r = 0, Not a failure.
-        //Reinforcement is 0. Prediction of failure given by v weight.
-        steps=steps+1;
+        		//Reinforcement upon failure is -1. Prediction of failure is 0.
+        		rhat = failure - vold;
+        		failure = 0;      
+    		} else {  // r = 0, Not a failure.
+        		//Reinforcement is 0. Prediction of failure given by v weight.
+        		steps=steps+1;
 
-        //Heuristic reinforcement is:   current reinforcement
-        //     + gamma * new failure prediction - previous failure prediction
-        rhat = failure + GAMMA * v - v_old;
-    end
+        		//Heuristic reinforcement is:   current reinforcement
+		        //     + gamma * new failure prediction - previous failure prediction
+		        rhat = failure + GAMMA * v - vold;
+		}
         
-    [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
-    unusualness, xold, yold, a, b, c, d, e, f, z); 
+    		updateWeights (unusualness, xold, yold, a, b, c, d, e, f, z); 
     
-    if steps > 0.95*MAX_STEPS
-        grafica = true;
-    end
-    if actualMaxSteps < steps
-        actualMaxSteps = steps;
-    end
-    totalSteps = totalSteps + 1;
-end
-  
-global balanced
-if (failures == MAX_FAILURES)
-    disp(['Pole not balanced. Stopping after ' int2str(failures) ' failures ' ]);
-    balanced = false;
-else
-    disp(['Pole balanced successfully for at least ' int2str(steps) ' steps at ' num2str(failures) ' trials' ]);
-    balanced = true;
-end
+		//if (steps > 0.95*MAX_STEPS)
+		//        grafica = true;
 
-disp(['Max steps: ' int2str(actualMaxSteps) ', Total Steps: ' num2str(totalSteps)]);
+		if (actualMaxSteps < steps)
+        		actualMaxSteps = steps;
+    		
+    		totalSteps = totalSteps + 1;
+	}
+	
+	if (failures == MAX_FAILURES) {
+	    printf("Pole not balanced. Stopping after %d failures \n", failures);
+	    balanced = 0;
+	} else {
+	    printf("Pole balanced successfully for at least %d steps at %d trials\n", steps, failures);
+	    balanced = 1;
+	}
 
-global FinalMaxSteps
-if FinalMaxSteps < actualMaxSteps
-    FinalMaxSteps = actualMaxSteps;
-end
+	printf("Max steps: %d, Total Steps: %d \n", actualMaxSteps, totalSteps);
 
-toc(tStart)
+	if (FinalMaxSteps < actualMaxSteps)
+	    FinalMaxSteps = actualMaxSteps;
 
-// stats.m
-// firing rates: L, R, all
-rl = lspikes / totalSteps; // left rate
-rr = rspikes / totalSteps; // right rate
-ra = (lspikes + rspikes) / totalSteps; // all rate
-//disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
-*/
+	//toc(tStart)
+
+	// stats.m
+	// firing rates: L, R, all
+	double rl = lspikes / totalSteps; // left rate
+	double rr = rspikes / totalSteps; // right rate
+	double ra = (lspikes + rspikes) / totalSteps; // all rate
+	//disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
 }
 
-void cartpole() {
-/*
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
 // four state variables and updates their values by estimating the state
 // TAU seconds later.
+int cartpole(double x, double xdot, double theta, double thetadot, double force) {
+	// Parameters for simulation
+	//double Total_Mass=Mass_Cart+Mass_Pole;
+//PoleMass_Length=Mass_Pole*Length;
 
-function [x,x_dot,theta,theta_dot, failure] = ...
-    Cart_Pole(action,x,x_dot,theta,theta_dot, max_pos, max_angle, tau)
+	double temp = (force + PoleMass_Length *thetadot * thetadot * sin(theta))/ Total_Mass;
+	double thetaacc = (g * sin(theta) - cos(theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
+	double xacc = temp - PoleMass_Length * thetaacc* cos(theta) / Total_Mass;
 
-// Parameters for simulation
+	// Update the four state variables, using Euler's method.
+	x=x+Tau*x_dot;
+	x_dot=x_dot+Tau*xacc;
+	theta=theta+Tau*thetadot;
+	thetadot=thetadot+Tau*thetaacc;
 
-g=9.8; //Gravity
-Mass_Cart=1.0; //Mass of the cart is assumed to be 1Kg
-Mass_Pole=0.1; //Mass of the pole is assumed to be 0.1Kg
-Total_Mass=Mass_Cart+Mass_Pole;
-Length=0.5; //Half of the length of the pole
-PoleMass_Length=Mass_Pole*Length;
-Force_Mag=10.0;
-// Tau=0.02; //Time interval for updating the values
-Tau = tau;
-Fourthirds=1.3333333;
+	int failure = 0;
+	if (abs(x) > max_pos || abs(theta) > max_angle)
+	    failure = -1; //to signal failure 
 
-// Force_Mag = integral(fun,0,Tau);
-
-// if action>0
-//     force=Force_Mag;
-// elseif action < 0
-//     force=-Force_Mag;
-// else
-//     force = 0;
-// end
-force = action;
-
-temp = (force + PoleMass_Length *theta_dot * theta_dot * sin(theta))/ Total_Mass;
-
-thetaacc = (g * sin(theta) - cos(theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
-
-xacc = temp - PoleMass_Length * thetaacc* cos(theta) / Total_Mass;
-
-// Update the four state variables, using Euler's method.
-x=x+Tau*x_dot;
-x_dot=x_dot+Tau*xacc;
-theta=theta+Tau*theta_dot;
-theta_dot=theta_dot+Tau*thetaacc;
-
-if (abs(x) > max_pos || abs(theta) > max_angle)
-    failure = -1; //to signal failure 
-else
-    failure = 0;
-end
-*/
+	return failure;
 }
 
 void updateWeights() {
@@ -348,9 +328,9 @@ void initWeights() {
 
 void initState() {
 	h         = randomdef * 2 * MAX_POS - MAX_POS;       //cart position, meters
-	h_dot     = randomdef * 2 * MAX_VEL - MAX_VEL;       //cart velocity
+	hdot     = randomdef * 2 * MAX_VEL - MAX_VEL;       //cart velocity
 	theta     = randomdef * 2 * MAX_ANGLE - MAX_ANGLE;      // pole angle, radians
-	theta_dot = randomdef * 2 * MAX_ANGVEL - MAX_ANGVEL;    // pole angular velocity
+	thetadot = randomdef * 2 * MAX_ANGVEL - MAX_ANGVEL;    // pole angular velocity
 }
 
 /*
@@ -362,7 +342,7 @@ void initState() {
 % b: I-O synapses
 % c: H-O synapses
 */
-void evalForward(x, a, b, c) {
+void evalForward() {
 /*
 % output: state evaluation
 for i = 1: 5,
@@ -391,7 +371,7 @@ v = s; % output layer
 % e: I-O synapses
 % f: H-O synapses
 */
-void actionForward(x, d, e, f) {
+void actionForward() {
 /*
 % output: action
 for i = 1: 5,
@@ -416,10 +396,14 @@ double sigmoid(double x) {
 	return 1.0 / (1.0 + exp(-x));
 }
 
-void setInputValues(h, h_dot, theta, theta_dot) {
-x[1] = ( h + MAX_POS ) / (2 * MAX_POS);
-x[2] = ( h_dot + MAX_VEL ) / (2 * MAX_VEL);
-x[3] = ( theta + MAX_ANGLE ) / (2 * MAX_ANGLE);
-x[4] = ( theta_dot + MAX_ANGVEL ) / (2 * MAX_ANGVEL);
-x[5] = 0.5;
+void setInputValues(double h, double hdot, double theta, double thetadot) {
+	x[0] = ( h + MAX_POS ) / (2 * MAX_POS);
+	x[1] = ( hdot + MAX_VEL ) / (2 * MAX_VEL);
+	x[2] = ( theta + MAX_ANGLE ) / (2 * MAX_ANGLE);
+	x[3] = ( thetadot + MAX_ANGVEL ) / (2 * MAX_ANGVEL);
+	x[4] = 0.5;
+}
+
+double getForce(int push, double t) {
+	return push * FORCE_MAX * t * exp(-t/TAU);
 }
