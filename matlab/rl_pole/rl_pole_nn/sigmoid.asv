@@ -1,0 +1,7 @@
+function [ output_args ] = sigmoid( input_args )
+%SIGMOID Summary of this function goes here
+%   Detailed explanation goes here
+s = 1.0 / (1.0 + exp(
+
+end
+

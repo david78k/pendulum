@@ -1,3 +1,4 @@
+clear all;
 
 % initialization of the random number generator
 rng('default');
