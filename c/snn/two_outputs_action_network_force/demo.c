@@ -51,6 +51,35 @@ disp(['Success rate: ' num2str(100.0*bal/total) '% (' num2str(bal) '/' num2str(t
 
 */
 
+#include <stdio.h>
 main() {
 	printf("demo\n");
+
+//tic
+
+int FinalMaxSteps = 0;
+int total = 10;
+int bal = 0;
+int i;
+int balanced = 0;
+
+// save statistics in log files
+// record videos
+for (i = 1; i < total; i ++) {
+	// write to file
+	printf("Run %d:\n", i);
+	//Cart_Pole_NN();
+
+	if (balanced) {
+        	bal = bal + 1;
+        	//disp(['Balanced = ' num2str(bal)]);
+	}
+}
+
+//toc
+
+// report.m
+printf("Final Max Steps: %d\n", FinalMaxSteps);
+//disp(['Success rate: ' num2str(100.0*bal/total) '% (' num2str(bal) '/' num2str(total) ')']);
+	
 }
