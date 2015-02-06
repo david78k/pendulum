@@ -10,7 +10,7 @@
 //int TARGET_STEPS   =     	100000;
 #define TARGET_STEPS   	200 	// number of steps to target for learning
 #define PAST_STEPS 	1000	// last steps to reduce computation
-#define TOTAL_RUNS  	5 // total runs
+#define TOTAL_RUNS  	100 // total runs
 
 // network parameters
 #define TAU     	0.02 // in seconds, 141 steps, fmax = 1
@@ -96,6 +96,7 @@ int main() {
 		time(&istop);
 		printf("Elapsed time: %.0f seconds\n", difftime(istop, istart));
 		printf("\n");
+		sleep(100);
 	}
 
 	//toc
@@ -272,7 +273,7 @@ void initWeights() {
    
   	/* Intializes random number generator */
 	srand((unsigned) time(&t));
-	printf("randomdef %.2f\n", randomdef);
+//	printf("randomdef %.2f\n", randomdef);
 
 	int i, j;
 	for (i = 0; i< 5; i++) {
