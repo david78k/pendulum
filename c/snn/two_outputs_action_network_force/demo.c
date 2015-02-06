@@ -92,11 +92,11 @@ int main() {
 
 		if (balanced) {
 	        	printf("Balanced = %d\n", ++bal);
+			sleep(1);
 		}
 		time(&istop);
 		printf("Elapsed time: %.0f seconds\n", difftime(istop, istart));
 		printf("\n");
-		sleep(100);
 	}
 
 	//toc

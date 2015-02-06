@@ -1,6 +1,6 @@
 default: 
 	gcc -fopenmp -o demo.o demo.c -lm
-	./demo.o
+	./demo.o > demo.log
 
 omp:
 	gcc -fopenmp -o omp_test.o omp_test.c
