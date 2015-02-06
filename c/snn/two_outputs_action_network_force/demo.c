@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-#define DEBUG		0
+#define DEBUG		1
 
 #define STEPSIZE	0.01 // in seconds
 #define TAU     	0.02 // in seconds, 141 steps, fmax = 1
@@ -27,12 +27,12 @@
 
 int MAX_FAILURES =  	10000;      // Termination criterion for unquantized version. 
 //int MAX_FAILURES =  	10;      // Termination criterion for unquantized version. 
-//int MAX_STEPS   =     	100000;
-int MAX_STEPS  =     	800;
+//int TARGET_STEPS   =     	100000;
+int TARGET_STEPS  =    	800; 	// number of steps to target for learning
 int PAST_STEPS =	1000;
 int totalRuns = 	2; // total runs
 
-//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(MAX_STEPS) '.log'])
+//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(TARGET_STEPS) '.log'])
 
 double MAX_POS = 2.4;
 double MAX_VEL = 1.5;
@@ -40,11 +40,11 @@ double MAX_ANGLE = 0.2094;
 double MAX_ANGVEL = 2.01;
 
 int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
-int balanced = 0, FinalMaxSteps = 0;
+int balanced = 0, MaxSteps = 0;
 
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
 double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2];
-double rhat, push, unusualness, sum_error = 0.0;
+double rhat, unusualness, sum_error = 0.0;
 double h, hdot, theta, thetadot;
 
 /*** Prototypes ***/
@@ -60,7 +60,7 @@ void actionForward();
 double getForce(int steps);
 double sigmoid(double x) { return 1.0 / (1.0 + exp(-x)); }
 float sign(float x) { return (x < 0) ? -1. : 1.;}
-void report(int steps, int actualMaxSteps, int totalSteps);
+void report(int steps, int iMaxSteps, int totalSteps);
 
 int main() {
 	#pragma omp parallel
@@ -73,7 +73,7 @@ int main() {
 	time(&start);
 
 	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
-	printf("MAX_STEPS	= %d\n", MAX_STEPS);
+	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
 	printf("STEPSIZE (sec)	= %.2f\n", STEPSIZE);
 	printf("TAU      (sec)	= %.2f\n", TAU);
 	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
@@ -104,7 +104,7 @@ int main() {
 
 	// report.m
 	printf("============== SUMMARY ===============\n");
-	printf("Final Max Steps: %d\n", FinalMaxSteps);
+	printf("Final Max Steps: %d\n", MaxSteps);
 	printf("Success rate: %.2f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
 	printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
 
@@ -115,7 +115,7 @@ int main() {
 // network architecture: 5 x 5 x 2, 5 x 5 x 1
 void cartpole_snn() {
 	int plot = 1;   // boolean for plotting. 1: plot, 0: no plot
-	int steps = 0, actualMaxSteps = 0, totalSteps = 0;
+	int steps = 0, iMaxSteps = 0, totalSteps = 0;
 
 	//global grafica
 	//grafica = false; // indicates if display the graphical interface
@@ -140,10 +140,10 @@ void cartpole_snn() {
 	// state evaluation
 	evalForward();
 
-	int push, i, k, failure;
-	double q, pp, fsum, force;
+	int i, k, failure;
+	double q, pp, force;
 	// Iterate through the action-learn loop. 
-	while (steps < MAX_STEPS && failures < MAX_FAILURES) {
+	while (steps < TARGET_STEPS && failures < MAX_FAILURES) {
 	//     if steps == 100
 	//         grafica = false;
 	//     end
@@ -203,17 +203,17 @@ void cartpole_snn() {
 		}
     		updateWeights ();
     
-		//if (steps > 0.95*MAX_STEPS)
+		//if (steps > 0.95*TARGET_STEPS)
 		//        grafica = true;
 
-		if (actualMaxSteps < steps)
-        		actualMaxSteps = steps;
+		if (iMaxSteps < steps)
+        		iMaxSteps = steps;
     		
     		totalSteps = totalSteps + 1;
 	}
 	
 	// stats.m
-	report(steps, actualMaxSteps, totalSteps);
+	report(steps, iMaxSteps, totalSteps);
 }
 
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
@@ -395,7 +395,7 @@ double getForce(int steps) {
 	return force;
 }
 
-void report(int steps, int actualMaxSteps, int totalSteps) {
+void report(int steps, int iMaxSteps, int totalSteps) {
 	if (failures == MAX_FAILURES) {
 	    printf("Pole not balanced. Stopping after %d failures \n", failures);
 	    balanced = 0;
@@ -404,10 +404,10 @@ void report(int steps, int actualMaxSteps, int totalSteps) {
 	    balanced = 1;
 	}
 
-	printf("Max steps: %d, Total Steps: %d \n", actualMaxSteps, totalSteps);
+	printf("Max steps: %d, Total Steps: %d \n", iMaxSteps, totalSteps);
 
-	if (FinalMaxSteps < actualMaxSteps)
-	    FinalMaxSteps = actualMaxSteps;
+	if (MaxSteps < iMaxSteps)
+	    MaxSteps = iMaxSteps;
 
 	// stats.m
 	// firing rates: L, R, all
