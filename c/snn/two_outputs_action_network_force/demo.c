@@ -5,10 +5,10 @@
 
 #define DEBUG		0
 
-#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
-//#define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
-//int TARGET_STEPS   =     	100000;
-#define TARGET_STEPS   	200 	// number of steps to target for learning
+//#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
+#define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
+#define TARGET_STEPS   	500 	// number of steps to target for learning
+//#define TARGET_STEPS   	100000 	// number of steps to target for learning
 #define PAST_STEPS 	1000	// last steps to reduce computation
 #define TOTAL_RUNS  	100 // total runs
 
@@ -43,7 +43,7 @@ int balanced = 0, MaxSteps = 0;
 
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
 double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2], push[TARGET_STEPS];
-double rhat, unusualness, sum_error = 0.0;
+double rhat, unusualness;
 double h, hdot, theta, thetadot;
 
 /*** Prototypes ***/
@@ -97,6 +97,7 @@ int main() {
 		time(&istop);
 		printf("Elapsed time: %.0f seconds\n", difftime(istop, istart));
 		printf("\n");
+		fflush(stdout);
 	}
 
 	//toc
@@ -140,8 +141,8 @@ void cartpole_snn() {
 	// state evaluation
 	evalForward();
 
-	int i, k, failure;
-	double q, pp, force;
+	int i, failure;
+	double force;
 	// Iterate through the action-learn loop. 
 	while (steps < TARGET_STEPS && failures < MAX_FAILURES) {
 	//     if steps == 100
@@ -180,7 +181,7 @@ void cartpole_snn() {
 		evalForward();
     
     		if (failure < 0) { // r = -1, Failure occurred
-	    		failures=failures+1;
+	    		failures ++;
 		        //printf("Episode %d: steps %d\n", failures, steps);
                        
         //[xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
@@ -195,7 +196,7 @@ void cartpole_snn() {
         		failure = 0;      
     		} else {  // r = 0, Not a failure.
         		//Reinforcement is 0. Prediction of failure given by v weight.
-        		steps=steps+1;
+        		steps ++;
 
         		//Heuristic reinforcement is:   current reinforcement
 		        //     + gamma * new failure prediction - previous failure prediction
@@ -209,7 +210,7 @@ void cartpole_snn() {
 		if (iMaxSteps < steps)
         		iMaxSteps = steps;
     		
-    		totalSteps = totalSteps + 1;
+    		totalSteps ++;
 	}
 	
 	// stats.m
@@ -239,7 +240,6 @@ int cartpole(double force) {
 
 void init() {
 	failures=0, lspikes = 0, rspikes = 0, spikes = 0;
-	//push = double[TARGET_STEPS];
 }
 
 void updateWeights() {
@@ -252,16 +252,16 @@ void updateWeights() {
 		factor2 = RHOH * rhat * z[i] * (1 - z[i]) * unusualness;// * sign(f[i]); // unusualness required, sign(f[i]) optional
 		for (j = 0; j < 5; j++) {    
 	        	// for each weight I-H
-        		a[i][j] = a[i][j] + factor1 * xold[j]; // evaluation network I-H
-		        d[i][j] = d[i][j] + factor2 * xold[j]; // action network I-H
+        		a[i][j] += factor1 * xold[j]; // evaluation network I-H
+		        d[i][j] += factor2 * xold[j]; // action network I-H
     		}
 		// for each weight H-O
-		b[i] = b[i] + BETA * rhat * xold[i];   // evaluation network I-O
-		c[i] = c[i] + BETA * rhat * yold[i];   // evaluation network H-O
+		b[i] += BETA * rhat * xold[i];   // evaluation network I-O
+		c[i] += BETA * rhat * yold[i];   // evaluation network H-O
 
     		for (j = 0; j < 2; j++){
-        		e[i][j] = e[i][j] + RHO * rhat * xold[i] * unusualness;  // action network I-O
-        		f[i][j] = f[i][j] + RHO * rhat * z[i] * unusualness;  // action network H-O
+        		e[i][j] += RHO * rhat * xold[i] * unusualness;  // action network I-O
+        		f[i][j] += RHO * rhat * z[i] * unusualness;  // action network H-O
 		}    	
 	}
 }
@@ -313,13 +313,13 @@ void evalForward() {
 	for (i = 0; i < 5; i++) {
 	    s = 0.0;
 	    for (j = 0; j < 5; j ++) 
-	        s = s + a[i][j] * x[j]; // I-H * input
+	        s += a[i][j] * x[j]; // I-H * input
 	    y[i] = sigmoid(s);   // hidden layer
 	}
 
 	s = 0.0;
 	for (i = 0; i < 5; i++) 
-	    s = s + b[i] * x[i] + c[i] * y[i]; // I-O * input + H-O * hidden
+	    s += b[i] * x[i] + c[i] * y[i]; // I-O * input + H-O * hidden
 	v = s; // output layer
 }
 
@@ -359,8 +359,9 @@ void setInputValues() {
 	x[4] = 0.5;
 }
 
+// alters push[steps] and unusualness
 double getForce(int steps) {
-	int right, left, pushi, i, k;
+	int right, left, pushi, k;
 	double q, pp;
 
     	if (randomdef <= p[0]) {
@@ -369,9 +370,9 @@ double getForce(int steps) {
        	 	right = 0;
     
    	if (randomdef <= p[1]) {
-       		left = 0; lspikes = lspikes + 1;
+       		left = 1; lspikes = lspikes + 1;
 	} else
-      		left = 1;
+      		left = 0;
   
  	// q = 1.0/0.5/0 best: 586 steps
 	if (right == 1 && left == 0) {
