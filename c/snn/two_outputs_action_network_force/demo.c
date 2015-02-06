@@ -3,25 +3,26 @@
 #include <math.h>
 #include <time.h>
 
-#define randomdef		((double) rand() / (double)(RAND_MAX))
+#define DEBUG		0
 
+#define STEPSIZE	0.01 // in seconds
+#define TAU     	0.02 // in seconds, 141 steps, fmax = 1
+//TAU     = 0.02; // 1091 steps, fmax = 600
 #define BETA		0.2      // Learning rate for action weights, a. 
 #define BETAH   	0.05     // Learning rate for action weights, b, c.
 #define RHO     	1.0      // Learning rate for critic weights, d. 
 #define RHOH   		0.2      // Learning rate for critic weights, e, f.
 #define GAMMA   	0.9      // ratio of current prediction, v
-#define STEPSIZE	0.01
-#define TAU     	0.02 // 141 steps, fmax = 1
-//TAU     = 0.02; // 1091 steps, fmax = 600
+#define randomdef	((double) rand() / (double)(RAND_MAX))
 
 // Parameters for cartpole simulation
+#define MAX_FORCE	600 // max force 
 #define g		9.8 //Gravity
 #define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
 #define Mass_Pole 	0.1 //Mass of the pole is assumed to be 0.1Kg
 #define Total_Mass 	Mass_Cart+Mass_Pole
-#define Length		0.5 //Half of the length of the pole
-#define PoleMass_Length	Mass_Pole*Length
-#define FORCE_MAX	600 // max force 
+#define PoleLength	0.5 //Half of the length of the pole
+#define PoleMass_Length	Mass_Pole*PoleLength
 #define Fourthirds	1.3333333
 
 int MAX_FAILURES =  	10000;      // Termination criterion for unquantized version. 
@@ -71,9 +72,11 @@ int main() {
 	time_t start, stop, istart, istop;
 	time(&start);
 
-	printf("STEPSIZE = %.2f\n", STEPSIZE);
-	printf("STEPSIZE = %s\n", STEPSIZE);
-	printf("TAU      = %s\n", TAU);
+	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
+	printf("MAX_STEPS	= %d\n", MAX_STEPS);
+	printf("STEPSIZE (sec)	= %.2f\n", STEPSIZE);
+	printf("TAU      (sec)	= %.2f\n", TAU);
+	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
 	printf("\n");
 
 	// save statistics in log files
@@ -108,11 +111,10 @@ int main() {
 	return EXIT_SUCCESS;
 }
 
+// Two-layer neural network: action network and evaluation network
+// network architecture: 5 x 5 x 2, 5 x 5 x 1
 void cartpole_snn() {
-	//function Cart_Pole_NN
-	// Two-layer neural network: action network and evaluation network
-	// network architecture: 5 x 5 x 2, 5 x 5 x 1
-	int plot = 1;   //// boolean for plotting. 1: plot, 0: no plot
+	int plot = 1;   // boolean for plotting. 1: plot, 0: no plot
 	int steps = 0, actualMaxSteps = 0, totalSteps = 0;
 
 	//global grafica
@@ -122,10 +124,10 @@ void cartpole_snn() {
 	// Initialize action and heuristic critic weights and traces
 	initWeights();
 
-	// Starting state is (0 0 0 0)
+	// Starting state is random
 	initState();
 
-	// Find box in state space containing start state
+	// Set cart pole state space containing start state x
 	setInputValues();
 
 	/*
@@ -139,7 +141,7 @@ void cartpole_snn() {
 	evalForward();
 
 	int push, i, k, failure;
-	double q, pp, fsum;
+	double q, pp, fsum, force;
 	// Iterate through the action-learn loop. 
 	while (steps < MAX_STEPS && failures < MAX_FAILURES) {
 	//     if steps == 100
@@ -155,10 +157,10 @@ void cartpole_snn() {
     	//Choose action randomly, biased by current weight. 
     		actionForward();
     
-		push = getForce(steps);
-	//     fprintf('//d: //f\n', steps, push);
+		force = getForce(steps);
 		//if(steps % 10 == 0)
-		//     	printf("%d: push %d\n", steps, push);
+		if(DEBUG)
+		     	printf("%d: force %.2f\n", steps, force);
 
 		//Preserve current activities in evaluation network
 		// Remember prediction of failure for current state
@@ -170,12 +172,12 @@ void cartpole_snn() {
     		}
     
     		//Apply action to the simulated cart-pole: failure = r
-        	failure = cartpole(push);
+        	failure = cartpole(force);
        
     		setInputValues();
 
     		// state evaluation
-		evalForward(x, a, b, c);
+		evalForward();
     
     		if (failure < 0) { // r = -1, Failure occurred
 	    		failures=failures+1;
@@ -185,7 +187,7 @@ void cartpole_snn() {
         
 	        	steps = 0;
         
-        		//Reset state to (0 0 0 0).  Find the box. ---
+        		//Reset state to random. 
 		   	initState();
 
         		//Reinforcement upon failure is -1. Prediction of failure is 0.
@@ -216,10 +218,10 @@ void cartpole_snn() {
 
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
 // four state variables and updates their values by estimating the state
-// TAU seconds later.
+// STEPSIZE seconds later.
 int cartpole(double force) {
 	double temp = (force + PoleMass_Length * (thetadot) * (thetadot) * sin(theta))/ Total_Mass;
-	double thetaacc = (g * sin(theta) - cos(theta)* temp)/ (Length * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
+	double thetaacc = (g * sin(theta) - cos(theta)* temp)/ (PoleLength * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
 	double xacc = temp - PoleMass_Length * thetaacc* cos(theta) / Total_Mass;
 
 	// Update the four state variables, using Euler's method.
@@ -233,6 +235,10 @@ int cartpole(double force) {
 	    failure = -1; //to signal failure 
 
 	return failure;
+}
+
+void init() {
+	failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 }
 
 void updateWeights() {
@@ -259,11 +265,6 @@ void updateWeights() {
 	}
 }
 
-void init() {
-	failures=0, lspikes = 0, rspikes = 0, spikes = 0;
-	balanced = 0, FinalMaxSteps = 0;
-}
-
 // Initialize action and heuristic critic weights and traces 
 // to random values between -0.1 and 0.1
 void initWeights() {
@@ -288,9 +289,9 @@ void initWeights() {
 }
 
 void initState() {
-	h         = randomdef * 2 * MAX_POS - MAX_POS;       //cart position, meters
+	h        = randomdef * 2 * MAX_POS - MAX_POS;       //cart position, meters
 	hdot     = randomdef * 2 * MAX_VEL - MAX_VEL;       //cart velocity
-	theta     = randomdef * 2 * MAX_ANGLE - MAX_ANGLE;      // pole angle, radians
+	theta    = randomdef * 2 * MAX_ANGLE - MAX_ANGLE;      // pole angle, radians
 	thetadot = randomdef * 2 * MAX_ANGVEL - MAX_ANGVEL;    // pole angular velocity
 }
 
@@ -309,16 +310,14 @@ void evalForward() {
 	double s;
 	for (i = 0; i < 5; i++) {
 	    s = 0.0;
-	    for (j = 0; j < 5; j ++) {
+	    for (j = 0; j < 5; j ++) 
 	        s = s + a[i][j] * x[j]; // I-H * input
-	    }
 	    y[i] = sigmoid(s);   // hidden layer
 	}
 
 	s = 0.0;
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < 5; i++) 
 	    s = s + b[i] * x[i] + c[i] * y[i]; // I-O * input + H-O * hidden
-	}
 	v = s; // output layer
 }
 
@@ -389,7 +388,7 @@ double getForce(int steps) {
    	force = 0;
     	for (k = 0; k < steps; k++) {
 		t = (steps - k) * STEPSIZE;
-		force += push * FORCE_MAX * t * exp(-t/TAU);
+		force += push * MAX_FORCE * t * exp(-t/TAU);
 	}
 //     push = F(steps);
 
@@ -415,8 +414,8 @@ void report(int steps, int actualMaxSteps, int totalSteps) {
 	double rl = (double) lspikes / totalSteps / STEPSIZE; // left rate
 	double rr = (double) rspikes / totalSteps / STEPSIZE; // right rate
 	double ra = (double) (lspikes + rspikes) / totalSteps / STEPSIZE; // all rate
-	printf("Firing rate (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
-	printf("- before learning (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
-	printf("- after learning (last trial) (spikes/sec) = %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
-	printf("Number of spikes         = %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
+	printf("Firing rate (spikes/sec): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("- before learning 	: %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("- after learning (last trial): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+	printf("Number of spikes        : %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
 }
