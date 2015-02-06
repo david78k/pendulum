@@ -5,24 +5,17 @@
 
 #define DEBUG		1
 
-//#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
 #define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
-#define TARGET_STEPS   	10000 	// number of steps to target for learning
-//#define TARGET_STEPS   	100000 	// number of steps to target for learning
+//#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
+//#define TARGET_STEPS   	50000 	// number of steps to target for learning
+#define TARGET_STEPS   	100000 	// number of steps to target for learning
 #define PAST_STEPS 	1000	// last steps to reduce computation
 #define TOTAL_RUNS  	5 // total runs
 
-// network parameters
-#define TAU     	0.02 // in seconds, 141 steps, fmax = 1
-#define BETA		0.2      // Learning rate for action weights, a. 
-#define BETAH   	0.05     // Learning rate for action weights, b, c.
-#define RHO     	1.0      // Learning rate for critic weights, d. 
-#define RHOH   		0.2      // Learning rate for critic weights, e, f.
-#define GAMMA   	0.9      // ratio of current prediction, v
-#define randomdef	((double) rand() / (double)(RAND_MAX))
-
 // Parameters for cartpole simulation
-#define STEPSIZE	0.0005 // dt in seconds
+#define STEPSIZE	0.00005 // dt=0.05ms. 30k working
+//#define STEPSIZE	0.0001 // dt=0.1ms
+//#define STEPSIZE	0.0005 // dt=0.5ms. 5k working
 #define MAX_FORCE	1000 // max force 
 #define g		9.8 //Gravity
 #define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
@@ -35,6 +28,16 @@
 #define MAX_VEL  	1.5
 #define MAX_ANGLE 	0.2094
 #define MAX_ANGVEL 	2.01
+
+// network parameters
+#define TAU     	0.02 // in seconds, 141 steps, fmax = 1
+#define BETA		0.2      // Learning rate for action weights, a. 
+#define BETAH   	0.05     // Learning rate for action weights, b, c.
+#define RHO     	1.0      // Learning rate for critic weights, d. 
+#define RHOH   		0.2      // Learning rate for critic weights, e, f.
+#define GAMMA   	0.9      // ratio of current prediction, v
+#define randomdef	((double) rand() / (double)(RAND_MAX))
+
 //logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(TARGET_STEPS) '.log'])
 
 int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
@@ -67,6 +70,8 @@ int main() {
 		printf("demo\n");
 	}
 
+	setbuf(stdout, NULL);
+
 	//tic
 	time_t start, stop, istart, istop;
 	time(&start);
@@ -93,7 +98,7 @@ int main() {
 		time(&istop);
 		printf("Elapsed time: %.0f seconds\n", difftime(istop, istart));
 		printf("\n");
-		fflush(stdout);
+//		fflush(stdout);
 	}
 
 	//toc
