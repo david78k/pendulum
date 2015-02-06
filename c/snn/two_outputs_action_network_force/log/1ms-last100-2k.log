@@ -1,0 +1,2 @@
+gcc -fopenmp -o demo.o demo.c -lm
+./demo.o

@@ -8,23 +8,23 @@
 
 #define MAX_FAILURES  	10000   // Termination criterion for unquantized version. 
 //#define MAX_FAILURES  	1000    // Termination criterion for unquantized version. 
-#define TARGET_STEPS   	10000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
+#define TARGET_STEPS   	2000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
 //#define TARGET_STEPS   	2000000 // number of steps to target for learning. should be at least 200M steps (100k*20ms/0.01ms)
 #define LAST_STEPS 	100	// last 100 steps to reduce computation
 #define TOTAL_RUNS  	5 	// total runs
 
 // Parameters for cartpole simulation
-//#define STEPSIZE	0.001	// dt=1ms. 1k steps working with last 100 steps. 2M target
+#define STEPSIZE	0.001	// dt=1ms. 1k steps working with last 100 steps. 2M target
 //#define STEPSIZE	0.005	// dt=5ms. 587 steps working with last 100 steps. 400k target
-#define STEPSIZE	0.01 	// dt=10ms. 338 steps working with last 100 steps. 200k target
+//#define STEPSIZE	0.01 	// dt=10ms. 338 steps working with last 100 steps (force 100/600/1000). 200k target
 //#define STEPSIZE	0.02 	// dt=20ms. not working with last 100 steps. 100k target
-//#define STEPSIZE	0.00001 // dt=0.01ms. 200k working with last 50 steps. 200M target
-//#define STEPSIZE	0.00005 // dt=0.05ms. 30k working. 40M target
+//#define STEPSIZE	0.00001 // dt=0.01ms. 200k working with last 50 steps (< 1 hour,100%). 200M target
+//#define STEPSIZE	0.00005 // dt=0.05ms. 50k working. 40M target. 50k (<4hours) at 1147 trials with rate (spk/sec):1.10(L:0.52,R:0.58)
 //#define STEPSIZE	0.0001 	// dt=0.1ms. 20M target
 //#define STEPSIZE	0.0005 	// dt=0.5ms. 5k working. 4M target
-#define MAX_FORCE	100 	// max force 
+//#define MAX_FORCE	100 	// max force 
 //#define MAX_FORCE	600 	// max force 
-//#define MAX_FORCE	1000 	// max force.  
+#define MAX_FORCE	1000 	// max force.  
 #define g		9.8 	//Gravity
 #define Mass_Cart	1.0 	//Mass of the cart is assumed to be 1Kg
 #define Mass_Pole 	0.1 	//Mass of the pole is assumed to be 0.1Kg

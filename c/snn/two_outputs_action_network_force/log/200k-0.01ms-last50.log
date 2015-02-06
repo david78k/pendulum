@@ -57533,3 +57533,21 @@ Elapsed time: 2709 seconds
 15138 (50) L 0 R 1 push 1 force -0.08
 15139 (50) L 1 R 0 push -1 force -0.08
 15160 (50) L 0 R 1 push 1 force -0.08
+Pole balanced successfully for at least 200000 steps at 450 trials
+Max steps: 200000, Total Steps: 27332836 
+Firing rate (spikes/sec): 59.75 (L: 28.36, R: 31.39)
+Number of spikes        : 16332 (L: 7751, R: 8581)
+Balanced = 5
+Elapsed time: 4090 seconds
+
+============== SUMMARY ===============
+Final Max Steps: 200000
+Success rate: 100.00 percent (5/5)
+Elapsed time: 12332 seconds
+MAX_FAILURES	= 10000
+TARGET_STEPS	= 200000
+PAST_STEPS	= 50
+STEPSIZE (ms)	= 0.01
+TAU      (ms)	= 20
+MAX_FORCE 	= 1000
+#./demo.o > demo.log
