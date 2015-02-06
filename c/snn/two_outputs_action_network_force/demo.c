@@ -7,10 +7,10 @@
 
 //#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
 #define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
-#define TARGET_STEPS   	5000 	// number of steps to target for learning
+#define TARGET_STEPS   	10000 	// number of steps to target for learning
 //#define TARGET_STEPS   	100000 	// number of steps to target for learning
 #define PAST_STEPS 	1000	// last steps to reduce computation
-#define TOTAL_RUNS  	10 // total runs
+#define TOTAL_RUNS  	5 // total runs
 
 // network parameters
 #define TAU     	0.02 // in seconds, 141 steps, fmax = 1
@@ -22,7 +22,7 @@
 #define randomdef	((double) rand() / (double)(RAND_MAX))
 
 // Parameters for cartpole simulation
-#define STEPSIZE	0.001 // dt in seconds
+#define STEPSIZE	0.0005 // dt in seconds
 #define MAX_FORCE	1000 // max force 
 #define g		9.8 //Gravity
 #define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
@@ -59,6 +59,7 @@ double getForce(int steps);
 double sigmoid(double x) { return 1.0 / (1.0 + exp(-x)); }
 float sign(float x) { return (x < 0) ? -1. : 1.;}
 void report(int steps, int iMaxSteps, int totalSteps);
+void showParams();
 
 int main() {
 	#pragma omp parallel
@@ -70,11 +71,7 @@ int main() {
 	time_t start, stop, istart, istop;
 	time(&start);
 
-	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
-	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
-	printf("STEPSIZE (sec)	= %.2f\n", STEPSIZE);
-	printf("TAU      (sec)	= %.2f\n", TAU);
-	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
+	showParams();
 	printf("\n");
 
 	// save statistics in log files
@@ -107,8 +104,17 @@ int main() {
 	printf("Final Max Steps: %d\n", MaxSteps);
 	printf("Success rate: %.2f percent (%d/%d)\n", 100.0*bal/TOTAL_RUNS, bal, TOTAL_RUNS);
 	printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
+	showParams();
 
 	return EXIT_SUCCESS;
+}
+
+void showParams() {
+	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
+	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
+	printf("STEPSIZE (ms)	= %.2f\n", STEPSIZE * 1000);
+	printf("TAU      (sec)	= %.2f\n", TAU);
+	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
 }
 
 // Two-layer neural network: action network and evaluation network
