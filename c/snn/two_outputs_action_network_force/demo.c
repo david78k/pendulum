@@ -3,9 +3,16 @@
 #include <math.h>
 #include <time.h>
 
-#define DEBUG		1
+#define DEBUG		0
 
-#define STEPSIZE	0.01 // in seconds
+#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
+//#define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
+//int TARGET_STEPS   =     	100000;
+#define TARGET_STEPS   	200 	// number of steps to target for learning
+#define PAST_STEPS 	1000	// last steps to reduce computation
+#define TOTAL_RUNS  	5 // total runs
+
+// network parameters
 #define TAU     	0.02 // in seconds, 141 steps, fmax = 1
 //TAU     = 0.02; // 1091 steps, fmax = 600
 #define BETA		0.2      // Learning rate for action weights, a. 
@@ -16,6 +23,7 @@
 #define randomdef	((double) rand() / (double)(RAND_MAX))
 
 // Parameters for cartpole simulation
+#define STEPSIZE	0.01 // in seconds
 #define MAX_FORCE	600 // max force 
 #define g		9.8 //Gravity
 #define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
@@ -24,26 +32,17 @@
 #define PoleLength	0.5 //Half of the length of the pole
 #define PoleMass_Length	Mass_Pole*PoleLength
 #define Fourthirds	1.3333333
-
-int MAX_FAILURES =  	10000;      // Termination criterion for unquantized version. 
-//int MAX_FAILURES =  	10;      // Termination criterion for unquantized version. 
-//int TARGET_STEPS   =     	100000;
-int TARGET_STEPS  =    	800; 	// number of steps to target for learning
-int PAST_STEPS =	1000;
-int totalRuns = 	2; // total runs
-
+#define MAX_POS 	2.4
+#define MAX_VEL  	1.5
+#define MAX_ANGLE 	0.2094
+#define MAX_ANGVEL 	2.01
 //logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(TARGET_STEPS) '.log'])
-
-double MAX_POS = 2.4;
-double MAX_VEL = 1.5;
-double MAX_ANGLE = 0.2094;
-double MAX_ANGVEL = 2.01;
 
 int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 int balanced = 0, MaxSteps = 0;
 
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
-double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2];
+double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2], push[TARGET_STEPS];
 double rhat, unusualness, sum_error = 0.0;
 double h, hdot, theta, thetadot;
 
@@ -83,7 +82,7 @@ int main() {
 	// record videos
 	int i, bal = 0;
 	//#pragma omp parallel for
-	for (i = 0; i < totalRuns; i ++) {
+	for (i = 0; i < TOTAL_RUNS; i ++) {
 		time(&istart);
 	
 		init();
@@ -92,7 +91,7 @@ int main() {
 		cartpole_snn();
 
 		if (balanced) {
-	        	printf("Balanced = %d", ++bal);
+	        	printf("Balanced = %d\n", ++bal);
 		}
 		time(&istop);
 		printf("Elapsed time: %.0f seconds\n", difftime(istop, istart));
@@ -105,7 +104,7 @@ int main() {
 	// report.m
 	printf("============== SUMMARY ===============\n");
 	printf("Final Max Steps: %d\n", MaxSteps);
-	printf("Success rate: %.2f percent (%d/%d)\n", 100.0*bal/totalRuns, bal, totalRuns);
+	printf("Success rate: %.2f percent (%d/%d)\n", 100.0*bal/TOTAL_RUNS, bal, TOTAL_RUNS);
 	printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
 
 	return EXIT_SUCCESS;
@@ -239,6 +238,7 @@ int cartpole(double force) {
 
 void init() {
 	failures=0, lspikes = 0, rspikes = 0, spikes = 0;
+	//push = double[TARGET_STEPS];
 }
 
 void updateWeights() {
@@ -272,6 +272,7 @@ void initWeights() {
    
   	/* Intializes random number generator */
 	srand((unsigned) time(&t));
+	printf("randomdef %.2f\n", randomdef);
 
 	int i, j;
 	for (i = 0; i< 5; i++) {
@@ -358,8 +359,8 @@ void setInputValues() {
 }
 
 double getForce(int steps) {
-	int right, left, push, i, k;
-	double q, pp, force, t;
+	int right, left, pushi, i, k;
+	double q, pp;
 
     	if (randomdef <= p[0]) {
        		right = 1; rspikes = rspikes + 1;
@@ -373,24 +374,27 @@ double getForce(int steps) {
   
  	// q = 1.0/0.5/0 best: 586 steps
 	if (right == 1 && left == 0) {
-	        push = 1;   
+	        pushi = 1;   
 	        q = 1.0; pp = p[0];
 	} else if (right == 0 && left == 1) {
-       		push = -1;  
+       		pushi = -1;  
 	        q = 0.5; pp = p[1];
     	} else {
-	        push = 0;   
+	        pushi = 0;   
        		q = 0; pp = 0;
 	}
 	unusualness = q - pp; 
            
+ 	push[steps] = pushi;
+//	if(pushi != -1)
+//		printf("step %d, push = %d\n", steps,  pushi);
+
 //     F(steps) = 0;
-   	force = 0;
+   	double t, force = 0;
     	for (k = 0; k < steps; k++) {
-		t = (steps - k) * STEPSIZE;
-		force += push * MAX_FORCE * t * exp(-t/TAU);
+		t = (steps - k) * STEPSIZE; // elapsted time for kth spike, if any
+		force += push[k] * MAX_FORCE * t * exp(-t/TAU);
 	}
-//     push = F(steps);
 
 	return force;
 }
@@ -415,7 +419,7 @@ void report(int steps, int iMaxSteps, int totalSteps) {
 	double rr = (double) rspikes / totalSteps / STEPSIZE; // right rate
 	double ra = (double) (lspikes + rspikes) / totalSteps / STEPSIZE; // all rate
 	printf("Firing rate (spikes/sec): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
-	printf("- before learning 	: %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
-	printf("- after learning (last trial): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+//	printf("- before learning 	: %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
+//	printf("- after learning (last trial): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
 	printf("Number of spikes        : %d (L: %d, R: %d)\n", lspikes + rspikes, lspikes, rspikes);
 }
