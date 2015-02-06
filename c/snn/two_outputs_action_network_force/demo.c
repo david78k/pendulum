@@ -3,18 +3,17 @@
 #include <math.h>
 #include <time.h>
 
-#define DEBUG		0
+#define DEBUG		1
 
 //#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
 #define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
-#define TARGET_STEPS   	500 	// number of steps to target for learning
+#define TARGET_STEPS   	5000 	// number of steps to target for learning
 //#define TARGET_STEPS   	100000 	// number of steps to target for learning
 #define PAST_STEPS 	1000	// last steps to reduce computation
-#define TOTAL_RUNS  	100 // total runs
+#define TOTAL_RUNS  	10 // total runs
 
 // network parameters
 #define TAU     	0.02 // in seconds, 141 steps, fmax = 1
-//TAU     = 0.02; // 1091 steps, fmax = 600
 #define BETA		0.2      // Learning rate for action weights, a. 
 #define BETAH   	0.05     // Learning rate for action weights, b, c.
 #define RHO     	1.0      // Learning rate for critic weights, d. 
@@ -23,8 +22,8 @@
 #define randomdef	((double) rand() / (double)(RAND_MAX))
 
 // Parameters for cartpole simulation
-#define STEPSIZE	0.01 // in seconds
-#define MAX_FORCE	600 // max force 
+#define STEPSIZE	0.001 // dt in seconds
+#define MAX_FORCE	1000 // max force 
 #define g		9.8 //Gravity
 #define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
 #define Mass_Pole 	0.1 //Mass of the pole is assumed to be 0.1Kg
@@ -160,8 +159,8 @@ void cartpole_snn() {
     
 		force = getForce(steps);
 		//if(steps % 10 == 0)
-		if(DEBUG)
-		     	printf("%d: force %.2f\n", steps, force);
+		//if(DEBUG)
+		 //    	printf("%d: force %.2f\n", steps, force);
 
 		//Preserve current activities in evaluation network
 		// Remember prediction of failure for current state
@@ -388,15 +387,14 @@ double getForce(int steps) {
 	unusualness = q - pp; 
            
  	push[steps] = pushi;
-//	if(pushi != -1)
-//		printf("step %d, push = %d\n", steps,  pushi);
 
-//     F(steps) = 0;
    	double t, force = 0;
     	for (k = 0; k < steps; k++) {
 		t = (steps - k) * STEPSIZE; // elapsted time for kth spike, if any
 		force += push[k] * MAX_FORCE * t * exp(-t/TAU);
 	}
+	if(DEBUG && pushi !=0)
+		printf("%d L %d R %d push %d force %.2f\n", steps, left, right, pushi, force);
 
 	return force;
 }
