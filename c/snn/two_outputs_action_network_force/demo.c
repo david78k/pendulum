@@ -7,21 +7,22 @@
 
 #define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
 //#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
-//#define TARGET_STEPS   	50000 	// number of steps to target for learning
-#define TARGET_STEPS   	100000 	// number of steps to target for learning
+//#define TARGET_STEPS   	50000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
+#define TARGET_STEPS   	100000 	// number of steps to target for learning. should be at least 200M steps (100k*20ms/0.01ms)
 #define PAST_STEPS 	1000	// last steps to reduce computation
-#define TOTAL_RUNS  	5 // total runs
+#define TOTAL_RUNS  	5 	// total runs
 
 // Parameters for cartpole simulation
-#define STEPSIZE	0.00005 // dt=0.05ms. 30k working
+#define STEPSIZE	0.00001 // dt=0.01ms. working
+//#define STEPSIZE	0.00005 // dt=0.05ms. 30k working
 //#define STEPSIZE	0.0001 // dt=0.1ms
 //#define STEPSIZE	0.0005 // dt=0.5ms. 5k working
-#define MAX_FORCE	1000 // max force 
-#define g		9.8 //Gravity
-#define Mass_Cart	1.0 //Mass of the cart is assumed to be 1Kg
-#define Mass_Pole 	0.1 //Mass of the pole is assumed to be 0.1Kg
+#define MAX_FORCE	1000 	// max force 
+#define g		9.8 	//Gravity
+#define Mass_Cart	1.0 	//Mass of the cart is assumed to be 1Kg
+#define Mass_Pole 	0.1 	//Mass of the pole is assumed to be 0.1Kg
 #define Total_Mass 	Mass_Cart+Mass_Pole
-#define PoleLength	0.5 //Half of the length of the pole
+#define PoleLength	0.5 	//Half of the length of the pole
 #define PoleMass_Length	Mass_Pole*PoleLength
 #define Fourthirds	1.3333333
 #define MAX_POS 	2.4
@@ -30,7 +31,7 @@
 #define MAX_ANGVEL 	2.01
 
 // network parameters
-#define TAU     	0.02 // in seconds, 141 steps, fmax = 1
+#define TAU     	0.02 // 20ms, fmax = 1
 #define BETA		0.2      // Learning rate for action weights, a. 
 #define BETAH   	0.05     // Learning rate for action weights, b, c.
 #define RHO     	1.0      // Learning rate for critic weights, d. 
@@ -118,7 +119,7 @@ void showParams() {
 	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
 	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
 	printf("STEPSIZE (ms)	= %.2f\n", STEPSIZE * 1000);
-	printf("TAU      (sec)	= %.2f\n", TAU);
+	printf("TAU      (ms)	= %.0f\n", TAU * 1000);
 	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
 }
 
