@@ -4,20 +4,27 @@
 #include <time.h>
 
 #define DEBUG		1
+#define EPSILON		0.01	// backpropagation stop criterion
 
-#define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
-//#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
-#define TARGET_STEPS   	500000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
-//#define TARGET_STEPS   	2000000 	// number of steps to target for learning. should be at least 200M steps (100k*20ms/0.01ms)
-#define PAST_STEPS 	50	// last 50k steps to reduce computation
+#define MAX_FAILURES  	10000   // Termination criterion for unquantized version. 
+//#define MAX_FAILURES  	1000    // Termination criterion for unquantized version. 
+#define TARGET_STEPS   	10000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
+//#define TARGET_STEPS   	2000000 // number of steps to target for learning. should be at least 200M steps (100k*20ms/0.01ms)
+#define LAST_STEPS 	100	// last 100 steps to reduce computation
 #define TOTAL_RUNS  	5 	// total runs
 
 // Parameters for cartpole simulation
-#define STEPSIZE	0.00001 // dt=0.01ms. 100k working with last 50 steps
-//#define STEPSIZE	0.00005 // dt=0.05ms. 30k working
-//#define STEPSIZE	0.0001 // dt=0.1ms
-//#define STEPSIZE	0.0005 // dt=0.5ms. 5k working
-#define MAX_FORCE	1000 	// max force 
+//#define STEPSIZE	0.001	// dt=1ms. 1k steps working with last 100 steps. 2M target
+//#define STEPSIZE	0.005	// dt=5ms. 587 steps working with last 100 steps. 400k target
+#define STEPSIZE	0.01 	// dt=10ms. 338 steps working with last 100 steps. 200k target
+//#define STEPSIZE	0.02 	// dt=20ms. not working with last 100 steps. 100k target
+//#define STEPSIZE	0.00001 // dt=0.01ms. 200k working with last 50 steps. 200M target
+//#define STEPSIZE	0.00005 // dt=0.05ms. 30k working. 40M target
+//#define STEPSIZE	0.0001 	// dt=0.1ms. 20M target
+//#define STEPSIZE	0.0005 	// dt=0.5ms. 5k working. 4M target
+#define MAX_FORCE	100 	// max force 
+//#define MAX_FORCE	600 	// max force 
+//#define MAX_FORCE	1000 	// max force.  
 #define g		9.8 	//Gravity
 #define Mass_Cart	1.0 	//Mass of the cart is assumed to be 1Kg
 #define Mass_Pole 	0.1 	//Mass of the pole is assumed to be 0.1Kg
@@ -121,7 +128,7 @@ int main() {
 void showParams() {
 	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
 	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
-	printf("PAST_STEPS	= %d\n", PAST_STEPS);
+	printf("LAST_STEPS	= %d\n", LAST_STEPS);
 	printf("STEPSIZE (ms)	= %.2f\n", STEPSIZE * 1000);
 	printf("TAU      (ms)	= %.0f\n", TAU * 1000);
 	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
@@ -404,7 +411,7 @@ double getForce(int steps) {
            
  	push[steps] = pushi;
 
-	int upto = min(steps, PAST_STEPS);
+	int upto = min(steps, LAST_STEPS);
    	double t, force = 0;
     	//for (k = 0; k < steps; k++) {
     	for (k = 0; k < upto; k++) {
