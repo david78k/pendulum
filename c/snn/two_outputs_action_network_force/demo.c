@@ -7,13 +7,13 @@
 
 #define MAX_FAILURES  	10000      // Termination criterion for unquantized version. 
 //#define MAX_FAILURES  	1000      // Termination criterion for unquantized version. 
-//#define TARGET_STEPS   	50000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
-#define TARGET_STEPS   	100000 	// number of steps to target for learning. should be at least 200M steps (100k*20ms/0.01ms)
-#define PAST_STEPS 	1000	// last steps to reduce computation
+#define TARGET_STEPS   	500000 	// number of steps to target for learning. should be 200M steps (100k*20ms/0.01ms)
+//#define TARGET_STEPS   	2000000 	// number of steps to target for learning. should be at least 200M steps (100k*20ms/0.01ms)
+#define PAST_STEPS 	50	// last 50k steps to reduce computation
 #define TOTAL_RUNS  	5 	// total runs
 
 // Parameters for cartpole simulation
-#define STEPSIZE	0.00001 // dt=0.01ms. working
+#define STEPSIZE	0.00001 // dt=0.01ms. 100k working with last 50 steps
 //#define STEPSIZE	0.00005 // dt=0.05ms. 30k working
 //#define STEPSIZE	0.0001 // dt=0.1ms
 //#define STEPSIZE	0.0005 // dt=0.5ms. 5k working
@@ -37,7 +37,9 @@
 #define RHO     	1.0      // Learning rate for critic weights, d. 
 #define RHOH   		0.2      // Learning rate for critic weights, e, f.
 #define GAMMA   	0.9      // ratio of current prediction, v
+
 #define randomdef	((double) rand() / (double)(RAND_MAX))
+#define MIN(X,Y) 	((X) < (Y) ? : (X) : (Y))
 
 //logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(TARGET_STEPS) '.log'])
 
@@ -64,6 +66,7 @@ double sigmoid(double x) { return 1.0 / (1.0 + exp(-x)); }
 float sign(float x) { return (x < 0) ? -1. : 1.;}
 void report(int steps, int iMaxSteps, int totalSteps);
 void showParams();
+int min(double x, double y) { return x < y ? x : y; }
 
 int main() {
 	#pragma omp parallel
@@ -118,6 +121,7 @@ int main() {
 void showParams() {
 	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
 	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
+	printf("PAST_STEPS	= %d\n", PAST_STEPS);
 	printf("STEPSIZE (ms)	= %.2f\n", STEPSIZE * 1000);
 	printf("TAU      (ms)	= %.0f\n", TAU * 1000);
 	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
@@ -400,14 +404,17 @@ double getForce(int steps) {
            
  	push[steps] = pushi;
 
+	int upto = min(steps, PAST_STEPS);
    	double t, force = 0;
-    	for (k = 0; k < steps; k++) {
+    	//for (k = 0; k < steps; k++) {
+    	for (k = 0; k < upto; k++) {
 		t = (steps - k) * STEPSIZE; // elapsted time for kth spike, if any
 		force += push[k] * MAX_FORCE * t * exp(-t/TAU);
 	}
-	if(DEBUG && pushi !=0)
-		printf("%d L %d R %d push %d force %.2f\n", steps, left, right, pushi, force);
-
+	//if(DEBUG) 
+	//if(DEBUG && (steps % 100 == 0)) 
+	if(DEBUG && pushi !=0) 
+		printf("%d (%d) L %d R %d push %d force %.2f\n", steps, upto, left, right, pushi, force);
 	return force;
 }
 
