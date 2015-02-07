@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define DEBUG		1
-#define EPSILON		0.00001	// backpropagation stop criterion
+#define EPSILON		0.01	// backpropagation stop criterion
 
 #define MAX_FAILURES  	10000   // Termination criterion for unquantized version. 
 //#define MAX_FAILURES  	1000    // Termination criterion for unquantized version. 
@@ -224,9 +224,7 @@ void cartpole_snn() {
 		        //     + gamma * new failure prediction - previous failure prediction
 		        rhat = failure + GAMMA * v - vold;
 		}
-		if(DEBUG) printf("rhat %.4f\n", rhat);
-		if(abs(rhat) > EPSILON) //break;
-	    		updateWeights ();
+    		updateWeights ();
     
 		//if (steps > 0.95*TARGET_STEPS)
 		//        grafica = true;
