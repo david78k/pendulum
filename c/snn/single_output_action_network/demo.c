@@ -7,7 +7,7 @@
 #include <math.h>
 #include <time.h>
 
-#define DEBUG		0
+#define DEBUG		1
 #define EPSILON		0.00001	// backpropagation stop criterion
 
 #define MAX_FAILURES  	10000   // Termination criterion for unquantized version. 
@@ -57,8 +57,8 @@
 int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 int balanced = 0, MaxSteps = 0;
 
-double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2];
-double x[5], xold[5], y[5], yold[5], v, vold, z[5], p[2], push[TARGET_STEPS];
+double a[5][5], b[5], c[5], d[5][5], e[5], f[5];
+double x[5], xold[5], y[5], yold[5], v, vold, z[5], p, push[TARGET_STEPS];
 double rhat, unusualness;
 double h, hdot, theta, thetadot;
 
@@ -228,7 +228,10 @@ void cartpole_snn() {
 		        //     + gamma * new failure prediction - previous failure prediction
 		        rhat = failure + GAMMA * v - vold;
 		}
-		if(DEBUG) printf("rhat %.4f\n", rhat);
+		if(DEBUG) {
+			printf("rhat %.4f\n", rhat);
+			if (abs(rhat) > 10000000) return;
+		}
 		//if(abs(rhat) > EPSILON) //break;
 	    		updateWeights ();
     
@@ -277,7 +280,7 @@ void updateWeights() {
 	for (i = 0; i < 5; i++) {  
      		// for each hidden unit
 	    	factor1 = BETAH * rhat * yold[i] * (1 - yold[i]) * sign(c[i]);
-		factor2 = RHOH * rhat * z[i] * (1 - z[i]) * unusualness;// * sign(f[i]); // unusualness required, sign(f[i]) optional
+		factor2 = RHOH * rhat * z[i] * (1 - z[i]) * unusualness * sign(f[i]); // unusualness required, sign(f[i]) optional
 		for (j = 0; j < 5; j++) {    
 	        	// for each weight I-H
         		a[i][j] += factor1 * xold[j]; // evaluation network I-H
@@ -287,10 +290,10 @@ void updateWeights() {
 		b[i] += BETA * rhat * xold[i];   // evaluation network I-O
 		c[i] += BETA * rhat * yold[i];   // evaluation network H-O
 
-    		for (j = 0; j < 2; j++){
-        		e[i][j] += RHO * rhat * xold[i] * unusualness;  // action network I-O
-        		f[i][j] += RHO * rhat * z[i] * unusualness;  // action network H-O
-		}    	
+    		//for (j = 0; j < 2; j++){
+        		e[i] += RHO * rhat * xold[i] * unusualness;  // action network I-O
+        		f[i] += RHO * rhat * z[i] * unusualness;  // action network H-O
+		//}    	
 	}
 }
 
@@ -311,10 +314,10 @@ void initWeights() {
 	    	}
 	    	b[i] = randomdef * 0.2 - 0.1;   // evaluation network I-O
 	    	c[i] = randomdef * 0.2 - 0.1;   // evaluation network H-O
-		for (j = 0; j< 2; j++) {
-	        	e[i][j] = randomdef * 0.2 - 0.1;   // action network I-O
-	        	f[i][j] = randomdef * 0.2 - 0.1;   // action network H-O
-		}
+		//for (j = 0; j< 2; j++) {
+	        	e[i] = randomdef * 0.2 - 0.1;   // action network I-O
+	        	f[i] = randomdef * 0.2 - 0.1;   // action network H-O
+		//}
 	}
 }
 
@@ -333,7 +336,7 @@ void initState() {
 % a: I-H synapses
 % b: I-O synapses
 % c: H-O synapses
-% output: state evaluation
+% output: state evaluation v
 */
 void evalForward() {
 	int i, j;
@@ -359,7 +362,7 @@ void evalForward() {
 % d: I-H synapses
 % e: I-O synapses
 % f: H-O synapses
-% output: action
+% output: action push p
 */
 void actionForward() {
 	int i, j;
@@ -371,12 +374,12 @@ void actionForward() {
     		z[i] = sigmoid(s);  //hidden layer
 	}
 
-	for (j = 0; j < 2; j++) {
+//	for (j = 0; j < 2; j++) {
     		s = 0.0;
     		for (i = 0; i < 5; i++) 
-     	   		s = s + e[i][j] * x[i] + f[i][j] * z[i]; // I-O * input + H-O * hidden
-    		p[j] = sigmoid(s); // output layer
-	}
+     	   		s = s + e[i] * x[i] + f[i] * z[i]; // I-O * input + H-O * hidden
+    		p = sigmoid(s); // output layer
+//	}
 }
 
 void setInputValues() {
@@ -392,12 +395,21 @@ double getForce(int steps) {
 	int right, left, pushi, k;
 	double q, pp, force = 0;
 
-    	if (randomdef <= p[0]) {
+    	if (randomdef <= p) {
+		pushi = 1;
+		q = 1; //pp = p;
+	} else {
+		pushi = -1;
+		q = 0;
+		//pp = 1 - p;
+	}
+/*
+    	if (randomdef <= p) {
        		right = 1; rspikes = rspikes + 1;
     	} else
        	 	right = 0;
     
-   	if (randomdef <= p[1]) {
+   	if (randomdef <= p) {
        		left = 1; lspikes = lspikes + 1;
       		//left = 0;
 	} else {
@@ -407,15 +419,16 @@ double getForce(int steps) {
  	// q = 1.0/0.5/0 best: 586 steps
 	if (right == 1 && left == 0) {
 	        pushi = 1;   
-	        q = 1.0; pp = p[0];
+	        q = 1.0; pp = p;
 	} else if (right == 0 && left == 1) {
        		pushi = -1;  
-	        q = 0.5; pp = p[1];
+	        q = 0.5; pp = p;
     	} else {
 	        pushi = 0;   
        		q = 0; pp = 0;
 	}
-	unusualness = q - pp; 
+*/
+	unusualness = q - p; 
 	force = pushi * 10;
 /*           
  	push[steps] = pushi;
@@ -427,10 +440,11 @@ double getForce(int steps) {
 		t = (steps - k) * dt; // elapsted time for kth spike, if any
 		force += push[k] * MAX_FORCE * t * exp(-t/TAU);
 	}
-*/	//if(DEBUG) 
+*/	if(DEBUG) 
 	//if(DEBUG && (steps % 100 == 0)) 
 	//if(DEBUG && pushi !=0) 
-	//	printf("%d (%d) L %d R %d push %d force %.2f\n", steps, upto, left, right, pushi, force);
+		printf("%d L %d R %d push %d force %.2f\n", steps, left, right, pushi, force);
+		//printf("%d (%d) L %d R %d push %d force %.2f\n", steps, upto, left, right, pushi, force);
 	return force;
 }
 

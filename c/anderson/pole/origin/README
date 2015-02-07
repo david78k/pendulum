@@ -1,0 +1,17 @@
+On a Linux machine:
+
+make testxg
+testxg X
+
+make demo
+demo
+
+make demo-net
+run-demo-net
+
+Please acknowledge me with any use of this code.  Do not provide to
+anyone else.  Tell all who are interested in receiving this code to
+contact me.
+
+Chuck Anderson
+http://www.cs.colostate.edu/~anderson
