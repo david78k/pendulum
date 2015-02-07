@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-#define DEBUG		1
+#define DEBUG		0
 #define EPSILON		0.00001	// backpropagation stop criterion
 
 #define MAX_FAILURES  	10000   // Termination criterion for unquantized version. 
@@ -14,14 +14,14 @@
 #define TOTAL_RUNS  	5 	// total runs
 
 // Parameters for cartpole simulation
-//#define STEPSIZE	0.001	// dt=1ms. 3.3k steps working with last 100 steps (< 20m). 2M target
-//#define STEPSIZE	0.005	// dt=5ms. 587 steps working with last 100 steps. 400k target
-//#define STEPSIZE	0.01 	// dt=10ms. 354 steps working with last 100 steps (force 100/600/1000). 200k target
-#define STEPSIZE	0.02 	// dt=20ms. 188 working with last 100 steps. 100k target
-//#define STEPSIZE	0.00001 // dt=0.01ms. 200k working with last 50 steps (< 1 hour,100%). 200M target
-//#define STEPSIZE	0.00005 // dt=0.05ms. 50k working. 40M target. 50k (<4hours) at 1147 trials with rate (spk/sec):1.10(L:0.52,R:0.58)
-//#define STEPSIZE	0.0001 	// dt=0.1ms. with last 100 steps. 29k (< 5hr) with inifinite last steps. 20M target
-//#define STEPSIZE	0.0005 	// dt=0.5ms. 5k working. 4M target
+//#define dt	0.001	// dt=1ms. 3.3k steps working with last 100 steps (< 20m). 2M target
+//#define dt	0.005	// dt=5ms. 587 steps working with last 100 steps. 400k target
+//#define dt	0.01 	// dt=10ms. 354 steps working with last 100 steps (force 100/600/1000). 200k target
+#define dt	0.02 	// dt=20ms. 188 working with last 100 steps. 100k target
+//#define dt	0.00001 // dt=0.01ms. 200k working with last 50 steps (< 1 hour,100%). 200M target
+//#define dt	0.00005 // dt=0.05ms. 50k working. 40M target. 50k (<4hours) at 1147 trials with rate (spk/sec):1.10(L:0.52,R:0.58)
+//#define dt	0.0001 	// dt=0.1ms. with last 100 steps. 29k (< 5hr) with inifinite last steps. 20M target
+//#define dt	0.0005 	// dt=0.5ms. 5k working. 4M target
 //#define MAX_FORCE	100 	// max force 
 //#define MAX_FORCE	600 	// max force 
 #define MAX_FORCE	600	// max force.  
@@ -48,7 +48,7 @@
 #define randomdef	((double) rand() / (double)(RAND_MAX))
 #define MIN(X,Y) 	((X) < (Y) ? : (X) : (Y))
 
-//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(STEPSIZE) '_max' int2str(TARGET_STEPS) '.log'])
+//logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(dt) '_max' int2str(TARGET_STEPS) '.log'])
 
 int failures=0, lspikes = 0, rspikes = 0, spikes = 0;
 int balanced = 0, MaxSteps = 0;
@@ -129,8 +129,8 @@ void showParams() {
 	printf("MAX_FAILURES	= %d\n", MAX_FAILURES);
 	printf("TARGET_STEPS	= %d\n", TARGET_STEPS);
 	printf("LAST_STEPS	= %d\n", LAST_STEPS);
-	printf("STEPSIZE (ms)	= %.2f\n", STEPSIZE * 1000);
-	printf("TAU      (ms)	= %.0f\n", TAU * 1000);
+	printf("dt (ms)		= %.2f\n", dt * 1000);
+	printf("TAU (ms)	= %.0f\n", TAU * 1000);
 	printf("MAX_FORCE 	= %d\n", MAX_FORCE);
 }
 
@@ -225,7 +225,7 @@ void cartpole_snn() {
 		        rhat = failure + GAMMA * v - vold;
 		}
 		if(DEBUG) printf("rhat %.4f\n", rhat);
-		if(abs(rhat) > EPSILON) //break;
+		//if(abs(rhat) > EPSILON) //break;
 	    		updateWeights ();
     
 		//if (steps > 0.95*TARGET_STEPS)
@@ -243,17 +243,17 @@ void cartpole_snn() {
 
 // Cart_Pole: Takes an action (0 or 1) and the current values of the
 // four state variables and updates their values by estimating the state
-// STEPSIZE seconds later.
+// dt seconds later.
 int cartpole(double force) {
 	double temp = (force + PoleMass_Length * (thetadot) * (thetadot) * sin(theta))/ Total_Mass;
 	double thetaacc = (g * sin(theta) - cos(theta)* temp)/ (PoleLength * (Fourthirds - Mass_Pole * cos(theta) * cos(theta) / Total_Mass));
 	double xacc = temp - PoleMass_Length * thetaacc* cos(theta) / Total_Mass;
 
 	// Update the four state variables, using Euler's method.
-	h += STEPSIZE * (hdot);
-	hdot += STEPSIZE*xacc;
-	theta += STEPSIZE* (thetadot);
-	thetadot += STEPSIZE*thetaacc;
+	h += dt * (hdot);
+	hdot += dt*xacc;
+	theta += dt* (thetadot);
+	thetadot += dt*thetaacc;
 
 	int failure = 0;
 	if (abs(h) > MAX_POS || abs(theta) > MAX_ANGLE)
@@ -394,10 +394,12 @@ double getForce(int steps) {
        	 	right = 0;
     
    	if (randomdef <= p[1]) {
-       		left = 1; lspikes = lspikes + 1;
-	} else
+       		//left = 1; lspikes = lspikes + 1;
       		left = 0;
-  
+	} else {
+       		left = 1; lspikes = lspikes + 1;
+      		//left = 0;
+  	}
  	// q = 1.0/0.5/0 best: 586 steps
 	if (right == 1 && left == 0) {
 	        pushi = 1;   
@@ -417,7 +419,7 @@ double getForce(int steps) {
    	double t, force = 0;
     	//for (k = 0; k < steps; k++) {
     	for (k = 0; k < upto; k++) {
-		t = (steps - k) * STEPSIZE; // elapsted time for kth spike, if any
+		t = (steps - k) * dt; // elapsted time for kth spike, if any
 		force += push[k] * MAX_FORCE * t * exp(-t/TAU);
 	}
 	//if(DEBUG) 
@@ -443,9 +445,9 @@ void report(int steps, int iMaxSteps, int totalSteps) {
 
 	// stats.m
 	// firing rates: L, R, all
-	double rl = (double) lspikes / totalSteps / STEPSIZE; // left rate
-	double rr = (double) rspikes / totalSteps / STEPSIZE; // right rate
-	double ra = (double) (lspikes + rspikes) / totalSteps / STEPSIZE; // all rate
+	double rl = (double) lspikes / totalSteps / dt; // left rate
+	double rr = (double) rspikes / totalSteps / dt; // right rate
+	double ra = (double) (lspikes + rspikes) / totalSteps / dt; // all rate
 	printf("Firing rate (spikes/sec): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
 //	printf("- before learning 	: %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
 //	printf("- after learning (last trial): %.2f (L: %.2f, R: %.2f)\n", ra, rl, rr);
