@@ -1,0 +1,23 @@
+Run 1:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 1426
+Elapsed time is 628.777199 seconds.
+Run 2:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 80
+Elapsed time is 550.480418 seconds.
+Run 3:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 75
+Elapsed time is 547.851669 seconds.
+Run 4:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 62
+Elapsed time is 523.353805 seconds.
+Run 5:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 46
+Elapsed time is 484.704397 seconds.
+Run 6: (stuck)
+Max Steps: 3500
+FInal Max Steps: 3500

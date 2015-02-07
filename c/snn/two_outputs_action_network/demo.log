@@ -1,0 +1,31 @@
+demo
+demo
+demo
+demo
+MAX_FAILURES	= 10000
+TARGET_STEPS	= 500
+STEPSIZE (sec)	= 0.01
+TAU      (sec)	= 0.02
+MAX_FORCE 	= 600
+
+------------- Run 1 -------------
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 305, Total Steps: 624848 
+Firing rate (spikes/sec): 1.72 (L: 0.86, R: 0.86)
+Number of spikes        : 10756 (L: 5374, R: 5382)
+Elapsed time: 100 seconds
+
+------------- Run 2 -------------
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 290, Total Steps: 617760 
+Firing rate (spikes/sec): 0.03 (L: 0.01, R: 0.01)
+Number of spikes        : 157 (L: 86, R: 71)
+Elapsed time: 94 seconds
+
+------------- Run 3 -------------
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 255, Total Steps: 624604 
+Firing rate (spikes/sec): 1.00 (L: 0.50, R: 0.50)
+Number of spikes        : 6225 (L: 3111, R: 3114)
+Elapsed time: 100 seconds
+

@@ -1,3 +1,7 @@
+/*
+ * discrete push 1, -1, 0
+ * discrete force 10, -10, 0
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
