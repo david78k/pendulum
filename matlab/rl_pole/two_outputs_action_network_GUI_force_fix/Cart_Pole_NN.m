@@ -182,7 +182,9 @@ if (failures == MAX_FAILURES)
     balanced = false;
 else
     disp(['Pole balanced successfully for at least ' int2str(steps) ' steps at ' num2str(failures) ' trials' ]);
-    plot_rhats(rhats); 
+    plot_rhats(rhats);
+    disp(['rhat for last trial: max ' num2str(max(rhats)) ', min ' num2str(min(rhats))]);
+%     plotAll();
     balanced = true;
 end
 
@@ -202,6 +204,6 @@ rr = rspikes / totalSteps; % right rate
 ra = (lspikes + rspikes) / totalSteps; % all rate
 disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
 
-disp(['rhat: max ' num2str(rhat_max) ', min ' num2str(rhat_min)]);
+disp(['rhat all trials: max ' num2str(rhat_max) ', min ' num2str(rhat_min)]);
 
 
