@@ -12,9 +12,10 @@ clf;
 clear all;
 global TxtEpisode TxtSteps goal f1 f2 grafica balanced FinalMaxSteps
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-f1 = subplot(2,1,1);
+f1 = subplot(3,1,1);
 box off
-f2 = subplot(2,1,2);
+f2 = subplot(3,1,2);
+f3 = subplot(3,1,3);
 grafica = false;
 P2 = ['setgrafica();'];
 PushBut2=uicontrol(gcf,'Style','togglebutton','Units','normalized', ...
@@ -36,7 +37,7 @@ drawnow;
 tic
 
 FinalMaxSteps = 0;
-total = 10;
+total = 5;
 bal = 0;
 % save statistics in log files
 % record videos

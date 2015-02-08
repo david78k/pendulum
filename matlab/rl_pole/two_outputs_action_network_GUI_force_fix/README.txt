@@ -6,6 +6,9 @@ no need to have rand for p
 
 works without sign(f(i))
 
+single output with two actions L/R
+- rhat: max 2.7951, min -2.7403
+
 ========== q = 1.0/0.5/0 ============
 ---------- spike version ------------
 success rate: 1/20 - 3/30 < 13.33%

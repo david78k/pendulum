@@ -6,7 +6,7 @@ pxp=[x x+l*sin(theta)];
 pyp=[1.25 1.25+l*cos(theta)];
 [pxw1,pyw1] = plotcircle(x-0.5,0.125,0,0.125);
 [pxw2,pyw2] = plotcircle(x+0.5,0.125,0,0.125);
-subplot(2,1,1)
+subplot(3,1,1)
 % global grafica
 % if grafica
     plot(pxg,pyg,'k-',pxw1,pyw1,'k',pxw2,pyw2,'k',pxp,pyp,'r')

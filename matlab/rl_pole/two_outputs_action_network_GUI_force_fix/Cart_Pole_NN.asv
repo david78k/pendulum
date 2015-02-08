@@ -21,10 +21,13 @@ TAU     = 0.02; % 141 steps, fmax = 1
 
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 % MAX_STEPS   =     100000;
-MAX_STEPS   =     80000;
-LAST_STEPS    = 1000;
+MAX_STEPS   =     10000;
+LAST_STEPS    = 1000;        % threshold to count
 
-% logfile = disp(['fmax600_tau' mat2str(TAU) '_st' mat2str(sampleTime) '_max' int2str(MAX_STEPS) '.log'])
+logdir = 'log';
+logfile = strcat([logdir '/fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log']);
+% logfile = disp(['fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log'])
+disp(logfile);
 
 MAX_POS = 2.4;
 MAX_VEL = 1.5;
@@ -58,7 +61,7 @@ tStart = tic;
 % state evaluation
 [v, y] = eval_forward(x, a, b, c);
 
-F = [];
+F = []; rhats = [];
 % push = [];
 
 % Iterate through the action-learn loop. 
@@ -82,9 +85,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     end
     
     if rand <= p(2)
-        left = 0; lspikes = lspikes + 1;
+        left = 0; %lspikes = lspikes + 1;
     else
-        left = 1;
+        left = 1; lspikes = lspikes + 1;
     end
    
     % q = 1.0/0.5/0 best: 586 steps
@@ -134,7 +137,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
 %         disp(['Episode ' int2str(failures) ': steps '  num2str(steps)]);
                        
         [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
-        
+        plot_rhats(rhats); rhats = [];
         steps = 0;
         
         %Reset state to (0 0 0 0).  Find the box. ---*/
@@ -151,7 +154,12 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         %     + gamma * new failure prediction - previous failure prediction
         rhat = failure + GAMMA * v - v_old;
     end
-        
+    rhats(steps + 1) = rhat;
+%     rhats = plot_rhats(steps, rhats, rhat);
+%     if mod(steps, 100) == 0
+    if abs(rhat) > 1
+        fprintf('step %d rhat %.4f\n', steps, rhat);
+    end
     [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
     unusualness, xold, yold, a, b, c, d, e, f, z); 
     
@@ -188,4 +196,6 @@ rl = lspikes / totalSteps; % left rate
 rr = rspikes / totalSteps; % right rate
 ra = (lspikes + rspikes) / totalSteps; % all rate
 disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
+
+disp(['rhat: max ' rhat_max ', min '
 
