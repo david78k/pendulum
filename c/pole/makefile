@@ -1,10 +1,11 @@
-LIBS = -lm
+LIBS = 
 CC = gcc
-XLIBS =  -L/usr/lib -L/usr/X11R6/lib -L/usr/X11R6/LessTif/Motif1.2/lib -lm -lXm -lXt -lX11 -Wno-overflow
+#XLIBS =  -L/usr/lib -L/usr/X11R6/lib -L/usr/X11R6/LessTif/Motif1.2/lib -lm -lXm -lXt -lX11 -Wno-overflow
+XLIBS =  -L/usr/lib -lm -lXm -lXt -Wno-overflow
 INC = -I/usr/X11R6/include -I/usr/X11R6/LessTif/Motif1.2/include
 
 demo.o:	demo.c 
-	$(CC) $(CFLAGS) -c demo.c
+	$(CC) $(CFLAGS) -c demo.c $(LIBS) $(XLIBS)
 
 demo:	demo.o 
 	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
