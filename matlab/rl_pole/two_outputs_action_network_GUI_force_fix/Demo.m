@@ -23,6 +23,11 @@ PushBut2=uicontrol(gcf,'Style','togglebutton','Units','normalized', ...
     'Callback',P2,'visible','on','BackgroundColor',[0.8 0.8 0.8]);
 set(gcf,'name','Reinforcement Learning with Spiking Neural Networks');
 set(gcf,'Color','w')
+
+set(gcf, 'Position', [300 100 800 800]);
+% set(gcf, 'PaperPosition', [12 11 14 12]);
+% set(gcf, 'PaperSize', [15 17]);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 grid off	% turns on grid
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

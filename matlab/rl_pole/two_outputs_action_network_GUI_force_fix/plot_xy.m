@@ -8,7 +8,7 @@ ypoints(kk)=steps;
 subplot(3,1,2);
 plot(xpoints,ypoints);
         %     title(['Episode: ',int2str(failures),' epsilon: ',num2str(epsilon)])
-xlabel('Episodes')
+xlabel('Episode')
 ylabel('Steps')
 drawnow
 

@@ -61,8 +61,8 @@ tStart = tic;
 % state evaluation
 [v, y] = eval_forward(x, a, b, c);
 
-F = []; rhats = []; rhat_max = 0; rhat_min = 0;
-% push = [];
+forces = []; rhats = []; rhat_max = 0; rhat_min = 0;
+thetas = []; thetadots = [];
 
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
@@ -102,15 +102,13 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         q = 0; pp = 0;
     end
     unusualness = q - pp; 
-           
-%     F(steps) = 0;
+  
     fsum = 0;
     for k = 1:steps
 %     for k = 1:min(steps, LAST_STEPS)
         fsum = fsum + getForce(push, (steps - k)*dt, TAU);
     end
-%     push = F(steps);
-    push = fsum;
+    push = fsum; forces(steps + 1) = push;
 %     fprintf('%d: %f\n', steps, push);
 
     %Preserve current activities in evaluation network
@@ -125,7 +123,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     %Apply action to the simulated cart-pole: failure = r
     [h,h_dot,theta,theta_dot, failure] = ...
         Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE, dt);
-       
+    thetas(steps + 1) = theta;
+    thetadots(steps + 1) = theta_dot;
+    
     [x] = setInputValues(h, h_dot, theta, theta_dot, ...
         MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
@@ -138,11 +138,13 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
                        
         [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
 %         if steps > 500
-%             plot_rhats(rhats);
+            plot_rhats(rhats);
 %         end
         rhat_max = max(rhat_max, max(rhats));
         rhat_min = min(rhat_min, min(rhats));
-        rhats = []; steps = 0;
+%         rhats = []; 
+        forces = []; thetas = []; thetadots = [];
+        steps = 0;
         
         %Reset state to (0 0 0 0).  Find the box. ---*/
 	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
@@ -158,7 +160,8 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
         %     + gamma * new failure prediction - previous failure prediction
         rhat = failure + GAMMA * v - v_old;
     end
-    rhats(steps + 1) = rhat;
+    rhats(failures + 1) = rhat;
+%     rhats(steps + 1) = rhat;
 %     rhats = plot_rhats(steps, rhats, rhat);
 %     if mod(steps, 500) == 0
 %     if abs(rhat) > 1
@@ -184,7 +187,8 @@ else
     disp(['Pole balanced successfully for at least ' int2str(steps) ' steps at ' num2str(failures) ' trials' ]);
     plot_rhats(rhats);
     disp(['rhat for last trial: max ' num2str(max(rhats)) ', min ' num2str(min(rhats))]);
-%     plotAll();
+    disp(['force for last trial: max ' num2str(max(forces)) ', min ' num2str(min(forces))]);
+    plotAll(forces, thetas, thetadots);
     balanced = true;
 end
 
