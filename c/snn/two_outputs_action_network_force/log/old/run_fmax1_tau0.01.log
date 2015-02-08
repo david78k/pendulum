@@ -1,0 +1,42 @@
+Run 1:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 678
+Elapsed time is 210.489758 seconds.
+Run 2:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 632
+Elapsed time is 210.172281 seconds.
+Run 3:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 512
+Elapsed time is 207.860688 seconds.
+Run 4:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 763
+Elapsed time is 207.270393 seconds.
+Run 5:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 823
+Elapsed time is 209.315115 seconds.
+Run 6:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 722
+Elapsed time is 207.699376 seconds.
+Run 7:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 676
+Elapsed time is 211.506940 seconds.
+Run 8:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 996
+Elapsed time is 209.951205 seconds.
+Run 9:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 643
+Elapsed time is 209.921511 seconds.
+Run 10:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 666
+Elapsed time is 208.840300 seconds.
+Success rate: 0 (0/10)
+Global Max Steps: 996

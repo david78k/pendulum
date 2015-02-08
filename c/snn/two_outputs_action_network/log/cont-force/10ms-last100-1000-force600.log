@@ -1,0 +1,349 @@
+gcc -fopenmp -o demo.o demo.c -lm
+./demo.o
+demo
+demo
+demo
+demo
+MAX_FAILURES	= 10000
+TARGET_STEPS	= 10000
+LAST_STEPS	= 100
+STEPSIZE (ms)	= 10.00
+TAU      (ms)	= 20
+MAX_FORCE 	= 600
+
+------------- Run 1 -------------
+1 (1) L 0 R 1 push 1 force 0.00
+3 (3) L 1 R 0 push -1 force 4.41
+4 (4) L 0 R 1 push 1 force 0.38
+5 (5) L 1 R 0 push -1 force 2.47
+7 (7) L 1 R 0 push -1 force -1.85
+8 (8) L 1 R 0 push -1 force -5.60
+10 (10) L 1 R 0 push -1 force -9.77
+11 (11) L 0 R 1 push 1 force -11.90
+13 (13) L 0 R 1 push 1 force -4.36
+14 (14) L 0 R 1 push 1 force 1.00
+17 (17) L 0 R 1 push 1 force 6.68
+20 (20) L 0 R 1 push 1 force 6.95
+23 (23) L 0 R 1 push 1 force 6.78
+25 (25) L 1 R 0 push -1 force 8.19
+26 (26) L 0 R 1 push 1 force 3.06
+30 (30) L 1 R 0 push -1 force 2.63
+32 (32) L 1 R 0 push -1 force -3.04
+34 (34) L 1 R 0 push -1 force -7.01
+36 (36) L 1 R 0 push -1 force -9.16
+39 (39) L 0 R 1 push 1 force -8.26
+41 (41) L 1 R 0 push -1 force -0.15
+0 (0) L 1 R 0 push -1 force 0.00
+4 (4) L 0 R 1 push 1 force 0.00
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 251, Total Steps: 630279 
+Firing rate (spikes/sec): 0.91 (L: 0.46, R: 0.46)
+Number of spikes        : 5763 (L: 2882, R: 2881)
+Elapsed time: 101 seconds
+
+------------- Run 2 -------------
+0 (0) L 0 R 1 push 1 force 0.00
+1 (1) L 0 R 1 push 1 force 3.64
+2 (2) L 0 R 1 push 1 force 8.05
+4 (4) L 0 R 1 push 1 force 11.68
+8 (8) L 1 R 0 push -1 force 7.19
+13 (13) L 1 R 0 push -1 force -1.30
+16 (16) L 0 R 1 push 1 force -4.56
+17 (17) L 1 R 0 push -1 force 0.01
+20 (20) L 0 R 1 push 1 force -2.16
+21 (21) L 0 R 1 push 1 force 1.90
+22 (22) L 0 R 1 push 1 force 6.73
+24 (24) L 1 R 0 push -1 force 11.00
+26 (26) L 1 R 0 push -1 force 2.77
+29 (29) L 0 R 1 push 1 force -3.83
+31 (31) L 1 R 0 push -1 force 1.92
+32 (32) L 0 R 1 push 1 force -1.47
+35 (35) L 1 R 0 push -1 force 1.93
+36 (36) L 1 R 0 push -1 force -2.01
+39 (39) L 0 R 1 push 1 force -6.60
+40 (40) L 0 R 1 push 1 force -1.60
+43 (43) L 0 R 1 push 1 force 5.26
+44 (44) L 1 R 0 push -1 force 7.97
+60 (60) L 0 R 1 push 1 force -0.00
+0 (0) L 0 R 1 push 1 force 0.00
+1 (1) L 1 R 0 push -1 force 3.64
+4 (4) L 0 R 1 push 1 force -0.77
+11 (11) L 1 R 0 push -1 force 1.13
+12 (12) L 0 R 1 push 1 force -2.85
+16 (16) L 1 R 0 push -1 force 0.95
+24 (24) L 1 R 0 push -1 force -0.81
+29 (29) L 0 R 1 push 1 force -2.57
+2 (2) L 0 R 1 push 1 force 0.00
+3 (3) L 1 R 0 push -1 force 3.64
+4 (4) L 0 R 1 push 1 force 0.78
+7 (7) L 0 R 1 push 1 force 3.23
+8 (8) L 1 R 0 push -1 force 6.22
+9 (9) L 0 R 1 push 1 force 2.71
+10 (10) L 0 R 1 push 1 force 4.64
+11 (11) L 1 R 0 push -1 force 8.27
+12 (12) L 1 R 0 push -1 force 4.69
+13 (13) L 0 R 1 push 1 force -0.99
+14 (14) L 0 R 1 push 1 force 0.71
+15 (15) L 0 R 1 push 1 force 4.86
+16 (16) L 0 R 1 push 1 force 9.28
+17 (17) L 1 R 0 push -1 force 13.11
+18 (18) L 1 R 0 push -1 force 8.85
+20 (20) L 1 R 0 push -1 force -0.50
+23 (23) L 0 R 1 push 1 force -5.38
+24 (24) L 1 R 0 push -1 force -0.69
+25 (25) L 1 R 0 push -1 force -2.50
+28 (28) L 0 R 1 push 1 force -5.97
+29 (29) L 0 R 1 push 1 force -1.07
+31 (31) L 1 R 0 push -1 force 5.89
+33 (33) L 0 R 1 push 1 force 0.07
+37 (37) L 0 R 1 push 1 force 2.69
+41 (41) L 0 R 1 push 1 force 3.97
+44 (44) L 0 R 1 push 1 force 5.51
+45 (45) L 1 R 0 push -1 force 7.91
+46 (46) L 0 R 1 push 1 force 3.93
+47 (47) L 0 R 1 push 1 force 5.50
+48 (48) L 0 R 1 push 1 force 8.86
+49 (49) L 1 R 0 push -1 force 12.37
+53 (53) L 0 R 1 push 1 force 2.21
+57 (57) L 1 R 0 push -1 force 3.62
+58 (58) L 0 R 1 push 1 force -0.94
+60 (60) L 1 R 0 push -1 force 1.76
+63 (63) L 1 R 0 push -1 force -2.92
+64 (64) L 0 R 1 push 1 force -6.08
+65 (65) L 1 R 0 push -1 force -2.66
+67 (67) L 1 R 0 push -1 force -4.64
+69 (69) L 1 R 0 push -1 force -7.47
+71 (71) L 0 R 1 push 1 force -9.28
+73 (73) L 0 R 1 push 1 force -1.40
+74 (74) L 0 R 1 push 1 force 3.40
+75 (75) L 0 R 1 push 1 force 8.28
+78 (78) L 1 R 0 push -1 force 10.02
+79 (79) L 0 R 1 push 1 force 4.09
+81 (81) L 1 R 0 push -1 force 4.46
+82 (82) L 1 R 0 push -1 force -0.04
+83 (83) L 0 R 1 push 1 force -5.33
+87 (87) L 0 R 1 push 1 force -0.34
+88 (88) L 0 R 1 push 1 force 3.49
+89 (89) L 0 R 1 push 1 force 8.00
+90 (90) L 0 R 1 push 1 force 12.06
+92 (92) L 0 R 1 push 1 force 14.15
+96 (96) L 0 R 1 push 1 force 7.79
+1 (1) L 0 R 1 push 1 force 0.00
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 292, Total Steps: 628426 
+Firing rate (spikes/sec): 0.02 (L: 0.01, R: 0.01)
+Number of spikes        : 157 (L: 69, R: 88)
+Elapsed time: 100 seconds
+
+------------- Run 3 -------------
+2 (2) L 1 R 0 push -1 force 0.00
+3 (3) L 0 R 1 push 1 force -3.64
+6 (6) L 0 R 1 push 1 force 0.77
+7 (7) L 0 R 1 push 1 force 4.42
+8 (8) L 0 R 1 push 1 force 8.72
+9 (9) L 0 R 1 push 1 force 12.59
+11 (11) L 0 R 1 push 1 force 14.42
+13 (13) L 1 R 0 push -1 force 13.32
+15 (15) L 0 R 1 push 1 force 3.43
+17 (17) L 0 R 1 push 1 force 5.14
+18 (18) L 1 R 0 push -1 force 7.93
+19 (19) L 0 R 1 push 1 force 4.09
+20 (20) L 0 R 1 push 1 force 5.68
+25 (25) L 0 R 1 push 1 force 4.24
+26 (26) L 1 R 0 push -1 force 6.67
+28 (28) L 1 R 0 push -1 force 1.05
+29 (29) L 0 R 1 push 1 force -3.42
+31 (31) L 1 R 0 push -1 force 0.16
+33 (33) L 0 R 1 push 1 force -3.83
+1 (1) L 0 R 1 push 1 force 0.00
+2 (2) L 0 R 1 push 1 force 3.64
+3 (3) L 0 R 1 push 1 force 8.05
+4 (4) L 1 R 0 push -1 force 12.07
+7 (7) L 1 R 0 push -1 force 3.49
+8 (8) L 0 R 1 push 1 force -1.36
+9 (9) L 1 R 0 push -1 force 0.70
+10 (10) L 0 R 1 push 1 force -2.29
+11 (11) L 1 R 0 push -1 force 0.61
+12 (12) L 0 R 1 push 1 force -2.06
+13 (13) L 1 R 0 push -1 force 0.92
+14 (14) L 0 R 1 push 1 force -1.77
+15 (15) L 1 R 0 push -1 force 1.15
+18 (18) L 1 R 0 push -1 force -2.27
+21 (21) L 1 R 0 push -1 force -5.09
+23 (23) L 0 R 1 push 1 force -7.41
+24 (24) L 1 R 0 push -1 force -2.53
+25 (25) L 0 R 1 push 1 force -3.99
+26 (26) L 1 R 0 push -1 force -0.27
+28 (28) L 1 R 0 push -1 force -2.93
+31 (31) L 0 R 1 push 1 force -5.62
+32 (32) L 1 R 0 push -1 force -0.77
+33 (33) L 0 R 1 push 1 force -2.51
+35 (35) L 0 R 1 push 1 force 1.99
+36 (36) L 0 R 1 push 1 force 5.73
+37 (37) L 1 R 0 push -1 force 9.86
+45 (45) L 0 R 1 push 1 force 0.24
+46 (46) L 1 R 0 push -1 force 3.79
+47 (47) L 0 R 1 push 1 force 0.87
+49 (49) L 0 R 1 push 1 force 3.68
+50 (50) L 1 R 0 push -1 force 6.89
+51 (51) L 1 R 0 push -1 force 3.37
+52 (52) L 0 R 1 push 1 force -2.09
+53 (53) L 0 R 1 push 1 force -0.14
+54 (54) L 1 R 0 push -1 force 4.24
+55 (55) L 1 R 0 push -1 force 1.56
+59 (59) L 1 R 0 push -1 force -3.59
+61 (61) L 1 R 0 push -1 force -6.43
+62 (62) L 1 R 0 push -1 force -9.09
+63 (63) L 1 R 0 push -1 force -12.30
+68 (68) L 0 R 1 push 1 force -6.26
+69 (69) L 0 R 1 push 1 force -0.79
+73 (73) L 1 R 0 push -1 force 4.77
+74 (74) L 1 R 0 push -1 force -0.01
+77 (77) L 0 R 1 push 1 force -5.96
+79 (79) L 0 R 1 push 1 force 0.76
+80 (80) L 0 R 1 push 1 force 5.00
+81 (81) L 1 R 0 push -1 force 9.42
+0 (0) L 1 R 0 push -1 force 0.00
+1 (1) L 0 R 1 push 1 force -3.64
+2 (2) L 1 R 0 push -1 force -0.78
+4 (4) L 1 R 0 push -1 force -3.65
+5 (5) L 0 R 1 push 1 force -6.87
+7 (7) L 0 R 1 push 1 force -1.54
+8 (8) L 0 R 1 push 1 force 3.00
+10 (10) L 0 R 1 push 1 force 8.42
+11 (11) L 0 R 1 push 1 force 10.96
+16 (16) L 0 R 1 push 1 force 5.77
+19 (19) L 1 R 0 push -1 force 5.95
+21 (21) L 1 R 0 push -1 force -1.08
+26 (26) L 0 R 1 push 1 force -3.22
+29 (29) L 1 R 0 push -1 force 2.88
+31 (31) L 0 R 1 push 1 force -2.47
+35 (35) L 1 R 0 push -1 force 1.96
+38 (38) L 1 R 0 push -1 force -3.20
+15 (15) L 1 R 0 push -1 force 0.00
+19 (19) L 1 R 0 push -1 force -3.25
+26 (26) L 0 R 1 push 1 force -1.54
+28 (28) L 0 R 1 push 1 force 3.70
+29 (29) L 0 R 1 push 1 force 7.17
+30 (30) L 1 R 0 push -1 force 10.98
+37 (37) L 0 R 1 push 1 force 0.46
+39 (39) L 0 R 1 push 1 force 4.60
+43 (43) L 1 R 0 push -1 force 5.07
+46 (46) L 0 R 1 push 1 force -2.14
+54 (54) L 0 R 1 push 1 force 0.68
+62 (62) L 1 R 0 push -1 force 0.90
+68 (68) L 0 R 1 push 1 force -1.71
+69 (69) L 0 R 1 push 1 force 2.42
+70 (70) L 1 R 0 push -1 force 7.21
+71 (71) L 1 R 0 push -1 force 4.21
+73 (73) L 1 R 0 push -1 force -2.98
+83 (83) L 0 R 1 push 1 force -0.58
+88 (88) L 1 R 0 push -1 force 2.39
+92 (92) L 1 R 0 push -1 force -2.66
+103 (100) L 1 R 0 push -1 force -0.31
+105 (100) L 0 R 1 push 1 force -0.14
+137 (100) L 1 R 0 push -1 force -0.00
+1 (1) L 1 R 0 push -1 force 0.00
+5 (5) L 1 R 0 push -1 force -3.25
+9 (9) L 0 R 1 push 1 force -4.13
+21 (21) L 0 R 1 push 1 force 0.14
+26 (26) L 1 R 0 push -1 force 2.48
+27 (27) L 1 R 0 push -1 force -1.84
+42 (42) L 1 R 0 push -1 force -0.08
+1 (1) L 0 R 1 push 1 force 0.00
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 288, Total Steps: 631351 
+Firing rate (spikes/sec): 0.10 (L: 0.05, R: 0.05)
+Number of spikes        : 605 (L: 301, R: 304)
+Elapsed time: 100 seconds
+
+------------- Run 4 -------------
+1 (1) L 1 R 0 push -1 force 0.00
+6 (6) L 0 R 1 push 1 force -2.46
+8 (8) L 1 R 0 push -1 force 3.15
+9 (9) L 0 R 1 push 1 force -0.50
+14 (14) L 1 R 0 push -1 force 1.43
+15 (15) L 1 R 0 push -1 force -2.59
+16 (16) L 0 R 1 push 1 force -7.31
+20 (20) L 0 R 1 push 1 force -0.85
+23 (23) L 1 R 0 push -1 force 3.85
+25 (25) L 1 R 0 push -1 force -2.01
+28 (28) L 1 R 0 push -1 force -5.61
+29 (29) L 1 R 0 push -1 force -8.09
+32 (32) L 0 R 1 push 1 force -8.96
+33 (33) L 1 R 0 push -1 force -3.24
+41 (41) L 1 R 0 push -1 force -0.62
+42 (42) L 1 R 0 push -1 force -4.06
+46 (46) L 0 R 1 push 1 force -5.79
+48 (48) L 1 R 0 push -1 force 1.32
+0 (0) L 0 R 1 push 1 force 0.00
+1 (1) L 0 R 1 push 1 force 3.64
+4 (4) L 1 R 0 push -1 force 7.26
+6 (6) L 1 R 0 push -1 force -0.16
+9 (9) L 0 R 1 push 1 force -5.00
+12 (12) L 0 R 1 push 1 force 1.79
+15 (15) L 0 R 1 push 1 force 5.07
+20 (20) L 0 R 1 push 1 force 3.52
+23 (23) L 1 R 0 push -1 force 5.22
+24 (24) L 1 R 0 push -1 force 0.42
+28 (28) L 0 R 1 push 1 force -4.68
+30 (30) L 1 R 0 push -1 force 1.82
+34 (34) L 0 R 1 push 1 force -2.04
+35 (35) L 1 R 0 push -1 force 2.05
+36 (36) L 1 R 0 push -1 force -0.40
+37 (37) L 0 R 1 push 1 force -4.88
+38 (38) L 0 R 1 push 1 force -2.13
+5 (5) L 0 R 1 push 1 force 0.00
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 296, Total Steps: 621822 
+Firing rate (spikes/sec): 1.04 (L: 0.52, R: 0.52)
+Number of spikes        : 6470 (L: 3236, R: 3234)
+Elapsed time: 99 seconds
+
+------------- Run 5 -------------
+0 (0) L 1 R 0 push -1 force 0.00
+1 (1) L 0 R 1 push 1 force -3.64
+5 (5) L 1 R 0 push -1 force 0.79
+7 (7) L 0 R 1 push 1 force -3.89
+8 (8) L 0 R 1 push 1 force 0.01
+9 (9) L 0 R 1 push 1 force 5.08
+11 (11) L 0 R 1 push 1 force 10.02
+12 (12) L 1 R 0 push -1 force 12.19
+16 (16) L 0 R 1 push 1 force 1.71
+17 (17) L 1 R 0 push -1 force 4.69
+18 (18) L 1 R 0 push -1 force 1.42
+19 (19) L 0 R 1 push 1 force -3.65
+22 (22) L 0 R 1 push 1 force 0.19
+28 (28) L 0 R 1 push 1 force 1.90
+30 (30) L 1 R 0 push -1 force 5.35
+32 (32) L 0 R 1 push 1 force -0.74
+33 (33) L 0 R 1 push 1 force 2.37
+34 (34) L 1 R 0 push -1 force 6.79
+40 (40) L 0 R 1 push 1 force 0.14
+44 (44) L 0 R 1 push 1 force 3.25
+50 (50) L 1 R 0 push -1 force 2.20
+52 (52) L 0 R 1 push 1 force -3.36
+54 (54) L 1 R 0 push -1 force 1.65
+55 (55) L 1 R 0 push -1 force -1.77
+57 (57) L 1 R 0 push -1 force -7.10
+61 (61) L 1 R 0 push -1 force -5.95
+62 (62) L 0 R 1 push 1 force -8.01
+2 (2) L 0 R 1 push 1 force 0.00
+114 (100) L 0 R 1 push 1 force 0.00
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 273, Total Steps: 625348 
+Firing rate (spikes/sec): 0.68 (L: 0.34, R: 0.34)
+Number of spikes        : 4275 (L: 2135, R: 2140)
+Elapsed time: 100 seconds
+
+============== SUMMARY ===============
+Final Max Steps: 296
+Success rate: 0.00 percent (0/5)
+Elapsed time: 500 seconds
+MAX_FAILURES	= 10000
+TARGET_STEPS	= 10000
+LAST_STEPS	= 100
+STEPSIZE (ms)	= 10.00
+TAU      (ms)	= 20
+MAX_FORCE 	= 600
+#./demo.o > demo.log

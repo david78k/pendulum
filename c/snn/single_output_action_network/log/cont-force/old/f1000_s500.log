@@ -1,0 +1,714 @@
+demo
+demo
+demo
+demo
+MAX_FAILURES	= 1000
+TARGET_STEPS	= 500
+STEPSIZE (sec)	= 0.01
+TAU      (sec)	= 0.02
+MAX_FORCE 	= 600
+
+------------- Run 1 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 89, Total Steps: 29037 
+Firing rate (spikes/sec): 12.33 (L: 6.17, R: 6.15)
+Number of spikes        : 3579 (L: 1793, R: 1786)
+Elapsed time: 5 seconds
+
+------------- Run 2 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 63, Total Steps: 28907 
+Firing rate (spikes/sec): 13.77 (L: 6.89, R: 6.88)
+Number of spikes        : 3981 (L: 1991, R: 1990)
+Elapsed time: 4 seconds
+
+------------- Run 3 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 76, Total Steps: 28891 
+Firing rate (spikes/sec): 30.72 (L: 15.36, R: 15.35)
+Number of spikes        : 8874 (L: 4439, R: 4435)
+Elapsed time: 4 seconds
+
+------------- Run 4 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 126, Total Steps: 28815 
+Firing rate (spikes/sec): 13.69 (L: 6.84, R: 6.85)
+Number of spikes        : 3944 (L: 1970, R: 1974)
+Elapsed time: 4 seconds
+
+------------- Run 5 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 97, Total Steps: 28952 
+Firing rate (spikes/sec): 16.19 (L: 8.12, R: 8.07)
+Number of spikes        : 4686 (L: 2350, R: 2336)
+Elapsed time: 4 seconds
+
+------------- Run 6 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 136, Total Steps: 29318 
+Firing rate (spikes/sec): 14.19 (L: 7.08, R: 7.10)
+Number of spikes        : 4159 (L: 2076, R: 2083)
+Elapsed time: 5 seconds
+
+------------- Run 7 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 61, Total Steps: 28851 
+Firing rate (spikes/sec): 49.82 (L: 24.92, R: 24.90)
+Number of spikes        : 14375 (L: 7190, R: 7185)
+Elapsed time: 3 seconds
+
+------------- Run 8 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 97, Total Steps: 28887 
+Firing rate (spikes/sec): 17.16 (L: 8.58, R: 8.58)
+Number of spikes        : 4956 (L: 2478, R: 2478)
+Elapsed time: 4 seconds
+
+------------- Run 9 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 65, Total Steps: 28716 
+Firing rate (spikes/sec): 14.71 (L: 7.34, R: 7.37)
+Number of spikes        : 4224 (L: 2108, R: 2116)
+Elapsed time: 5 seconds
+
+------------- Run 10 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 45, Total Steps: 28998 
+Firing rate (spikes/sec): 13.40 (L: 6.70, R: 6.70)
+Number of spikes        : 3885 (L: 1942, R: 1943)
+Elapsed time: 4 seconds
+
+------------- Run 11 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 46, Total Steps: 28666 
+Firing rate (spikes/sec): 20.35 (L: 10.17, R: 10.18)
+Number of spikes        : 5833 (L: 2914, R: 2919)
+Elapsed time: 4 seconds
+
+------------- Run 12 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 67, Total Steps: 28916 
+Firing rate (spikes/sec): 16.60 (L: 8.30, R: 8.30)
+Number of spikes        : 4799 (L: 2399, R: 2400)
+Elapsed time: 4 seconds
+
+------------- Run 13 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 108, Total Steps: 29018 
+Firing rate (spikes/sec): 13.38 (L: 6.72, R: 6.66)
+Number of spikes        : 3883 (L: 1949, R: 1934)
+Elapsed time: 5 seconds
+
+------------- Run 14 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 97, Total Steps: 28804 
+Firing rate (spikes/sec): 17.86 (L: 8.92, R: 8.94)
+Number of spikes        : 5144 (L: 2569, R: 2575)
+Elapsed time: 4 seconds
+
+------------- Run 15 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 70, Total Steps: 28967 
+Firing rate (spikes/sec): 13.67 (L: 6.84, R: 6.83)
+Number of spikes        : 3959 (L: 1980, R: 1979)
+Elapsed time: 4 seconds
+
+------------- Run 16 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 61, Total Steps: 28832 
+Firing rate (spikes/sec): 15.28 (L: 7.60, R: 7.69)
+Number of spikes        : 4406 (L: 2190, R: 2216)
+Elapsed time: 4 seconds
+
+------------- Run 17 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 57, Total Steps: 28818 
+Firing rate (spikes/sec): 13.78 (L: 6.89, R: 6.88)
+Number of spikes        : 3970 (L: 1986, R: 1984)
+Elapsed time: 5 seconds
+
+------------- Run 18 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 78, Total Steps: 28706 
+Firing rate (spikes/sec): 14.46 (L: 7.24, R: 7.22)
+Number of spikes        : 4151 (L: 2078, R: 2073)
+Elapsed time: 4 seconds
+
+------------- Run 19 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 56, Total Steps: 29026 
+Firing rate (spikes/sec): 14.50 (L: 7.29, R: 7.22)
+Number of spikes        : 4210 (L: 2115, R: 2095)
+Elapsed time: 4 seconds
+
+------------- Run 20 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 82, Total Steps: 28826 
+Firing rate (spikes/sec): 25.02 (L: 12.51, R: 12.51)
+Number of spikes        : 7213 (L: 3606, R: 3607)
+Elapsed time: 4 seconds
+
+------------- Run 21 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 103, Total Steps: 28984 
+Firing rate (spikes/sec): 14.17 (L: 7.08, R: 7.10)
+Number of spikes        : 4108 (L: 2051, R: 2057)
+Elapsed time: 5 seconds
+
+------------- Run 22 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 57, Total Steps: 28867 
+Firing rate (spikes/sec): 50.40 (L: 25.21, R: 25.19)
+Number of spikes        : 14550 (L: 7278, R: 7272)
+Elapsed time: 3 seconds
+
+------------- Run 23 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 75, Total Steps: 28916 
+Firing rate (spikes/sec): 15.78 (L: 7.87, R: 7.91)
+Number of spikes        : 4564 (L: 2277, R: 2287)
+Elapsed time: 4 seconds
+
+------------- Run 24 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 71, Total Steps: 28975 
+Firing rate (spikes/sec): 24.08 (L: 12.07, R: 12.01)
+Number of spikes        : 6976 (L: 3496, R: 3480)
+Elapsed time: 4 seconds
+
+------------- Run 25 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 50, Total Steps: 29082 
+Firing rate (spikes/sec): 19.06 (L: 9.52, R: 9.54)
+Number of spikes        : 5544 (L: 2769, R: 2775)
+Elapsed time: 5 seconds
+
+------------- Run 26 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 73, Total Steps: 28664 
+Firing rate (spikes/sec): 18.16 (L: 9.08, R: 9.08)
+Number of spikes        : 5205 (L: 2602, R: 2603)
+Elapsed time: 4 seconds
+
+------------- Run 27 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 60, Total Steps: 28740 
+Firing rate (spikes/sec): 21.44 (L: 10.73, R: 10.71)
+Number of spikes        : 6162 (L: 3083, R: 3079)
+Elapsed time: 4 seconds
+
+------------- Run 28 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 60, Total Steps: 28811 
+Firing rate (spikes/sec): 15.79 (L: 7.87, R: 7.92)
+Number of spikes        : 4550 (L: 2267, R: 2283)
+Elapsed time: 4 seconds
+
+------------- Run 29 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 110, Total Steps: 28819 
+Firing rate (spikes/sec): 13.70 (L: 6.84, R: 6.86)
+Number of spikes        : 3948 (L: 1971, R: 1977)
+Elapsed time: 4 seconds
+
+------------- Run 30 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 48, Total Steps: 28834 
+Firing rate (spikes/sec): 21.11 (L: 10.56, R: 10.54)
+Number of spikes        : 6086 (L: 3046, R: 3040)
+Elapsed time: 5 seconds
+
+------------- Run 31 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 102, Total Steps: 28892 
+Firing rate (spikes/sec): 43.99 (L: 22.02, R: 21.97)
+Number of spikes        : 12711 (L: 6362, R: 6349)
+Elapsed time: 3 seconds
+
+------------- Run 32 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 65, Total Steps: 29126 
+Firing rate (spikes/sec): 20.70 (L: 10.35, R: 10.35)
+Number of spikes        : 6029 (L: 3014, R: 3015)
+Elapsed time: 4 seconds
+
+------------- Run 33 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 79, Total Steps: 29187 
+Firing rate (spikes/sec): 25.47 (L: 12.73, R: 12.74)
+Number of spikes        : 7434 (L: 3716, R: 3718)
+Elapsed time: 4 seconds
+
+------------- Run 34 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 72, Total Steps: 28706 
+Firing rate (spikes/sec): 21.89 (L: 10.96, R: 10.93)
+Number of spikes        : 6285 (L: 3146, R: 3139)
+Elapsed time: 5 seconds
+
+------------- Run 35 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 76, Total Steps: 28880 
+Firing rate (spikes/sec): 12.69 (L: 6.34, R: 6.35)
+Number of spikes        : 3665 (L: 1831, R: 1834)
+Elapsed time: 4 seconds
+
+------------- Run 36 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 91, Total Steps: 28830 
+Firing rate (spikes/sec): 29.95 (L: 14.97, R: 14.98)
+Number of spikes        : 8635 (L: 4316, R: 4319)
+Elapsed time: 4 seconds
+
+------------- Run 37 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 61, Total Steps: 28772 
+Firing rate (spikes/sec): 34.87 (L: 17.45, R: 17.42)
+Number of spikes        : 10033 (L: 5021, R: 5012)
+Elapsed time: 4 seconds
+
+------------- Run 38 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 78, Total Steps: 28979 
+Firing rate (spikes/sec): 47.92 (L: 23.97, R: 23.96)
+Number of spikes        : 13888 (L: 6946, R: 6942)
+Elapsed time: 3 seconds
+
+------------- Run 39 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 82, Total Steps: 28831 
+Firing rate (spikes/sec): 32.09 (L: 16.04, R: 16.05)
+Number of spikes        : 9252 (L: 4624, R: 4628)
+Elapsed time: 4 seconds
+
+------------- Run 40 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 123, Total Steps: 28986 
+Firing rate (spikes/sec): 52.98 (L: 26.50, R: 26.49)
+Number of spikes        : 15358 (L: 7681, R: 7677)
+Elapsed time: 4 seconds
+
+------------- Run 41 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 56, Total Steps: 28612 
+Firing rate (spikes/sec): 18.37 (L: 9.17, R: 9.20)
+Number of spikes        : 5256 (L: 2624, R: 2632)
+Elapsed time: 4 seconds
+
+------------- Run 42 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 65, Total Steps: 28718 
+Firing rate (spikes/sec): 14.37 (L: 7.18, R: 7.19)
+Number of spikes        : 4127 (L: 2063, R: 2064)
+Elapsed time: 4 seconds
+
+------------- Run 43 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 125, Total Steps: 28835 
+Firing rate (spikes/sec): 25.26 (L: 12.66, R: 12.60)
+Number of spikes        : 7284 (L: 3651, R: 3633)
+Elapsed time: 4 seconds
+
+------------- Run 44 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 41, Total Steps: 28793 
+Firing rate (spikes/sec): 12.98 (L: 6.50, R: 6.48)
+Number of spikes        : 3738 (L: 1871, R: 1867)
+Elapsed time: 4 seconds
+
+------------- Run 45 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 103, Total Steps: 28838 
+Firing rate (spikes/sec): 21.95 (L: 10.98, R: 10.96)
+Number of spikes        : 6329 (L: 3167, R: 3162)
+Elapsed time: 4 seconds
+
+------------- Run 46 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 58, Total Steps: 28695 
+Firing rate (spikes/sec): 19.74 (L: 9.85, R: 9.89)
+Number of spikes        : 5663 (L: 2826, R: 2837)
+Elapsed time: 5 seconds
+
+------------- Run 47 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 144, Total Steps: 28913 
+Firing rate (spikes/sec): 15.90 (L: 7.94, R: 7.96)
+Number of spikes        : 4598 (L: 2296, R: 2302)
+Elapsed time: 4 seconds
+
+------------- Run 48 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 41, Total Steps: 28675 
+Firing rate (spikes/sec): 15.10 (L: 7.56, R: 7.54)
+Number of spikes        : 4331 (L: 2168, R: 2163)
+Elapsed time: 4 seconds
+
+------------- Run 49 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 51, Total Steps: 28943 
+Firing rate (spikes/sec): 24.91 (L: 12.46, R: 12.45)
+Number of spikes        : 7209 (L: 3606, R: 3603)
+Elapsed time: 4 seconds
+
+------------- Run 50 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 95, Total Steps: 29305 
+Firing rate (spikes/sec): 13.91 (L: 6.95, R: 6.95)
+Number of spikes        : 4075 (L: 2038, R: 2037)
+Elapsed time: 5 seconds
+
+------------- Run 51 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 95, Total Steps: 28978 
+Firing rate (spikes/sec): 13.41 (L: 6.68, R: 6.73)
+Number of spikes        : 3886 (L: 1937, R: 1949)
+Elapsed time: 4 seconds
+
+------------- Run 52 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 84, Total Steps: 28913 
+Firing rate (spikes/sec): 38.40 (L: 19.17, R: 19.23)
+Number of spikes        : 11103 (L: 5542, R: 5561)
+Elapsed time: 4 seconds
+
+------------- Run 53 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 56, Total Steps: 28700 
+Firing rate (spikes/sec): 13.23 (L: 6.61, R: 6.61)
+Number of spikes        : 3796 (L: 1898, R: 1898)
+Elapsed time: 4 seconds
+
+------------- Run 54 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 71, Total Steps: 28868 
+Firing rate (spikes/sec): 24.49 (L: 12.25, R: 12.24)
+Number of spikes        : 7069 (L: 3537, R: 3532)
+Elapsed time: 4 seconds
+
+------------- Run 55 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 109, Total Steps: 29194 
+Firing rate (spikes/sec): 44.12 (L: 22.04, R: 22.08)
+Number of spikes        : 12880 (L: 6435, R: 6445)
+Elapsed time: 4 seconds
+
+------------- Run 56 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 67, Total Steps: 29146 
+Firing rate (spikes/sec): 13.67 (L: 6.82, R: 6.84)
+Number of spikes        : 3984 (L: 1989, R: 1995)
+Elapsed time: 4 seconds
+
+------------- Run 57 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 85, Total Steps: 29077 
+Firing rate (spikes/sec): 25.14 (L: 12.60, R: 12.54)
+Number of spikes        : 7309 (L: 3664, R: 3645)
+Elapsed time: 4 seconds
+
+------------- Run 58 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 102, Total Steps: 29056 
+Firing rate (spikes/sec): 19.78 (L: 9.88, R: 9.90)
+Number of spikes        : 5747 (L: 2870, R: 2877)
+Elapsed time: 4 seconds
+
+------------- Run 59 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 72, Total Steps: 28752 
+Firing rate (spikes/sec): 47.15 (L: 23.59, R: 23.56)
+Number of spikes        : 13558 (L: 6784, R: 6774)
+Elapsed time: 4 seconds
+
+------------- Run 60 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 64, Total Steps: 29001 
+Firing rate (spikes/sec): 28.11 (L: 14.04, R: 14.07)
+Number of spikes        : 8151 (L: 4072, R: 4079)
+Elapsed time: 4 seconds
+
+------------- Run 61 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 62, Total Steps: 28949 
+Firing rate (spikes/sec): 31.47 (L: 15.72, R: 15.75)
+Number of spikes        : 9111 (L: 4551, R: 4560)
+Elapsed time: 4 seconds
+
+------------- Run 62 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 129, Total Steps: 28977 
+Firing rate (spikes/sec): 19.35 (L: 9.68, R: 9.67)
+Number of spikes        : 5606 (L: 2805, R: 2801)
+Elapsed time: 4 seconds
+
+------------- Run 63 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 56, Total Steps: 28789 
+Firing rate (spikes/sec): 25.01 (L: 12.50, R: 12.52)
+Number of spikes        : 7201 (L: 3598, R: 3603)
+Elapsed time: 4 seconds
+
+------------- Run 64 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 125, Total Steps: 28864 
+Firing rate (spikes/sec): 47.47 (L: 23.72, R: 23.75)
+Number of spikes        : 13701 (L: 6847, R: 6854)
+Elapsed time: 4 seconds
+
+------------- Run 65 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 72, Total Steps: 28924 
+Firing rate (spikes/sec): 14.86 (L: 7.44, R: 7.42)
+Number of spikes        : 4297 (L: 2152, R: 2145)
+Elapsed time: 4 seconds
+
+------------- Run 66 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 123, Total Steps: 28937 
+Firing rate (spikes/sec): 14.99 (L: 7.52, R: 7.48)
+Number of spikes        : 4339 (L: 2175, R: 2164)
+Elapsed time: 4 seconds
+
+------------- Run 67 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 75, Total Steps: 29158 
+Firing rate (spikes/sec): 12.16 (L: 6.09, R: 6.07)
+Number of spikes        : 3545 (L: 1776, R: 1769)
+Elapsed time: 4 seconds
+
+------------- Run 68 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 69, Total Steps: 28872 
+Firing rate (spikes/sec): 23.80 (L: 11.90, R: 11.90)
+Number of spikes        : 6872 (L: 3436, R: 3436)
+Elapsed time: 4 seconds
+
+------------- Run 69 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 83, Total Steps: 29008 
+Firing rate (spikes/sec): 25.20 (L: 12.60, R: 12.60)
+Number of spikes        : 7311 (L: 3656, R: 3655)
+Elapsed time: 5 seconds
+
+------------- Run 70 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 98, Total Steps: 28946 
+Firing rate (spikes/sec): 14.13 (L: 7.09, R: 7.04)
+Number of spikes        : 4090 (L: 2053, R: 2037)
+Elapsed time: 4 seconds
+
+------------- Run 71 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 96, Total Steps: 28860 
+Firing rate (spikes/sec): 15.25 (L: 7.61, R: 7.64)
+Number of spikes        : 4402 (L: 2196, R: 2206)
+Elapsed time: 4 seconds
+
+------------- Run 72 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 89, Total Steps: 28989 
+Firing rate (spikes/sec): 14.84 (L: 7.43, R: 7.42)
+Number of spikes        : 4303 (L: 2153, R: 2150)
+Elapsed time: 4 seconds
+
+------------- Run 73 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 251, Total Steps: 29435 
+Firing rate (spikes/sec): 13.58 (L: 6.80, R: 6.78)
+Number of spikes        : 3996 (L: 2001, R: 1995)
+Elapsed time: 5 seconds
+
+------------- Run 74 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 75, Total Steps: 28925 
+Firing rate (spikes/sec): 17.20 (L: 8.61, R: 8.59)
+Number of spikes        : 4976 (L: 2491, R: 2485)
+Elapsed time: 4 seconds
+
+------------- Run 75 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 55, Total Steps: 28852 
+Firing rate (spikes/sec): 16.46 (L: 8.22, R: 8.24)
+Number of spikes        : 4748 (L: 2372, R: 2376)
+Elapsed time: 4 seconds
+
+------------- Run 76 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 90, Total Steps: 28641 
+Firing rate (spikes/sec): 13.86 (L: 6.91, R: 6.95)
+Number of spikes        : 3971 (L: 1980, R: 1991)
+Elapsed time: 4 seconds
+
+------------- Run 77 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 68, Total Steps: 28683 
+Firing rate (spikes/sec): 21.22 (L: 10.58, R: 10.63)
+Number of spikes        : 6086 (L: 3036, R: 3050)
+Elapsed time: 5 seconds
+
+------------- Run 78 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 89, Total Steps: 28849 
+Firing rate (spikes/sec): 19.25 (L: 9.63, R: 9.61)
+Number of spikes        : 5552 (L: 2779, R: 2773)
+Elapsed time: 4 seconds
+
+------------- Run 79 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 46, Total Steps: 28788 
+Firing rate (spikes/sec): 13.81 (L: 6.90, R: 6.92)
+Number of spikes        : 3976 (L: 1985, R: 1991)
+Elapsed time: 4 seconds
+
+------------- Run 80 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 91, Total Steps: 29099 
+Firing rate (spikes/sec): 29.61 (L: 14.82, R: 14.79)
+Number of spikes        : 8617 (L: 4313, R: 4304)
+Elapsed time: 4 seconds
+
+------------- Run 81 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 66, Total Steps: 28762 
+Firing rate (spikes/sec): 13.14 (L: 6.56, R: 6.58)
+Number of spikes        : 3779 (L: 1886, R: 1893)
+Elapsed time: 4 seconds
+
+------------- Run 82 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 52, Total Steps: 29001 
+Firing rate (spikes/sec): 13.49 (L: 6.73, R: 6.75)
+Number of spikes        : 3911 (L: 1952, R: 1959)
+Elapsed time: 5 seconds
+
+------------- Run 83 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 45, Total Steps: 28623 
+Firing rate (spikes/sec): 13.55 (L: 6.79, R: 6.76)
+Number of spikes        : 3879 (L: 1944, R: 1935)
+Elapsed time: 4 seconds
+
+------------- Run 84 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 333, Total Steps: 29436 
+Firing rate (spikes/sec): 24.20 (L: 12.05, R: 12.15)
+Number of spikes        : 7124 (L: 3547, R: 3577)
+Elapsed time: 4 seconds
+
+------------- Run 85 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 51, Total Steps: 28874 
+Firing rate (spikes/sec): 12.46 (L: 6.23, R: 6.23)
+Number of spikes        : 3598 (L: 1800, R: 1798)
+Elapsed time: 4 seconds
+
+------------- Run 86 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 46, Total Steps: 28965 
+Firing rate (spikes/sec): 19.12 (L: 9.57, R: 9.55)
+Number of spikes        : 5538 (L: 2772, R: 2766)
+Elapsed time: 5 seconds
+
+------------- Run 87 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 51, Total Steps: 28903 
+Firing rate (spikes/sec): 45.55 (L: 22.80, R: 22.75)
+Number of spikes        : 13166 (L: 6591, R: 6575)
+Elapsed time: 3 seconds
+
+------------- Run 88 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 119, Total Steps: 28999 
+Firing rate (spikes/sec): 53.56 (L: 26.76, R: 26.80)
+Number of spikes        : 15531 (L: 7760, R: 7771)
+Elapsed time: 4 seconds
+
+------------- Run 89 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 132, Total Steps: 29075 
+Firing rate (spikes/sec): 15.69 (L: 7.84, R: 7.86)
+Number of spikes        : 4563 (L: 2279, R: 2284)
+Elapsed time: 4 seconds
+
+------------- Run 90 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 60, Total Steps: 29106 
+Firing rate (spikes/sec): 18.01 (L: 9.01, R: 9.01)
+Number of spikes        : 5243 (L: 2621, R: 2622)
+Elapsed time: 4 seconds
+
+------------- Run 91 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 74, Total Steps: 28825 
+Firing rate (spikes/sec): 13.88 (L: 6.94, R: 6.94)
+Number of spikes        : 4000 (L: 2000, R: 2000)
+Elapsed time: 4 seconds
+
+------------- Run 92 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 90, Total Steps: 28743 
+Firing rate (spikes/sec): 42.05 (L: 21.02, R: 21.02)
+Number of spikes        : 12086 (L: 6043, R: 6043)
+Elapsed time: 4 seconds
+
+------------- Run 93 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 70, Total Steps: 28971 
+Firing rate (spikes/sec): 13.43 (L: 6.74, R: 6.69)
+Number of spikes        : 3890 (L: 1952, R: 1938)
+Elapsed time: 4 seconds
+
+------------- Run 94 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 76, Total Steps: 28988 
+Firing rate (spikes/sec): 19.41 (L: 9.68, R: 9.74)
+Number of spikes        : 5628 (L: 2806, R: 2822)
+Elapsed time: 5 seconds
+
+------------- Run 95 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 93, Total Steps: 28755 
+Firing rate (spikes/sec): 17.58 (L: 8.78, R: 8.79)
+Number of spikes        : 5055 (L: 2526, R: 2529)
+Elapsed time: 4 seconds
+
+------------- Run 96 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 154, Total Steps: 28797 
+Firing rate (spikes/sec): 14.13 (L: 7.09, R: 7.03)
+Number of spikes        : 4068 (L: 2043, R: 2025)
+Elapsed time: 4 seconds
+
+------------- Run 97 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 68, Total Steps: 28741 
+Firing rate (spikes/sec): 15.66 (L: 7.83, R: 7.83)
+Number of spikes        : 4501 (L: 2251, R: 2250)
+Elapsed time: 4 seconds
+
+------------- Run 98 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 53, Total Steps: 28919 
+Firing rate (spikes/sec): 23.56 (L: 11.80, R: 11.75)
+Number of spikes        : 6812 (L: 3413, R: 3399)
+Elapsed time: 4 seconds
+
+------------- Run 99 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 74, Total Steps: 28783 
+Firing rate (spikes/sec): 18.96 (L: 9.48, R: 9.48)
+Number of spikes        : 5457 (L: 2729, R: 2728)
+Elapsed time: 5 seconds
+
+------------- Run 100 -------------
+Pole not balanced. Stopping after 1000 failures 
+Max steps: 70, Total Steps: 29106 
+Firing rate (spikes/sec): 28.35 (L: 14.17, R: 14.18)
+Number of spikes        : 8251 (L: 4125, R: 4126)
+Elapsed time: 4 seconds
+
+============== SUMMARY ===============
+Final Max Steps: 333
+Success rate: 0.00 percent (0/100)
+Elapsed time: 413 seconds

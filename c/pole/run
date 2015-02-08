@@ -1,0 +1,22 @@
+echo " "
+echo "TRAINING WITH NO EXPERIENCE"
+time ./demo n 400 20 - 0.1 0.05 1 0.5
+
+#echo " "
+#echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
+#time ./demo-net n 100000 100 - 0.1 0.05 2 0.5
+
+#echo " "
+#echo "TESTING RL USING THE TRAINED WEIGHTS AND BACKPROPAGATION"
+#time ./demo-net g 2000 10 latest.weights 0 0 0 0
+#time ./demo-net n 200 10 latest.weights 0 0 0 0 1
+#time ./demo-net n 2000 10 latest.weights 0 0 0 0 1
+#time ./demo-net n 20000 10 latest.weights 0 0 0 0 1
+#time ./demo-net n 200000 10 latest.weights 0 0 0 0 1
+#time ./demo-net g 200 10 latest.weights 0 0 0 0 1
+#time ./demo-net g 2000 10 latest.weights 0 0 0 0 1
+
+#echo " "
+#echo "TESTING BACKPROPAGATION"
+#time ./demo-net g 2000 10 latest.weights 0 0 0 0
+

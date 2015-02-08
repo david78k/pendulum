@@ -303,7 +303,6 @@ xor(int ini,int inh, int ino)
 	    pat[3] = new xor.pattern(new double[]{1,1,1,1},new double[]{0});
 	    
 	    
-	    
 	    //# train it with some patterns
 	    net.train(pat,1000,0.5,0.1);
 	    //# test it

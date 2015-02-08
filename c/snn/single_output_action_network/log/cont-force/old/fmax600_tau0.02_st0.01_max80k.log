@@ -1,0 +1,84 @@
+Run 1:
+Pole balanced successfully for at least 80000 steps at 3838 trials
+Max steps: 80000, Total Steps: 505345
+Elapsed time is 6466.571295 seconds.
+Firing rate = 0.99955 (L: 0.49916, R: 0.50038)
+Balanced = 1
+Run 2:
+Pole balanced successfully for at least 80000 steps at 4012 trials
+Max steps: 80000, Total Steps: 756040
+Elapsed time is 11796.884447 seconds.
+Firing rate = 0.99966 (L: 0.49708, R: 0.50258)
+Balanced = 2
+Run 3:
+Pole balanced successfully for at least 80000 steps at 4737 trials
+Max steps: 80000, Total Steps: 608882
+Elapsed time is 6115.679354 seconds.
+Firing rate = 0.98231 (L: 0.47285, R: 0.50946)
+Balanced = 3
+Run 4:
+Pole balanced successfully for at least 80000 steps at 3574 trials
+Max steps: 80000, Total Steps: 414199
+Elapsed time is 5901.886631 seconds.
+Firing rate = 0.99675 (L: 0.50231, R: 0.49443)
+Balanced = 4
+Run 5:
+Pole balanced successfully for at least 80000 steps at 2007 trials
+Max steps: 80000, Total Steps: 228415
+Elapsed time is 5737.529221 seconds.
+Firing rate = 0.9654 (L: 0.50542, R: 0.45998)
+Balanced = 5
+Run 6:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 71, Total Steps: 113991
+Elapsed time is 449.003047 seconds.
+Firing rate = 1.159 (L: 0.57959, R: 0.57941)
+Run 7:
+Pole balanced successfully for at least 80000 steps at 2503 trials
+Max steps: 80000, Total Steps: 289626
+Elapsed time is 6570.121338 seconds.
+Firing rate = 0.99594 (L: 0.49629, R: 0.49965)
+Balanced = 6
+Run 8:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 64, Total Steps: 116163
+Elapsed time is 433.596464 seconds.
+Firing rate = 1.1757 (L: 0.58785, R: 0.58784)
+Run 9:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 50, Total Steps: 118465
+Elapsed time is 436.758902 seconds.
+Firing rate = 1.2943 (L: 0.64731, R: 0.64695)
+Run 10:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 85, Total Steps: 114658
+Elapsed time is 424.947159 seconds.
+Firing rate = 1.1573 (L: 0.57856, R: 0.57873)
+Elapsed time is 44333.020251 seconds.
+Final Max Steps: 80000
+Success rate: 60% (6/10)
+
+============== non-firing-rate ============
+Run 1:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 180
+Elapsed time is 153.788845 seconds.
+Run 2:
+Pole balanced successfully for at least 80000 steps 
+Max steps: 80000
+Elapsed time is 4430.642615 seconds.
+bal = 1
+Run 3:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 74
+Elapsed time is 156.352008 seconds.
+Run 4:
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 183
+Elapsed time is 156.139332 seconds.
+Run 5:
+Pole balanced successfully for at least 80000 steps 
+Max steps: 80000
+Elapsed time is 2975.914861 seconds.
+bal = 2
+Run 6:
