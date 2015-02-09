@@ -21,7 +21,7 @@ TAU     = 0.02; % 141 steps, fmax = 1
 
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 % MAX_STEPS   =     100000;
-MAX_STEPS   =     10000;
+MAX_STEPS   =     1000;
 LAST_STEPS    = 1000;        % threshold to count
 
 logdir = 'log';
@@ -138,37 +138,38 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     % state evaluation
     [v, y] = eval_forward(x, a, b, c);
     
-    if (failure < 0) % r = -1, Failure occurred
-	    failures=failures+1;
+    if (failure < 0) % r = -1, Failure occurred	    
 %         disp(['Episode ' int2str(failures) ': steps '  num2str(steps)]);
                        
-        [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
+        [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures + 1, steps);
+        
+         %Reinforcement upon failure is -1. Prediction of failure is 0.
+        rhat = failure - v_old;        
+        rhatsi(steps + 1) = rhat;
+        rhats(failures + 1) = rhat;
 %         if steps > 500
             plot_rhats(rhats);
 %         end
         rhat_max = max(rhat_max, max(rhats));
         rhat_min = min(rhat_min, min(rhats));
+        
+        %Reset state to (0 0 0 0).  ---*/
+	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
+
+        failure = 0;     failures=failures+1; 
         rhatsi = []; ltrain = []; rtrain = [];
         forces = []; thetas = []; thetadots = [];
         steps = 0;
-        
-        %Reset state to (0 0 0 0).  Find the box. ---*/
-	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
-
-        %Reinforcement upon failure is -1. Prediction of failure is 0.
-        rhat = failure - v_old;
-        failure = 0;      
-        rhatsi(steps + 1) = rhat;
     else   % r = 0, Not a failure.
         %Reinforcement is 0. Prediction of failure given by v weight.
         %Heuristic reinforcement is:   current reinforcement
         %     + gamma * new failure prediction - previous failure prediction
         rhat = failure + GAMMA * v - v_old;
         rhatsi(steps + 1) = rhat;
-        
+%         rhats(failures + 1) = rhat;
         steps=steps+1;
     end
-    rhats(failures + 1) = rhat;
+%     rhats(failures + 1) = rhat;
     
 %     rhats = plot_rhats(steps, rhats, rhat);
 %     if mod(steps, 500) == 0
@@ -201,7 +202,7 @@ else
     plotAll(forces, thetas, thetadots, rhatsi, ltrain, rtrain);
     balanced = true;
     % start testing with random initial state
-    test;
+%     test;
 end
 
 disp(['Max steps: ' int2str(actualMaxSteps) ', Total Steps: ' num2str(totalSteps)]);

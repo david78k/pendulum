@@ -10,7 +10,7 @@ RHOH    = 0.2;      % Learning rate for critic weights, e, f.
 GAMMA   = 0.9;      % ratio of current prediction, v
 dt      = 0.01;     % step size
 TAU     = 0.02; % 141 steps, fmax = 1
-% TAU     = 0.02; % 1091 steps, fmax = 600
+% TAU     = 0.02; % 1091 steps, fmax = 600, |force| < 23.5
 % TAU     = 0.02; % steps, fmax = 3
 % TAU     = 0.02; % steps, fmax = 5
 % TAU     = 0.1; % 346 steps, fmax = 1
@@ -61,8 +61,9 @@ tStart = tic;
 % state evaluation
 [v, y] = eval_forward(x, a, b, c);
 
-F = []; rhats = [];
-% push = [];
+forces = []; rhats = []; rhat_max = 0; rhat_min = 0;
+thetas = []; thetadots = []; rhatsi = [];
+ltrain = []; rtrain = [];
 
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
@@ -79,7 +80,7 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     [p, z] = action_forward(x, d, e, f);
     
     if rand <= p(1) 
-        right = 1; rspikes = rspikes + 1;
+        right = 1; rspikes = rspikes + 1; 
     else
         right = 0;
     end
@@ -89,7 +90,9 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     else
         left = 1; lspikes = lspikes + 1;
     end
-   
+    rtrain(steps + 1) = right;
+    ltrain(steps + 1) = left;
+    
     % q = 1.0/0.5/0 best: 586 steps
     if right == 1 && left == 0
         push = 1;   
@@ -125,41 +128,51 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     %Apply action to the simulated cart-pole: failure = r
     [h,h_dot,theta,theta_dot, failure] = ...
         Cart_Pole(push,h,h_dot,theta,theta_dot, MAX_POS, MAX_ANGLE, dt);
-       
+    thetas(steps + 1) = theta;
+    thetadots(steps + 1) = theta_dot;
+    forces(steps + 1) = push;
+    
     [x] = setInputValues(h, h_dot, theta, theta_dot, ...
         MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
     % state evaluation
     [v, y] = eval_forward(x, a, b, c);
     
-    if (failure < 0) % r = -1, Failure occurred
-	    failures=failures+1;
+    if (failure < 0) % r = -1, Failure occurred	    
 %         disp(['Episode ' int2str(failures) ': steps '  num2str(steps)]);
                        
-        [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures, steps);
-        plot_rhats(rhats); rhats = [];
+        [xpoints, ypoints] = plot_xy(xpoints, ypoints, failures + 1, steps);
+        rhat_max = max(rhat_max, max(rhats));
+        rhat_min = min(rhat_min, min(rhats));
+        rhatsi = []; ltrain = []; rtrain = [];
+        forces = []; thetas = []; thetadots = [];
         steps = 0;
         
         %Reset state to (0 0 0 0).  Find the box. ---*/
 	    [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
 
         %Reinforcement upon failure is -1. Prediction of failure is 0.
-        rhat = failure - v_old;
-        failure = 0;      
+        rhat = failure - v_old;        
+        rhatsi(steps + 1) = rhat;
+        rhats(failures + 1) = rhat;
+        
+        failure = 0;     failures=failures+1; 
     else   % r = 0, Not a failure.
         %Reinforcement is 0. Prediction of failure given by v weight.
-        steps=steps+1;
-
         %Heuristic reinforcement is:   current reinforcement
         %     + gamma * new failure prediction - previous failure prediction
         rhat = failure + GAMMA * v - v_old;
+        rhatsi(steps + 1) = rhat;
+        rhats(failures + 1) = rhat;
+        steps=steps+1;
     end
-    rhats(steps + 1) = rhat;
+%     rhats(failures + 1) = rhat;
+    
 %     rhats = plot_rhats(steps, rhats, rhat);
-%     if mod(steps, 100) == 0
-    if abs(rhat) > 1
-        fprintf('step %d rhat %.4f\n', steps, rhat);
-    end
+%     if mod(steps, 500) == 0
+%     if abs(rhat) > 1
+%         fprintf('trial %d step %d rhat %.4f\n', failures, steps, rhat);
+%     end
     [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
     unusualness, xold, yold, a, b, c, d, e, f, z); 
     
@@ -178,7 +191,15 @@ if (failures == MAX_FAILURES)
     balanced = false;
 else
     disp(['Pole balanced successfully for at least ' int2str(steps) ' steps at ' num2str(failures) ' trials' ]);
+%     plot_rhats(rhats);
+    disp(['rhat for last trial: max ' num2str(max(rhatsi)) ', min ' num2str(min(rhatsi)) ', last ' num2str(rhatsi(end))]);
+    disp(['Force for last trial: max ' num2str(max(forces)) ', min ' num2str(min(forces)) ', last ' num2str(forces(end))]);
+    disp(['theta for last trial: max ' num2str(max(thetas)) ', min ' num2str(min(thetas)) ', last ' num2str(thetas(end))]);
+    disp(['thetadot for last trial: max ' num2str(max(thetadots)) ', min ' num2str(min(thetadots)) ', last ' num2str(thetadots(end))]);
+    plotAll(forces, thetas, thetadots, rhatsi, ltrain, rtrain);
     balanced = true;
+    % start testing with random initial state
+    test;
 end
 
 disp(['Max steps: ' int2str(actualMaxSteps) ', Total Steps: ' num2str(totalSteps)]);
@@ -197,5 +218,6 @@ rr = rspikes / totalSteps; % right rate
 ra = (lspikes + rspikes) / totalSteps; % all rate
 disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
 
-disp(['rhat: max ' rhat_max ', min '
+disp(['rhat all trials: max ' num2str(rhat_max) ', min ' num2str(rhat_min)]);
+
 
