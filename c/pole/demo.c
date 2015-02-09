@@ -70,7 +70,7 @@ int start_state, failure;
 double a[5][5], b[5], c[5], d[5][5], e[5], f[5]; 
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
 double r_hat, push, unusualness, sum_error = 0.0;
-int bp_flag = 0, count_error = 0, total_count = 0;
+int test_flag = 0, count_error = 0, total_count = 0;
 
 /*** Prototypes ***/
 float scale (float v, float vmin, float vmax, int devmin, int devmax);
@@ -104,18 +104,20 @@ void init_args(int argc, char *argv[])
   time_t tloc;
   time_t time();
 
+/*
   printf("Usage: %s g(raphics) num-trials trials-per-output \
 weight-file(or - to init randomly) b bh r rh\n",
 	 argv[0]);
-
+*/
   srandom((int)time(&tloc));
 
   if (argc < 5)
     exit(-1);
-  if (strcmp(argv[4],"-") != 0)
-    readweights(argv[4]);
-  else
-    SetRandomWeights();
+  if (strcmp(argv[4],"-") != 0) {
+    readweights(argv[4]); test_flag = 1;
+  } else {
+    SetRandomWeights(); test_flag = 0;
+  }
   if (argc > 5)
     Beta = atof(argv[5]);
   if (argc > 6)
@@ -238,7 +240,7 @@ Run(num_trials, sample_period)
 	  i++;
 	  if (!(i % sample_period))
 	    {
- 	      if(bp_flag == 0) 
+ 	    //  if(test_flag == 0) 
 	        printf("%6d %6d\n", i, avg_length / sample_period);
 	      avg_length = 0;
 	    }
@@ -249,7 +251,7 @@ Run(num_trials, sample_period)
    printf("Final trial %d balanced for %d steps (%f hours).\n",
           i, j, (j * tau)/3600.0);
 
-  if(bp_flag == 0)
+  if(test_flag == 0)
     writeweights();
 
 }
