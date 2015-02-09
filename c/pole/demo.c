@@ -105,7 +105,7 @@ main(argc,argv)
       if(trials < minTrials) minTrials = trials;
       if(trials == 1) success ++;
     }
-    printf("=============== SUMMARY ===============\n");
+    printf("\n=============== SUMMARY ===============\n");
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
 	100.0*success/TEST_TRIALS, success, TEST_TRIALS, sumTrials/TEST_TRIALS, maxTrials, minTrials);
   } else  
@@ -245,9 +245,9 @@ int Run(num_trials, sample_period)
   j = 0;
   avg_length = 0;
 
-  if(!test_flag)
-    printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
-        Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
+//  if(!test_flag)
+//    printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
+//        Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
 
   //while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */

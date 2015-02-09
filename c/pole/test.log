@@ -1,0 +1,65 @@
+TESTING USING THE TRAINED WEIGHTS
+Read weights from latest.weights
+------------- Test Run 1 -------------
+     1    579
+     2      1
+     3    127
+     4    126
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 2 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 3 -------------
+     1     58
+     2      3
+     3      4
+     4      2
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 4 -------------
+     1     34
+     2     56
+     3     11
+     4     43
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 5 -------------
+     1    141
+     2      9
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 6 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 7 -------------
+     1     55
+     2     65
+     3      6
+     4  10069
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 8 -------------
+     1    244
+     2     97
+     3      6
+     4    172
+     5    682
+     6    117
+     7    103
+     8    215
+     9    100
+    10    115
+    11     53
+    12      2
+    13    235
+    14     88
+    15      1
+    16    222
+    17    147
+    18    183
+Final trial 19 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 9 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 10 -------------
+     1     90
+     2    207
+     3     47
+     4     43
+     5     30
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+=============== SUMMARY ===============
+Trials: 30.00% (3/10) avg 5 max 19 min 1
