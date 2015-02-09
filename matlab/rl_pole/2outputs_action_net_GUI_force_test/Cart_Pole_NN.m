@@ -21,23 +21,25 @@ TAU     = 0.02; % 141 steps, fmax = 1
 
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 % MAX_STEPS   =     100000;
-MAX_STEPS   =     1000;
+MAX_STEPS   =     50000;
 LAST_STEPS    = 1000;        % threshold to count
-
-logdir = 'log';
-logfile = strcat([logdir '/fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log']);
-% logfile = disp(['fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log'])
-disp(logfile);
 
 MAX_POS = 2.4;
 MAX_VEL = 1.5;
 MAX_ANGLE = 0.2094;
 MAX_ANGVEL = 2.01;
 
+global grafica balanced learned failures
 steps = 0; actualMaxSteps = 0; totalSteps = 0;
 failures=0; lspikes = 0; rspikes = 0; spikes = 0;
 
-global grafica
+logdir = 'log';
+logfile = strcat([logdir '/fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log']);
+% logfile = disp(['fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log'])
+if ~learned
+    disp(logfile);
+end
+
 grafica = false; % indicates if display the graphical interface
 xpoints = []; ypoints = [];
 
@@ -64,6 +66,10 @@ tStart = tic;
 forces = []; rhats = []; rhat_max = 0; rhat_min = 0;
 thetas = []; thetadots = []; rhatsi = [];
 ltrain = []; rtrain = [];
+
+if learned
+    MAX_FAILURES = 100;
+end
 
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
@@ -176,8 +182,10 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
 %     if abs(rhat) > 1
 %         fprintf('trial %d step %d rhat %.4f\n', failures, steps, rhat);
 %     end
-    [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
-    unusualness, xold, yold, a, b, c, d, e, f, z); 
+    if ~learned
+        [a,b,c,d,e,f] = updateWeights (BETA, RHO, BETAH, RHOH, rhat, ...
+            unusualness, xold, yold, a, b, c, d, e, f, z);
+    end
     
     if steps > 0.95*MAX_STEPS
         grafica = true;
@@ -188,7 +196,6 @@ while (steps < MAX_STEPS && failures < MAX_FAILURES)
     totalSteps = totalSteps + 1;
 end
   
-global balanced
 if (failures == MAX_FAILURES)
     disp(['Pole not balanced. Stopping after ' int2str(failures) ' failures ' ]);
     balanced = false;

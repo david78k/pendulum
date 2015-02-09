@@ -42,7 +42,7 @@ totalRuns = 5;
 bal = 0;
 % save statistics in log files. record videos
 for i = 1:totalRuns
-    fprintf('Run %d:\n', i);
+    fprintf('--------- Run %d ---------\n', i);;
     balanced = false; learned = false;
     Cart_Pole_NN
     if balanced
@@ -56,6 +56,7 @@ end
 toc
 
 % report.m
+disp(['=============== SUMMARY ==============']);
 disp(['Final Max Steps: ' num2str(FinalMaxSteps)]);
 disp(['Success rate: ' num2str(100.0*bal/i) '% (' num2str(bal) '/' num2str(i) ')']);
 
@@ -67,23 +68,26 @@ if learned
     
     FinalMaxSteps = 0;
     totalRuns = 3;
-    bal = 0; sumTrials = 0;
+    bal = 0; sumTrials = 0; maxTrial = 1; minTrial = 100;
     
     for i = 1:totalRuns
-        fprintf('Test Run %d:\n', i);
+        fprintf('--------- Test %d ---------\n', i);
         balanced = false;
         Cart_Pole_NN
         if balanced
             bal = bal + 1;
-            disp(['Balanced = ' num2str(bal)]);
-            sumTrials = sumTrials + failures;
+            disp(['Balanced = ' num2str(bal)]);            
         end
+        sumTrials = sumTrials + failures;
+        maxTrial = max(maxTrial, failures);
+        minTrial = min(minTrial, failures);
     end
     
     toc
     
     % report.m
-%     disp(['Final Max Steps: ' num2str(FinalMaxSteps)]);
+    disp(['=============== TEST SUMMARY ==============']);
     disp(['Success rate: ' num2str(100.0*bal/i) '% (' num2str(bal) '/' num2str(i) ')']);
-    disp(['Average trials to scuccess: ' num2str(sumTrials/i) '% (' num2str(sumTrials) '/' num2str(i) ')']);
+    disp(['Average trials to scuccess: ' num2str(sumTrials/i) ' (' num2str(sumTrials) '/' num2str(i) ')']);
+    disp(['  max ' num2str(maxTrial) ' min ' num2str(minTrial)]);
 end

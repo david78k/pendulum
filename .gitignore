@@ -17,3 +17,4 @@ c/anderson/pole_neuralnet_demo.tar/poledemo/demo-net
 c/anderson/pole_neuralnet_demo.tar/poledemo/demo-net
 *.class
 *.o
+*.asv
