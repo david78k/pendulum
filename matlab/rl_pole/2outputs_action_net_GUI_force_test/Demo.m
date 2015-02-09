@@ -10,7 +10,8 @@ function Demo()
 % clc
 clf;
 clear all;
-global TxtEpisode TxtSteps goal f1 f2 grafica balanced FinalMaxSteps
+global TxtEpisode TxtSteps goal f1 f2 grafica balanced FinalMaxSteps 
+global learned failures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 f1 = subplot(3,1,1);
 box off
@@ -37,16 +38,17 @@ drawnow;
 tic
 
 FinalMaxSteps = 0;
-total = 5;
+totalRuns = 5;
 bal = 0;
-% save statistics in log files
-% record videos
-for i = 1:total
+% save statistics in log files. record videos
+for i = 1:totalRuns
     fprintf('Run %d:\n', i);
+    balanced = false; learned = false;
     Cart_Pole_NN
     if balanced
         bal = bal + 1;
         disp(['Balanced = ' num2str(bal)]);
+        learned = true;
         break;
     end
 end
@@ -55,6 +57,33 @@ toc
 
 % report.m
 disp(['Final Max Steps: ' num2str(FinalMaxSteps)]);
-disp(['Success rate: ' num2str(100.0*bal/total) '% (' num2str(bal) '/' num2str(total) ')']);
+disp(['Success rate: ' num2str(100.0*bal/i) '% (' num2str(bal) '/' num2str(i) ')']);
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEST LOOP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if learned
+    tic
+    
+    FinalMaxSteps = 0;
+    totalRuns = 3;
+    bal = 0; sumTrials = 0;
+    
+    for i = 1:totalRuns
+        fprintf('Test Run %d:\n', i);
+        balanced = false;
+        Cart_Pole_NN
+        if balanced
+            bal = bal + 1;
+            disp(['Balanced = ' num2str(bal)]);
+            sumTrials = sumTrials + failures;
+        end
+    end
+    
+    toc
+    
+    % report.m
+%     disp(['Final Max Steps: ' num2str(FinalMaxSteps)]);
+    disp(['Success rate: ' num2str(100.0*bal/i) '% (' num2str(bal) '/' num2str(i) ')']);
+    disp(['Average trials to scuccess: ' num2str(sumTrials/i) '% (' num2str(sumTrials) '/' num2str(i) ')']);
+end
