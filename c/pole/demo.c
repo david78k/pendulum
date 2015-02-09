@@ -92,7 +92,20 @@ main(argc,argv)
 
 //  sleep(2);
 
-  Run(atoi(argv[2]), atoi(argv[3]));
+  if(test_flag) {
+    int i, trials = 0, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0;
+    for(i = 0; i < 5; i ++) {
+      sleep(1);
+      init_args(argc,argv);
+      trials = Run(atoi(argv[2]), atoi(argv[3]));
+      sumTrials += trials;
+      if(trials > maxTrials) maxTrials = trials;
+      if(trials < minTrials) minTrials = trials;
+      if(trials == 1) success ++;
+    }
+    printf("Trials: %.2f\% (%d/%d) avg %.2f max %d min %d\n", 100*success/5.0, success, 5, sumTrials/5.0, maxTrials, minTrials);
+  } else  
+    Run(atoi(argv[2]), atoi(argv[3]));
 }
 
 /**********************************************************************
@@ -212,8 +225,8 @@ SetInputValues()
 }
 
 /****************************************************************/
-
-Run(num_trials, sample_period)
+// returns the number of trials before failure
+int Run(num_trials, sample_period)
  int num_trials, sample_period;
 {
   register int i, j, avg_length;
@@ -249,11 +262,12 @@ Run(num_trials, sample_period)
 	}
     }
    printf("Final trial %d balanced for %d steps (%f hours).\n",
-          i, j, (j * tau)/3600.0);
+          i + 1, j, (j * tau)/3600.0);
 
   if(test_flag == 0)
     writeweights();
-
+  
+  return i + 1;
 }
 
 /****************************************************************/

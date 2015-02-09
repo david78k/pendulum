@@ -9,12 +9,12 @@ echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
 echo " "
 echo "TESTING USING THE TRAINED WEIGHTS"
 time ./demo n 100 1 latest.weights 0 0 0 0
-sleep 1
-time ./demo n 100 1 latest.weights 0 0 0 0
-sleep 1
-time ./demo n 100 1 latest.weights 0 0 0 0
-sleep 1
-time ./demo n 100 1 latest.weights 0 0 0 0
-sleep 1
-time ./demo n 100 1 latest.weights 0 0 0 0
+#sleep 1
+#time ./demo n 100 1 latest.weights 0 0 0 0
+#sleep 1
+#time ./demo n 100 1 latest.weights 0 0 0 0
+#sleep 1
+#time ./demo n 100 1 latest.weights 0 0 0 0
+#sleep 1
+#time ./demo n 100 1 latest.weights 0 0 0 0
 #time ./demo n 2000 10 latest.weights 0 0 0 0

@@ -1,4 +1,4 @@
-LIBS =  -lm -Wno-overflow
+LIBS =  -lm -Wno-overflow -Wno-format
 CC = gcc
 #XLIBS =  -L/usr/lib -L/usr/X11R6/lib -L/usr/X11R6/LessTif/Motif1.2/lib -lm -lXm -lXt -lX11 -Wno-overflow
 XLIBS =  -lm -Wno-overflow
