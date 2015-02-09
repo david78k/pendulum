@@ -22,8 +22,9 @@
 #include <sys/types.h>
 #include <sys/timeb.h>
 #include <stdlib.h>
+//#include <sys/time.h>
 
-#define NHIDDEN 60
+#define TEST_TRIALS	10
 #define TARGET_STEPS	180000
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
@@ -94,8 +95,9 @@ main(argc,argv)
 
   if(test_flag) {
     int i, trials = 0, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0;
-    for(i = 0; i < 5; i ++) {
-      sleep(1);
+    for(i = 0; i < TEST_TRIALS; i ++) {
+      printf("------------- Test Run %d -------------\n", i + 1);
+//      usleep(10);
       init_args(argc,argv);
       trials = Run(atoi(argv[2]), atoi(argv[3]));
       sumTrials += trials;
@@ -103,7 +105,9 @@ main(argc,argv)
       if(trials < minTrials) minTrials = trials;
       if(trials == 1) success ++;
     }
-    printf("Trials: %.2f\% (%d/%d) avg %.2f max %d min %d\n", 100*success/5.0, success, 5, sumTrials/5.0, maxTrials, minTrials);
+    printf("=============== SUMMARY ===============\n");
+    printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
+	100.0*success/TEST_TRIALS, success, TEST_TRIALS, sumTrials/TEST_TRIALS, maxTrials, minTrials);
   } else  
     Run(atoi(argv[2]), atoi(argv[3]));
 }
@@ -114,15 +118,18 @@ main(argc,argv)
 void init_args(int argc, char *argv[])
 {
   int runtimes;
-  time_t tloc;
-  time_t time();
+  time_t tloc, time();
+  struct timeval current;
 
+  gettimeofday(&current, NULL);
+//  printf("current time: %d\n", current.tv_usec);
 /*
   printf("Usage: %s g(raphics) num-trials trials-per-output \
 weight-file(or - to init randomly) b bh r rh\n",
 	 argv[0]);
 */
-  srandom((int)time(&tloc));
+  //srandom((int)time(&tloc));
+  srandom(current.tv_usec);
 
   if (argc < 5)
     exit(-1);
@@ -238,8 +245,9 @@ int Run(num_trials, sample_period)
   j = 0;
   avg_length = 0;
 
-  printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
-      Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
+  if(!test_flag)
+    printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
+        Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
 
   //while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
@@ -429,7 +437,8 @@ char *filename;
 
   fclose(file);
 
-  printf("Read weights from %s\n",filename);
+  if(!test_flag)
+    printf("Read weights from %s\n",filename);
 }
 
 
