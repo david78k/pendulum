@@ -5,6 +5,7 @@
 echo " "
 echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
 #time ./demo n 100000 100 - 0.1 0.05 2 0.5
+<<<<<<< HEAD
 
 echo " "
 echo "TESTING RL USING THE TRAINED WEIGHTS AND BACKPROPAGATION"
@@ -12,4 +13,12 @@ time ./demo n 2000 1 latest.weights 0 0 0 0
 #time ./demo n 2000 10 latest.weights 0 0 0 0
 #time ./demo-net g 2000 10 latest.weights 0 0 0 0 1
 
+=======
+
+echo " "
+echo "TESTING RL USING THE TRAINED WEIGHTS AND BACKPROPAGATION"
+time ./demo n 2000 1 latest.weights 0 0 0 0
+#time ./demo n 2000 10 latest.weights 0 0 0 0
+#time ./demo-net g 2000 10 latest.weights 0 0 0 0 1
+>>>>>>> 35d93280b62abea2d7c61c3f16f250c4234c6cdf
 

@@ -1,0 +1,15 @@
+Run 1:
+log/fmax600_tau0.02_dt0.01_max10000.log
+Pole balanced successfully for at least 10000 steps at 5992 trials
+rhat for last trial: max 0.013129, min -0.95074, last -0.00045309
+Force for last trial: max 23.5062, min -23.5062, last -23.5062
+theta for last trial: max 0.099713, min -0.041437, last 0.015955
+thetadot for last trial: max 1.0616, min -1.1504, last -0.0035983
+Max steps: 10000, Total Steps: 804177
+Elapsed time is 496.266191 seconds.
+Firing rate = 0.98451 (L: 0.49634, R: 0.48817)
+rhat all trials: max 1.1109, min -1.487
+Balanced = 1
+Elapsed time is 496.346216 seconds.
+Final Max Steps: 10000
+Success rate: 20% (1/5)

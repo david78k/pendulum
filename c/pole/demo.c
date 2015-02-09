@@ -24,6 +24,7 @@
 #include <stdlib.h>
 
 #define NHIDDEN 60
+#define TARGET_STEPS	180000
 #define randomdef                  ((float) random() / (float)((1 << 31) - 1))
 
 int Graphics = 0;
@@ -233,8 +234,8 @@ Run(num_trials, sample_period)
   printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
       Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
 
-  while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
-  //while (i < num_trials && j < 180) /* one hour at .02s per step */
+  //while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
+  while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
       Cycle(1);
       j++;
