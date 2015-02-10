@@ -8,7 +8,7 @@ BETAH   = 0.05;     % Learning rate for action weights, b, c.
 RHO     = 1.0;      % Learning rate for critic weights, d. 
 RHOH    = 0.2;      % Learning rate for critic weights, e, f.
 GAMMA   = 0.9;      % ratio of current prediction, v
-dt      = 0.01;     % step size
+dt      = 0.01;     % 10ms. step size in seconds
 TAU     = 0.02; % 141 steps, fmax = 1
 % TAU     = 0.02; % 1091 steps, fmax = 600, |force| < 23.5
 % TAU     = 0.02; % steps, fmax = 3
@@ -221,10 +221,10 @@ toc(tStart)
 
 % stats.m
 % firing rates: L, R, all
-rl = lspikes / totalSteps; % left rate
-rr = rspikes / totalSteps; % right rate
-ra = (lspikes + rspikes) / totalSteps; % all rate
-disp(['Firing rate = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
+rl = lspikes / totalSteps / dt; % left rate
+rr = rspikes / totalSteps / dt; % right rate
+ra = (lspikes + rspikes) / totalSteps /dt; % all rate
+disp(['Firing rate (spikes/sec) = ' num2str(ra) ' (L: ' num2str(rl) ', R: ' num2str(rr) ')']);
 
 disp(['rhat all trials: max ' num2str(rhat_max) ', min ' num2str(rhat_min)]);
 
