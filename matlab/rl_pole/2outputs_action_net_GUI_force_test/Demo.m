@@ -67,7 +67,7 @@ if learned
     tic
     
     FinalMaxSteps = 0;
-    totalRuns = 3;
+    totalRuns = 10;
     bal = 0; sumTrials = 0; maxTrial = 1; minTrial = 100;
     
     for i = 1:totalRuns
@@ -88,6 +88,6 @@ if learned
     % report.m
     disp(['=============== TEST SUMMARY ==============']);
     disp(['Success rate: ' num2str(100.0*bal/i) '% (' num2str(bal) '/' num2str(i) ')']);
-    disp(['Average trials to scuccess: ' num2str(sumTrials/i) ' (' num2str(sumTrials) '/' num2str(i) ')']);
-    disp(['  max ' num2str(maxTrial) ' min ' num2str(minTrial)]);
+    disp(['Average trials: ' num2str(sumTrials/i) ' (' num2str(sumTrials) '/' num2str(i) ')' ...
+        '  max ' num2str(maxTrial) ' min ' num2str(minTrial)]);
 end

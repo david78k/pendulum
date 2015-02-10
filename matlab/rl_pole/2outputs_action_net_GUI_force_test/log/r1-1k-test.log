@@ -1,0 +1,122 @@
+--------- Run 1 ---------
+log/fmax600_tau0.02_dt0.01_max1000.log
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 42, Total Steps: 115850
+Elapsed time is 773.891812 seconds.
+Firing rate = 0.99927 (L: 0.40756, R: 0.59171)
+rhat all trials: max 1.8115, min -3.7476
+--------- Run 2 ---------
+log/fmax600_tau0.02_dt0.01_max1000.log
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 64, Total Steps: 114807
+Elapsed time is 922.460087 seconds.
+Firing rate = 0.99981 (L: 0.40731, R: 0.5925)
+rhat all trials: max 1.7804, min -2.8285
+--------- Run 3 ---------
+log/fmax600_tau0.02_dt0.01_max1000.log
+Pole not balanced. Stopping after 10000 failures 
+Max steps: 43, Total Steps: 116010
+Elapsed time is 1010.619385 seconds.
+Firing rate = 0.99877 (L: 0.37358, R: 0.62519)
+rhat all trials: max 2.8205, min -2.6111
+--------- Run 4 ---------
+log/fmax600_tau0.02_dt0.01_max1000.log
+Pole balanced successfully for at least 1000 steps at 4642 trials
+rhat for last trial: max 0.20517, min -0.0090856, last 0.0052822
+Force for last trial: max 23.5062, min -23.5062, last 0
+theta for last trial: max 0.055326, min -0.067551, last -0.065758
+thetadot for last trial: max 0.8752, min -1.1268, last -0.0029289
+Max steps: 1000, Total Steps: 328733
+Elapsed time is 847.313720 seconds.
+Firing rate = 0.9794 (L: 0.46932, R: 0.51008)
+rhat all trials: max 0.99668, min -1.7784
+Balanced = 1
+Elapsed time is 3554.378675 seconds.
+=============== SUMMARY ==============
+Final Max Steps: 1000
+Success rate: 25% (1/4)
+--------- Test 1 ---------
+Pole not balanced. Stopping after 100 failures 
+Max steps: 884, Total Steps: 20089
+Elapsed time is 24.807269 seconds.
+Firing rate = 0.98651 (L: 0.49858, R: 0.48793)
+rhat all trials: max 0, min -0.99249
+--------- Test 2 ---------
+Pole not balanced. Stopping after 100 failures 
+Max steps: 921, Total Steps: 17276
+Elapsed time is 21.616204 seconds.
+Firing rate = 0.98576 (L: 0.50064, R: 0.48512)
+rhat all trials: max 0, min -0.94196
+--------- Test 3 ---------
+Pole balanced successfully for at least 1000 steps at 33 trials
+rhat for last trial: max 0.12739, min 0.0024223, last 0.024779
+Force for last trial: max 23.5062, min -23.5062, last 0
+theta for last trial: max 0.095127, min -0.016181, last 0.023329
+thetadot for last trial: max 0.72607, min -1.1204, last -0.29778
+Max steps: 1000, Total Steps: 7721
+Elapsed time is 11.668622 seconds.
+Firing rate = 0.98446 (L: 0.49553, R: 0.48893)
+rhat all trials: max 0.040465, min -1.0356
+Balanced = 1
+--------- Test 4 ---------
+Pole not balanced. Stopping after 100 failures 
+Max steps: 770, Total Steps: 19145
+Elapsed time is 23.357021 seconds.
+Firing rate = 0.97963 (L: 0.49344, R: 0.48618)
+rhat all trials: max 0, min -1.0426
+--------- Test 5 ---------
+Pole balanced successfully for at least 1000 steps at 50 trials
+rhat for last trial: max 0.034592, min -0.088042, last 0.0020357
+Force for last trial: max 23.5062, min -23.5062, last -23.5062
+theta for last trial: max 0.16433, min -0.075109, last -0.075109
+thetadot for last trial: max 1.0506, min -1.4283, last -0.0073822
+Max steps: 1000, Total Steps: 10148
+Elapsed time is 15.094152 seconds.
+Firing rate = 0.9865 (L: 0.4997, R: 0.4868)
+rhat all trials: max 0, min -0.95444
+Balanced = 2
+--------- Test 6 ---------
+Pole not balanced. Stopping after 100 failures 
+Max steps: 621, Total Steps: 19539
+Elapsed time is 21.670638 seconds.
+Firing rate = 0.9761 (L: 0.49255, R: 0.48355)
+rhat all trials: max 0, min -0.95223
+--------- Test 7 ---------
+Pole not balanced. Stopping after 100 failures 
+Max steps: 902, Total Steps: 19133
+Elapsed time is 22.975652 seconds.
+Firing rate = 0.98442 (L: 0.4972, R: 0.48722)
+rhat all trials: max 0, min -0.93996
+--------- Test 8 ---------
+Pole not balanced. Stopping after 100 failures 
+Max steps: 873, Total Steps: 20840
+Elapsed time is 26.203352 seconds.
+Firing rate = 0.98081 (L: 0.49208, R: 0.48872)
+rhat all trials: max 0.0091833, min -0.9544
+--------- Test 9 ---------
+Pole balanced successfully for at least 1000 steps at 78 trials
+rhat for last trial: max 0.33634, min -0.0063978, last -0.0040585
+Force for last trial: max 23.5062, min -23.5062, last -23.5062
+theta for last trial: max 0.012476, min -0.057565, last -0.053562
+thetadot for last trial: max 0.91095, min -0.88137, last -0.25876
+Max steps: 1000, Total Steps: 16672
+Elapsed time is 23.933904 seconds.
+Firing rate = 0.98417 (L: 0.49466, R: 0.4895)
+rhat all trials: max 0, min -0.96138
+Balanced = 3
+--------- Test 10 ---------
+Pole balanced successfully for at least 1000 steps at 46 trials
+rhat for last trial: max 0.58309, min -0.0081029, last 0.024754
+Force for last trial: max 23.5062, min -23.5062, last 23.5062
+theta for last trial: max 0.17395, min -0.10603, last -0.093986
+thetadot for last trial: max 0.7527, min -2.3495, last -0.25398
+Max steps: 1000, Total Steps: 7850
+Elapsed time is 12.584534 seconds.
+Firing rate = 0.98662 (L: 0.49146, R: 0.49516)
+rhat all trials: max 0.049995, min -0.90534
+Balanced = 4
+Elapsed time is 203.938413 seconds.
+=============== TEST SUMMARY ==============
+Success rate: 40% (4/10)
+Average trials to scuccess: 80.7 (807/10)
+  max 100 min 33

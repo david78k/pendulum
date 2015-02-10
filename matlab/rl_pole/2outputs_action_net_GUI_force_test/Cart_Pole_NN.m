@@ -21,7 +21,7 @@ TAU     = 0.02; % 141 steps, fmax = 1
 
 MAX_FAILURES  =  10000;      % Termination criterion for unquantized version. 
 % MAX_STEPS   =     100000;
-MAX_STEPS   =     50000;
+MAX_STEPS   =     10000;
 LAST_STEPS    = 1000;        % threshold to count
 
 MAX_POS = 2.4;
@@ -29,22 +29,24 @@ MAX_VEL = 1.5;
 MAX_ANGLE = 0.2094;
 MAX_ANGVEL = 2.01;
 
-global grafica balanced learned failures
+global grafica balanced learned failures a b c d e f
 steps = 0; actualMaxSteps = 0; totalSteps = 0;
 failures=0; lspikes = 0; rspikes = 0; spikes = 0;
 
 logdir = 'log';
 logfile = strcat([logdir '/fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log']);
 % logfile = disp(['fmax600_tau' mat2str(TAU) '_dt' mat2str(dt) '_max' int2str(MAX_STEPS) '.log'])
-if ~learned
-    disp(logfile);
-end
 
 grafica = false; % indicates if display the graphical interface
 xpoints = []; ypoints = [];
 
 % Initialize action and heuristic critic weights and traces
-[a,b,c,d,e,f] = init_weights();
+if learned
+    MAX_FAILURES = 100;
+else    
+    disp(logfile);
+    [a,b,c,d,e,f] = init_weights();
+end
 
 % Starting state is (0 0 0 0)
 [h, h_dot, theta, theta_dot] = init_state(MAX_POS, MAX_VEL, MAX_ANGLE, MAX_ANGVEL);
@@ -66,10 +68,6 @@ tStart = tic;
 forces = []; rhats = []; rhat_max = 0; rhat_min = 0;
 thetas = []; thetadots = []; rhatsi = [];
 ltrain = []; rtrain = [];
-
-if learned
-    MAX_FAILURES = 100;
-end
 
 % Iterate through the action-learn loop. 
 while (steps < MAX_STEPS && failures < MAX_FAILURES)
