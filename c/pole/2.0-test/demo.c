@@ -1,3 +1,7 @@
+/*
+   Changelog 2/8/2015
+   - test runs added in the main function
+*/
 /*********************************************************************************
     This file contains a simulation of the cart and pole dynamic system and 
  a procedure for learning to balance the pole that uses multilayer connectionist 
