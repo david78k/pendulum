@@ -1,5 +1,5 @@
 /* 
-   v2.1
+   v0.2.1
    Changelog 2/11/2015
    - display rhat 
    - test runs only when balanced

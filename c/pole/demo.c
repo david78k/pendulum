@@ -1,8 +1,7 @@
 /* 
-   v2.1
-   Changelog 2/11/2015
-   - display rhat 
-   - test runs only when balanced
+   v0.3.0 - 2/11/2015
+   Changelog
+   - 1output with 3actions(L/R/0)
 
    Todo list
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
@@ -32,11 +31,10 @@
 #include <sys/types.h>
 #include <sys/timeb.h>
 #include <stdlib.h>
-//#include <sys/time.h>
 
-#define TEST_TRIALS	1
+#define TEST_TRIALS	0
 #define TARGET_STEPS	180000
-#define randomdef                  ((float) random() / (float)((1 << 31) - 1))
+#define randomdef       ((float) random() / (float)((1 << 31) - 1))
 
 int Graphics = 0;
 int Delay = 20000;
@@ -81,8 +79,8 @@ struct
 int start_state, failure;
 double a[5][5], b[5], c[5], d[5][5], e[5], f[5]; 
 double x[5], x_old[5], y[5], y_old[5], v, v_old, z[5], p;
-double r_hat, push, unusualness, sum_error = 0.0;
-int test_flag = 0, count_error = 0, total_count = 0;
+double r_hat, push, unusualness; 
+int test_flag = 0, total_count = 0;
 
 /*** Prototypes ***/
 float scale (float v, float vmin, float vmax, int devmin, int devmax);
@@ -102,13 +100,13 @@ main(argc,argv)
 
   init_args(argc,argv);
 
-//  sleep(2);
+  printf("balanced %d test_flag %d\n", balanced, test_flag);
 
   if(balanced && test_flag) {
     int i, trials = 0, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0;
+    printf("TEST_TRIALS = %d\n", TEST_TRIALS);
     for(i = 0; i < TEST_TRIALS; i ++) {
       printf("------------- Test Run %d -------------\n", i + 1);
-//      usleep(10);
       init_args(argc,argv);
       trials = Run(atoi(argv[2]), atoi(argv[3]));
       sumTrials += trials;
@@ -249,11 +247,10 @@ int Run(num_trials, sample_period)
 {
   register int i, j, avg_length;
 
-  sum_error = 0; count_error = 0; total_count = 0;
+  total_count = 0;
 
   NextState(1, 0.0);
-  i = 0;
-  j = 0;
+  i = 0;   j = 0;
   avg_length = 0;
 
 //  if(!test_flag)
@@ -351,8 +348,12 @@ Cycle(learn_flag)
     sum += e[i] * x[i] + f[i] * z[i];
   p = 1.0 / (1.0 + exp(-sum));
 
-  //push = (0.5 <= p) ? 10.0 : -10.0;
-  push = (randomdef <= p) ? 10.0 : -10.0;
+  //push = (randomdef <= p) ? 10.0 : -10.0;
+  push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? -10.0:0);
+//  if(0 <= p < 0.33) push = 10.0;
+//  else if (0.33 <= p < 0.67) push = -10.0;
+//  else push = 0;
+
   unusualness = (push > 0) ? 1.0 - p : -p;
 
   /* preserve current activities in evaluation network. */
