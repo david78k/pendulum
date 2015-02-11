@@ -4,12 +4,12 @@
 
 echo " "
 echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
-#time ./demo n 10000 100 - 0.1 0.05 2 0.5
+time ./demo n 10000 100 - 0.1 0.05 2 0.5
 #time ./demo n 100000 100 - 0.1 0.05 2 0.5
 
 echo " "
 echo "TESTING USING THE TRAINED WEIGHTS"
-time ./demo n 100 1 latest.weights 0 0 0 0
+#time ./demo n 100 1 latest.weights 0 0 0 0
 #sleep 1
 #time ./demo n 100 1 latest.weights 0 0 0 0
 #sleep 1
