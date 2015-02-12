@@ -356,15 +356,19 @@ Cycle(learn_flag)
   }
 
   //push = (randomdef <= p) ? 10.0 : -10.0;
-  if((randomdef <= p[0]) && (p[1] < randomdef)) {
+  double r0 = randomdef;
+  double r1 = randomdef;
+  if((r0 <= p[0]) && (p[1] < r1)) {
     push = 1.0; q = 1.0;
     unusualness = q - p[0];
-  } else if ((p[0] < randomdef) && (randomdef <= p[1])) { 
+  } else if ((p[0] < r0) && (r1 <= p[1])) { 
     push = -1.0; q = 0.5;
     unusualness = q - p[1];
   } else {
     push = 0; q = 0;
-    unusualness = q - (p[0] < p[1]) ? p[0] : p[1];
+    unusualness = 0;
+    //unusualness = q - (p[0] * p[1]);
+    //unusualness = q - (p[0] < p[1]) ? p[0] : p[1];
   }
   //unusualness = q - p;
 

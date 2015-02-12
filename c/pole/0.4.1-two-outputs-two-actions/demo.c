@@ -1,7 +1,8 @@
 /* 
-   v0.5.0 - 2/11/2015
+   v0.4.1 - 2/11/2015
    Changelog
-   - 2outputs with 3actions(L/R/0) for both action and evaluation networks
+   - 2outputs with 2actions(L/R)
+   - simply the same as one output with 2 actions
 
    Todo list
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
@@ -355,19 +356,22 @@ Cycle(learn_flag)
     p[j] = 1.0 / (1.0 + exp(-sum));
   }
 
-  double r0 = randomdef;
-  double r1 = randomdef;
   //push = (randomdef <= p) ? 10.0 : -10.0;
-  if((r0 <= p[0])) {
+  if((randomdef <= p[0])) {
     push = 1.0; q = 1.0;
     unusualness = q - p[0];
-  } else if ((r1 <= p[1])) { 
+  } else {
+    push = -1.0; q = 0;
+    unusualness = q - p[0];
+  }
+
+/*else if ((randomdef <= p[1])) { 
     push = -1.0; q = 0;
     unusualness = q - p[1];
   } else {
     push = 0; q = 0;
     unusualness = q - (p[0] < p[1]) ? p[0] : p[1];
-  }
+  }*/
   //unusualness = q - p;
 
   push *= 10.0;
