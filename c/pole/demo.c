@@ -1,7 +1,7 @@
 /* 
-   v0.3.0 - 2/11/2015
+   v0.4.0 - 2/11/2015
    Changelog
-   - 1output with 3actions(L/R/0)
+   - 2outputs with 3actions(L/R/0)
 
    Todo list
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
@@ -316,7 +316,7 @@ Cycle(learn_flag)
      int learn_flag;
 {
   int i, j, k;
-  double sum, factor1, factor2;
+  double sum, factor1, factor2, q;
   extern double exp();
   float state[4];
 
@@ -345,16 +345,18 @@ Cycle(learn_flag)
 	sum += d[i][j] * x[j];
       z[i] = 1.0 / (1.0 + exp(-sum));
     }
-  sum = 0.0;
-  for(i = 0; i < 5; i++)
-    sum += e[i] * x[i] + f[i] * z[i];
-  p = 1.0 / (1.0 + exp(-sum));
-  double q; 
+  
+  for(j = 0; j < 2; j++) {
+    sum = 0.0;
+    for(i = 0; i < 5; i++) 
+      sum += e[i][j] * x[i] + f[i][j] * z[i];
+    p[j] = 1.0 / (1.0 + exp(-sum));
+  }
 
   //push = (randomdef <= p) ? 10.0 : -10.0;
   //push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? 0: -10.0);
   //push = (0.67 <= p) ? 1.0 : ((0.33 <= p) ? -1.0:0);
-  if(0.6676 <= p) {
+  if(0.6667 <= p[0] && 0.6667 <= p[1]) {
     push = 1.0; q = 1.0;
   } else if (0.33 <= p < 0.6667) { 
     push = -1.0; q = 0.5;

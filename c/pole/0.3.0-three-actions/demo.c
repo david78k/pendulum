@@ -33,7 +33,7 @@
 #include <stdlib.h>
 
 #define DEBUG 		0
-#define TEST_TRIALS	0
+#define TEST_TRIALS	100
 #define TARGET_STEPS	180000
 #define randomdef       ((float) random() / (float)((1 << 31) - 1))
 
@@ -103,7 +103,8 @@ main(argc,argv)
 
   printf("balanced %d test_flag %d\n", balanced, test_flag);
 
-  if(balanced && test_flag) {
+  //if(balanced && test_flag) {
+  if(test_flag) {
     int i, trials = 0, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0;
     printf("TEST_TRIALS = %d\n", TEST_TRIALS);
     for(i = 0; i < TEST_TRIALS; i ++) {
@@ -272,7 +273,7 @@ int Run(num_trials, sample_period)
 	  i++;
 	  if (!(i % sample_period))
 	    {
- 	    //  if(test_flag == 0) 
+ 	      if(DEBUG) 
 	        printf("Episode%6d %6d\n", i, avg_length / sample_period);
 	      avg_length = 0;
 	    }
@@ -353,9 +354,9 @@ Cycle(learn_flag)
   //push = (randomdef <= p) ? 10.0 : -10.0;
   //push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? 0: -10.0);
   //push = (0.67 <= p) ? 1.0 : ((0.33 <= p) ? -1.0:0);
-  if(0.6676 <= p) {
+  if(0.6667 <= p) {
     push = 1.0; q = 1.0;
-  } else if (0.33 <= p < 0.6667) { 
+  } else if (0.3333 <= p < 0.6667) { 
     push = -1.0; q = 0.5;
   } else {
     push = 0; q = 0;
