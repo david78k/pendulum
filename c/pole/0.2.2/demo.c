@@ -1,16 +1,10 @@
 /* 
-   v0.2.3 - 2/12/2015
+   v0.2.2 - 2/12/2015
    Changelog
    - 1output with 2actions(L/R)
    - test runs only when balanced
-   - continuous force
-   - taking only the last few steps doesn't work
-     limits the number of steps balanced: 1k->1k, 10k->10k
-   - 494 runs take 2h 36min for 180k steps
 
    Todo list
-   - find best Fmax among 1 to 10. Fmax over 10 is no good
-   - Get last steps working
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
    - continuous force (real domain) from discrete -10/10
 */
@@ -40,10 +34,8 @@
 #include <stdlib.h>
 
 #define DEBUG 		0
-#define TEST_RUNS	10
-#define TARGET_STEPS	50000
-//#define TARGET_STEPS	18000
-//#define TARGET_STEPS	180000
+#define TEST_TRIALS	10
+#define TARGET_STEPS	180000
 #define randomdef       ((float) random() / (float)((1 << 31) - 1))
 
 int Graphics = 0;
@@ -53,7 +45,7 @@ int Delay = 20000;
 #define Mp           0.1
 #define l            0.5
 #define g            9.8
-#define dt          0.02
+#define tau          0.02
 #define max_cart_pos 2.4
 #define max_cart_vel 1.5
 #define max_pole_pos 0.2094
@@ -108,34 +100,28 @@ main(argc,argv)
   char a;
 //  Xg_context *context;
 
-  setbuf(stdout, NULL);
-
   init_args(argc,argv);
 
   printf("balanced %d test_flag %d\n", balanced, test_flag);
 
-  int i = 0;
   //if(balanced && test_flag) {
   if(test_flag) {
-    int trials, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0, maxSteps = 0;
-    printf("TEST_RUNS = %d\n", TEST_RUNS);
-    for(i = 0; i < TEST_RUNS; i ++) {
+    int i, trials = 0, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0;
+    printf("TEST_TRIALS = %d\n", TEST_TRIALS);
+    for(i = 0; i < TEST_TRIALS; i ++) {
       printf("------------- Test Run %d -------------\n", i + 1);
       init_args(argc,argv);
       trials = Run(atoi(argv[2]), atoi(argv[3]));
       sumTrials += trials;
       if(trials > maxTrials) maxTrials = trials;
       if(trials < minTrials) minTrials = trials;
-      if(trials <= 100) success ++;
-      //if(trials == 1) success ++;
+      if(trials == 1) success ++;
     }
     printf("\n=============== SUMMARY ===============\n");
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
-	100.0*success/TEST_RUNS, success, TEST_RUNS, sumTrials/TEST_RUNS, maxTrials, minTrials);
+	100.0*success/TEST_TRIALS, success, TEST_TRIALS, sumTrials/TEST_TRIALS, maxTrials, minTrials);
   } else { 
-    i = 0;
     while(!balanced) {
-      printf("Run %d: ", ++i);
       Run(atoi(argv[2]), atoi(argv[3]));
       init_args(argc,argv);
     }
@@ -234,10 +220,10 @@ NextState(init_flag, push)
         (l * (4.0 / 3.0 - Mp * cos_pp * cos_pp / (Mc + Mp)));
       ca = common - Mp * l * pa * cos_pp / (Mc + Mp);
   
-      the_system_state.cart_pos += dt * the_system_state.cart_vel;
-      the_system_state.cart_vel += dt * ca;
-      the_system_state.pole_pos += dt * the_system_state.pole_vel;
-      the_system_state.pole_vel += dt * pa;
+      the_system_state.cart_pos += tau * the_system_state.cart_vel;
+      the_system_state.cart_vel += tau * ca;
+      the_system_state.pole_pos += tau * the_system_state.pole_vel;
+      the_system_state.pole_vel += tau * pa;
 
       SetInputValues();
 
@@ -266,7 +252,7 @@ SetInputValues()
 int Run(num_trials, sample_period)
  int num_trials, sample_period;
 {
-  register int i, j, avg_length, max_length = 0;
+  register int i, j, avg_length;
 
   total_count = 0;
 
@@ -281,7 +267,7 @@ int Run(num_trials, sample_period)
   //while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
-      Cycle(1, j);
+      Cycle(1);
       if (DEBUG && j % 1000 == 0)
         printf("Episode %d step %d rhat %.4f\n", i, j, r_hat);
       j++;
@@ -297,22 +283,20 @@ int Run(num_trials, sample_period)
 	      avg_length = 0;
 	    }
 	  NextState(1, 0.0);
-   	  max_length = (max_length < j ? j : max_length);
 	  j = 0;
 	}
     }
    if(i >= num_trials) {
      balanced = 0;
-     printf("Trial %d not balanced. Max %d steps (%f hours).\n",
-            i, max_length, (max_length * dt)/3600.0);
-            //i + 1, j, (j * dt)/3600.0);
+     printf("Final trial %d not balanced for %d steps (%f hours).\n",
+            i + 1, j, (j * tau)/3600.0);
    } else {
-     printf("Trial %d balanced for %d steps (%f hours).\n",
-            i, j, (j * dt)/3600.0);
+     printf("Final trial %d balanced for %d steps (%f hours).\n",
+            i + 1, j, (j * tau)/3600.0);
      balanced = 1;
    }
 
-  if(!test_flag && balanced)
+  if(test_flag == 0)
     writeweights();
   
   return i + 1;
@@ -333,11 +317,11 @@ double sgn(x)
 
 /****************************************************************/
 
-Cycle(learn_flag, step)
-     int learn_flag, step;
+Cycle(learn_flag)
+     int learn_flag;
 {
   int i, j, k;
-  double sum, factor1, factor2, t;
+  double sum, factor1, factor2;
   extern double exp();
   float state[4];
 
@@ -372,8 +356,7 @@ Cycle(learn_flag, step)
   p = 1.0 / (1.0 + exp(-sum));
 
   double q; 
-  push = (randomdef <= p) ? 1.0 : -1.0;
-  //push = (randomdef <= p) ? 10.0 : -10.0;
+  push = (randomdef <= p) ? 10.0 : -10.0;
   //push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? 0: -10.0);
   //push = (0.67 <= p) ? 1.0 : ((0.33 <= p) ? -1.0:0);
 /*
@@ -389,13 +372,6 @@ Cycle(learn_flag, step)
   //unusualness = (push > 0) ? 1.0 - p : ((push < 0) ? 0.5-p : -p);
   unusualness = (push > 0) ? 1.0 - p : -p;
 
-  sum = 0.0;
-  //for(i = 0; i < (step > 100 ? 100 : step) ; i++) {
-  for(i = 0; i < step; i++) {
-    t = (step - i) * dt;
-    sum += t * exp(-t);
-  }
-  push *= sum;
  // push = (push > 0) ? 10.0 : (push < 0 ? -10.0 : 0);
 
   /* preserve current activities in evaluation network. */
