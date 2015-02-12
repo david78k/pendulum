@@ -499,3 +499,30 @@ Wrote current weights to latest.weights
 9384.766u 1.540s 2:36:26.03 100.0%	0+0k 0+72io 0pf+0w
  
 TESTING USING THE TRAINED WEIGHTS
+Read weights from latest.weights
+balanced 0 test_flag 1
+TEST_RUNS = 10
+------------- Test Run 1 -------------
+Trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 2 -------------
+Trial 60 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 3 -------------
+Trial 21 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 4 -------------
+Trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 5 -------------
+Trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 6 -------------
+Trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 7 -------------
+Trial 31 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 8 -------------
+Trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 9 -------------
+Trial 31 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 10 -------------
+Trial 36 balanced for 180000 steps (1.000000 hours).
+
+=============== SUMMARY ===============
+Trials: 100.00% (10/10) avg 20 max 61 min 2
+30320.986u 2.812s 8:25:30.33 99.9%	0+0k 0+8io 0pf+0w
