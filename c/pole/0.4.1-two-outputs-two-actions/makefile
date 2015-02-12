@@ -4,6 +4,10 @@ CC = gcc
 XLIBS =  -lm -Wno-overflow
 INC = -I/usr/X11R6/include -I/usr/X11R6/LessTif/Motif1.2/include
 
+default: 
+	$(CC) $(CFLAGS) -c demo.c $(LIBS) 
+	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
+
 demo.o:	demo.c 
 	$(CC) $(CFLAGS) -c demo.c $(LIBS) 
 
@@ -12,7 +16,6 @@ demo:	demo.o
 
 demo-net.o:	demo-net.c 
 	$(CC) $(CFLAGS) -c demo-net.c $(XLIBS)
-
 
 demo-net:	demo-net.o xg.a
 	$(CC) $(CFLAGS) -o demo-net demo-net.o $(LIBS) $(XLIBS)

@@ -33,8 +33,8 @@
 #include <sys/timeb.h>
 #include <stdlib.h>
 
-#define DEBUG 		1 // 0: no, 1: light, 2: heavy
-#define TEST_TRIALS	100
+#define DEBUG 		0 // 0: no, 1: light, 2: heavy
+#define TEST_TRIALS	10
 #define TARGET_STEPS	180000
 #define randomdef       ((float) random() / (float)((1 << 31) - 1))
 
@@ -120,8 +120,12 @@ main(argc,argv)
     printf("\n=============== SUMMARY ===============\n");
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
 	100.0*success/TEST_TRIALS, success, TEST_TRIALS, sumTrials/TEST_TRIALS, maxTrials, minTrials);
-  } else  
-    Run(atoi(argv[2]), atoi(argv[3]));
+  } else { 
+    while(!balanced) {
+      Run(atoi(argv[2]), atoi(argv[3]));
+      init_args(argc,argv);
+    } 
+  }
 }
 
 /**********************************************************************
