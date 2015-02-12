@@ -1,6 +1,8 @@
 /* 
-   v0.2.3 - 2/12/2015
+   v0.2.4 - 2/12/2015
    Changelog
+   - change the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG, LAST_STEPS
+   - tic-toc elapsed time
    - 1output with 2actions(L/R)
    - test runs only when balanced
    - continuous force
@@ -9,11 +11,9 @@
    - 494 runs take 2h 36min for 180k steps
 
    Todo list
-   - change the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG, LAST_STEPS
    - find best Fmax among 1 to 10. Fmax over 10 is no good
    - Get last steps working
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
-   - continuous force (real domain) from discrete -10/10
 */
 /*********************************************************************************
     This file contains a simulation of the cart and pole dynamic system and 
@@ -37,7 +37,8 @@
 //#include "xg.h"
 #include <math.h>
 #include <sys/types.h>
-#include <sys/timeb.h>
+//#include <sys/timeb.h>
+#include <time.h>
 #include <stdlib.h>
 
 //#define DEBUG 		0
@@ -122,9 +123,12 @@ main(argc,argv)
   //if(balanced && test_flag) {
   if(test_flag) {
     int trials, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0, maxSteps = 0;
+    time_t start, stop, istart, istop;
     printf("TEST_RUNS = %d\n", TEST_RUNS);
     for(i = 0; i < TEST_RUNS; i ++) {
       printf("------------- Test Run %d -------------\n", i + 1);
+      //tic
+      time(&start);
       init_args(argc,argv);
       trials = Run(atoi(argv[2]), atoi(argv[3]));
       sumTrials += trials;
@@ -132,6 +136,9 @@ main(argc,argv)
       if(trials < minTrials) minTrials = trials;
       if(trials <= 100) success ++;
       //if(trials == 1) success ++;
+      // toc
+      time(&stop);
+      printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
     }
     printf("\n=============== SUMMARY ===============\n");
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
@@ -152,7 +159,7 @@ main(argc,argv)
 void init_args(int argc, char *argv[])
 {
   int runtimes;
-  time_t tloc, time();
+  //time_t tloc, time();
   struct timeval current;
 
   gettimeofday(&current, NULL);
@@ -173,14 +180,15 @@ weight-file(or - to init randomly) b bh r rh\n",
     SetRandomWeights(); test_flag = 0;
   }
   if (argc > 5)
-    Beta = atof(argv[5]);
+    TEST_RUNS = atof(argv[5]);
   if (argc > 6)
-    Beta_h = atof(argv[6]);
+    TARGET_STEPS = atof(argv[6]);
   if (argc > 7)
-    Rho = atof(argv[7]);
+    DEBUG = atof(argv[7]);
+/*
   if (argc > 8)
     Rho_h = atof(argv[8]);
-
+*/
 }
 
 SetRandomWeights()
