@@ -1,6 +1,7 @@
 /* 
-   v0.2.5 - 2/12/2015
+   v0.1.0 - 2/12/2015
    Changelog
+   - td-backprop code for evaluation network combined: multiple outputs
    - tau added
    - changed the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG
    - tic-toc elapsed time
@@ -101,8 +102,9 @@ struct
 } the_system_state;
 
 int start_state, failure;
-double a[5][5], b[5], c[5], d[5][5], e[5], f[5]; 
-double x[5], x_old[5], y[5], y_old[5], /*v, v_old,*/ z[5], p;
+double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2]; 
+double x[5], x_old[5], y[5], y_old[5], v[2], v_old[2], z[5], p[2];
+float  wih[MAX_UNITS][MAX_UNITS]; /* weights I-H or x-h */
 double r_hat[2], push, unusualness; 
 int test_flag = 0, total_count = 0;
 
@@ -212,8 +214,10 @@ SetRandomWeights()
 	}
       b[i] = randomdef * 0.2 - 0.1;
       c[i] = randomdef * 0.2 - 0.1;
-      e[i] = randomdef * 0.2 - 0.1;
-      f[i] = randomdef * 0.2 - 0.1;
+      for(j = 0; j < 2; j++) {
+        e[i][j] = randomdef * 0.2 - 0.1;
+        f[i][j] = randomdef * 0.2 - 0.1;
+      }
     }
 }
 
@@ -301,8 +305,8 @@ int Run(num_trials, sample_period)
   //while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
-      //Cycle(1, j);
-   //   tdbp();
+      Cycle(1, j);
+      //tdbp();
       if (DEBUG && j % 1000 == 0)
         printf("Episode %d step %d rhat %.4f\n", i, j, r_hat);
       j++;
@@ -363,7 +367,8 @@ Cycle(learn_flag, step)
   float state[4];
 
   /* output: state evaluation */
-  for(i = 0; i < 5; i++)
+  Response();
+ /* for(i = 0; i < 5; i++)
     {
       sum = 0.0;
       for(j = 0; j < 5; j++)
@@ -378,7 +383,7 @@ Cycle(learn_flag, step)
       sum += b[i] * x[i] + c[i] * y[i];
     }
   //v = sum;
-
+*/
   /* output: action */
   for(i = 0; i < 5; i++)
     {
@@ -387,13 +392,15 @@ Cycle(learn_flag, step)
 	sum += d[i][j] * x[j];
       z[i] = 1.0 / (1.0 + exp(-sum));
     }
-  sum = 0.0;
-  for(i = 0; i < 5; i++)
-    sum += e[i] * x[i] + f[i] * z[i];
-  p = 1.0 / (1.0 + exp(-sum));
+  for (j = 0; j < 2; j++) {
+    sum = 0.0;
+    for(i = 0; i < 5; i++)
+      sum += e[i][j] * x[i] + f[i][j] * z[i];
+    p[j] = 1.0 / (1.0 + exp(-sum));
+  }
 
   double q; 
-  push = (randomdef <= p) ? 1.0 : -1.0;
+  //push = (randomdef <= p) ? 1.0 : -1.0;
   //push = (randomdef <= p) ? 10.0 : -10.0;
   //push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? 0: -10.0);
   //push = (0.67 <= p) ? 1.0 : ((0.33 <= p) ? -1.0:0);
@@ -408,7 +415,7 @@ Cycle(learn_flag, step)
 */
 //  unusualness = q - p;
   //unusualness = (push > 0) ? 1.0 - p : ((push < 0) ? 0.5-p : -p);
-  unusualness = (push > 0) ? 1.0 - p : -p;
+  //unusualness = (push > 0) ? 1.0 - p : -p;
 
   sum = 0.0;
   //for(i = 0; i < (step > 100 ? 100 : step) ; i++) {
@@ -450,15 +457,15 @@ Cycle(learn_flag, step)
  // v = sum;
 
   /* action evaluation */
-/*
+  for(i = 0; i < 2; i++) {
   if (start_state)
-    r_hat = 0.0;
+    r_hat[i] = 0.0;
   else
     if (failure)
-      r_hat = failure - v_old;
+      r_hat[i] = failure - v_old[i];
     else
-      r_hat = failure + Gamma * v - v_old;
-*/
+      r_hat[i] = failure + Gamma * v[i] - v_old[i];
+  }
   /* modification */
   if (learn_flag)
     {
@@ -481,11 +488,13 @@ void updateweights() {
 	      a[i][j] += factor1 * x_old[j];
 	      d[i][j] += factor2 * x_old[j];
 	    }
-	  b[i] += Beta * r_hat * x_old[i];
-	  c[i] += Beta * r_hat * y_old[i];
-	  e[i] += Rho * r_hat * unusualness * x_old[i];
-	  f[i] += Rho * r_hat * unusualness * z[i];
-*/	}
+*/	  //b[i] += Beta * r_hat * x_old[i];
+	  //c[i] += Beta * r_hat * y_old[i];
+	  for(j = 0; j < 2; j++) {
+	    e[i][j] += Rho * r_hat[j] * unusualness * x_old[i];
+	    f[i][j] += Rho * r_hat[j] * unusualness * z[i];
+  	  }
+	}
     }
 
 /**********************************************************************/
@@ -703,7 +712,7 @@ float  BIAS;   /* strength of the bias (constant input) contribution */
 float  h[MAX_UNITS]; /* hidden layer */
 //float  y[MAX_UNITS]; /* output layer */
 float  w[MAX_UNITS][MAX_UNITS]; /* weights H-O or h-y */
-float  v[MAX_UNITS][MAX_UNITS]; /* weights I-H or x-h */
+//float  wih[MAX_UNITS][MAX_UNITS]; /* weights I-H or x-h */
 
 /* Learning Data Structure: */
 
@@ -728,6 +737,10 @@ int k;
 //for (t=1;t<=time_steps;t++)  /* a single pass through time series data */
 //  {
    Response();         /* forward pass - compute activities */
+
+  /* Apply the push to the pole-cart */
+  NextState(0, push);
+
    for (k=0;k<m;k++)
      error[k] = r[k] + GAMMA*y[k] - old_y[k]; /* form errors */
    TDlearn();          /* backward pass - learning */
@@ -765,7 +778,7 @@ for (j=0;j<num_hidden;j++)
   //for (i=0;i<=n;i++)
   for (i=0;i<n;i++)
     {
-    v[i][j]= randomdef * 0.2 - 0.1; //some small random value
+    wih[i][j]= randomdef * 0.2 - 0.1; //some small random value
     for (k=0;k<m;k++)
       {
       ev[i][j][k]=0.0;
@@ -780,9 +793,7 @@ for (j=0;j<num_hidden;j++)
  * Compute hidden layer and output predictions
  *
  *****/
-
 Response(void)
-
 {
 int i,j,k;
 
@@ -794,7 +805,7 @@ for (j=0;j<num_hidden;j++)
   h[j]=0.0;
   for (i=0;i<=n;i++)
     {
-    h[j]+=x[i]*v[i][j];
+    h[j]+=x[i]*wih[i][j];
     }
   h[j]=1.0/(1.0+exp(-h[j])); /* asymmetric sigmoid */
   }
@@ -827,7 +838,7 @@ for (k=0;k<m;k++)
     {
     w[j][k]+=BETA*error[k]*ew[j][k];
     for (i=0;i<=n;i++)
-      v[i][j]+=ALPHA*error[k]*ev[i][j][k];
+      wih[i][j]+=ALPHA*error[k]*ev[i][j][k];
     }
   }
 }/* end TDlearn */
