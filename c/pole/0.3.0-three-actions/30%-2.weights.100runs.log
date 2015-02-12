@@ -1,0 +1,211 @@
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+ 
+TESTING USING THE TRAINED WEIGHTS
+Read weights from latest.weights
+balanced 0 test_flag 1
+TEST_TRIALS = 100
+------------- Test Run 1 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 2 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 3 -------------
+Final trial 17 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 4 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 5 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 6 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 7 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 8 -------------
+Final trial 17 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 9 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 10 -------------
+Final trial 9 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 11 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 12 -------------
+Final trial 19 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 13 -------------
+Final trial 11 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 14 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 15 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 16 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 17 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 18 -------------
+Final trial 7 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 19 -------------
+Final trial 10 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 20 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 21 -------------
+Final trial 19 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 22 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 23 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 24 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 25 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 26 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 27 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 28 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 29 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 30 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 31 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 32 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 33 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 34 -------------
+Final trial 9 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 35 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 36 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 37 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 38 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 39 -------------
+Final trial 37 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 40 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 41 -------------
+Final trial 10 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 42 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 43 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 44 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 45 -------------
+Final trial 13 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 46 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 47 -------------
+Final trial 34 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 48 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 49 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 50 -------------
+Final trial 42 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 51 -------------
+Final trial 22 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 52 -------------
+Final trial 8 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 53 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 54 -------------
+Final trial 7 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 55 -------------
+Final trial 14 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 56 -------------
+Final trial 11 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 57 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 58 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 59 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 60 -------------
+Final trial 27 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 61 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 62 -------------
+Final trial 12 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 63 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 64 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 65 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 66 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 67 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 68 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 69 -------------
+Final trial 14 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 70 -------------
+Final trial 7 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 71 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 72 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 73 -------------
+Final trial 9 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 74 -------------
+Final trial 15 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 75 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 76 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 77 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 78 -------------
+Final trial 5 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 79 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 80 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 81 -------------
+Final trial 9 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 82 -------------
+Final trial 10 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 83 -------------
+Final trial 1 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 84 -------------
+Final trial 15 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 85 -------------
+Final trial 3 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 86 -------------
+Final trial 23 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 87 -------------
+Final trial 8 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 88 -------------
+Final trial 4 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 89 -------------
+Final trial 7 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 90 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 91 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 92 -------------
+Final trial 16 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 93 -------------
+Final trial 7 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 94 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 95 -------------
+Final trial 12 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 96 -------------
+Final trial 23 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 97 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 98 -------------
+Final trial 28 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 99 -------------
+Final trial 6 balanced for 180000 steps (1.000000 hours).
+------------- Test Run 100 -------------
+Final trial 2 balanced for 180000 steps (1.000000 hours).
+
+=============== SUMMARY ===============
+Trials: 14.00% (14/100) avg 7 max 42 min 1
+59.231u 0.024s 0:59.28 99.9%	0+0k 0+24io 0pf+0w
