@@ -4,7 +4,7 @@
 
 echo " "
 echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
-#time ./demo n 10000 100 - 0.1 0.05 2 0.5
+time ./demo n 10000 100 - 0.1 0.05 2 0.5
 #time ./demo n 100000 100 - 0.1 0.05 2 0.5
 
 echo " "
