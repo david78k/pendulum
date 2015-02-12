@@ -1,0 +1,31 @@
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+ 
+TESTING USING THE TRAINED WEIGHTS
+Read weights from latest.weights
+balanced 0 test_flag 1
+TEST_RUNS = 10
+------------- Test Run 1 -------------
+Trial 16 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 2 -------------
+Trial 30 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 3 -------------
+Trial 12 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 4 -------------
+Trial 8 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 5 -------------
+Trial 20 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 6 -------------
+Trial 0 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 7 -------------
+Trial 8 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 8 -------------
+Trial 45 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 9 -------------
+Trial 53 balanced for 50000 steps (0.277778 hours).
+------------- Test Run 10 -------------
+Trial 39 balanced for 50000 steps (0.277778 hours).
+
+=============== SUMMARY ===============
+Trials: 100.00% (10/10) avg 24 max 54 min 1
+1009.710u 0.010s 16:49.75 99.9%	0+0k 128+80io 1pf+0w
