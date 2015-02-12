@@ -63,7 +63,12 @@ int Delay = 20000;
 #define max_cart_vel 1.5
 #define max_pole_pos 0.2094
 #define max_pole_vel 2.01
+
 #define Gamma        0.9
+#define ALPHA	     0.2  /* 1st layer learning rate (typically 1/n) */
+#define BETA	     0.2   /* 2nd layer learning rate (typically 1/num_hidden) */
+#define GAMMA 	     0.9  /* discount-rate parameter (typically 0.9) */
+#define LAMBDA	     0.8 /* trace decay parameter (should be <= gamma) */
 float Beta =  0.2;
 float Beta_h = 0.05;
 float Rho = 1.0;
@@ -133,7 +138,6 @@ main(argc,argv)
       printf("------------- Test Run %d -------------\n", i + 1);
       //tic
       time(&start);
-      init_args(argc,argv);
       trials = Run(atoi(argv[2]), atoi(argv[3]));
       sumTrials += trials;
       if(trials > maxTrials) maxTrials = trials;
@@ -143,6 +147,7 @@ main(argc,argv)
       // toc
       time(&stop);
       printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
+      init_args(argc,argv);
     }
     printf("\n=============== SUMMARY ===============\n");
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
@@ -181,6 +186,7 @@ weight-file(or - to init randomly) b bh r rh\n",
   if (strcmp(argv[4],"-") != 0) {
     readweights(argv[4]); test_flag = 1;
   } else {
+    InitNetwork();
     SetRandomWeights(); test_flag = 0;
   }
   if (argc > 5)
@@ -295,7 +301,8 @@ int Run(num_trials, sample_period)
   //while (i < num_trials && j < 180000 && total_count < 2000) /* one hour at .02s per step */
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
-      Cycle(1, j);
+      //Cycle(1, j);
+   //   tdbp();
       if (DEBUG && j % 1000 == 0)
         printf("Episode %d step %d rhat %.4f\n", i, j, r_hat);
       j++;
@@ -689,10 +696,6 @@ int    n = 5, num_hidden = 5, m = 2; /* number of inputs, hidden, and output uni
 //int    MAX_UNITS = 5;  /* maximum total number of units (to set array sizes) */
 int    time_steps;  /* number of time steps to simulate */
 float  BIAS;   /* strength of the bias (constant input) contribution */
-//float  ALPHA;  /* 1st layer learning rate (typically 1/n) */
-//float  BETA;   /* 2nd layer learning rate (typically 1/num_hidden) */
-//float  GAMMA;  /* discount-rate parameter (typically 0.9) */
-float  LAMBDA; /* trace decay parameter (should be <= gamma) */
 
 /* Network Data Structure: */
 
@@ -707,23 +710,23 @@ float  v[MAX_UNITS][MAX_UNITS]; /* weights I-H or x-h */
 float  old_y[MAX_UNITS];
 float  ev[MAX_UNITS][MAX_UNITS][MAX_UNITS]; /* hidden trace */
 float  ew[MAX_UNITS][MAX_UNITS]; /* output trace */
-//float  r[time_steps][MAX_UNITS]; /* reward */
+float  r[MAX_UNITS]; /* reward */
 float  error[MAX_UNITS];  /* TD error */
 //int    t;  /* current time step */
 
 tdbp()
 {
 int k;
-InitNetwork();
+//InitNetwork();
 
-t=0;                   /* No learning on time step 0 */
-Response();            /* Just compute old response (old_y)...*/
-for (k=0;k<m;k++)
-   old_y[k] = y[k];
-UpdateElig();          /* ...and prepare the eligibilities */
+//t=0;                   /* No learning on time step 0 */
+//Response();            /* Just compute old response (old_y)...*/
+//for (k=0;k<m;k++)
+//   old_y[k] = y[k];
+//UpdateElig();          /* ...and prepare the eligibilities */
 
 //for (t=1;t<=time_steps;t++)  /* a single pass through time series data */
-  {
+//  {
    Response();         /* forward pass - compute activities */
    for (k=0;k<m;k++)
      error[k] = r[k] + GAMMA*y[k] - old_y[k]; /* form errors */
@@ -747,20 +750,22 @@ InitNetwork(void)
 {
 int s,j,k,i;
 
-for (s=0;s<time_steps;s++)
-  x[s][n]=BIAS;
-h[num_hidden]=BIAS;
-for (j=0;j<=num_hidden;j++)
+//for (s=0;s<time_steps;s++)
+//  x[s][n]=BIAS;
+//h[num_hidden]=BIAS;
+//for (j=0;j<=num_hidden;j++)
+for (j=0;j<num_hidden;j++)
   {
   for (k=0;k<m;k++)
     {
-    w[j][k]= some small random value
-    ew[i][k]=0.0;
+    w[j][k]= randomdef * 0.2 - 0.1; // some small random value
+    ew[j][k]=0.0;
     old_y[k]=0.0;
     }
-  for (i=0;i<=n;i++)
+  //for (i=0;i<=n;i++)
+  for (i=0;i<n;i++)
     {
-    v[i][j]= some small random value
+    v[i][j]= randomdef * 0.2 - 0.1; //some small random value
     for (k=0;k<m;k++)
       {
       ev[i][j][k]=0.0;
@@ -781,15 +786,15 @@ Response(void)
 {
 int i,j,k;
 
-h[num_hidden]=BIAS;
-x[t][n]=BIAS;
+//h[num_hidden]=BIAS;
+//x[t][n]=BIAS;
 
 for (j=0;j<num_hidden;j++)
   {
   h[j]=0.0;
   for (i=0;i<=n;i++)
     {
-    h[j]+=x[t][i]*v[i][j];
+    h[j]+=x[i]*v[i][j];
     }
   h[j]=1.0/(1.0+exp(-h[j])); /* asymmetric sigmoid */
   }
@@ -850,7 +855,7 @@ for (j=0;j<=num_hidden;j++)
     ew[j][k]=LAMBDA*ew[j][k]+temp[k]*h[j];
     for (i=0;i<=n;i++)
       {
-      ev[i][j][k]=LAMBDA*ev[i][j][k]+temp[k]*w[j][k]*h[j]*(1-h[j])*x[t][i];
+      ev[i][j][k]=LAMBDA*ev[i][j][k]+temp[k]*w[j][k]*h[j]*(1-h[j])*x[i];
       }
     }
   }
