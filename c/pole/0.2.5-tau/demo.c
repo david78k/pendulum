@@ -2,7 +2,7 @@
    v0.2.5 - 2/12/2015
    Changelog
    - tau added
-   - changed the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG, LAST_STEPS
+   - changed the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG
    - tic-toc elapsed time
    - 1output with 2actions(L/R)
    - test runs only when balanced
@@ -12,6 +12,7 @@
    - 494 runs take 2h 36min for 180k steps
 
    Todo list
+   - change the input arguments to take Fmax, LAST_STEPS
    - find best Fmax among 1 to 10. Fmax over 10 is no good
    - Get last steps working
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
@@ -83,7 +84,7 @@ int balanced = 0;
 int DEBUG = 0;
 int TEST_RUNS = 10;
 int TARGET_STEPS = 5000;
-float tau = 1;
+float tau = 1; // 0.5/1.0/2.0 working. 0.1/0.2 not working
 
 struct
 {
