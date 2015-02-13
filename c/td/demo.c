@@ -105,7 +105,7 @@ int start_state, failure;
 double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2]; 
 double x[5], x_old[5], y[5], y_old[5], v[2], v_old[2], z[5], p[2];
 float  wih[MAX_UNITS][MAX_UNITS]; /* weights I-H or x-h */
-double r_hat[2], push, unusualness; 
+double r_hat[2], push, unusualness[2]; 
 int test_flag = 0, total_count = 0;
 
 /*** Prototypes ***/
@@ -367,8 +367,8 @@ Cycle(learn_flag, step)
   float state[4];
 
   /* output: state evaluation */
-  Response();
- /* for(i = 0; i < 5; i++)
+  //Response();
+  for(i = 0; i < 5; i++)
     {
       sum = 0.0;
       for(j = 0; j < 5; j++)
@@ -377,13 +377,15 @@ Cycle(learn_flag, step)
 	}
       y[i] = 1.0 / (1.0 + exp(-sum));
     }
-  sum = 0.0;
-  for(i = 0; i < 5; i++)
+  for (j = 0; j< 2; j++) {
+    sum = 0.0;
+    for(i = 0; i < 5; i++)
     {
       sum += b[i] * x[i] + c[i] * y[i];
     }
-  //v = sum;
-*/
+    v[j] = sum;
+  }
+
   /* output: action */
   for(i = 0; i < 5; i++)
     {
@@ -399,7 +401,28 @@ Cycle(learn_flag, step)
     p[j] = 1.0 / (1.0 + exp(-sum));
   }
 
-  double q; 
+  double q, pp; 
+  int left = 0, right = 0;
+  if(randomdef <= p[0]) {
+    left = 1; 
+    unusualness[0] = 1 - p[0];
+  } else 
+    unusualness[0] = -p[0];
+
+  if(randomdef <= p[1]) { 
+    right = 1;
+    unusualness[1] = 1 - p[1];
+  } else 
+    unusualness[1] = -p[1];
+
+  if(left == 1 && right == 0) {
+    push = 1.0; q = 1.0; pp = p[1];
+  } else if (left == 0 && right == 1) {
+    push = -1.0; q = 0.5; pp = p[0];
+  } else { 
+    push = 0; q = 0; pp = 0;
+  }
+
   //push = (randomdef <= p) ? 1.0 : -1.0;
   //push = (randomdef <= p) ? 10.0 : -10.0;
   //push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? 0: -10.0);
@@ -413,7 +436,7 @@ Cycle(learn_flag, step)
     push = 0; q = 0;
   }
 */
-//  unusualness = q - p;
+  //unusualness = q - pp;
   //unusualness = (push > 0) ? 1.0 - p : ((push < 0) ? 0.5-p : -p);
   //unusualness = (push > 0) ? 1.0 - p : -p;
 
@@ -428,7 +451,8 @@ Cycle(learn_flag, step)
  // push = (push > 0) ? 10.0 : (push < 0 ? -10.0 : 0);
 
   /* preserve current activities in evaluation network. */
-  //v_old = v;
+  for (i = 0; i< 2; i++)
+    v_old[i] = v[i];
 
   for (i = 0; i< 5; i++)
   {
@@ -449,12 +473,14 @@ Cycle(learn_flag, step)
 	}
       y[i] = 1.0 / (1.0 + exp(-sum));
     }
-  sum = 0.0;
-  for(i = 0; i < 5; i++)
+  for (j = 0; j< 2; j++) {
+    sum = 0.0;
+    for(i = 0; i < 5; i++)
     {
       sum += b[i] * x[i] + c[i] * y[i];
     }
- // v = sum;
+    v[j] = sum;
+  }
 
   /* action evaluation */
   for(i = 0; i < 2; i++) {
@@ -479,18 +505,18 @@ void updateweights() {
   double factor1, factor2;
       for(i = 0; i < 5; i++)
 	{
-/*
-	  factor1 = Beta_h * r_hat * y_old[i] * (1.0 - y_old[i]) * sgn(c[i]);
-	  factor2 = Rho_h * r_hat * z[i] * (1.0 - z[i]) * sgn(f[i]) *
+	  for(j = 0; j < 2; j++) {
+	  factor1 = Beta_h * r_hat[0] * y_old[i] * (1.0 - y_old[i]) * sgn(c[i]);
+	  factor2 = Rho_h * r_hat[0] * z[i] * (1.0 - z[i]) * sgn(f[i]) *
 	    unusualness;
 	  for(j = 0; j < 5; j++)
 	    {
 	      a[i][j] += factor1 * x_old[j];
 	      d[i][j] += factor2 * x_old[j];
 	    }
-*/	  //b[i] += Beta * r_hat * x_old[i];
-	  //c[i] += Beta * r_hat * y_old[i];
 	  for(j = 0; j < 2; j++) {
+	    b[i] += Beta * r_hat[j] * x_old[i];
+	    c[i] += Beta * r_hat[j] * y_old[i];
 	    e[i][j] += Rho * r_hat[j] * unusualness * x_old[i];
 	    f[i][j] += Rho * r_hat[j] * unusualness * z[i];
   	  }
