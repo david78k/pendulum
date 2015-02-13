@@ -1,0 +1,12 @@
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+balanced 0 test_flag 0
+Run 1: Trial 10000 not balanced. Max 169 steps (0.000939 hours).
+Run 2: Trial 10000 not balanced. Max 183 steps (0.001017 hours).
+Run 3: Trial 10000 not balanced. Max 159 steps (0.000883 hours).
+Run 4: Trial 7760 balanced for 10000 steps (0.055556 hours).
+Wrote current weights to latest.weights
+Wrote current data to latest.train
+8.012u 5.596s 1:03.55 21.4%	0+0k 0+302120io 0pf+0w
+ 
+TESTING USING THE TRAINED WEIGHTS
