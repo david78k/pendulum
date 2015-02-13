@@ -560,3 +560,88 @@ Wrote current weights to latest.weights
 11736.229u 0.252s 3:16:37.58 99.4%	0+0k 0+432io 0pf+0w
  
 TESTING USING THE TRAINED WEIGHTS
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+ 
+TESTING USING THE TRAINED WEIGHTS
+Read weights from latest.weights
+balanced 0 test_flag 1
+TEST_RUNS = 3
+------------- Test Run 1 -------------
+Trial 100 not balanced. Max 3116 steps (0.017311 hours).
+Elapsed time: 1 seconds
+------------- Test Run 2 -------------
+Trial 100 not balanced. Max 33833 steps (0.187961 hours).
+Elapsed time: 92 seconds
+------------- Test Run 3 -------------
+Trial 100 not balanced. Max 1287 steps (0.007150 hours).
+Elapsed time: 0 seconds
+
+=============== SUMMARY ===============
+Trials: 0.00% (0/3) avg 101 max 101 min 100
+92.837u 0.004s 1:32.85 99.9%	0+0k 0+16io 0pf+0w
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+ 
+TESTING USING THE TRAINED WEIGHTS
+Read weights from latest.weights
+balanced 0 test_flag 1
+TEST_RUNS = 100
+------------- Test Run 1 -------------
+Trial 100 not balanced. Max 38287 steps (0.212706 hours).
+Elapsed time: 157 seconds
+------------- Test Run 2 -------------
+Trial 100 not balanced. Max 7006 steps (0.038922 hours).
+Elapsed time: 3 seconds
+------------- Test Run 3 -------------
+Trial 100 not balanced. Max 29926 steps (0.166256 hours).
+Elapsed time: 112 seconds
+------------- Test Run 4 -------------
+Trial 100 not balanced. Max 493 steps (0.002739 hours).
+Elapsed time: 0 seconds
+------------- Test Run 5 -------------
+Trial 100 not balanced. Max 7785 steps (0.043250 hours).
+Elapsed time: 5 seconds
+------------- Test Run 6 -------------
+Trial 100 not balanced. Max 600 steps (0.003333 hours).
+Elapsed time: 0 seconds
+------------- Test Run 7 -------------
+Trial 100 not balanced. Max 3456 steps (0.019200 hours).
+Elapsed time: 1 seconds
+------------- Test Run 8 -------------
+Trial 100 not balanced. Max 1514 steps (0.008411 hours).
+Elapsed time: 1 seconds
+------------- Test Run 9 -------------
+Trial 100 not balanced. Max 49564 steps (0.275356 hours).
+Elapsed time: 188 seconds
+------------- Test Run 10 -------------
+Trial 100 not balanced. Max 6661 steps (0.037006 hours).
+Elapsed time: 3 seconds
+------------- Test Run 11 -------------
+Trial 100 not balanced. Max 8082 steps (0.044900 hours).
+Elapsed time: 5 seconds
+------------- Test Run 12 -------------
+Trial 100 not balanced. Max 3341 steps (0.018561 hours).
+Elapsed time: 1 seconds
+------------- Test Run 13 -------------
+Trial 100 not balanced. Max 781 steps (0.004339 hours).
+Elapsed time: 0 seconds
+------------- Test Run 14 -------------
+Trial 100 not balanced. Max 479 steps (0.002661 hours).
+Elapsed time: 1 seconds
+------------- Test Run 15 -------------
+Trial 100 not balanced. Max 35607 steps (0.197817 hours).
+Elapsed time: 109 seconds
+------------- Test Run 16 -------------
+Trial 100 not balanced. Max 1059 steps (0.005883 hours).
+Elapsed time: 0 seconds
+------------- Test Run 17 -------------
+Trial 100 not balanced. Max 755 steps (0.004194 hours).
+Elapsed time: 0 seconds
+------------- Test Run 18 -------------
+Trial 100 not balanced. Max 134729 steps (0.748494 hours).
+Elapsed time: 1980 seconds
+------------- Test Run 19 -------------
+Trial 100 not balanced. Max 3751 steps (0.020839 hours).
+Elapsed time: 1 seconds
+------------- Test Run 20 -------------

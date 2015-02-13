@@ -161,11 +161,6 @@ main(argc,argv)
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
 	100.0*success/TEST_RUNS, success, TEST_RUNS, sumTrials/TEST_RUNS, maxTrials, minTrials);
   } else { 
-    if ((datafile = fopen(datafilename,"w")) == NULL) {
-      printf("Couldn't open %s\n",datafilename);
-      return;
-    }
-
     i = 0;
     while(!balanced) {
       printf("Run %d: ", ++i);
@@ -312,6 +307,11 @@ int Run(num_trials, sample_period)
 //    printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
 //        Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
 
+    if ((datafile = fopen(datafilename,"w")) == NULL) {
+      printf("Couldn't open %s\n",datafilename);
+      return;
+    }
+
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
       Cycle(1, j);
@@ -332,7 +332,12 @@ int Run(num_trials, sample_period)
 	    }
 	  NextState(1, 0.0);
    	  max_length = (max_length < j ? j : max_length);
-	  j = 0;
+	  j = 0; lspikes = 0; rspikes = 0;
+  	  fclose(datafile);
+     	  if ((datafile = fopen(datafilename,"w")) == NULL) {
+      	    printf("Couldn't open %s\n",datafilename);
+      	    return;
+          }
 	}
     }
    if(i >= num_trials) {
@@ -349,7 +354,10 @@ int Run(num_trials, sample_period)
   if(!test_flag && balanced) {
     writeweights();
     double tt = j*dt; // total time
-    fprintf(datafile," %f (L:%f R:%f)", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
+    //double tt = j*dt; // total time
+    fprintf(datafile,"%f spikes/sec (L:%f R:%f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
+    fprintf(datafile,"%f spikes/step (L:%f R:%f)\n", ((double)(lspikes + rspikes))/(double)j, lspikes/(double)j, rspikes/(double)j);
+    fprintf(datafile,"%d spikes (L:%d R:%d), j = %d, dt = %.2f\n", (lspikes + rspikes), lspikes, rspikes, j, dt);
   }
   return i + 1;
 }
@@ -496,7 +504,8 @@ Cycle(learn_flag, step)
   }
 
   /* report stats */
-  fprintf(datafile," %d %d %f %f %f %f %f %f %f", left, right, r_hat[0], r_hat[1], 
+  if(step % 100 == 0)
+    fprintf(datafile,"%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left, right, r_hat[0], r_hat[1], 
 			the_system_state.cart_pos, the_system_state.cart_vel,
 			the_system_state.pole_pos, the_system_state.pole_vel, 
  			push);
