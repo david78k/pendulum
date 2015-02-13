@@ -14,8 +14,6 @@ demo.o:	demo.c
 demo:	demo.o 
 	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
 
-default: demo
-
 demo-net.o:	demo-net.c 
 	$(CC) $(CFLAGS) -c demo-net.c $(XLIBS)
 
