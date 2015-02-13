@@ -1,6 +1,8 @@
 /* 
-   v0.1.0 - 2/12/2015
+   v0.5.0 - 2/12/2015
    Changelog
+   - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
+   - two outputs for both networks
    - td-backprop code for evaluation network combined: multiple outputs
    - tau added
    - changed the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG
@@ -16,7 +18,6 @@
    - change the input arguments to take Fmax, LAST_STEPS
    - find best Fmax among 1 to 10. Fmax over 10 is no good
    - Get last steps working
-   - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
 */
 /*********************************************************************************
     This file contains a simulation of the cart and pole dynamic system and 
@@ -401,7 +402,6 @@ Cycle(learn_flag, step)
     p[j] = 1.0 / (1.0 + exp(-sum));
   }
 
-  double q, pp; 
   int left = 0, right = 0;
   if(randomdef <= p[0]) {
     left = 1; 
@@ -416,26 +416,18 @@ Cycle(learn_flag, step)
     unusualness[1] = -p[1];
 
   if(left == 1 && right == 0) {
-    push = 1.0; q = 1.0; pp = p[1];
+    push = 1.0; 
   } else if (left == 0 && right == 1) {
-    push = -1.0; q = 0.5; pp = p[0];
+    push = -1.0; 
   } else { 
-    push = 0; q = 0; pp = 0;
+    push = 0; 
   }
 
   //push = (randomdef <= p) ? 1.0 : -1.0;
   //push = (randomdef <= p) ? 10.0 : -10.0;
   //push = (0.67 <= p) ? 10.0 : ((0.33 <= p) ? 0: -10.0);
   //push = (0.67 <= p) ? 1.0 : ((0.33 <= p) ? -1.0:0);
-/*
-  if(0.6667 <= p) {
-    push = 1.0; q = 1.0;
-  } else if (0.3333 <= p < 0.6667) { 
-    push = -1.0; q = 0.5;
-  } else {
-    push = 0; q = 0;
-  }
-*/
+
   //unusualness = q - pp;
   //unusualness = (push > 0) ? 1.0 - p : ((push < 0) ? 0.5-p : -p);
   //unusualness = (push > 0) ? 1.0 - p : -p;
