@@ -4,6 +4,7 @@
 
    Changelog
    - report stats: firing rates (L/R), rhats (L/R), state (4), force
+     writes the data to a file latest.dat
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
    - two outputs for both networks
    - td-backprop code for evaluation network combined: multiple outputs
@@ -19,8 +20,8 @@
    Todo list
    - continuous force
    - change the input arguments to take Fmax, LAST_STEPS
-   - find best Fmax among 1 to 10. Fmax over 10 is no good
    - Get last steps working
+   - find best Fmax among 1 to 10. Fmax over 10 is no good
 */
 /*********************************************************************************
     This file contains a simulation of the cart and pole dynamic system and 
@@ -91,6 +92,7 @@ int DEBUG = 0;
 int TEST_RUNS = 10;
 int TARGET_STEPS = 5000;
 float tau = 1; // 0.5/1.0/2.0 working. 0.1/0.2 not working
+int rspikes, lspikes;
 
 struct
 {
@@ -104,7 +106,10 @@ int start_state, failure;
 double a[5][5], b[5][2], c[5][2], d[5][5], e[5][2], f[5][2]; 
 double x[5], x_old[5], y[5], y_old[5], v[2], v_old[2], z[5], p[2];
 double r_hat[2], push, unusualness[2]; 
-int test_flag = 0, total_count = 0;
+int test_flag = 0;
+
+char *datafilename = "latest.train"; // latest.test1
+FILE *datafile;
 
 /*** Prototypes ***/
 float scale (float v, float vmin, float vmax, int devmin, int devmax);
@@ -135,6 +140,11 @@ main(argc,argv)
     printf("TEST_RUNS = %d\n", TEST_RUNS);
     for(i = 0; i < TEST_RUNS; i ++) {
       printf("------------- Test Run %d -------------\n", i + 1);
+      //datafilename = "latest.test" + i;
+      if ((datafile = fopen(datafilename,"w")) == NULL) {
+        printf("Couldn't open %s\n",datafilename);
+        return;
+      }
       //tic
       time(&start);
       trials = Run(atoi(argv[2]), atoi(argv[3]));
@@ -151,6 +161,11 @@ main(argc,argv)
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
 	100.0*success/TEST_RUNS, success, TEST_RUNS, sumTrials/TEST_RUNS, maxTrials, minTrials);
   } else { 
+    if ((datafile = fopen(datafilename,"w")) == NULL) {
+      printf("Couldn't open %s\n",datafilename);
+      return;
+    }
+
     i = 0;
     while(!balanced) {
       printf("Run %d: ", ++i);
@@ -158,6 +173,9 @@ main(argc,argv)
       init_args(argc,argv);
     }
   }
+
+  fclose(datafile);
+  printf("Wrote current data to %s\n",datafilename);  
 }
 
 /**********************************************************************
@@ -268,7 +286,7 @@ NextState(init_flag, push)
 }
 
 /****************************************************************/
-
+// Normalize to [0, 1]
 SetInputValues()
 {
   x[0] = (the_system_state.cart_pos + max_cart_pos) / (2 * max_cart_pos);
@@ -284,8 +302,7 @@ int Run(num_trials, sample_period)
  int num_trials, sample_period;
 {
   register int i, j, avg_length, max_length = 0;
-
-  total_count = 0;
+  lspikes = 0; rspikes = 0;
 
   NextState(1, 0.0);
   i = 0;   j = 0;
@@ -329,9 +346,11 @@ int Run(num_trials, sample_period)
      balanced = 1;
    }
 
-  if(!test_flag && balanced)
+  if(!test_flag && balanced) {
     writeweights();
-  
+    double tt = j*dt; // total time
+    fprintf(datafile," %f (L:%f R:%f)", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
+  }
   return i + 1;
 }
 
@@ -392,26 +411,25 @@ Cycle(learn_flag, step)
     p[j] = 1.0 / (1.0 + exp(-sum));
   }
 
-  double q, pp; 
   int left = 0, right = 0;
   if(randomdef <= p[0]) {
-    left = 1; 
+    left = 1; lspikes ++;
     unusualness[0] = 1 - p[0];
   } else 
     unusualness[0] = -p[0];
 
   if(randomdef <= p[1]) { 
-    right = 1;
+    right = 1; rspikes ++;
     unusualness[1] = 1 - p[1];
   } else 
     unusualness[1] = -p[1];
 
   if(left == 1 && right == 0) {
-    push = 1.0; q = 1.0; pp = p[1];
+    push = 1.0; 
   } else if (left == 0 && right == 1) {
-    push = -1.0; q = 0.5; pp = p[0];
+    push = -1.0; 
   } else { 
-    push = 0; q = 0; pp = 0;
+    push = 0; 
   }
 
   //push = (randomdef <= p) ? 1.0 : -1.0;
@@ -431,7 +449,8 @@ Cycle(learn_flag, step)
   }
   push *= sum;
 */
-  push = (push > 0) ? 10.0 : (push < 0 ? -10.0 : 0);
+  push *= 10.0;
+  //push = (push > 0) ? 10.0 : (push < 0 ? -10.0 : 0);
 
   /* preserve current activities in evaluation network. */
   for (i = 0; i< 2; i++)
@@ -467,14 +486,21 @@ Cycle(learn_flag, step)
 
   /* action evaluation */
   for(i = 0; i < 2; i++) {
-  if (start_state)
-    r_hat[i] = 0.0;
-  else
-    if (failure)
-      r_hat[i] = failure - v_old[i];
+    if (start_state)
+      r_hat[i] = 0.0;
     else
-      r_hat[i] = failure + Gamma * v[i] - v_old[i];
+      if (failure)
+        r_hat[i] = failure - v_old[i];
+      else
+        r_hat[i] = failure + Gamma * v[i] - v_old[i];
   }
+
+  /* report stats */
+  fprintf(datafile," %d %d %f %f %f %f %f %f %f", left, right, r_hat[0], r_hat[1], 
+			the_system_state.cart_pos, the_system_state.cart_vel,
+			the_system_state.pole_pos, the_system_state.pole_vel, 
+ 			push);
+
   /* modification */
   if (learn_flag)
 	updateweights();
