@@ -102,7 +102,7 @@ struct
 } the_system_state;
 
 int start_state, failure;
-double a[5][5], b[5], c[5], d[5][5], e[5][2], f[5][2]; 
+double a[5][5], b[5][2], c[5][2], d[5][5], e[5][2], f[5][2]; 
 double x[5], x_old[5], y[5], y_old[5], v[2], v_old[2], z[5], p[2];
 float  wih[MAX_UNITS][MAX_UNITS]; /* weights I-H or x-h */
 double r_hat[2], push, unusualness[2]; 
@@ -212,9 +212,9 @@ SetRandomWeights()
 	  a[i][j] = randomdef * 0.2 - 0.1;
 	  d[i][j] = randomdef * 0.2 - 0.1;
 	}
-      b[i] = randomdef * 0.2 - 0.1;
-      c[i] = randomdef * 0.2 - 0.1;
       for(j = 0; j < 2; j++) {
+        b[i][j] = randomdef * 0.2 - 0.1;
+        c[i][j] = randomdef * 0.2 - 0.1;
         e[i][j] = randomdef * 0.2 - 0.1;
         f[i][j] = randomdef * 0.2 - 0.1;
       }
@@ -381,7 +381,7 @@ Cycle(learn_flag, step)
     sum = 0.0;
     for(i = 0; i < 5; i++)
     {
-      sum += b[i] * x[i] + c[i] * y[i];
+      sum += b[i][j] * x[i] + c[i][j] * y[i];
     }
     v[j] = sum;
   }
@@ -477,7 +477,7 @@ Cycle(learn_flag, step)
     sum = 0.0;
     for(i = 0; i < 5; i++)
     {
-      sum += b[i] * x[i] + c[i] * y[i];
+      sum += b[i][j] * x[i] + c[i][j] * y[i];
     }
     v[j] = sum;
   }
@@ -501,24 +501,24 @@ Cycle(learn_flag, step)
 
 /**********************************************************************/
 void updateweights() {
-  int i, j;
+  int i, j, k;
   double factor1, factor2;
       for(i = 0; i < 5; i++)
 	{
-	  for(j = 0; j < 2; j++) {
-	  factor1 = Beta_h * r_hat[0] * y_old[i] * (1.0 - y_old[i]) * sgn(c[i]);
-	  factor2 = Rho_h * r_hat[0] * z[i] * (1.0 - z[i]) * sgn(f[i]) *
-	    unusualness;
 	  for(j = 0; j < 5; j++)
 	    {
+	      for(k = 0; k < 2; k++) {
+   	        factor1 = Beta_h * r_hat[k] * y_old[i] * (1.0 - y_old[i]) * sgn(c[i]);
+	        factor2 = Rho_h * r_hat[k] * z[i] * (1.0 - z[i]) * sgn(f[i]) * unusualness[k];
 	      a[i][j] += factor1 * x_old[j];
 	      d[i][j] += factor2 * x_old[j];
+              }
 	    }
 	  for(j = 0; j < 2; j++) {
-	    b[i] += Beta * r_hat[j] * x_old[i];
-	    c[i] += Beta * r_hat[j] * y_old[i];
-	    e[i][j] += Rho * r_hat[j] * unusualness * x_old[i];
-	    f[i][j] += Rho * r_hat[j] * unusualness * z[i];
+	    b[i][j] += Beta * r_hat[j] * x_old[i];
+	    c[i][j] += Beta * r_hat[j] * y_old[i];
+	    e[i][j] += Rho * r_hat[j] * unusualness[j] * x_old[i];
+	    f[i][j] += Rho * r_hat[j] * unusualness[j] * z[i];
   	  }
 	}
     }
@@ -541,10 +541,12 @@ char *filename;
 	  fscanf(file,"%lf",&a[i][j]);
 
   for(i = 0; i < 5; i++)
-    fscanf(file,"%lf",&b[i]);
+      for(j = 0; j < 2; j++)
+        fscanf(file,"%lf",&b[i][j]);
 
   for(i = 0; i < 5; i++)
-    fscanf(file,"%lf",&c[i]);
+      for(j = 0; j < 2; j++)
+        fscanf(file,"%lf",&c[i][j]);
 
 
   for(i = 0; i < 5; i++)
@@ -552,10 +554,12 @@ char *filename;
 	  fscanf(file,"%lf",&d[i][j]);
 
   for(i = 0; i < 5; i++)
-    fscanf(file,"%lf",&e[i]);
+      for(j = 0; j < 2; j++)
+        fscanf(file,"%lf",&e[i][j]);
 
   for(i = 0; i < 5; i++)
-    fscanf(file,"%lf",&f[i]);
+      for(j = 0; j < 2; j++)
+       fscanf(file,"%lf",&f[i][j]);
 
   fclose(file);
 
@@ -582,12 +586,14 @@ void writeweights()
   fprintf(file, "\n");
 
   for(i = 0; i < 5; i++)
-    fprintf(file," %f",b[i]);
+      for(j = 0; j < 2; j++)
+       fprintf(file," %f",b[i][j]);
 
   fprintf(file, "\n");
 
   for(i = 0; i < 5; i++)
-    fprintf(file," %f",c[i]);
+      for(j = 0; j < 2; j++)
+        fprintf(file," %f",c[i][j]);
 
   fprintf(file, "\n");
 
@@ -598,12 +604,14 @@ void writeweights()
   fprintf(file, "\n");
 
   for(i = 0; i < 5; i++)
-    fprintf(file," %f",e[i]);
+      for(j = 0; j < 2; j++)
+        fprintf(file," %f",e[i][j]);
 
   fprintf(file, "\n");
 
   for(i = 0; i < 5; i++)
-    fprintf(file," %f",f[i]);
+      for(j = 0; j < 2; j++)
+       fprintf(file," %f",f[i][j]);
 
   fclose(file);
 
