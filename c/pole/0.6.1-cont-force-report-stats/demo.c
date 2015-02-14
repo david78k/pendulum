@@ -56,21 +56,22 @@
 int Graphics = 0;
 int Delay = 20000;
 
-#define Mc           1.0
-#define Mp           0.1
-#define l            0.5
-#define g            9.8
-#define dt          0.02
-#define max_cart_pos 2.4
+#define Mc           1.0	// cart mass
+#define Mp           0.1	// pole mass
+#define l            0.5	// pole half length
+#define g            9.8 
+//#define dt          0.001	// 1ms step size. 3.6M steps 
+#define dt          0.02	// 20ms step size. 180k steps
+#define max_cart_pos 2.4	
 #define max_cart_vel 1.5
 #define max_pole_pos 0.2094
 #define max_pole_vel 2.01
 
 #define Gamma        0.9
-#define ALPHA	     0.2  /* 1st layer learning rate (typically 1/n) */
-#define BETA	     0.2   /* 2nd layer learning rate (typically 1/num_hidden) */
-#define GAMMA 	     0.9  /* discount-rate parameter (typically 0.9) */
-#define LAMBDA	     0.8 /* trace decay parameter (should be <= gamma) */
+#define ALPHA	     0.2 	/* 1st layer learning rate (typically 1/n) */
+#define BETA	     0.2   	/* 2nd layer learning rate (typically 1/num_hidden) */
+#define GAMMA 	     0.9  	/* discount-rate parameter (typically 0.9) */
+#define LAMBDA	     0.8 	/* trace decay parameter (should be <= gamma) */
 float Beta =  0.2;
 float Beta_h = 0.05;
 float Rho = 1.0;
@@ -80,19 +81,12 @@ float LR_HO = 0.07;
 
 float state[4] = {0.0, 0.0, 0.0, 0.0};
 
-float cart_mass = 1.;
-float pole_mass = 0.1;
-float pole_half_length = 0.5;
-float force_mag = 10.;
-float fric_cart = 0.0005;
-float fric_pole = 0.000002;
-int not_first = 0;
-int trial_length = 0;
+float Fm = 1000.;		// max force magnitude. 1000 not working
 int balanced = 0;
-int DEBUG = 0;
+int DEBUG = 0; 			// 0: no, 1: light, 2: heavy
 int TEST_RUNS = 10;
 int TARGET_STEPS = 5000;
-float tau = 1; // 0.5/1.0/2.0 working. 0.1/0.2 not working
+float tau = 0.02; // 0.5/1.0/2.0 working. 0.1/0.2 not working
 int rspikes, lspikes;
 
 struct
@@ -308,16 +302,16 @@ int Run(num_trials, sample_period)
 //    printf(" B= %g Bh= %g R= %g Rh= %g nt= %d bin= %d\n",
 //        Beta,Beta_h,Rho,Rho_h,num_trials,sample_period);
 
-    if ((datafile = fopen(datafilename,"w")) == NULL) {
-      printf("Couldn't open %s\n",datafilename);
-      return;
-    }
+  if ((datafile = fopen(datafilename,"w")) == NULL) {
+    printf("Couldn't open %s\n",datafilename);
+    return;
+  }
+  setbuf(datafile, NULL);
 
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
       Cycle(1, j);
-      //tdbp();
-      if (DEBUG && j % 1000 == 0)
+      if ((DEBUG == 2) && (j % 1000 == 0))
         printf("Episode %d step %d rhat %.4f\n", i, j, r_hat);
       j++;
 
@@ -355,7 +349,6 @@ int Run(num_trials, sample_period)
   if(!test_flag && balanced) {
     writeweights();
     double tt = j*dt; // total time
-    //double tt = j*dt; // total time
     fprintf(datafile,"%f spikes/sec (L:%f R:%f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
     fprintf(datafile,"%f spikes/step (L:%f R:%f)\n", ((double)(lspikes + rspikes))/(double)j, lspikes/(double)j, rspikes/(double)j);
     fprintf(datafile,"%d spikes (L:%d R:%d), j = %d, dt = %.2f\n", (lspikes + rspikes), lspikes, rspikes, j, dt);
@@ -453,7 +446,8 @@ Cycle(learn_flag, step)
   }
   //push *= sum;
   //push = sum;
-  push = 7.0*sum;
+  push = Fm*sum;
+  if (DEBUG) printf("step %d L %d R %d push %f\n", step, left, right, push);
 
   //push *= 100.0; //  < 50 runs for 10k
   //push *= 75.0; // < 20 runs for 10k, 120 runs for 50k
