@@ -440,7 +440,6 @@ Cycle(learn_flag, step)
   } else { 
     push = 0; 
   }
-/*
   pushes[step] = push;
 
   sum = 0.0;
@@ -454,11 +453,11 @@ Cycle(learn_flag, step)
   }
   //push *= sum;
   //push = sum;
-  push = 100.0*sum;
-*/
+  push = 7.0*sum;
+
   //push *= 100.0; //  < 50 runs for 10k
   //push *= 75.0; // < 20 runs for 10k, 120 runs for 50k
-  push *= 50.0; // good, fast < 20 runs for 50k
+  //push *= 50.0; // good, fast < 20 runs for 50k
   //push *= 25.0; // < 50 runs for 10k
   //push *= 10.0; // no good, slow < 100 runs for 10k
 
