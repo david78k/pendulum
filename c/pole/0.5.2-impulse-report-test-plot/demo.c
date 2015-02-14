@@ -6,7 +6,7 @@
    - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
    - plot: gnuplot, matplotlib
    - test log files: 180k-r1.test
-   - higher force: 10 -> 49.9983 same as cont force
+   - higher force: 10 -> 50 same as cont force. 50 is the best
    - report stats: firing rates (L/R), rhats (L/R), state (4), force
      writes the data to a file latest.dat
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
@@ -59,7 +59,7 @@
 int Graphics = 0;
 int Delay = 20000;
 
-#define Fm	     49.9983	// magnitude of force
+#define Fm	     50	// magnitude of force. 50 best, 25-100 good, 10 too slow
 #define Mc           1.0
 #define Mp           0.1
 #define l            0.5
