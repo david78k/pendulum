@@ -3,6 +3,9 @@
    Continuous force version
 
    Changelog
+   - bug found: pushes[step] was missing in integrating force 
+     not working after fix
+   - last 400 steps for force: 300(fast)-500(more accurate)
    - report stats: firing rates (L/R), rhats (L/R), state (4), force
      writes the data to a file latest.dat
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
@@ -19,7 +22,6 @@
 
    Todo list
    - change the input arguments to take Fmax, LAST_STEPS
-   - Get last steps working
    - find best Fmax among 1 to 10. Fmax over 10 is no good
 */
 /*********************************************************************************
@@ -103,7 +105,7 @@ struct
 
 int start_state, failure;
 double a[5][5], b[5][2], c[5][2], d[5][5], e[5][2], f[5][2]; 
-double x[5], x_old[5], y[5], y_old[5], v[2], v_old[2], z[5], p[2];
+double x[5], x_old[5], y[5], y_old[5], v[2], v_old[2], z[5], p[2], pushes[180000];
 double r_hat[2], push, unusualness[2]; 
 int test_flag = 0;
 
@@ -438,14 +440,20 @@ Cycle(learn_flag, step)
   } else { 
     push = 0; 
   }
+  pushes[step] = push;
 
   sum = 0.0;
-  //for(i = 0; i < (step > 100 ? 100 : step) ; i++) {
-  for(i = 0; i < step; i++) {
-    t = (step - i) * dt;
-    sum += t * exp(-t/tau);
+  int upto = (step > 400 ? 400 : step);
+  for(i = 1; i < upto ; i++) {
+  //for(i = 0; i < step; i++) {
+    //t = (step - i) * dt;
+    t = i * dt;
+    //sum += t * exp(-t/tau);
+    sum += pushes[step - i] * t * exp(-t/tau);
   }
-  push *= sum;
+  //push *= sum;
+  push = sum;
+  //push = 2.0*sum;
 
   /* preserve current activities in evaluation network. */
   for (i = 0; i< 2; i++)
