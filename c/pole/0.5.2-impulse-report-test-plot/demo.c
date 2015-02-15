@@ -3,7 +3,7 @@
    Impulse (discrete force) version
 
    Changelog
-   - changed the input arguments to take Fm, dt, tau, and LAST_STEPS?
+   - changed the input arguments to take fm, dt, tau, and LAST_STEPS?
    - higher force: 10 -> 50 same as cont force. 50 is the best
    - report stats: firing rates (L/R), rhats (L/R), state (4), force
      writes the data to a file latest.dat
@@ -13,11 +13,13 @@
    - 494 runs take 2h 36min for 180k steps
 
    Todo list
+   - measure test firing rates
+   - change the input arguments to take fmax, LAST_STEPS: maybe config file?
+   - add spike error function
    - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
    - plot: gnuplot, matplotlib
    - test log files: 180k-r1.test
    - continuous force
-   - change the input arguments to take Fmax, LAST_STEPS
 */
 /*********************************************************************************
     This file contains a simulation of the cart and pole dynamic system and 
@@ -51,12 +53,12 @@
 int Graphics = 0;
 int Delay = 20000;
 
-#define Fm	     50	// magnitude of force. 50 best, 25-100 good, 10 too slow
-#define Mc           1.0
-#define Mp           0.1
-#define l            0.5
-#define g            9.8
-#define dt          0.02
+//#define fm	     50		// magnitude of force. 50 best, 25-100 good, 10 too slow
+#define Mc           1.0 	// cart mass
+#define Mp           0.1	// pole mass
+#define l            0.5	// pole half length
+#define g            9.8	
+//#define dt          0.02	// 20ms step size
 #define max_cart_pos 2.4
 #define max_cart_vel 1.5
 #define max_pole_pos 0.2094
@@ -73,17 +75,10 @@ float Rho = 1.0;
 float Rho_h = 0.2;
 float LR_IH = 0.7;
 float LR_HO = 0.07;
-
 float state[4] = {0.0, 0.0, 0.0, 0.0};
 
-float cart_mass = 1.;
-float pole_mass = 0.1;
-float pole_half_length = 0.5;
-float force_mag = 10.;
-float fric_cart = 0.0005;
-float fric_pole = 0.000002;
-int not_first = 0;
-int trial_length = 0;
+float fm = 50;
+float dt = 0.02;
 int balanced = 0;
 int DEBUG = 0;
 int TEST_RUNS = 10;
@@ -126,11 +121,15 @@ main(argc,argv)
 
   setbuf(stdout, NULL);
 
+  // [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [debug] [max_trial] [sample_period] [weights]
+  //  1		2		3	4    5     6	7	8		9		10
   init_args(argc,argv);
 
   printf("balanced %d test_flag %d\n", balanced, test_flag);
 
   int i = 0;
+  int num_trials = atoi(argv[8]);
+  int sample_period = atoi(argv[9]);
   if(test_flag) {
     int trials, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0, maxSteps = 0;
     time_t start, stop, istart, istop;
@@ -144,7 +143,7 @@ main(argc,argv)
       }
       //tic
       time(&start);
-      trials = Run(atoi(argv[2]), atoi(argv[3]));
+      trials = Run(num_trials, sample_period); // max_trial, sample_period
       sumTrials += trials;
       if(trials > maxTrials) maxTrials = trials;
       if(trials < minTrials) minTrials = trials;
@@ -160,8 +159,9 @@ main(argc,argv)
   } else { 
     i = 0;
     while(!balanced) {
-      printf("Run %d: ", ++i);
-      Run(atoi(argv[2]), atoi(argv[3]));
+      printf("------------- Run %d -------------\n", ++i);
+      //printf("Run %d: ", ++i);
+      Run(num_trials, sample_period);
       init_args(argc,argv);
     }
   }
@@ -180,28 +180,33 @@ void init_args(int argc, char *argv[])
   struct timeval current;
 
   gettimeofday(&current, NULL);
+  srandom(current.tv_usec);
 /*
   printf("Usage: %s g(raphics) num-trials trials-per-output \
 weight-file(or - to init randomly) b bh r rh\n",
 	 argv[0]);
 */
-  srandom(current.tv_usec);
-
+  // [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [debug] [max_trial] [sample_period] [weights]
+  //  1		2		3	4    5     6	7	8		9		10
   if (argc < 5)
     exit(-1);
-  if (strcmp(argv[4],"-") != 0) {
-    readweights(argv[4]); test_flag = 1;
+  if (argc > 2)
+    TARGET_STEPS = atoi(argv[2]);
+  if (argc > 3)
+    TEST_RUNS = atoi(argv[3]);
+  if (argc > 6) 
+    tau = atof(argv[6]);
+  fm = atof(argv[4]); 
+  dt = atof(argv[5]);
+  if (argc > 7)
+    DEBUG = atoi(argv[7]);
+  if (strcmp(argv[10],"-") != 0) {
+    readweights(argv[10]); test_flag = 1;
   } else {
     SetRandomWeights(); test_flag = 0;
   }
-  if (argc > 5)
-    TEST_RUNS = atof(argv[5]);
-  if (argc > 6)
-    TARGET_STEPS = atof(argv[6]);
-  if (argc > 7)
-    DEBUG = atof(argv[7]);
-  if (argc > 8)
-    tau = atof(argv[8]);
+  //printf("[graphic] [max_steps] [test_runs] [fm] [dt] [tau] [debug] [max_trial] [sample_period] [weights]\n");
+  //printf("%s %d %d %f %f %f %d %d %d %s\n", argv[1], TARGET_STEPS, TEST_RUNS, fm, dt, tau, DEBUG, atoi(argv[8]), atoi(argv[9]), argv[10]);
 }
 
 SetRandomWeights()
@@ -352,7 +357,7 @@ int Run(num_trials, sample_period)
     writeweights();
     double tt = j*dt; // total time
     //double tt = j*dt; // total time
-    fprintf(datafile,"%f spikes/sec (L:%f R:%f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
+    fprintf(datafile,"\n%f spikes/sec (L:%f R:%f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
     fprintf(datafile,"%f spikes/step (L:%f R:%f)\n", ((double)(lspikes + rspikes))/(double)j, lspikes/(double)j, rspikes/(double)j);
     fprintf(datafile,"%d spikes (L:%d R:%d), j = %d, dt = %.2f\n", (lspikes + rspikes), lspikes, rspikes, j, dt);
   }
@@ -447,7 +452,7 @@ Cycle(learn_flag, step)
   }
   push *= sum;
 */
-  push *= Fm;
+  push *= fm;
 
   /* preserve current activities in evaluation network. */
   for (i = 0; i< 2; i++)
