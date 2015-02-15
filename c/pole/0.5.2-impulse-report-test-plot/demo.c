@@ -3,29 +3,21 @@
    Impulse (discrete force) version
 
    Changelog
-   - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
-   - plot: gnuplot, matplotlib
-   - test log files: 180k-r1.test
+   - changed the input arguments to take Fm, dt, tau, and LAST_STEPS?
    - higher force: 10 -> 50 same as cont force. 50 is the best
    - report stats: firing rates (L/R), rhats (L/R), state (4), force
      writes the data to a file latest.dat
    - 1output with 2actions(L/R) to 2outputs(L/R) with 3actions L/R/0
    - two outputs for both networks
    - td-backprop code for evaluation network combined: multiple outputs
-   - tau added
-   - changed the input arguments to take TEST_RUNS, TARGET_STEPS, DEBUG
-   - tic-toc elapsed time
-   - 1output with 2actions(L/R)
-   - test runs only when balanced
-   - taking only the last few steps doesn't work
-     limits the number of steps balanced: 1k->1k, 10k->10k
    - 494 runs take 2h 36min for 180k steps
 
    Todo list
+   - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
+   - plot: gnuplot, matplotlib
+   - test log files: 180k-r1.test
    - continuous force
    - change the input arguments to take Fmax, LAST_STEPS
-   - Get last steps working
-   - find best Fmax among 1 to 10. Fmax over 10 is no good
 */
 /*********************************************************************************
     This file contains a simulation of the cart and pole dynamic system and 

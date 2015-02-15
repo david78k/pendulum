@@ -1,0 +1,58 @@
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+balanced 0 test_flag 0
+Run 1: Trial 10000 not balanced. Max 117 steps (0.000650 hours).
+Run 2: Trial 10000 not balanced. Max 92 steps (0.000511 hours).
+Run 3: Trial 10000 not balanced. Max 105 steps (0.000583 hours).
+Run 4: Trial 10000 not balanced. Max 111 steps (0.000617 hours).
+Run 5: Trial 10000 not balanced. Max 123 steps (0.000683 hours).
+Run 6: Trial 10000 not balanced. Max 96 steps (0.000533 hours).
+Run 7: Trial 10000 not balanced. Max 126 steps (0.000700 hours).
+Run 8: Trial 10000 not balanced. Max 115 steps (0.000639 hours).
+Run 9: Trial 10000 not balanced. Max 115 steps (0.000639 hours).
+Run 10: Trial 10000 not balanced. Max 139 steps (0.000772 hours).
+Run 11: Trial 10000 not balanced. Max 105 steps (0.000583 hours).
+Run 12: Trial 10000 not balanced. Max 104 steps (0.000578 hours).
+Run 13: Trial 10000 not balanced. Max 32 steps (0.000178 hours).
+Run 14: Trial 10000 not balanced. Max 139 steps (0.000772 hours).
+Run 15: Trial 10000 not balanced. Max 142 steps (0.000789 hours).
+Run 16: Trial 10000 not balanced. Max 103 steps (0.000572 hours).
+Run 17: Trial 10000 not balanced. Max 107 steps (0.000594 hours).
+Run 18: Trial 10000 not balanced. Max 78895 steps (0.438306 hours).
+Run 19: Trial 10000 not balanced. Max 130 steps (0.000722 hours).
+Run 20: Trial 10000 not balanced. Max 109 steps (0.000606 hours).
+Run 21: Trial 10000 not balanced. Max 97 steps (0.000539 hours).
+Run 22: Trial 10000 not balanced. Max 115 steps (0.000639 hours).
+Run 23: Trial 10000 not balanced. Max 25237 steps (0.140206 hours).
+Run 24: Trial 10000 not balanced. Max 39476 steps (0.219311 hours).
+Run 25: Trial 10000 not balanced. Max 112 steps (0.000622 hours).
+Run 26: Trial 10000 not balanced. Max 27154 steps (0.150856 hours).
+Run 27: Trial 10000 not balanced. Max 132 steps (0.000733 hours).
+Run 28: Trial 10000 not balanced. Max 198 steps (0.001100 hours).
+Run 29: Trial 10000 not balanced. Max 99 steps (0.000550 hours).
+Run 30: Trial 10000 not balanced. Max 122 steps (0.000678 hours).
+Run 31: Trial 10000 not balanced. Max 111 steps (0.000617 hours).
+Run 32: Trial 10000 not balanced. Max 144 steps (0.000800 hours).
+Run 33: Trial 10000 not balanced. Max 102 steps (0.000567 hours).
+Run 34: Trial 10000 not balanced. Max 128 steps (0.000711 hours).
+Run 35: Trial 10000 not balanced. Max 164 steps (0.000911 hours).
+Run 36: Trial 10000 not balanced. Max 121 steps (0.000672 hours).
+Run 37: Trial 10000 not balanced. Max 128 steps (0.000711 hours).
+Run 38: Trial 10000 not balanced. Max 73771 steps (0.409839 hours).
+Run 39: Trial 10000 not balanced. Max 107 steps (0.000594 hours).
+Run 40: Trial 10000 not balanced. Max 129 steps (0.000717 hours).
+Run 41: Trial 10000 not balanced. Max 120 steps (0.000667 hours).
+Run 42: Trial 10000 not balanced. Max 153 steps (0.000850 hours).
+Run 43: Trial 10000 not balanced. Max 132 steps (0.000733 hours).
+Run 44: Trial 10000 not balanced. Max 112 steps (0.000622 hours).
+Run 45: Trial 10000 not balanced. Max 100 steps (0.000556 hours).
+Run 46: Trial 10000 not balanced. Max 118 steps (0.000656 hours).
+Run 47: Trial 10000 not balanced. Max 119 steps (0.000661 hours).
+Run 48: Trial 10000 not balanced. Max 133 steps (0.000739 hours).
+Run 49: Trial 10000 not balanced. Max 39836 steps (0.221311 hours).
+Run 50: Trial 9639 balanced for 180000 steps (1.000000 hours).
+Wrote current weights to latest.weights
+Wrote current data to latest.train
+164.638u 74.292s 14:39.00 27.1%	0+0k 0+3999200io 0pf+0w
+ 
+TESTING USING THE TRAINED WEIGHTS

@@ -1,0 +1,9 @@
+ 
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+balanced 0 test_flag 0
+Run 1: Trial 8158 balanced for 180000 steps (1.000000 hours).
+Wrote current weights to latest.weights
+Wrote current data to latest.train
+6.188u 1.188s 0:17.52 42.0%	0+0k 0+65560io 0pf+0w
+ 
+TESTING USING THE TRAINED WEIGHTS
