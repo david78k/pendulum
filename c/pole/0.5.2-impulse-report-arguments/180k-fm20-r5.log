@@ -1,0 +1,25 @@
+balanced 0 test_flag 0
+[Run 1] Ep 10000 not balanced. Max 157 steps (0.0009 hrs). 1 sec
+[Run 2] Ep 10000 not balanced. Max 115 steps (0.0006 hrs). 1 sec
+[Run 3] Ep 10000 not balanced. Max 104 steps (0.0006 hrs). 1 sec
+[Run 4] Ep 10000 not balanced. Max 109 steps (0.0006 hrs). 1 sec
+[Run 5] Ep 10000 not balanced. Max 139 steps (0.0008 hrs). 1 sec
+[Run 6] Ep 10000 not balanced. Max 139 steps (0.0008 hrs). 1 sec
+[Run 7] Ep 10000 not balanced. Max 1123 steps (0.0062 hrs). 2 sec
+[Run 8] Ep 10000 not balanced. Max 109 steps (0.0006 hrs). 1 sec
+[Run 9] Ep 10000 not balanced. Max 116 steps (0.0006 hrs). 1 sec
+[Run 10] Ep 10000 not balanced. Max 154 steps (0.0009 hrs). 1 sec
+[Run 11] Ep 10000 not balanced. Max 38181 steps (0.2121 hrs). 4 sec
+[Run 12] Ep 10000 not balanced. Max 110 steps (0.0006 hrs). 1 sec
+[Run 13] Ep 10000 not balanced. Max 118 steps (0.0007 hrs). 1 sec
+[Run 14] Ep 10000 not balanced. Max 127 steps (0.0007 hrs). 1 sec
+[Run 15] Ep 10000 not balanced. Max 111 steps (0.0006 hrs). 1 sec
+[Run 16] Ep 10000 not balanced. Max 139 steps (0.0008 hrs). 1 sec
+[Run 17] Ep 10000 not balanced. Max 118 steps (0.0007 hrs). 1 sec
+[Run 18] Ep 10000 not balanced. Max 192 steps (0.0011 hrs). 1 sec
+[Run 19] Ep 10000 not balanced. Max 124 steps (0.0007 hrs). 1 sec
+[Run 20] Ep 10000 not balanced. Max 147 steps (0.0008 hrs). 1 sec
+[Run 21] Ep 9751 balanced for 180000 steps (1.0000 hrs). 4 sec
+Wrote current weights to latest.weights
+Total Elapsed time: 28 seconds
+Wrote current data to latest.train

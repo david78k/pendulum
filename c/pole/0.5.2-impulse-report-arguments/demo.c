@@ -2,8 +2,12 @@
    v0.5.2 - 2/13/2015
    Impulse (discrete force) version
 
+   Discussion
+   - is cyclone the fastest?
+   - large variation in firing rates for the given max force fm
+
    Changelog
-   - changed the input arguments to take fm, dt, tau, and LAST_STEPS?
+   - changed the input arguments to take fm, dt, tau, and last_steps
    - higher force: 10 -> 50 same as cont force. 50 is the best
    - report stats: firing rates (L/R), rhats (L/R), state (4), force
      writes the data to a file latest.dat
@@ -13,7 +17,7 @@
    - 494 runs take 2h 36min for 180k steps
 
    Todo list
-   - measure test firing rates
+   - measure test firing rates: init_params
    - change the input arguments to take fmax, LAST_STEPS: maybe config file?
    - add spike error function
    - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
@@ -83,6 +87,7 @@ int balanced = 0;
 int DEBUG = 0;
 int TEST_RUNS = 10;
 int TARGET_STEPS = 5000;
+int last_steps = 400;
 float tau = 1; // 0.5/1.0/2.0 working. 0.1/0.2 not working
 int rspikes, lspikes;
 
@@ -121,18 +126,20 @@ main(argc,argv)
 
   setbuf(stdout, NULL);
 
-  // [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [debug] [max_trial] [sample_period] [weights]
-  //  1		2		3	4    5     6	7	8		9		10
+  // [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [last_steps] [debug] [max_trial] [sample_period] [weights]
+  //  1		2		3	4    5     6	7		8    9			10 	   11
   init_args(argc,argv);
 
   printf("balanced %d test_flag %d\n", balanced, test_flag);
 
   int i = 0;
-  int num_trials = atoi(argv[8]);
-  int sample_period = atoi(argv[9]);
+  int num_trials = atoi(argv[9]);
+  int sample_period = atoi(argv[10]);
+  time_t start, stop, istart, istop;
+  //tic
+  time(&start);
   if(test_flag) {
     int trials, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0, maxSteps = 0;
-    time_t start, stop, istart, istop;
     printf("TEST_RUNS = %d\n", TEST_RUNS);
     for(i = 0; i < TEST_RUNS; i ++) {
       printf("------------- Test Run %d -------------\n", i + 1);
@@ -141,16 +148,11 @@ main(argc,argv)
         printf("Couldn't open %s\n",datafilename);
         return;
       }
-      //tic
-      time(&start);
       trials = Run(num_trials, sample_period); // max_trial, sample_period
       sumTrials += trials;
       if(trials > maxTrials) maxTrials = trials;
       if(trials < minTrials) minTrials = trials;
       if(trials <= 100) success ++;
-      // toc
-      time(&stop);
-      printf("Elapsed time: %.0f seconds\n", difftime(stop, start));
       init_args(argc,argv);
     }
     printf("\n=============== SUMMARY ===============\n");
@@ -159,12 +161,18 @@ main(argc,argv)
   } else { 
     i = 0;
     while(!balanced) {
-      printf("------------- Run %d -------------\n", ++i);
-      //printf("Run %d: ", ++i);
+      //printf("------- Run %d: %d trials %d target steps -------\n", ++i, num_trials, TARGET_STEPS);
+      //printf("------------- Run %d -------------\n", ++i);
+      printf("[Run %d] ", ++i);
       Run(num_trials, sample_period);
+      //init_params(argc,argv);
       init_args(argc,argv);
     }
   }
+
+  // toc
+  time(&stop);
+  printf("Total Elapsed time: %.0f seconds\n", difftime(stop, start));
 
   fclose(datafile);
   printf("Wrote current data to %s\n",datafilename);  
@@ -186,8 +194,8 @@ void init_args(int argc, char *argv[])
 weight-file(or - to init randomly) b bh r rh\n",
 	 argv[0]);
 */
-  // [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [debug] [max_trial] [sample_period] [weights]
-  //  1		2		3	4    5     6	7	8		9		10
+  // [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [last_steps] [debug] [max_trial] [sample_period] [weights]
+  //  1		2		3	4    5     6	7		8    9			10 	   11
   if (argc < 5)
     exit(-1);
   if (argc > 2)
@@ -199,9 +207,10 @@ weight-file(or - to init randomly) b bh r rh\n",
   fm = atof(argv[4]); 
   dt = atof(argv[5]);
   if (argc > 7)
-    DEBUG = atoi(argv[7]);
-  if (strcmp(argv[10],"-") != 0) {
-    readweights(argv[10]); test_flag = 1;
+    DEBUG = atoi(argv[8]);
+  last_steps = atoi(argv[7]);
+  if (strcmp(argv[11],"-") != 0) {
+    readweights(argv[11]); test_flag = 1;
   } else {
     SetRandomWeights(); test_flag = 0;
   }
@@ -299,7 +308,10 @@ int Run(num_trials, sample_period)
  int num_trials, sample_period;
 {
   register int i, j, avg_length, max_length = 0;
+  time_t start, stop; 
   lspikes = 0; rspikes = 0;
+
+  time(&start);
 
   NextState(1, 0.0);
   i = 0;   j = 0;
@@ -344,22 +356,26 @@ int Run(num_trials, sample_period)
     }
    if(i >= num_trials) {
      balanced = 0;
-     printf("Trial %d not balanced. Max %d steps (%f hours).\n",
+     printf("Ep %d not balanced. Max %d steps (%.4f hrs). ",
             i, max_length, (max_length * dt)/3600.0);
             //i + 1, j, (j * dt)/3600.0);
    } else {
-     printf("Trial %d balanced for %d steps (%f hours).\n",
+     printf("Ep %d balanced for %d steps (%.4f hrs). ",
             i, j, (j * dt)/3600.0);
      balanced = 1;
    }
+
+   time(&stop);
+   //printf("Elapsed time: %d seconds\n", difftime(stop, start));
+   printf("%.0f sec\n", difftime(stop, start));
 
   if(!test_flag && balanced) {
     writeweights();
     double tt = j*dt; // total time
     //double tt = j*dt; // total time
-    fprintf(datafile,"\n%f spikes/sec (L:%f R:%f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
-    fprintf(datafile,"%f spikes/step (L:%f R:%f)\n", ((double)(lspikes + rspikes))/(double)j, lspikes/(double)j, rspikes/(double)j);
-    fprintf(datafile,"%d spikes (L:%d R:%d), j = %d, dt = %.2f\n", (lspikes + rspikes), lspikes, rspikes, j, dt);
+    fprintf(datafile,"\n%.2f spikes/sec (L:%.2f R:%.2f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
+    fprintf(datafile,"%.2f spikes/step (L:%.2f R:%.2f)\n", ((double)(lspikes + rspikes))/(double)j, lspikes/(double)j, rspikes/(double)j);
+    fprintf(datafile,"%d spikes (L:%d R:%d), j = %d, dt = %.4f\n", (lspikes + rspikes), lspikes, rspikes, j, dt);
   }
   return i + 1;
 }
@@ -444,13 +460,13 @@ Cycle(learn_flag, step)
 
 /*
   sum = 0.0;
-  //for(i = 0; i < (step > 100 ? 100 : step) ; i++) {
+  //for(i = 0; i < (step > last_steps ? last_steps : step) ; i++) {
   for(i = 0; i < step; i++) {
     t = (step - i) * dt;
     sum += t * exp(-t/tau);
     //sum += t * exp(-t);
   }
-  push *= sum;
+  push = fm * sum;
 */
   push *= fm;
 

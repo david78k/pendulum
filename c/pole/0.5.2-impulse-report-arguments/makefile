@@ -14,9 +14,12 @@ demo.o:	demo.c
 demo:	demo.o 
 	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
 
+rate:
+	#rm -rf rates
+	grep spikes/sec 180k-fm*.train 
+
 demo-net.o:	demo-net.c 
 	$(CC) $(CFLAGS) -c demo-net.c $(XLIBS)
-
 
 demo-net:	demo-net.o xg.a
 	$(CC) $(CFLAGS) -o demo-net demo-net.o $(LIBS) $(XLIBS)

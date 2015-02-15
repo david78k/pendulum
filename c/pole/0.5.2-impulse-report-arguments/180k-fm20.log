@@ -1,0 +1,203 @@
+180k-fm20
+TRAINING AGAIN BUT WITHOUT GRAPHICS
+balanced 0 test_flag 0
+------------- Run 1 -------------
+Ep 10000 not balanced. Max 5475 steps (0.0304 hrs).
+Elapsed time: 4 seconds
+------------- Run 2 -------------
+Ep 10000 not balanced. Max 12510 steps (0.0695 hrs).
+Elapsed time: 5 seconds
+------------- Run 3 -------------
+Ep 10000 not balanced. Max 17931 steps (0.0996 hrs).
+Elapsed time: 4 seconds
+------------- Run 4 -------------
+Ep 10000 not balanced. Max 2899 steps (0.0161 hrs).
+Elapsed time: 4 seconds
+------------- Run 5 -------------
+Ep 10000 not balanced. Max 208 steps (0.0012 hrs).
+Elapsed time: 2 seconds
+------------- Run 6 -------------
+Ep 10000 not balanced. Max 166 steps (0.0009 hrs).
+Elapsed time: 2 seconds
+------------- Run 7 -------------
+Ep 10000 not balanced. Max 3412 steps (0.0190 hrs).
+Elapsed time: 4 seconds
+------------- Run 8 -------------
+Ep 10000 not balanced. Max 2554 steps (0.0142 hrs).
+Elapsed time: 2 seconds
+------------- Run 9 -------------
+Ep 10000 not balanced. Max 15852 steps (0.0881 hrs).
+Elapsed time: 5 seconds
+------------- Run 10 -------------
+Ep 10000 not balanced. Max 5334 steps (0.0296 hrs).
+Elapsed time: 6 seconds
+------------- Run 11 -------------
+Ep 10000 not balanced. Max 1945 steps (0.0108 hrs).
+Elapsed time: 4 seconds
+------------- Run 12 -------------
+Ep 10000 not balanced. Max 6791 steps (0.0377 hrs).
+Elapsed time: 5 seconds
+------------- Run 13 -------------
+Ep 10000 not balanced. Max 221 steps (0.0012 hrs).
+Elapsed time: 2 seconds
+------------- Run 14 -------------
+Ep 10000 not balanced. Max 22700 steps (0.1261 hrs).
+Elapsed time: 4 seconds
+------------- Run 15 -------------
+Ep 10000 not balanced. Max 205 steps (0.0011 hrs).
+Elapsed time: 2 seconds
+------------- Run 16 -------------
+Ep 10000 not balanced. Max 137 steps (0.0008 hrs).
+Elapsed time: 2 seconds
+------------- Run 17 -------------
+Ep 10000 not balanced. Max 3354 steps (0.0186 hrs).
+Elapsed time: 3 seconds
+------------- Run 18 -------------
+Ep 10000 not balanced. Max 121 steps (0.0007 hrs).
+Elapsed time: 2 seconds
+------------- Run 19 -------------
+Ep 10000 not balanced. Max 2917 steps (0.0162 hrs).
+Elapsed time: 3 seconds
+------------- Run 20 -------------
+Ep 10000 not balanced. Max 109 steps (0.0006 hrs).
+Elapsed time: 1 seconds
+------------- Run 21 -------------
+Ep 10000 not balanced. Max 105 steps (0.0006 hrs).
+Elapsed time: 2 seconds
+------------- Run 22 -------------
+Ep 10000 not balanced. Max 215 steps (0.0012 hrs).
+Elapsed time: 2 seconds
+------------- Run 23 -------------
+Ep 10000 not balanced. Max 248 steps (0.0014 hrs).
+Elapsed time: 2 seconds
+------------- Run 24 -------------
+Ep 10000 not balanced. Max 10153 steps (0.0564 hrs).
+Elapsed time: 3 seconds
+------------- Run 25 -------------
+Ep 10000 not balanced. Max 9499 steps (0.0528 hrs).
+Elapsed time: 4 seconds
+------------- Run 26 -------------
+Ep 10000 not balanced. Max 4000 steps (0.0222 hrs).
+Elapsed time: 3 seconds
+------------- Run 27 -------------
+Ep 10000 not balanced. Max 22741 steps (0.1263 hrs).
+Elapsed time: 4 seconds
+------------- Run 28 -------------
+Ep 10000 not balanced. Max 236 steps (0.0013 hrs).
+Elapsed time: 2 seconds
+------------- Run 29 -------------
+Ep 10000 not balanced. Max 6975 steps (0.0387 hrs).
+Elapsed time: 6 seconds
+------------- Run 30 -------------
+Ep 10000 not balanced. Max 228 steps (0.0013 hrs).
+Elapsed time: 2 seconds
+------------- Run 31 -------------
+Ep 10000 not balanced. Max 8495 steps (0.0472 hrs).
+Elapsed time: 4 seconds
+------------- Run 32 -------------
+Ep 10000 not balanced. Max 241 steps (0.0013 hrs).
+Elapsed time: 2 seconds
+------------- Run 33 -------------
+Ep 10000 not balanced. Max 5896 steps (0.0328 hrs).
+Elapsed time: 5 seconds
+------------- Run 34 -------------
+Ep 10000 not balanced. Max 27759 steps (0.1542 hrs).
+Elapsed time: 6 seconds
+------------- Run 35 -------------
+Ep 10000 not balanced. Max 3347 steps (0.0186 hrs).
+Elapsed time: 5 seconds
+------------- Run 36 -------------
+Ep 10000 not balanced. Max 26194 steps (0.1455 hrs).
+Elapsed time: 4 seconds
+------------- Run 37 -------------
+Ep 10000 not balanced. Max 300 steps (0.0017 hrs).
+Elapsed time: 2 seconds
+------------- Run 38 -------------
+Ep 10000 not balanced. Max 7029 steps (0.0390 hrs).
+Elapsed time: 4 seconds
+------------- Run 39 -------------
+Ep 10000 not balanced. Max 160 steps (0.0009 hrs).
+Elapsed time: 2 seconds
+------------- Run 40 -------------
+Ep 10000 not balanced. Max 2224 steps (0.0124 hrs).
+Elapsed time: 5 seconds
+------------- Run 41 -------------
+Ep 10000 not balanced. Max 16856 steps (0.0936 hrs).
+Elapsed time: 5 seconds
+------------- Run 42 -------------
+Ep 10000 not balanced. Max 2530 steps (0.0141 hrs).
+Elapsed time: 4 seconds
+------------- Run 43 -------------
+Ep 10000 not balanced. Max 296 steps (0.0016 hrs).
+Elapsed time: 3 seconds
+------------- Run 44 -------------
+Ep 10000 not balanced. Max 2159 steps (0.0120 hrs).
+Elapsed time: 4 seconds
+------------- Run 45 -------------
+Ep 10000 not balanced. Max 6699 steps (0.0372 hrs).
+Elapsed time: 3 seconds
+------------- Run 46 -------------
+Ep 10000 not balanced. Max 239 steps (0.0013 hrs).
+Elapsed time: 2 seconds
+------------- Run 47 -------------
+Ep 10000 not balanced. Max 25514 steps (0.1417 hrs).
+Elapsed time: 5 seconds
+------------- Run 48 -------------
+Ep 10000 not balanced. Max 19833 steps (0.1102 hrs).
+Elapsed time: 5 seconds
+------------- Run 49 -------------
+Ep 10000 not balanced. Max 4831 steps (0.0268 hrs).
+Elapsed time: 5 seconds
+------------- Run 50 -------------
+Ep 10000 not balanced. Max 14414 steps (0.0801 hrs).
+Elapsed time: 5 seconds
+------------- Run 51 -------------
+Ep 10000 not balanced. Max 11579 steps (0.0643 hrs).
+Elapsed time: 3 seconds
+------------- Run 52 -------------
+Ep 10000 not balanced. Max 5511 steps (0.0306 hrs).
+Elapsed time: 4 seconds
+------------- Run 53 -------------
+Ep 10000 not balanced. Max 244 steps (0.0014 hrs).
+Elapsed time: 2 seconds
+------------- Run 54 -------------
+Ep 10000 not balanced. Max 23544 steps (0.1308 hrs).
+Elapsed time: 3 seconds
+------------- Run 55 -------------
+Ep 10000 not balanced. Max 16059 steps (0.0892 hrs).
+Elapsed time: 6 seconds
+------------- Run 56 -------------
+Ep 10000 not balanced. Max 10784 steps (0.0599 hrs).
+Elapsed time: 5 seconds
+------------- Run 57 -------------
+Ep 10000 not balanced. Max 281 steps (0.0016 hrs).
+Elapsed time: 2 seconds
+------------- Run 58 -------------
+Ep 10000 not balanced. Max 208 steps (0.0012 hrs).
+Elapsed time: 2 seconds
+------------- Run 59 -------------
+Ep 10000 not balanced. Max 107 steps (0.0006 hrs).
+Elapsed time: 1 seconds
+------------- Run 60 -------------
+Ep 10000 not balanced. Max 3313 steps (0.0184 hrs).
+Elapsed time: 3 seconds
+------------- Run 61 -------------
+Ep 10000 not balanced. Max 241 steps (0.0013 hrs).
+Elapsed time: 3 seconds
+------------- Run 62 -------------
+Ep 8354 balanced for 180000 steps (1.0000 hrs).
+Elapsed time: 5 seconds
+Wrote current weights to latest.weights
+Wrote current data to latest.train
+
+real	3m35.242s
+user	3m12.770s
+sys	0m22.470s
+Copied to 180k-fm20.train, 180k-fm20.weights
+1 0 0.0039 0.0039 0.0032 -0.0728 -0.4972 0.0786 20.0000
+0 0 -0.0004 -0.0004 -0.0169 0.4279 -0.3967 -0.3078 0.0000
+0 0 -0.0004 -0.0004 -0.0096 -0.1487 -0.3701 0.0820 0.0000
+
+11.908334 spikes/sec (L:5.953611 R:5.954722)
+0.238167 spikes/step (L:0.119072 R:0.119094)
+42870 spikes (L:21433 R:21437), j = 180000, dt = 0.0200
