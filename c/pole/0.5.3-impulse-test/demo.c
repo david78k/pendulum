@@ -1,5 +1,5 @@
 /* 
-   v0.5.3 - 2/15/2015
+   v0.5.3 - 2/15/2015 @author Tae Seung Kang
    Impulse (discrete force) version
 
    Discussion
@@ -17,12 +17,12 @@
    - 494 runs take 2h 36min for 180k steps
 
    Todo list
+   - test log files: 180k-fm50-r1.test1 .. test100, r1.train, r1.log, r1.weights
    - measure test firing rates: init_params
-   - change the input arguments to take fmax, LAST_STEPS: maybe config file?
    - add spike error function
-   - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
    - plot: gnuplot, matplotlib
-   - test log files: 180k-r1.test
+   - config file
+   - rollout: 10k, 50k, 100k, 150k, 180k milestones or midpoints
    - continuous force
 */
 /*********************************************************************************
@@ -140,8 +140,10 @@ main(argc,argv)
     int trials, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0, maxSteps = 0;
     printf("TEST_RUNS = %d\n", TEST_RUNS);
     for(i = 0; i < TEST_RUNS; i ++) {
-      printf("------------- Test Run %d -------------\n", i + 1);
-      //datafilename = "latest.test" + i;
+      //printf("------------- Test Run %d -------------\n", i + 1);
+      printf("[Test Run %d] ", i + 1);
+      datafilename = "latest.test";
+      //sprintf(datafilename, prefix + ".test" + i);
       if ((datafile = fopen(datafilename,"w")) == NULL) {
         printf("Couldn't open %s\n",datafilename);
         return;
@@ -371,8 +373,10 @@ int Run(num_trials, sample_period)
    //printf("Elapsed time: %d seconds\n", difftime(stop, start));
    printf("%.0f sec\n", difftime(stop, start));
 
-  if(!test_flag && balanced) {
-    writeweights();
+  if(balanced || test_flag) 
+  {
+    if(!test_flag) writeweights();
+
     double tt = j*dt; // total time
     //double tt = j*dt; // total time
     fprintf(datafile,"\n%.2f spikes/sec (L:%.2f R:%.2f)\n", (lspikes + rspikes)/(tt), lspikes/(tt), rspikes/(tt));
