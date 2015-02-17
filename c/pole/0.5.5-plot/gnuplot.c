@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 // left, right, r_hat[0], r_hat[1], h, h_dot, theta, theta_dot, force 
 // 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
 
-        fprintf(gp, "plot \"%s\" \n", fname);
+        fprintf(gp, "plot \"%s\" using 1 \n", fname);
 //  for(i = 0; i < 5; i++)
 	for(j = 0; j < 10; j++) {
         	fscanf(file,"%d",&left[j]);
@@ -56,8 +56,8 @@ int main(int argc, char **argv)
         	fscanf(file,"%f",&force[j]);
 		//printf("%d %d %f %f %f\n", left[j], right[j], rhat[j][0], rhat[j][1], h[j]);
 	//		, h[j], hdot[j], theta[j]);
-		printf("%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left[j], right[j], rhat[j][0], rhat[j][1]
-			, h[j], hdot[j], theta[j], thetadot[j], force[j]);
+		//printf("%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left[j], right[j], rhat[j][0], rhat[j][1]
+		//	, h[j], hdot[j], theta[j], thetadot[j], force[j]);
 		//fprintf(gp, "%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left[j], right[j], rhat[j][0], rhat[j][1]
 		//	, h[j], hdot[j], theta[j], thetadot[j], force[j]);
 	}
