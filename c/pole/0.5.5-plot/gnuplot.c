@@ -42,7 +42,9 @@ int main(int argc, char **argv)
 // left, right, r_hat[0], r_hat[1], h, h_dot, theta, theta_dot, force 
 // 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
 
-        fprintf(gp, "plot \"%s\" using 1 \n", fname);
+        fprintf(gp, "cutoff(c1,c2,xmin,xmax) = (c1>=xmin)*(c1<=xmax) ? c2 : NaN\n");
+        fprintf(gp, "plot \"%s\" using 1:(cutoff(($1),($2),1,1800)) \n", fname);
+        //fprintf(gp, "plot \"%s\" using 1 \n", fname);
 //  for(i = 0; i < 5; i++)
 	for(j = 0; j < 10; j++) {
         	fscanf(file,"%d",&left[j]);
