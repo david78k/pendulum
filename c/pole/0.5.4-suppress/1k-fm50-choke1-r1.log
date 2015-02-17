@@ -1,0 +1,11 @@
+balanced 0 test_flag 0
+[Run 1] Ep 10000 not balanced. Max 116 steps (0.0006 hrs). 1 sec
+[Run 2] Ep 10000 not balanced. Max 134 steps (0.0007 hrs). 1 sec
+[Run 3] Ep 10000 not balanced. Max 124 steps (0.0007 hrs). 1 sec
+[Run 4] Ep 10000 not balanced. Max 115 steps (0.0006 hrs). 1 sec
+[Run 5] Ep 10000 not balanced. Max 149 steps (0.0008 hrs). 1 sec
+[Run 6] Ep 10000 not balanced. Max 816 steps (0.0045 hrs). 1 sec
+[Run 7] Ep 8138 balanced for 1000 steps (0.0056 hrs). 1 sec
+Wrote current weights to latest.weights
+Total Elapsed time: 7 seconds
+Wrote current data to latest.train

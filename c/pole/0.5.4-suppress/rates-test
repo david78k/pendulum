@@ -1,0 +1,10 @@
+#rm -rf rates
+grep spikes/sec 180k-fm*.train 
+180k-fm20-r4.train:20.163889 spikes/sec (L:10.082222 R:10.081667)
+180k-fm20-r5.train:17.74 spikes/sec (L:8.87 R:8.87)
+180k-fm20.train:11.908334 spikes/sec (L:5.953611 R:5.954722) # failed
+180k-fm49.9983.train:20.685000 spikes/sec (L:10.342500 R:10.342500)
+180k-fm50.train:18.370556 spikes/sec (L:9.185278 R:9.185278) # 9-40Hz. 3/5 success rate
+180k-fm70-r2.train:15.17 spikes/sec (L:7.59 R:7.59) # 9-10Hz. 2/50 success rate
+180k-fm70-r5.train:19.45 spikes/sec (L:9.73 R:9.73)
+180k-fm80.train:17.452222 spikes/sec (L:8.726111 R:8.726111)

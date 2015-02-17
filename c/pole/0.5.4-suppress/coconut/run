@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#echo " "
+#echo "TRAINING WITH NO EXPERIENCE"
+#time ./demo n 400 20 - 0.1 0.05 1 0.5
+
+fm=200
+run=1
+testrun=1
+prefix=180k-fm$fm-sup1-sample10-r$run
+#prefix=180k-fm$fm-sup1-r$run
+#prefix=1k-fm$fm-choke1-r$run
+#prefix=180k-fm$fm-r$run
+#prefix=180k-fm$fm
+
+echo "$prefix"
+echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
+#time ./demo [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [last_steps] [debug] [max_trial] [sample_period] [weights] 
+time ./demo n 180000 0 $fm 0.02 0.02 400 0 10000 100 - > $prefix.log
+#time ./demo n 1000 0 $fm 0.02 0.02 400 0 10000 100 - > $prefix.log
+#time ./demo n 180000 0 $fm 0.02 0.02 400 0 10000 100 - > $prefix.log
+#time ./demo n [max_trials] [sample_period] [weights] [test_runs] [max_steps] [debug] [tau]
+#time ./demo n 10000 100 - 0 180000 0 1.0
+#time ./demo n 10000 100 - 0 5000 0 1.0
+# tau: 0.5, 1.0, 2.0 working, 0.1-0.2 not working
+cp latest.train $prefix.train
+cp latest.weights $prefix.weights
+echo "Copied to $prefix.train, $prefix.weights"
+tail -7 $prefix.train
+
+echo " "
+echo "TESTING USING THE TRAINED WEIGHTS"
+#time ./demo n 180000 1 $fm 0.02 0.02 400 0 100 100 $prefix.weights
+#time ./demo n 180000 1 $fm 0.02 0.02 400 0 100 100 $prefix.weights
+#time ./demo n 180000 0 $fm 0.02 0.02 400 0 10000 100 latest.weights > $prefix.log
+#time ./demo n 100 1 latest.weights 1 180000 0 1
+#time ./demo n 100 1 latest.weights 0 0 0 0
+#cp latest.test $prefix.test$testrun
+#tail -7 $prefix.test$testrun

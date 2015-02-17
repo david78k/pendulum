@@ -1,0 +1,42 @@
+[Run 509] Ep 10000 not balanced. Max 102 steps (0.0006 hrs). 1 sec
+[Run 510] Ep 10000 not balanced. Max 106 steps (0.0006 hrs). 1 sec
+[Run 511] Ep 10000 not balanced. Max 100 steps (0.0006 hrs). 1 sec
+[Run 512] Ep 10000 not balanced. Max 90 steps (0.0005 hrs). 2 sec
+[Run 513] Ep 10000 not balanced. Max 97 steps (0.0005 hrs). 1 sec
+[Run 514] Ep 10000 not balanced. Max 164 steps (0.0009 hrs). 1 sec
+[Run 515] Ep 10000 not balanced. Max 113 steps (0.0006 hrs). 1 sec
+[Run 516] Ep 10000 not balanced. Max 122 steps (0.0007 hrs). 1 sec
+[Run 517] Ep 10000 not balanced. Max 109 steps (0.0006 hrs). 1 sec
+[Run 518] Ep 10000 not balanced. Max 110 steps (0.0006 hrs). 2 sec
+[Run 519] Ep 10000 not balanced. Max 112 steps (0.0006 hrs). 1 sec
+[Run 520] Ep 10000 not balanced. Max 118 steps (0.0007 hrs). 1 sec
+[Run 521] Ep 10000 not balanced. Max 110 steps (0.0006 hrs). 1 sec
+[Run 522] Ep 10000 not balanced. Max 100 steps (0.0006 hrs). 1 sec
+[Run 523] Ep 10000 not balanced. Max 140 steps (0.0008 hrs). 1 sec
+[Run 524] Ep 10000 not balanced. Max 108 steps (0.0006 hrs). 2 sec
+[Run 525] Ep 10000 not balanced. Max 104 steps (0.0006 hrs). 1 sec
+[Run 526] Ep 10000 not balanced. Max 118 steps (0.0007 hrs). 1 sec
+[Run 527] Ep 10000 not balanced. Max 120 steps (0.0007 hrs). 1 sec
+[Run 528] Ep 10000 not balanced. Max 122 steps (0.0007 hrs). 1 sec
+[Run 529] Ep 10000 not balanced. Max 94 steps (0.0005 hrs). 1 sec
+[Run 530] Ep 10000 not balanced. Max 126 steps (0.0007 hrs). 2 sec
+[Run 531] Ep 10000 not balanced. Max 114 steps (0.0006 hrs). 1 sec
+[Run 532] Ep 10000 not balanced. Max 88 steps (0.0005 hrs). 1 sec
+[Run 533] Ep 10000 not balanced. Max 139 steps (0.0008 hrs). 2 sec
+[Run 534] Ep 9327 balanced for 120000 steps (0.6667 hrs). 3 sec
+Wrote current weights to latest.weights
+Total Elapsed time: 643 seconds
+Wrote current data to latest.train
+
+real    10m43.466s
+user    5m22.690s
+sys     4m15.980s
+Copied to 120k-fm100-choke1-r1.train, 120k-fm100-choke1-r1.weights
+0 0 -0.0004 -0.0004 -0.0214 0.3572 0.5819 -0.0188 0.0000
+0 0 0.0004 0.0004 -0.0244 0.2390 0.9419 -0.0120 0.0000
+0 0 0.0000 0.0000 0.0190 -0.2006 0.8990 0.0055 0.0000
+
+12.87 spikes/sec (L:6.43 R:6.43)
+0.26 spikes/step (L:0.13 R:0.13)
+30876 spikes (L:15438 R:15438), j = 120000, dt = 0.0200
+
