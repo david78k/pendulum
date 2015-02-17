@@ -529,7 +529,8 @@ Cycle(learn_flag, step)
   }
 
   /* report stats */
-  if(step % 100 == 0)
+  //if(step % 100 == 0)
+  //if(step % 10 == 0)
     fprintf(datafile,"%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left, right, r_hat[0], r_hat[1], 
 			the_system_state.pole_pos, the_system_state.pole_vel, 
 			the_system_state.cart_pos, the_system_state.cart_vel,

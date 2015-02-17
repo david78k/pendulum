@@ -1,0 +1,26 @@
+balanced 0 test_flag 0
+[Run 1] Ep 10000 not balanced. Max 98 steps (0.0005 hrs). 20 sec
+[Run 2] Ep 10000 not balanced. Max 125 steps (0.0007 hrs). 19 sec
+[Run 3] Ep 10000 not balanced. Max 116 steps (0.0006 hrs). 18 sec
+[Run 4] Ep 10000 not balanced. Max 111 steps (0.0006 hrs). 18 sec
+[Run 5] Ep 10000 not balanced. Max 105 steps (0.0006 hrs). 19 sec
+[Run 6] Ep 10000 not balanced. Max 110 steps (0.0006 hrs). 19 sec
+[Run 7] Ep 10000 not balanced. Max 103 steps (0.0006 hrs). 19 sec
+[Run 8] Ep 10000 not balanced. Max 133 steps (0.0007 hrs). 19 sec
+[Run 9] Ep 9347 balanced for 180000 steps (1.0000 hrs). 29 sec
+Wrote current weights to latest.weights
+Total Elapsed time: 180 seconds
+Wrote current data to latest.train
+
+real    3m0.690s
+user    0m22.201s
+sys     0m11.549s
+Copied to 180k-fm200-sup1-r3.train, 180k-fm200-sup1-r3.weights
+0 0 -0.0009 -0.0009 -0.0575 -0.1840 -1.8347 -0.0016 0.0000
+0 1 0.0000 -0.0000 -0.0820 0.1895 -1.8585 -0.0191 -200.0000
+1 0 -0.0067 -0.0067 0.0401 -5.7328 -1.9579 3.8856 200.0000
+
+7.05 spikes/sec (L:3.53 R:3.53)
+0.14 spikes/step (L:0.07 R:0.07)
+25394 spikes (L:12697 R:12697), j = 180000, dt = 0.0200
+

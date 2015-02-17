@@ -4,10 +4,10 @@
 #echo "TRAINING WITH NO EXPERIENCE"
 #time ./demo n 400 20 - 0.1 0.05 1 0.5
 
-fm=50
+fm=200
 run=1
-testrun=3
-prefix=180k-fm$fm-choke1-r$run
+testrun=1
+prefix=180k-fm$fm-choke1-sample1-r$run
 #prefix=1k-fm$fm-choke1-r$run
 #prefix=180k-fm$fm-r$run
 #prefix=180k-fm$fm
@@ -15,7 +15,7 @@ prefix=180k-fm$fm-choke1-r$run
 echo "$prefix"
 echo "TRAINING AGAIN BUT WITHOUT GRAPHICS"
 #time ./demo [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [last_steps] [debug] [max_trial] [sample_period] [weights] 
-time ./demo n 180000 0 $fm 0.02 0.02 400 0 10000 100 - 
+time ./demo n 180000 0 $fm 0.02 0.02 400 0 10000 100 - > $prefix.log
 #time ./demo n 1000 0 $fm 0.02 0.02 400 0 10000 100 - > $prefix.log
 #time ./demo n 180000 0 $fm 0.02 0.02 400 0 10000 100 - > $prefix.log
 #time ./demo n [max_trials] [sample_period] [weights] [test_runs] [max_steps] [debug] [tau]
