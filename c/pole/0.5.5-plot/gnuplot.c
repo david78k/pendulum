@@ -58,7 +58,8 @@ int main(int argc, char **argv)
 			, h[j], hdot[j], theta[j], thetadot[j], force[j]);
 	}
 
-        fprintf(gp, "plot abs(sin(x))\n");
+        //fprintf(gp, "plot abs(sin(x))\n");
+        fprintf(gp, "plot (sin(x))\n");
         //fprintf(gp, "rep abs(cos(x))\n");
 
         fclose(gp);
