@@ -53,10 +53,13 @@ int main(int argc, char **argv)
         	fscanf(file,"%f",&thetadot[j]);
         	fscanf(file,"%f",&force[j]);
 		//printf("%d %d %f %f %f\n", left[j], right[j], rhat[j][0], rhat[j][1], h[j]);
-		printf("%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left[j], right[j], rhat[j][0], rhat[j][1]
 	//		, h[j], hdot[j], theta[j]);
+		printf("%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left[j], right[j], rhat[j][0], rhat[j][1]
 			, h[j], hdot[j], theta[j], thetadot[j], force[j]);
 	}
+
+        fprintf(gp, "plot abs(sin(x))\n");
+        //fprintf(gp, "rep abs(cos(x))\n");
 
         fclose(gp);
  
