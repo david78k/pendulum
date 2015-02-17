@@ -21,7 +21,8 @@ int main(int argc, char **argv)
 // read data from file
 // 180k-fm200-sup1-sample1-r1.train
 	FILE *file; // = fopen(fname);
-	char *fname = "180k-fm200-sup1-sample1-r1.train.raw";
+	char *fname = "180k-fm200-sup1-sample1-r1-first100.train";
+	//char *fname = "180k-fm200-sup1-sample1-r1.train.raw";
 	//char *fname = "180k-fm200-sup1-sample1-r1.train";
  if ((file = fopen(fname,"r")) == NULL) {
     printf("Couldn't open %s\n",fname);
@@ -29,7 +30,7 @@ int main(int argc, char **argv)
   }
 
 	printf("file %s opened\n", fname);
-        fprintf(gp, "set output '180k-train.png'\n");
+        fprintf(gp, "set output '180k-train-first100.png'\n");
 
 	int i, j;
 	int left[180000];
