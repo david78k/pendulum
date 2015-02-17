@@ -13,6 +13,7 @@ int main(int argc, char **argv)
            }
  
         fprintf(gp, "set terminal png\n");
+        fprintf(gp, "set output 'gnuplot.png'\n");
         //fprintf(gp, "set samples 2000\n");
         fprintf(gp, "plot abs(sin(x))\n");
         fprintf(gp, "rep abs(cos(x))\n");

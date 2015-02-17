@@ -15,7 +15,7 @@ demo:	demo.o
 	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
 
 plot:
-	$(CC) -o plot plot.c
+	$(CC) -o gnuplot gnuplot.c
 
 rate:
 	#rm -rf rates
