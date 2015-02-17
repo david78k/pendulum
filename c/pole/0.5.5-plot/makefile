@@ -14,6 +14,9 @@ demo.o:	demo.c
 demo:	demo.o 
 	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
 
+plot:
+	$(CC) -o plot plot.c
+
 rate:
 	#rm -rf rates
 	grep spikes/sec 180k-fm*.train 
