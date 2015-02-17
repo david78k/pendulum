@@ -5,8 +5,7 @@ XLIBS =  -lm -Wno-overflow
 INC = -I/usr/X11R6/include -I/usr/X11R6/LessTif/Motif1.2/include
 
 default:
-	$(CC) $(CFLAGS) -c demo.c $(LIBS) 
-	$(CC) $(CFLAGS) -o demo demo.o $(LIBS) 
+	$(CC) $(CFLAGS) -o demo demo.c $(LIBS) 
 
 demo.o:	demo.c 
 	$(CC) $(CFLAGS) -c demo.c $(LIBS) 
