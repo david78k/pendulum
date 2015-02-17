@@ -4,7 +4,7 @@
 #echo "TRAINING WITH NO EXPERIENCE"
 #time ./demo n 400 20 - 0.1 0.05 1 0.5
 
-fm=100
+fm=10
 run=1
 testrun=3
 prefix=180k-fm$fm-choke1-r$run
