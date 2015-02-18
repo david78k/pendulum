@@ -20,7 +20,7 @@ void plot(int sample_loc, int col) {
 	char *colstr;
 	char *type = "lines";
 	switch(col) {
-		case 1: colstr = "L"; type = ""; break;
+		case 1: colstr = "L"; type = ",\\"; break;
 		case 2: colstr = "R"; type = ""; break;
 		case 5: colstr = "theta"; break;
 		case 6: colstr = "thetadot"; break;
@@ -46,9 +46,9 @@ void plot(int sample_loc, int col) {
 	else
         	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
 
-	if(col == 1) plot(sample_loc, 2);
-	if(col != 1)
-		printf("%s created\n", output);
+	if(col == 1) 
+        	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
+	if(col != 2) printf("%s created\n", output);
 }
 
 int main(int argc, char **argv)
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 	printf("source file: %s\n", fname);
 
 	int lines = sample_size;
-	// L for first steps
+	// L/R for first steps
 	plot(-1, 1);
 /*
 	sprintf(output, "180k-train-first%d.png", lines);
