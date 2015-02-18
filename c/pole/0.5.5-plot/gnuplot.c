@@ -33,7 +33,8 @@ void plot(int sample_loc, int col) {
 	else
 		sprintf(output, "%s-%s.png", prefix, colstr);
 
-        fprintf(gp, "set output '%s'\n", output);
+	if(col != 2)
+	        fprintf(gp, "set output '%s'\n", output);
 	if(col == 1) 
         	fprintf(gp, "set yr [0:2.4]\n");
 	
@@ -43,6 +44,7 @@ void plot(int sample_loc, int col) {
         	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' with lines\n", lastlines, fname, col, colstr);
 	else
         	fprintf(gp, "plot \"%s\" every %d using %d title '%s' with lines\n", fname, sample_period, col, colstr);
+	if(col == 1) plot(sample_loc, 2);
 	printf("%s created\n", output);
 }
 
