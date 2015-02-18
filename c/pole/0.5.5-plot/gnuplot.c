@@ -87,6 +87,17 @@ int main(int argc, char **argv)
         fprintf(gp, "plot \"%s\" every 100 using 6 title 'theta_dot' with lines\n", fname);
 	printf("%s created\n", output);
 	
+	// theta for first steps
+	sprintf(output, "180k-train-theta-first%d.png", lines);
+        fprintf(gp, "set output '%s'\n", output);
+        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'theta' with lines\n", lines, fname);
+	printf("%s created\n", output);
+
+	sprintf(output, "180k-train-theta-last%d.png", lines);
+        fprintf(gp, "set output '%s'\n", output);
+        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 6 title 'theta_dot' with lines\n", lastlines, fname);
+	printf("%s created\n", output);
+
         fclose(gp);
 /*
 	int i, j;
