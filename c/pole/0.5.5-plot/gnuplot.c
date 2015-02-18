@@ -35,7 +35,8 @@ int main(int argc, char **argv)
 
         //fprintf(gp, "cutoff(c1,c2,xmin,xmax) = (c1>=xmin)*(c1<=xmax) ? c2 : NaN\n");
         //fprintf(gp, "plot \"%s\" using 1:(cutoff(($1),($2),1,1800)) \n", fname);
-        fprintf(gp, "plot \"<(sed -n '1,1000p' %s)\" using 1 \n", fname);
+        fprintf(gp, "plot \"<(sed -n '1,1000p' %s)\" using 1, \n", fname);
+        fprintf(gp, "\"<(sed -n '1,1000p' %s)\" using 2 \n", fname);
 
 /*
 	int i, j;
