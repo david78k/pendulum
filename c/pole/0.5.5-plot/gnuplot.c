@@ -18,9 +18,10 @@ char output[30];
 // sample_loc: first -1, last 0, all 1
 void plot(int sample_loc, int col) {
 	char *colstr;
+	char *type = "lines";
 	switch(col) {
-		case 1: colstr = "L"; break;
-		case 2: colstr = "R"; break;
+		case 1: colstr = "L"; type = ""; break;
+		case 2: colstr = "R"; type = ""; break;
 		case 5: colstr = "theta"; break;
 		case 6: colstr = "thetadot"; break;
 		default: break;
@@ -39,13 +40,15 @@ void plot(int sample_loc, int col) {
         	fprintf(gp, "set yr [0:2.4]\n");
 	
 	if(sample_loc == -1)
-        	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' with lines\n", sample_size, fname, col, colstr);
+        	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
 	else if (sample_loc == 0)
-        	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' with lines\n", lastlines, fname, col, colstr);
+        	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
 	else
-        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' with lines\n", fname, sample_period, col, colstr);
+        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
+
 	if(col == 1) plot(sample_loc, 2);
-	printf("%s created\n", output);
+	if(col != 1)
+		printf("%s created\n", output);
 }
 
 int main(int argc, char **argv)
