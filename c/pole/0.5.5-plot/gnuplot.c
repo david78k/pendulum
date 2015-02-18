@@ -53,8 +53,8 @@ int main(int argc, char **argv)
         fprintf(gp, "set output '%s'\n", output);
         //fprintf(gp, "set yr [0:2.4]\n");
 
-        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 1, \\\n", lastlines, fname);
-        fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) \n", lastlines, fname);
+        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 1 title 'L', \\\n", lastlines, fname);
+        fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	printf("%s created\n", output);
         fclose(gp);
 /*
