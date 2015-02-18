@@ -44,13 +44,14 @@ int main(int argc, char **argv)
         fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1, \\\n", lines, fname);
         fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) \n", lines, fname);
 	printf("%s created\n", output);
-        fclose(gp);
+        //fclose(gp);
 
 	// last steps
-        gp = popen(GNUPLOT,"w"); /* 'gp' is the pipe descriptor */
+        //gp = popen(GNUPLOT,"w"); /* 'gp' is the pipe descriptor */
 	sprintf(output, "180k-train-last%d.png", lines);
-        fprintf(gp, "set terminal png\n");
+        //fprintf(gp, "set terminal png\n");
         fprintf(gp, "set output '%s'\n", output);
+        //fprintf(gp, "set yr [0:2.4]\n");
 
         fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 1, \\\n", lastlines, fname);
         fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) \n", lastlines, fname);
