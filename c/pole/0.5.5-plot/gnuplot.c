@@ -29,14 +29,21 @@ int main(int argc, char **argv)
     return;
   }
 
+	int firstlines = 500;
+	//char *output = "180k-train-first500.png";
+	char output[30];
+
+	sprintf(output, "180k-train-first%d.png", firstlines);
 	printf("file %s opened\n", fname);
-        fprintf(gp, "set output '180k-train-first1000.png'\n");
-        //fprintf(gp, "set output '180k-train-first100.png'\n");
+        fprintf(gp, "set output '%s'\n", output);
+        //fprintf(gp, "set output '180k-train-first%d.png'\n", firstlines);
+
+        fprintf(gp, "set yr [0:1.2]\n");
 
         //fprintf(gp, "cutoff(c1,c2,xmin,xmax) = (c1>=xmin)*(c1<=xmax) ? c2 : NaN\n");
         //fprintf(gp, "plot \"%s\" using 1:(cutoff(($1),($2),1,1800)) \n", fname);
-        fprintf(gp, "plot \"<(sed -n '1,1000p' %s)\" using 1, \\\n", fname);
-        fprintf(gp, "\"<(sed -n '1,1000p' %s)\" using 2 \n", fname);
+        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1, \\\n", firstlines, fname);
+        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using 2 \n", firstlines, fname);
 
 /*
 	int i, j;
@@ -75,5 +82,6 @@ int main(int argc, char **argv)
 
         fclose(gp);
  
+	printf("%s created\n", output);
 	return 0;
 }
