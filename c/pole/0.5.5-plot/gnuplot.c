@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
 	// rhat_L
 	// rhat_R
-// left, right, r_hat[0], r_hat[1], h, h_dot, theta, theta_dot, force 
+// left, right, r_hat[0], r_hat[1], theta, theta_dot, h, h_dot, force 
 // 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
 
 	// force for first steps
@@ -79,12 +79,12 @@ int main(int argc, char **argv)
 	// theta and thetadot for sampled steps
 	sprintf(output, "180k-train-theta.png");
         fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"%s\" every 100 using 7 title 'theta' with lines\n", fname);
+        fprintf(gp, "plot \"%s\" every 100 using 5 title 'theta' with lines\n", fname);
 	printf("%s created\n", output);
 
 	sprintf(output, "180k-train-thetadot.png");
         fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"%s\" every 100 using 8 title 'theta_dot' with lines\n", fname);
+        fprintf(gp, "plot \"%s\" every 100 using 6 title 'theta_dot' with lines\n", fname);
 	printf("%s created\n", output);
 	
         fclose(gp);
