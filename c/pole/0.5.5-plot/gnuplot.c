@@ -24,39 +24,60 @@ int main(int argc, char **argv)
 	//char *fname = "180k-fm200-sup1-sample1-r1-first100.train";
 	//char *fname = "180k-fm200-sup1-sample1-r1.train.raw";
 	char *fname = "180k-fm200-sup1-sample1-r1.train";
+/*
  if ((file = fopen(fname,"r")) == NULL) {
     printf("Couldn't open %s\n",fname);
     return;
   }
-
+*/
 	int lines = 500;
 	int lastlines = 180000 - lines;
 	//char *output = "180k-train-first500.png";
 	char output[30];
 
-	// first steps
-	sprintf(output, "180k-train-first%d.png", lines);
+	printf("source file: %s\n", fname);
 
-	printf("file %s opened\n", fname);
+	// L for first steps
+	sprintf(output, "180k-train-first%d.png", lines);
         fprintf(gp, "set output '%s'\n", output);
         fprintf(gp, "set yr [0:2.4]\n");
 
         fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1 title 'L', \\\n", lines, fname);
         fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", lines, fname);
 	printf("%s created\n", output);
-        //fclose(gp);
 
-	// last steps
-        //gp = popen(GNUPLOT,"w"); /* 'gp' is the pipe descriptor */
+	// R for last steps
 	sprintf(output, "180k-train-last%d.png", lines);
-        //fprintf(gp, "set terminal png\n");
         fprintf(gp, "set output '%s'\n", output);
-        //fprintf(gp, "set yr [0:2.4]\n");
 
         fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 1 title 'L', \\\n", lastlines, fname);
         fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	printf("%s created\n", output);
 
+        fclose(gp);
+
+	// rhat_L
+	// rhat_R
+// left, right, r_hat[0], r_hat[1], h, h_dot, theta, theta_dot, force 
+// 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
+
+	// force for first steps
+	sprintf(output, "180k-train-first%d-force.png", lines);
+        fprintf(gp, "set output '%s'\n", output);
+        //fprintf(gp, "set yr [0:2.4]\n");
+
+        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'Force' \\\n", lines, fname);
+        //fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'L', \\\n", lines, fname);
+        //fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", lines, fname);
+	printf("%s created\n", output);
+
+	// force for last steps
+
+	// force for sampled steps
+
+	// theta and thetadot for sampled steps
+
+	
 /*
 	int i, j;
 	int left[180000];
@@ -92,7 +113,7 @@ int main(int argc, char **argv)
         //fprintf(gp, "plot (sin(x))\n");
         //fprintf(gp, "rep abs(cos(x))\n");
 
-        fclose(gp);
+        //fclose(gp);
 
 	return 0;
 }
