@@ -15,8 +15,6 @@ int main(int argc, char **argv)
         fprintf(gp, "set terminal png\n");
         //fprintf(gp, "set output 'gnuplot.png'\n");
         //fprintf(gp, "set samples 2000\n"); // optional
-        //fprintf(gp, "plot abs(sin(x))\n");
-        //fprintf(gp, "rep abs(cos(x))\n");
 
 // read data from file
 // 180k-fm200-sup1-sample1-r1.train
@@ -79,10 +77,17 @@ int main(int argc, char **argv)
 	printf("%s created\n", output);
 
 	// theta and thetadot for sampled steps
+	sprintf(output, "180k-train-theta.png");
+        fprintf(gp, "set output '%s'\n", output);
+        fprintf(gp, "plot \"%s\" every 100 using 7 title 'theta' with lines\n", fname);
+	printf("%s created\n", output);
 
+	sprintf(output, "180k-train-thetadot.png");
+        fprintf(gp, "set output '%s'\n", output);
+        fprintf(gp, "plot \"%s\" every 100 using 8 title 'theta_dot' with lines\n", fname);
+	printf("%s created\n", output);
 	
         fclose(gp);
-
 /*
 	int i, j;
 	int left[180000];
