@@ -29,22 +29,33 @@ int main(int argc, char **argv)
     return;
   }
 
-	int firstlines = 500;
+	int lines = 500;
+	int lastlines = 180000 - lines;
 	//char *output = "180k-train-first500.png";
 	char output[30];
 
-	sprintf(output, "180k-train-first%d.png", firstlines);
+	// first steps
+	sprintf(output, "180k-train-first%d.png", lines);
+
 	printf("file %s opened\n", fname);
         fprintf(gp, "set output '%s'\n", output);
-        //fprintf(gp, "set output '180k-train-first%d.png'\n", firstlines);
-
         fprintf(gp, "set yr [0:2.4]\n");
 
-        //fprintf(gp, "cutoff(c1,c2,xmin,xmax) = (c1>=xmin)*(c1<=xmax) ? c2 : NaN\n");
-        //fprintf(gp, "plot \"%s\" using 1:(cutoff(($1),($2),1,1800)) \n", fname);
-        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1, \\\n", firstlines, fname);
-        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) \n", firstlines, fname);
+        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1, \\\n", lines, fname);
+        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) \n", lines, fname);
+	printf("%s created\n", output);
+        fclose(gp);
 
+	// last steps
+        gp = popen(GNUPLOT,"w"); /* 'gp' is the pipe descriptor */
+	sprintf(output, "180k-train-last%d.png", lines);
+        fprintf(gp, "set terminal png\n");
+        fprintf(gp, "set output '%s'\n", output);
+
+        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 1, \\\n", lastlines, fname);
+        fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) \n", lastlines, fname);
+	printf("%s created\n", output);
+        fclose(gp);
 /*
 	int i, j;
 	int left[180000];
@@ -80,8 +91,7 @@ int main(int argc, char **argv)
         //fprintf(gp, "plot (sin(x))\n");
         //fprintf(gp, "rep abs(cos(x))\n");
 
-        fclose(gp);
- 
-	printf("%s created\n", output);
+        //fclose(gp);
+
 	return 0;
 }
