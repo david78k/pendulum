@@ -20,22 +20,20 @@ void plot(int sample_loc, int col) {
 	char *colstr;
 	switch(col) {
 		case 1: colstr = "L"; break;
-		case 2: colstr = "R"; break;
+		case 1: colstr = "R"; break;
 		case 5: colstr = "theta"; break;
 		case 6: colstr = "thetadot"; break;
 		default: break;
 	}
 
 	if(sample_loc == -1)
-		sprintf(output, "%s-%s-first%d.png", prefix, colstr, sample_size);
+		sprintf(output, "%s-train-%s-first%d.png", prefix, colstr, sample_size);
 	else if (sample_loc == 0)
 		sprintf(output, "%s-%s-last%d.png", prefix, colstr, sample_size);
 	else
 		sprintf(output, "%s-%s.png", prefix, colstr);
 
         fprintf(gp, "set output '%s'\n", output);
-	if(col == 1) 
-        	fprintf(gp, "set yr [0:2.4]\n");
 	
 	if(sample_loc == -1)
         	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' with lines\n", sample_size, fname, col, colstr);
@@ -63,8 +61,6 @@ int main(int argc, char **argv)
 
 	int lines = sample_size;
 	// L for first steps
-	plot(-1, 1);
-/*
 	sprintf(output, "180k-train-first%d.png", lines);
         fprintf(gp, "set output '%s'\n", output);
         fprintf(gp, "set yr [0:2.4]\n");
@@ -72,6 +68,7 @@ int main(int argc, char **argv)
         fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1 title 'L', \\\n", lines, fname);
         fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", lines, fname);
 	printf("%s created\n", output);
+/*
 	// R for last steps
 	sprintf(output, "180k-train-last%d.png", lines);
         fprintf(gp, "set output '%s'\n", output);
