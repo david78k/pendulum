@@ -60,11 +60,12 @@ int main(int argc, char **argv)
 // 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
 
 	// force for first steps
+        fprintf(gp, "set autoscale\n");
 	sprintf(output, "180k-train-first%d-force.png", lines);
         fprintf(gp, "set output '%s'\n", output);
         //fprintf(gp, "set yr [0:2.4]\n");
 
-        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'Force' \\\n", lines, fname);
+        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'Force' \n", lines, fname);
         //fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'L', \\\n", lines, fname);
         //fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", lines, fname);
 	printf("%s created\n", output);
@@ -72,6 +73,14 @@ int main(int argc, char **argv)
 	// force for last steps
 
 	// force for sampled steps
+	sprintf(output, "180k-train-force.png");
+        fprintf(gp, "set output '%s'\n", output);
+        //fprintf(gp, "set yr [0:2.4]\n");
+
+        fprintf(gp, "plot \"%s\" every 100 using 5 title 'Force' \n", fname);
+        //fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'L', \\\n", lines, fname);
+        //fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", lines, fname);
+	printf("%s created\n", output);
 
 	// theta and thetadot for sampled steps
 
