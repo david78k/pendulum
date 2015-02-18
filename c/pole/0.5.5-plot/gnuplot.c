@@ -41,8 +41,8 @@ int main(int argc, char **argv)
         fprintf(gp, "set output '%s'\n", output);
         fprintf(gp, "set yr [0:2.4]\n");
 
-        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1, \\\n", lines, fname);
-        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) \n", lines, fname);
+        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1 title 'L', \\\n", lines, fname);
+        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", lines, fname);
 	printf("%s created\n", output);
         //fclose(gp);
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
         fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 1 title 'L', \\\n", lastlines, fname);
         fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	printf("%s created\n", output);
-        fclose(gp);
+
 /*
 	int i, j;
 	int left[180000];
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
         //fprintf(gp, "plot (sin(x))\n");
         //fprintf(gp, "rep abs(cos(x))\n");
 
-        //fclose(gp);
+        fclose(gp);
 
 	return 0;
 }
