@@ -54,8 +54,6 @@ int main(int argc, char **argv)
         fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	printf("%s created\n", output);
 
-        fclose(gp);
-
 	// rhat_L
 	// rhat_R
 // left, right, r_hat[0], r_hat[1], h, h_dot, theta, theta_dot, force 
@@ -78,6 +76,8 @@ int main(int argc, char **argv)
 	// theta and thetadot for sampled steps
 
 	
+        fclose(gp);
+
 /*
 	int i, j;
 	int left[180000];
