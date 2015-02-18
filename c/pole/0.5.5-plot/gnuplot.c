@@ -38,12 +38,12 @@ int main(int argc, char **argv)
         fprintf(gp, "set output '%s'\n", output);
         //fprintf(gp, "set output '180k-train-first%d.png'\n", firstlines);
 
-        fprintf(gp, "set yr [0:1.2]\n");
+        fprintf(gp, "set yr [0:2.4]\n");
 
         //fprintf(gp, "cutoff(c1,c2,xmin,xmax) = (c1>=xmin)*(c1<=xmax) ? c2 : NaN\n");
         //fprintf(gp, "plot \"%s\" using 1:(cutoff(($1),($2),1,1800)) \n", fname);
         fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 1, \\\n", firstlines, fname);
-        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using 2 \n", firstlines, fname);
+        fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) \n", firstlines, fname);
 
 /*
 	int i, j;
