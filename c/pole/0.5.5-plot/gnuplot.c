@@ -1,10 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #define GNUPLOT "gnuplot -persist"
- 
+#define sample_size 500 
+
+FILE *gp;
+char *fname = "180k-fm200-sup1-sample1-r1.train";
+char output[30];
+
+//int sample_size = 500;
+int sample_period = 100;
+int lastlines = 180000 - sample_size;
+
+// sample_loc: first -1, last 0, all 1
+void plot(int sample_loc, int col) {
+	char *colstr;
+	switch(col) {
+		case 5: colstr = "theta"; break;
+		case 6: colstr = "thetadot"; break;
+		default: break;
+	}
+
+	if(sample_loc == -1)
+		sprintf(output, "180k-train-%s-first%d.png", colstr, sample_size);
+	else if (sample_loc == 0)
+		sprintf(output, "180k-train-%s-last%d.png", colstr, sample_size);
+	else
+		sprintf(output, "180k-train-%s.png", colstr);
+
+        fprintf(gp, "set output '%s'\n", output);
+	
+	if(sample_loc == -1)
+        	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' with lines\n", sample_size, fname, col, colstr);
+	else if (sample_loc == 0)
+        	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' with lines\n", lastlines, fname, col, colstr);
+	else
+        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' with lines\n", fname, sample_period, col, colstr);
+	printf("%s created\n", output);
+}
+
 int main(int argc, char **argv)
 {
-        FILE *gp;
         gp = popen(GNUPLOT,"w"); /* 'gp' is the pipe descriptor */
         if (gp==NULL)
            {
@@ -16,25 +52,18 @@ int main(int argc, char **argv)
         //fprintf(gp, "set output 'gnuplot.png'\n");
         //fprintf(gp, "set samples 2000\n"); // optional
 
-// read data from file
-// 180k-fm200-sup1-sample1-r1.train
 	FILE *file; // = fopen(fname);
-	//char *fname = "180k-fm200-sup1-sample1-r1-first100.train";
-	//char *fname = "180k-fm200-sup1-sample1-r1.train.raw";
-	char *fname = "180k-fm200-sup1-sample1-r1.train";
 /*
  if ((file = fopen(fname,"r")) == NULL) {
     printf("Couldn't open %s\n",fname);
     return;
   }
 */
-	int lines = 500;
-	int lastlines = 180000 - lines;
 	//char *output = "180k-train-first500.png";
-	char output[30];
 
 	printf("source file: %s\n", fname);
 
+	int lines = sample_size;
 	// L for first steps
 	sprintf(output, "180k-train-first%d.png", lines);
         fprintf(gp, "set output '%s'\n", output);
