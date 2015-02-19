@@ -71,6 +71,7 @@ void plot(int col) {
         	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	if(col != 2) printf("%s created\n", output);
 	fprintf(gp, "unset multiplot\n");
+	fprintf(gp, "unset xtics\n");
 }
 
 int main(int argc, char **argv)
