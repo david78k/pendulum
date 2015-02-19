@@ -55,7 +55,7 @@ void plot(int col) {
 
 	// all sampled
 	//fprintf(gp, "set xtics (\"1800 (x100)\" 1800)\n", lastlines);
-	//fprintf(gp, "set xlabel \"(x100)\"\n");
+	fprintf(gp, "set xlabel \"(x100)\"\n");
        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
 	if(col == 1) 
        		fprintf(gp, "\"%s\" every %d using ($2 * 2) title 'R'\n", fname, sample_period);
@@ -66,7 +66,8 @@ void plot(int col) {
         	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
 	// last steps
 	//fprintf(gp, "set xtics %d,180000 nomirror\n", lastlines);
-	fprintf(gp, "set xtics (\"%d\" 1,\"180000\" 500)\n", lastlines);
+	fprintf(gp, "set xtics (\"%d\" 1, \"%d\" 100, \"%d\" 200, \"%d\" 300, \"%d\" 400,\"180000\" 500)\n", lastlines, lastlines + 100, 
+				lastlines + 200, lastlines + 300, lastlines + 400);
         fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
 	if(col == 1) 
         	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
