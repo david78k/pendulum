@@ -54,7 +54,7 @@ void plot(int col) {
 
 	if(col != 2)
 	        fprintf(gp, "set output '%s'\n", output);
-	fprintf(gp, "set multiplot\n");
+	fprintf(gp, "set multiplot layout 3, 1\n");
 	if(col == 1) {
         	fprintf(gp, "set yr [0:2.4]\n");
 		colstr = "L";
