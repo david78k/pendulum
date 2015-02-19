@@ -41,16 +41,8 @@ void plot(int col) {
 		case 9: colstr = "force"; break;
 		default: break;
 	}
-/*
-	if(sample_loc == -1)
-		sprintf(output, "%s-%s-first%d.png", prefix, colstr, sample_size);
-	else if (sample_loc == 0)
-		sprintf(output, "%s-%s-last%d.png", prefix, colstr, sample_size);
-	else
-*/	
-	//if(sample_loc == 1) {
-		sprintf(output, "%s-%s.png", prefix, colstr);
-	//}
+
+	sprintf(output, "%s-%s.png", prefix, colstr);
 
 	if(col != 2)
 	        fprintf(gp, "set output '%s'\n", output);
@@ -76,6 +68,7 @@ void plot(int col) {
 	if(col == 1) 
         	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	if(col != 2) printf("%s created\n", output);
+	fprintf(gp, "unset multiplot\n");
 }
 
 int main(int argc, char **argv)
@@ -95,6 +88,7 @@ int main(int argc, char **argv)
 
 	// L/R for first, last, sampled steps
 	plot(1);
+	plot(3);
 /*
 	plot(-1, 1);
 	plot(0, 1);
