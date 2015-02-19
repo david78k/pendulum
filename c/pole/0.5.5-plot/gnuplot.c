@@ -26,6 +26,8 @@ void plot(int sample_loc, int col) {
 		case 4: colstr = "rhat_1"; break;
 		case 5: colstr = "theta"; break;
 		case 6: colstr = "theta_dot"; break;
+		case 7: colstr = "h"; break;
+		case 8: colstr = "h_dot"; break;
 		case 9: colstr = "force"; break;
 		default: break;
 	}
@@ -103,6 +105,15 @@ int main(int argc, char **argv)
 	plot(-1, 6);
 	plot(0, 6);
 	plot(1, 6);
+
+	// h and hdot for sampled steps
+	plot(-1, 7);
+	plot(0, 7);
+	plot(1, 7);
+
+	plot(-1, 8);
+	plot(0, 8);
+	plot(1, 8);
 	
         fclose(gp);
 
