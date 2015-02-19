@@ -1,4 +1,4 @@
 
--nan spikes/sec (L:-nan R:-nan)
--nan spikes/step (L:-nan R:-nan)
-0 spikes (L:0 R:0), j = 0, dt = 0.0010
+189.28 spikes/sec (L:94.64 R:94.64)
+0.19 spikes/step (L:0.09 R:0.09)
+681412 spikes (L:340704 R:340708), j = 3600000, dt = 0.0010

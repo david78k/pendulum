@@ -4,10 +4,11 @@
 #echo "TRAINING WITH NO EXPERIENCE"
 #time ./demo n 400 20 - 0.1 0.05 1 0.5
 
-train=0
+train=1
 run=1     # 0: not train, 1 or greater: train
 testrun=1 # 0: not test, 1 or greater: test
-fm=200    # max force
+fm=50    # max force
+#fm=200    # max force
 dt=0.001  # 1ms step size. 3600k (3.6M) steps (180k * 20)
 sample=1  # sample size
 
