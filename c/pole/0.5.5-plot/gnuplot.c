@@ -48,7 +48,7 @@ void plot(int sample_loc, int col) {
 	} else if (sample_loc == 0) {
         	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
 		if(col == 1) 
-        		fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
+        		fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	} else {
         	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
 		if(col == 1) 
