@@ -66,7 +66,7 @@ void plot(int col) {
 	// last steps
         fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
 	if(col == 1) 
-        	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
+        	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using 0:($2 * 2) title 'R'\n", lastlines, fname);
 	if(col != 2) printf("%s created\n", output);
 	fprintf(gp, "unset multiplot\n");
 }
@@ -95,42 +95,7 @@ int main(int argc, char **argv)
 	plot(6);
 	plot(7);
 	plot(8);
-/*
-	plot(-1, 1);
-	plot(0, 1);
-	plot(1, 1);
-	// rhat_L, rhat_R
-	plot(-1, 3);
-	plot(0, 3);
-	plot(1, 3);
 
-	plot(-1, 4);
-	plot(0, 4);
-	plot(1, 4);
-
-	// force for first, last, sampled steps
-	plot(-1, 9);
-	plot(0, 9);
-	plot(1, 9);
-
-	// theta and thetadot for sampled steps
-	plot(-1, 5);
-	plot(0, 5);
-	plot(1, 5);
-
-	plot(-1, 6);
-	plot(0, 6);
-	plot(1, 6);
-
-	// h and hdot for sampled steps
-	plot(-1, 7);
-	plot(0, 7);
-	plot(1, 7);
-
-	plot(-1, 8);
-	plot(0, 8);
-	plot(1, 8);
-*/	
         fclose(gp);
 
 	return 0;
