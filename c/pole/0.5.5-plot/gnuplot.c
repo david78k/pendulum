@@ -40,7 +40,8 @@ void plot(int sample_loc, int col) {
 	if(col == 1) {
         	fprintf(gp, "set yr [0:2.4]\n");
 		colstr = "L";
-	}
+	} else
+	        fprintf(gp, "set autoscale\n");
 
 	if(sample_loc == -1) {
         	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
