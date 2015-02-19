@@ -65,6 +65,7 @@ void plot(int col) {
         	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
 	// last steps
 	//fprintf(gp, "set xtics %d,180000 nomirror\n", lastlines);
+	fprintf(gp, "set xtics (\"%d\" 1,\"180000\" 500)\n", lastlines);
         fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
 	if(col == 1) 
         	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
