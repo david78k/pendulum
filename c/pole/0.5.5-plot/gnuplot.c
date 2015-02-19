@@ -89,6 +89,12 @@ int main(int argc, char **argv)
 	// L/R for first, last, sampled steps
 	plot(1);
 	plot(3);
+	plot(4);
+	plot(9);
+	plot(5);
+	plot(6);
+	plot(7);
+	plot(8);
 /*
 	plot(-1, 1);
 	plot(0, 1);
