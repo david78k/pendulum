@@ -335,7 +335,7 @@ int Run(num_trials, sample_period)
 
   while (i < num_trials && j < TARGET_STEPS) /* one hour at .02s per step */
     {
-      Cycle(1, j);
+      Cycle(1, j, sample_period);
       //tdbp();
       if (DEBUG && j % 1000 == 0)
         printf("Episode %d step %d rhat %.4f\n", i, j, r_hat);
@@ -343,15 +343,15 @@ int Run(num_trials, sample_period)
 
       if (failure)
 	{
-	  avg_length += j;
+//	  avg_length += j;
 	  i++;
-	  if (!(i % sample_period))
+/*	  if (!(i % sample_period))
 	    {
  	      if(DEBUG) 
 	        printf("Episode%6d %6d\n", i, avg_length / sample_period);
 	      avg_length = 0;
 	    }
-	  NextState(1, 0.0);
+*/	  NextState(1, 0.0);
    	  max_length = (max_length < j ? j : max_length);
 	  j = 0; lspikes = 0; rspikes = 0;
   	  fclose(datafile);
@@ -404,8 +404,8 @@ double sgn(x)
 
 /****************************************************************/
 
-Cycle(learn_flag, step)
-     int learn_flag, step;
+Cycle(learn_flag, step, sample_period)
+     int learn_flag, step, sample_period;
 {
   int i, j, k;
   double sum, factor1, factor2, t;
@@ -447,23 +447,23 @@ Cycle(learn_flag, step)
   }
 
   int left = 0, right = 0;
-  if(fired[0] == 0 && randomdef <= p[0]) {
-  //if(randomdef <= p[0]) {
+  //if(fired[0] == 0 && randomdef <= p[0]) {
+  if(randomdef <= p[0]) {
     left = 1; lspikes ++;
     unusualness[0] = 1 - p[0];
-    fired[0] = 1;
+  //  fired[0] = 1;
   } else {
     unusualness[0] = -p[0];
-    fired[0] = 0;
+  //  fired[0] = 0;
   }
-  if(fired[1] == 0 && randomdef <= p[1]) { 
-  //if(randomdef <= p[1]) { 
+  //if(fired[1] == 0 && randomdef <= p[1]) { 
+  if(randomdef <= p[1]) { 
     right = 1; rspikes ++;
     unusualness[1] = 1 - p[1];
-    fired[1] = 1;
+  //  fired[1] = 1;
   } else {
     unusualness[1] = -p[1];
-    fired[1] = 0;
+  //  fired[1] = 0;
   }
 
   if(left == 1 && right == 0) {
@@ -530,13 +530,14 @@ Cycle(learn_flag, step)
   }
 
   /* report stats */
-  //if(step % 100 == 0)
+/*
+  if(step % sample_period == 0)
   //if(step % 10 == 0)
     fprintf(datafile,"%d %d %.4f %.4f %.4f %.4f %.4f %.4f %.4f\n", left, right, r_hat[0], r_hat[1], 
 			the_system_state.pole_pos, the_system_state.pole_vel, 
 			the_system_state.cart_pos, the_system_state.cart_vel,
  			push);
-
+*/
   /* modification */
   if (learn_flag)
 	updateweights();
