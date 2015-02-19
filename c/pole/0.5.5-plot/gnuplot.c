@@ -69,19 +69,24 @@ int main(int argc, char **argv)
            }
  
         fprintf(gp, "set terminal png\n");
-        //fprintf(gp, "set output 'gnuplot.png'\n");
-        //fprintf(gp, "set samples 2000\n"); // optional
-
 	printf("source file: %s\n", fname);
 
-	int lines = sample_size;
-	// L/R for first steps
+	// left, right, r_hat[0], r_hat[1], theta, theta_dot, h, h_dot, force 
+	// 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
+
+	// L/R for first, last, sampled steps
 	plot(-1, 1);
 	plot(0, 1);
 	plot(1, 1);
 
-	// rhat_L
-	// rhat_R
+	// rhat_L, rhat_R
+	plot(-1, 3);
+	plot(0, 3);
+	plot(1, 3);
+
+	plot(-1, 4);
+	plot(0, 4);
+	plot(1, 4);
 
 	// force for first, last, sampled steps
 	plot(-1, 9);
@@ -97,46 +102,6 @@ int main(int argc, char **argv)
 	plot(0, 6);
 	plot(1, 6);
 	
-
-/*
-	// rhat_L
-	// rhat_R
-// left, right, r_hat[0], r_hat[1], theta, theta_dot, h, h_dot, force 
-// 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
-
-	// theta and thetadot for sampled steps
-	sprintf(output, "180k-train-theta.png");
-        fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"%s\" every 100 using 5 title 'theta' with lines\n", fname);
-	printf("%s created\n", output);
-
-	sprintf(output, "180k-train-thetadot.png");
-        fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"%s\" every 100 using 6 title 'theta_dot' with lines\n", fname);
-	printf("%s created\n", output);
-	
-	// theta for first and last steps
-	sprintf(output, "180k-train-theta-first%d.png", lines);
-        fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 5 title 'theta' with lines\n", lines, fname);
-	printf("%s created\n", output);
-
-	sprintf(output, "180k-train-theta-last%d.png", lines);
-        fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 5 title 'theta' with lines\n", lastlines, fname);
-	printf("%s created\n", output);
-
-	// thetadot for first and last steps
-	sprintf(output, "180k-train-thetadot-first%d.png", lines);
-        fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using 6 title 'theta_dot' with lines\n", lines, fname);
-	printf("%s created\n", output);
-
-	sprintf(output, "180k-train-thetadot-last%d.png", lines);
-        fprintf(gp, "set output '%s'\n", output);
-        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 6 title 'theta_dot' with lines\n", lastlines, fname);
-	printf("%s created\n", output);
-*/
         fclose(gp);
 
 	return 0;
