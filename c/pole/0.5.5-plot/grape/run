@@ -5,6 +5,7 @@
 #time ./demo n 400 20 - 0.1 0.05 1 0.5
 
 max_steps=3600	# k
+train=0
 run=1     # 0: not train, 1 or greater: train
 testrun=1 # 0: not test, 1 or greater: test
 fm=100    # max force
@@ -16,7 +17,8 @@ prefix=${max_steps}k-f$fm-dt$dt-sample$sample-r$run
 #prefix=180k-f$fm-dt$dt-sup1-sample$sample-r$run
 
 echo "$prefix"
-if [ $run -gt 0 ]; then
+#if [ $run -gt 0 ]; then
+if [ $train -gt 0 ]; then
 	echo "TRAINING ..."
 	#time ./demo [graphic] [max_steps] [test_runs] [fm] [dt] [tau] [last_steps] [debug] [max_trial] [sample_period] [weights] 
 	time ./demo n $(( max_steps * 1000 )) 0 $fm $dt 0.02 400 0 10000 $sample - > $prefix.log
