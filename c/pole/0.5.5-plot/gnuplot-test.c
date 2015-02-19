@@ -1,12 +1,3 @@
-/*
-  v0.1 - 2/18/2015 @author Tae Seung Kang 
-
-  Changelog
-  - multiplot
-
-  Todo list
-  -
-*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,8 +16,7 @@ int lastlines = 180000 - sample_size;
 char output[30];
 
 // sample_loc: first -1, last 0, all 1
-//void plot(int sample_loc, int col) {
-void plot(int col) {
+void plot(int sample_loc, int col) {
 	char *colstr;
 	char *type = " with lines ";
 	switch(col) {
@@ -41,38 +31,35 @@ void plot(int col) {
 		case 9: colstr = "force"; break;
 		default: break;
 	}
-/*
+
 	if(sample_loc == -1)
 		sprintf(output, "%s-%s-first%d.png", prefix, colstr, sample_size);
 	else if (sample_loc == 0)
 		sprintf(output, "%s-%s-last%d.png", prefix, colstr, sample_size);
 	else
-*/	
-	//if(sample_loc == 1) {
 		sprintf(output, "%s-%s.png", prefix, colstr);
-	//}
 
 	if(col != 2)
 	        fprintf(gp, "set output '%s'\n", output);
-	fprintf(gp, "set multiplot\n");
 	if(col == 1) {
         	fprintf(gp, "set yr [0:2.4]\n");
 		colstr = "L";
 	} else
 	        fprintf(gp, "set autoscale\n");
 
-	// all sampled
-       	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
-	if(col == 1) 
-       		fprintf(gp, "\"%s\" every %d using ($2 * 2) title 'R'\n", fname, sample_period);
-	// first steps
-        fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
-	if(col == 1) 
-        	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
-	// last steps
-        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
-	if(col == 1) 
-        	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
+	if(sample_loc == -1) {
+        	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
+		if(col == 1) 
+        		fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
+	} else if (sample_loc == 0) {
+        	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
+		if(col == 1) 
+        		fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
+	} else {
+        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
+		if(col == 1) 
+        		fprintf(gp, "\"%s\" every %d using ($2 * 2) title 'R'\n", fname, sample_period);
+	}
 	if(col != 2) printf("%s created\n", output);
 }
 
@@ -87,16 +74,15 @@ int main(int argc, char **argv)
  
         fprintf(gp, "set terminal png\n");
 	printf("source file: %s\n", fname);
-	
+
 	// left, right, r_hat[0], r_hat[1], theta, theta_dot, h, h_dot, force 
 	// 0 0 0.0113 0.0113 -0.0755 -0.0499 0.9063 0.6871 0.0000
 
 	// L/R for first, last, sampled steps
-	plot(1);
-/*
 	plot(-1, 1);
 	plot(0, 1);
 	plot(1, 1);
+
 	// rhat_L, rhat_R
 	plot(-1, 3);
 	plot(0, 3);
@@ -128,7 +114,7 @@ int main(int argc, char **argv)
 	plot(-1, 8);
 	plot(0, 8);
 	plot(1, 8);
-*/	
+	
         fclose(gp);
 
 	return 0;
