@@ -64,7 +64,7 @@ void plot(int col) {
 	if(col == 1) 
         	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
 	// last steps
-        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
+        fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using 0:%d title '%s' %s\n", lastlines, fname, col, colstr, type);
 	if(col == 1) 
         	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using 0:($2 * 2) title 'R'\n", lastlines, fname);
 	if(col != 2) printf("%s created\n", output);
