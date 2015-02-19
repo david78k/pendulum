@@ -22,8 +22,10 @@ void plot(int sample_loc, int col) {
 	switch(col) {
 		case 1: colstr = "spikes"; type = ",\\"; break;
 		//case 2: colstr = "R"; type = ""; break;
+		case 3: colstr = "rhat_0"; break;
+		case 4: colstr = "rhat_1"; break;
 		case 5: colstr = "theta"; break;
-		case 6: colstr = "thetadot"; break;
+		case 6: colstr = "theta_dot"; break;
 		case 9: colstr = "force"; break;
 		default: break;
 	}
