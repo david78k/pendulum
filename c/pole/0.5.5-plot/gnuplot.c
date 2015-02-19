@@ -18,12 +18,13 @@ char output[30];
 // sample_loc: first -1, last 0, all 1
 void plot(int sample_loc, int col) {
 	char *colstr;
-	char *type = "lines";
+	char *type = " with lines ";
 	switch(col) {
 		case 1: colstr = "spikes"; type = ",\\"; break;
 		//case 2: colstr = "R"; type = ""; break;
 		case 5: colstr = "theta"; break;
 		case 6: colstr = "thetadot"; break;
+		case 9: colstr = "force"; break;
 		default: break;
 	}
 
@@ -77,6 +78,14 @@ int main(int argc, char **argv)
 	plot(-1, 1);
 	plot(0, 1);
 	plot(1, 1);
+
+	// rhat_L
+	// rhat_R
+
+	// force for first, last, sampled steps
+	plot(-1, 9);
+	plot(0, 9);
+	plot(1, 9);
 /*
 	sprintf(output, "180k-train-first%d.png", lines);
         fprintf(gp, "set output '%s'\n", output);
