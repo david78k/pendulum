@@ -67,6 +67,7 @@ void plot(int col) {
 	if(col == 1) 
        		fprintf(gp, "\"%s\" every %d using ($2 * 2) title 'R'\n", fname, sample_period);
 	// first steps
+	fprintf(gp, "unset xlabel\n");
         fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
 	if(col == 1) 
         	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
