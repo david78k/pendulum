@@ -54,7 +54,8 @@ void plot(int col) {
 	        fprintf(gp, "set autoscale\n");
 
 	// all sampled
-	fprintf(gp, "set xlabel \"(x100)\"\n");
+	fprintf(gp, "set xtics (\"1800 (x100)\" 1800)\n", lastlines);
+	//fprintf(gp, "set xlabel \"(x100)\"\n");
        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
 	if(col == 1) 
        		fprintf(gp, "\"%s\" every %d using ($2 * 2) title 'R'\n", fname, sample_period);
@@ -71,7 +72,7 @@ void plot(int col) {
         	fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", lastlines, fname);
 	if(col != 2) printf("%s created\n", output);
 	fprintf(gp, "unset multiplot\n");
-	fprintf(gp, "unset xtics\n");
+	fprintf(gp, "set xtic auto\n");
 }
 
 int main(int argc, char **argv)
