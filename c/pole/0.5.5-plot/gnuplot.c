@@ -20,8 +20,8 @@ void plot(int sample_loc, int col) {
 	char *colstr;
 	char *type = "lines";
 	switch(col) {
-		case 1: colstr = "L"; type = ",\\"; break;
-		case 2: colstr = "R"; type = ""; break;
+		case 1: colstr = "spikes"; type = ",\\"; break;
+		//case 2: colstr = "R"; type = ""; break;
 		case 5: colstr = "theta"; break;
 		case 6: colstr = "thetadot"; break;
 		default: break;
@@ -36,18 +36,24 @@ void plot(int sample_loc, int col) {
 
 	if(col != 2)
 	        fprintf(gp, "set output '%s'\n", output);
-	if(col == 1) 
+	if(col == 1) {
         	fprintf(gp, "set yr [0:2.4]\n");
-	
-	if(sample_loc == -1)
-        	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
-	else if (sample_loc == 0)
-        	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
-	else
-        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
+		colstr = "L";
+	}
 
-	if(col == 1) 
-        	fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
+	if(sample_loc == -1) {
+        	fprintf(gp, "plot \"<(sed -n '1,%dp' %s)\" using %d title '%s' %s\n", sample_size, fname, col, colstr, type);
+		if(col == 1) 
+        		fprintf(gp, "\"<(sed -n '1,%dp' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
+	} else if (sample_loc == 0) {
+        	fprintf(gp, "plot \"<(sed -n '%d,180000p' %s)\" using %d title '%s' %s\n", lastlines, fname, col, colstr, type);
+		if(col == 1) 
+        		fprintf(gp, "\"<(sed -n '%d,180000p' %s)\" using ($2 * 2) title 'R'\n", sample_size, fname);
+	} else {
+        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
+		if(col == 1) 
+        		fprintf(gp, "\"%s\" every %d using ($2 * 2) title 'R'\n", fname, sample_period);
+	}
 	if(col != 2) printf("%s created\n", output);
 }
 
@@ -69,6 +75,8 @@ int main(int argc, char **argv)
 	int lines = sample_size;
 	// L/R for first steps
 	plot(-1, 1);
+	plot(0, 1);
+	plot(1, 1);
 /*
 	sprintf(output, "180k-train-first%d.png", lines);
         fprintf(gp, "set output '%s'\n", output);
