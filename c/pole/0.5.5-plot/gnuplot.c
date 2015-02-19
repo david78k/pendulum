@@ -54,7 +54,7 @@ void plot(int col) {
 	        fprintf(gp, "set autoscale\n");
 
 	// all sampled
-	fprintf(gp, "set xtics (\"1800 (x100)\" 1800)\n", lastlines);
+	//fprintf(gp, "set xtics (\"1800 (x100)\" 1800)\n", lastlines);
 	//fprintf(gp, "set xlabel \"(x100)\"\n");
        	fprintf(gp, "plot \"%s\" every %d using %d title '%s' %s\n", fname, sample_period, col, colstr, type);
 	if(col == 1) 
