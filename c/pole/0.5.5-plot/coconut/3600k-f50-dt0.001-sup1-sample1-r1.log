@@ -928,4 +928,105 @@ balanced 0 test_flag 0
 [Run 927] Ep 10000 not balanced. Max 2802 steps (0.0008 hrs). 22 sec
 [Run 928] Ep 10000 not balanced. Max 2278 steps (0.0006 hrs). 16 sec
 [Run 929] Ep 10000 not balanced. Max 3064 steps (0.0009 hrs). 21 sec
-[Run 930] 
+[Run 930] Ep 10000 not balanced. Max 2615 steps (0.0007 hrs). 26 sec
+[Run 931] Ep 10000 not balanced. Max 2773 steps (0.0008 hrs). 25 sec
+[Run 932] Ep 10000 not balanced. Max 1814 steps (0.0005 hrs). 16 sec
+[Run 933] Ep 10000 not balanced. Max 3692 steps (0.0010 hrs). 26 sec
+[Run 934] Ep 10000 not balanced. Max 2902 steps (0.0008 hrs). 26 sec
+[Run 935] Ep 10000 not balanced. Max 14635 steps (0.0041 hrs). 23 sec
+[Run 936] Ep 10000 not balanced. Max 2592 steps (0.0007 hrs). 25 sec
+[Run 937] Ep 10000 not balanced. Max 2964 steps (0.0008 hrs). 23 sec
+[Run 938] Ep 10000 not balanced. Max 2951 steps (0.0008 hrs). 26 sec
+[Run 939] Ep 10000 not balanced. Max 7387 steps (0.0021 hrs). 16 sec
+[Run 940] Ep 10000 not balanced. Max 26506 steps (0.0074 hrs). 19 sec
+[Run 941] Ep 10000 not balanced. Max 1319 steps (0.0004 hrs). 15 sec
+[Run 942] Ep 10000 not balanced. Max 3336 steps (0.0009 hrs). 25 sec
+[Run 943] Ep 10000 not balanced. Max 14870 steps (0.0041 hrs). 23 sec
+[Run 944] Ep 10000 not balanced. Max 3187 steps (0.0009 hrs). 26 sec
+[Run 945] Ep 10000 not balanced. Max 2135 steps (0.0006 hrs). 17 sec
+[Run 946] Ep 10000 not balanced. Max 14538 steps (0.0040 hrs). 22 sec
+[Run 947] Ep 10000 not balanced. Max 1430 steps (0.0004 hrs). 16 sec
+[Run 948] Ep 10000 not balanced. Max 1900 steps (0.0005 hrs). 26 sec
+[Run 949] Ep 10000 not balanced. Max 2174 steps (0.0006 hrs). 25 sec
+[Run 950] Ep 10000 not balanced. Max 59855 steps (0.0166 hrs). 25 sec
+[Run 951] Ep 10000 not balanced. Max 11792 steps (0.0033 hrs). 21 sec
+[Run 952] Ep 10000 not balanced. Max 2578 steps (0.0007 hrs). 26 sec
+[Run 953] Ep 10000 not balanced. Max 2866 steps (0.0008 hrs). 26 sec
+[Run 954] Ep 10000 not balanced. Max 2868 steps (0.0008 hrs). 25 sec
+[Run 955] Ep 10000 not balanced. Max 1866 steps (0.0005 hrs). 19 sec
+[Run 956] Ep 10000 not balanced. Max 1500 steps (0.0004 hrs). 16 sec
+[Run 957] Ep 10000 not balanced. Max 2309 steps (0.0006 hrs). 25 sec
+[Run 958] Ep 10000 not balanced. Max 4398 steps (0.0012 hrs). 19 sec
+[Run 959] Ep 10000 not balanced. Max 1942 steps (0.0005 hrs). 26 sec
+[Run 960] Ep 10000 not balanced. Max 2048 steps (0.0006 hrs). 18 sec
+[Run 961] Ep 10000 not balanced. Max 1268 steps (0.0004 hrs). 14 sec
+[Run 962] Ep 10000 not balanced. Max 2793 steps (0.0008 hrs). 25 sec
+[Run 963] Ep 10000 not balanced. Max 2134 steps (0.0006 hrs). 18 sec
+[Run 964] Ep 10000 not balanced. Max 2772 steps (0.0008 hrs). 25 sec
+[Run 965] Ep 10000 not balanced. Max 2432 steps (0.0007 hrs). 26 sec
+[Run 966] Ep 10000 not balanced. Max 18930 steps (0.0053 hrs). 19 sec
+[Run 967] Ep 10000 not balanced. Max 15791 steps (0.0044 hrs). 26 sec
+[Run 968] Ep 10000 not balanced. Max 2895 steps (0.0008 hrs). 26 sec
+[Run 969] Ep 10000 not balanced. Max 2457 steps (0.0007 hrs). 26 sec
+[Run 970] Ep 10000 not balanced. Max 2444 steps (0.0007 hrs). 17 sec
+[Run 971] Ep 10000 not balanced. Max 3287 steps (0.0009 hrs). 26 sec
+[Run 972] Ep 10000 not balanced. Max 2120 steps (0.0006 hrs). 18 sec
+[Run 973] Ep 10000 not balanced. Max 3403 steps (0.0009 hrs). 19 sec
+[Run 974] Ep 10000 not balanced. Max 1988 steps (0.0006 hrs). 25 sec
+[Run 975] Ep 10000 not balanced. Max 1967 steps (0.0005 hrs). 26 sec
+[Run 976] Ep 10000 not balanced. Max 17029 steps (0.0047 hrs). 18 sec
+[Run 977] Ep 10000 not balanced. Max 2750 steps (0.0008 hrs). 26 sec
+[Run 978] Ep 10000 not balanced. Max 2773 steps (0.0008 hrs). 26 sec
+[Run 979] Ep 10000 not balanced. Max 2209 steps (0.0006 hrs). 18 sec
+[Run 980] Ep 10000 not balanced. Max 3116 steps (0.0009 hrs). 16 sec
+[Run 981] Ep 10000 not balanced. Max 2577 steps (0.0007 hrs). 25 sec
+[Run 982] Ep 10000 not balanced. Max 1539 steps (0.0004 hrs). 16 sec
+[Run 983] Ep 10000 not balanced. Max 2986 steps (0.0008 hrs). 26 sec
+[Run 984] Ep 10000 not balanced. Max 1955 steps (0.0005 hrs). 19 sec
+[Run 985] Ep 10000 not balanced. Max 4734 steps (0.0013 hrs). 25 sec
+[Run 986] Ep 10000 not balanced. Max 1957 steps (0.0005 hrs). 17 sec
+[Run 987] Ep 10000 not balanced. Max 13104 steps (0.0036 hrs). 18 sec
+[Run 988] Ep 10000 not balanced. Max 2703 steps (0.0008 hrs). 25 sec
+[Run 989] Ep 10000 not balanced. Max 2368 steps (0.0007 hrs). 20 sec
+[Run 990] Ep 10000 not balanced. Max 2832 steps (0.0008 hrs). 16 sec
+[Run 991] Ep 10000 not balanced. Max 1695 steps (0.0005 hrs). 17 sec
+[Run 992] Ep 10000 not balanced. Max 2273 steps (0.0006 hrs). 25 sec
+[Run 993] Ep 10000 not balanced. Max 5533 steps (0.0015 hrs). 25 sec
+[Run 994] Ep 10000 not balanced. Max 2528 steps (0.0007 hrs). 17 sec
+[Run 995] Ep 10000 not balanced. Max 2345 steps (0.0007 hrs). 26 sec
+[Run 996] Ep 10000 not balanced. Max 1951 steps (0.0005 hrs). 19 sec
+[Run 997] Ep 10000 not balanced. Max 2699 steps (0.0007 hrs). 26 sec
+[Run 998] Ep 10000 not balanced. Max 2551 steps (0.0007 hrs). 25 sec
+[Run 999] Ep 10000 not balanced. Max 2596 steps (0.0007 hrs). 26 sec
+[Run 1000] Ep 10000 not balanced. Max 2107 steps (0.0006 hrs). 20 sec
+[Run 1001] Ep 10000 not balanced. Max 2426 steps (0.0007 hrs). 18 sec
+[Run 1002] Ep 10000 not balanced. Max 25931 steps (0.0072 hrs). 17 sec
+[Run 1003] Ep 10000 not balanced. Max 1906 steps (0.0005 hrs). 15 sec
+[Run 1004] Ep 10000 not balanced. Max 6119 steps (0.0017 hrs). 16 sec
+[Run 1005] Ep 10000 not balanced. Max 2836 steps (0.0008 hrs). 17 sec
+[Run 1006] Ep 10000 not balanced. Max 2433 steps (0.0007 hrs). 27 sec
+[Run 1007] Ep 10000 not balanced. Max 2345 steps (0.0007 hrs). 17 sec
+[Run 1008] Ep 10000 not balanced. Max 2084 steps (0.0006 hrs). 26 sec
+[Run 1009] Ep 10000 not balanced. Max 1640 steps (0.0005 hrs). 18 sec
+[Run 1010] Ep 10000 not balanced. Max 2321 steps (0.0006 hrs). 25 sec
+[Run 1011] Ep 10000 not balanced. Max 2222 steps (0.0006 hrs). 25 sec
+[Run 1012] Ep 10000 not balanced. Max 1709 steps (0.0005 hrs). 15 sec
+[Run 1013] Ep 10000 not balanced. Max 2537 steps (0.0007 hrs). 20 sec
+[Run 1014] Ep 10000 not balanced. Max 2410 steps (0.0007 hrs). 25 sec
+[Run 1015] Ep 10000 not balanced. Max 1674 steps (0.0005 hrs). 16 sec
+[Run 1016] Ep 10000 not balanced. Max 2893 steps (0.0008 hrs). 26 sec
+[Run 1017] Ep 10000 not balanced. Max 1418 steps (0.0004 hrs). 16 sec
+[Run 1018] Ep 10000 not balanced. Max 2259 steps (0.0006 hrs). 24 sec
+[Run 1019] Ep 10000 not balanced. Max 2594 steps (0.0007 hrs). 27 sec
+[Run 1020] Ep 10000 not balanced. Max 1774 steps (0.0005 hrs). 16 sec
+[Run 1021] Ep 10000 not balanced. Max 2035 steps (0.0006 hrs). 25 sec
+[Run 1022] Couldn't open latest.train
+[Run 1023] Couldn't open latest.train
+[Run 1024] Couldn't open latest.train
+[Run 1025] Couldn't open latest.train
+[Run 1026] Couldn't open latest.train
+[Run 1027] Couldn't open latest.train
+[Run 1028] Couldn't open latest.train
+[Run 1029] Couldn't open latest.train
+[Run 1030] Couldn't open latest.train
+[Run 1031] Couldn't open latest.train

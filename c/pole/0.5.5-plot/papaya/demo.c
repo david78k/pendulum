@@ -141,9 +141,7 @@ main(argc,argv)
   if(test_flag) {
     int trials, sumTrials = 0, maxTrials = 1, minTrials = 100, success = 0, maxSteps = 0;
     printf("TEST_RUNS = %d\n", TEST_RUNS);
-    i = 0;
-//  for(i = 0; i < TEST_RUNS; i ++) {
-    while(!balanced) {
+    for(i = 0; i < TEST_RUNS; i ++) {
       //printf("------------- Test Run %d -------------\n", i + 1);
       printf("[Test Run %d] ", i + 1);
       datafilename = "latest.test";
@@ -158,7 +156,6 @@ main(argc,argv)
       if(trials < minTrials) minTrials = trials;
       if(trials <= 100) success ++;
       init_args(argc,argv);
-      i ++;
     }
     printf("\n=============== SUMMARY ===============\n");
     printf("Trials: %.2f\% (%d/%d) avg %d max %d min %d\n", 
