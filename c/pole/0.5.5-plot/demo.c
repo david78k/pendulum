@@ -447,23 +447,23 @@ Cycle(learn_flag, step, sample_period)
   }
 
   int left = 0, right = 0;
-  //if(fired[0] == 0 && randomdef <= p[0]) {
-  if(randomdef <= p[0]) {
+  if(fired[0] == 0 && randomdef <= p[0]) {
+  //if(randomdef <= p[0]) {
     left = 1; lspikes ++;
     unusualness[0] = 1 - p[0];
-  //  fired[0] = 1;
+    fired[0] = 1;
   } else {
     unusualness[0] = -p[0];
-  //  fired[0] = 0;
+    fired[0] = 0;
   }
-  //if(fired[1] == 0 && randomdef <= p[1]) { 
-  if(randomdef <= p[1]) { 
+  if(fired[1] == 0 && randomdef <= p[1]) { 
+  //if(randomdef <= p[1]) { 
     right = 1; rspikes ++;
     unusualness[1] = 1 - p[1];
-  //  fired[1] = 1;
+    fired[1] = 1;
   } else {
     unusualness[1] = -p[1];
-  //  fired[1] = 0;
+    fired[1] = 0;
   }
 
   if(left == 1 && right == 0) {
