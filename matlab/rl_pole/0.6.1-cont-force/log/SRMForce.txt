@@ -1,0 +1,14 @@
+dt = 0.001, tau = 0.02
+fmax = 100-20000
+last 100 steps
+
+Fmax = 100
+Total 360000 steps 197.1091 sec. (-16.4639, 14.6025)
+>> SRMForce 1000
+Total 360000 steps 190.3393 sec. (-146.1139, 159.125)
+>> SRMForce 5000
+Total 360000 steps 197.8169 sec. (-692.821, 722.3218)
+>> SRMForce 20000
+Total 360000 steps 196.1588 sec. (-2766.8209, 2985.1046)
+>> SRMForce 20000
+Total 3600000 steps 1905.4008 sec. (-3243.1515, 3526.1882)
