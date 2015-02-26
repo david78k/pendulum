@@ -3,7 +3,7 @@ clf; clear all;
 
 % F = [-8, 8]
 fmax = 20000;
-total_steps = 3600000; % [-0.17, 0.17], [-0.1, 0.1] for dt0.001 tau0.02 last200 or last100
+total_steps = 360000; % [-0.17, 0.17], [-0.1, 0.1] for dt0.001 tau0.02 last200 or last100
 last_steps = 100; % for dt = 0.001
 % last_steps = 400; % for dt = 0.02
 dt = 0.001;

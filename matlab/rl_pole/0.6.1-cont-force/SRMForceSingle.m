@@ -7,7 +7,7 @@ dt = 0.001; % 1ms, tau = 1, Fmax = 0.36788, period = 9.199sec, 9200steps
 % tau = 1; % 
 % tau = 0.5; % dt = 0.02, Fmax = 0.18394, period = 4.38sec, 220steps
 tau = 0.02; % dt = 0.001, Fmax = 0.0073576, period = 0.18sec, 10steps
-last_steps = 150; % 460, 8000, 9200
+last_steps = 100; % 460, 8000, 9200
 
 steps = []; F = []; push = [];
 
